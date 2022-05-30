@@ -1,26 +1,34 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="content">
-    <hr/>
-    <nav class="nav">
-        <div th:with="condition=${title eq 'menu_admin.main'}">
-            <a th:if="${condition}" class="nav-link text-secondary underline" href=""
-               th:text="#{menu_admin.main}"></a>
-            <a th:unless="${condition}" class="nav-link text-primary" th:href="@{/admin}"
-               th:text="#{menu_admin.main}"></a>
-        </div>
-        <div th:with="condition=${title eq 'menu_admin.certificate'}">
-            <a th:if="${condition}" class="nav-link text-secondary underline" href=""
-               th:text="#{menu_admin.certificate}"></a>
-            <a th:unless="${condition}" class="nav-link text-primary" th:href="@{/admin/certificate}"
-               th:text="#{menu_admin.certificate}"></a>
-        </div>
-        <div th:with="condition=${title eq 'menu_admin.certificate_type'}">
-            <a th:if="${condition}" class="nav-link text-secondary underline" href=""
-               th:text="#{menu_admin.certificate_type}"></a>
-            <a th:unless="${condition}" class="nav-link text-primary" th:href="@{/admin/certificatetype}"
-               th:text="#{menu_admin.certificate_type}"></a>
-        </div>
-    </nav>
+    <div class="container-fluid text-center mt-3">
+        <nav class="nav">
+            <div class="col" th:with="condition=${title eq 'menu_admin.main'}">
+                <a th:if="${condition}" class="nav-link text-secondary underline" href=""
+                   th:text="#{menu_admin.main}"></a>
+                <a th:unless="${condition}" class="nav-link text-primary" th:href="@{/admin}"
+                   th:text="#{menu_admin.main}"></a>
+            </div>
+            <div class="col" th:with="condition=${title eq 'menu_admin.certificate'}">
+                <a th:if="${condition}" class="nav-link text-secondary underline" href=""
+                   th:text="#{menu_admin.certificate}"></a>
+                <a th:unless="${condition}" class="nav-link text-primary" th:href="@{/admin/certificate}"
+                   th:text="#{menu_admin.certificate}"></a>
+            </div>
+            <div class="col" th:with="condition=${title eq 'menu_admin.certificate_type'}">
+                <a th:if="${condition}" class="nav-link text-secondary underline" href=""
+                   th:text="#{menu_admin.certificate_type}"></a>
+                <a th:unless="${condition}" class="nav-link text-primary" th:href="@{/admin/certificatetype}"
+                   th:text="#{menu_admin.certificate_type}"></a>
+            </div>
+            <div class="col" th:with="condition=${title eq 'menu_admin.certificate_decoration'}">
+                <a th:if="${condition}" class="nav-link text-secondary underline" href=""
+                   th:text="#{menu_admin.certificate_decoration}"></a>
+                <a th:unless="${condition}" class="nav-link text-primary" th:href="@{/admin/certificatedecoration}"
+                   th:text="#{menu_admin.certificate_decoration}"></a>
+            </div>
+        </nav>
+        <hr/>
+    </div>
 </div>
 </html>

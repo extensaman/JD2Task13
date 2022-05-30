@@ -1,6 +1,7 @@
 package by.academy.it.task13.controller;
 
 import by.academy.it.task13.entity.Certificate;
+import by.academy.it.task13.service.CertificateDecorationService;
 import by.academy.it.task13.service.CertificateService;
 import by.academy.it.task13.service.CertificateTypeService;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,8 @@ public class AdminController {
     private final CertificateTypeService certificateTypeService;
     @Autowired
     private final CertificateService certificateService;
+    @Autowired
+    private final CertificateDecorationService certificateDecorationService;
 
     @GetMapping
     public String getMainAdminPage(Model model) {
@@ -46,8 +49,13 @@ public class AdminController {
         LOGGER.info("Changing state of usage of certificateType with id = " + id);
         certificateTypeService.findById(id)
                 .ifPresent(type -> {
-                    type.setActivity(!type.isActivity());
+                    boolean typeActivity = type.isActivity();
+                    type.setActivity(!typeActivity);
                     certificateTypeService.save(type);
+                    certificateService.findAll().stream()
+                            .filter(certificate -> certificate.getCertificateType().equals(type))
+                            .peek(certificate -> certificate.setActivity(!typeActivity))
+                            .forEach(certificateService::save);
                 });
         return "redirect:/admin/certificatetype";
     }
@@ -60,23 +68,17 @@ public class AdminController {
         return Constant.ADMIN_GIFT_CERTIFICATE_PAGE;
     }
 
-    @PostMapping(Constant.ADMIN_GIFT_CERTIFICATE_MAPPING + "/{id}")
-    public String saveGiftCertificateChange(@PathVariable String id) {
-        LOGGER.info("Changing state of usage of certificate with id = " + id);
-
+    @PostMapping(Constant.ADMIN_GIFT_CERTIFICATE_MAPPING)
+    public String saveGiftCertificateChange(@ModelAttribute Certificate certificate) {
+        certificateService.save(certificate);
         return "redirect:/admin/certificate";
     }
 
-    @PostMapping(Constant.ADMIN_GIFT_CERTIFICATE_MAPPING)
-    public String saveGiftCertificateChange777(@ModelAttribute Certificate certificate) {
-        LOGGER.info("Certificate id " + certificate.getId());
-        LOGGER.info("Certificate type " + certificate.getCertificateType().getName());
-        LOGGER.info("Certificate name " + certificate.getName());
-        LOGGER.info("Certificate horseCount " + certificate.getHorseCount());
-        LOGGER.info("Certificate duration " + certificate.getDuration());
-        LOGGER.info("Certificate price " + certificate.getPrice());
-        LOGGER.info("Certificate photographerIncluded " + certificate.isPhotographerIncluded());
-
-        return "redirect:/admin/certificate";
+    @GetMapping(Constant.ADMIN_CERTIFICATE_DECORATION_MAPPING)
+    public String getCertificateDeliveryPage(Model model) {
+        model.addAttribute(Constant.TITLE,
+                Constant.MENU_ADMIN_CERTIFICATE_DECORATION_MESSAGE);
+        model.addAttribute(Constant.CERTIFICATE_DECORATION_LIST, certificateDecorationService.findAll());
+        return Constant.ADMIN_CERTIFICATE_DECORATION_PAGE;
     }
 }

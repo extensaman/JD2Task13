@@ -2,6 +2,8 @@ package by.academy.it.task13.util;
 
 import by.academy.it.task13.entity.Certificate;
 import by.academy.it.task13.entity.CertificateType;
+import by.academy.it.task13.entity.CertificateDecoration;
+import by.academy.it.task13.service.CertificateDecorationService;
 import by.academy.it.task13.service.CertificateService;
 import by.academy.it.task13.service.CertificateTypeService;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +28,8 @@ public class InitiateUtil implements CommandLineRunner {
     private final CertificateTypeService certificateTypeService;
     @Autowired
     private final CertificateService certificateService;
+    @Autowired
+    private final CertificateDecorationService certificateDecorationService;
 
     @Override
     public void run(String[] args) throws Exception {
@@ -89,5 +93,36 @@ public class InitiateUtil implements CommandLineRunner {
         certificateService.saveAll(
                 List.of(certificate01,certificate02,certificate03));
         LOGGER.info("Initialization of 'Certificate' done");
+
+        CertificateDecoration certificateDecoration01 = CertificateDecoration.builder()
+                .activity(true)
+                .name("certificate_decoration.name.electronic")
+                .description("certificate_decoration.description.electronic")
+                .price(BigDecimal.ZERO)
+                .build();
+        CertificateDecoration certificateDecoration02 = CertificateDecoration.builder()
+                .activity(true)
+                .name("certificate_decoration.name.envelop")
+                .description("certificate_decoration.description.envelop")
+                .price(BigDecimal.TEN)
+                .build();
+        CertificateDecoration certificateDecoration03 = CertificateDecoration.builder()
+                .activity(true)
+                .name("certificate_decoration.name.card")
+                .description("certificate_decoration.description.card")
+                .price(BigDecimal.valueOf(15.0))
+                .build();
+        CertificateDecoration certificateDecoration04 = CertificateDecoration.builder()
+                .activity(true)
+                .name("certificate_decoration.name.gift_basket")
+                .description("certificate_decoration.description.gift_basket")
+                .price(BigDecimal.valueOf(30.0))
+                .build();
+        certificateDecorationService.saveAll(
+                List.of(certificateDecoration01,
+                        certificateDecoration02,
+                        certificateDecoration03,
+                        certificateDecoration04));
+        LOGGER.info("Initialization of 'CertificateDecoration' done");
     }
 }

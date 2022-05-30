@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="content">
-    Нижняя часть страницы
+    <div class="container-fluid text-center mt-3">
+        <div class="row">
+            <strong th:utext="#{common.horse_club.name}"></strong>
+        </div>
+        <div class="row text-decoration-underline">
+            <small th:utext="#{common.horse_club.address}"></small>
+        </div>
+    </div>
 </div>
 </html>

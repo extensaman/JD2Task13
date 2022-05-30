@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface CertificateTypeRepository
         extends JpaRepository<CertificateType, Long> {
-    List<CertificateType> findAll();
+    //List<CertificateType> findAll();
 }

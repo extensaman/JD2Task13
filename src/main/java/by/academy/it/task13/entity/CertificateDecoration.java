@@ -20,14 +20,14 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Entity
-@Table(name = "delivery")
-public class Delivery {
+@Table(name = "certificate_decoration")
+public class CertificateDecoration {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private Boolean activity;
+    private boolean activity;
 
     @Column(nullable = false, length = 50)
     private String name;

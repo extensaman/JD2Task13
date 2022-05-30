@@ -1,8 +1,8 @@
 package by.academy.it.task13.service;
 
 import by.academy.it.task13.entity.Certificate;
-import by.academy.it.task13.entity.CertificateType;
-import by.academy.it.task13.repo.CertificateRepository;
+import by.academy.it.task13.entity.CertificateDecoration;
+import by.academy.it.task13.repo.CertificateDecorationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,19 +11,15 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class CertificateService {
+public class CertificateDecorationService {
     @Autowired
-    private final CertificateRepository repository;
+    private final CertificateDecorationRepository repository;
 
-    public List<Certificate> findAll() {
+    public List<CertificateDecoration> findAll(){
         return repository.findAll();
     }
-
-    public void saveAll(List<Certificate> list) {
+    public void saveAll(List<CertificateDecoration> list) {
         repository.saveAll(list);
     }
 
-    public void save(Certificate certificate) {
-        repository.save(certificate);
-    }
 }

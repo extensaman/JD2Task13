@@ -29,7 +29,7 @@ public class Client {
     private Long id;
 
     @Column(nullable = false)
-    private Boolean activity;
+    private boolean activity;
 
     @Column(nullable = false, length = 50)
     private String name;

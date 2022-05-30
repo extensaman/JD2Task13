@@ -30,7 +30,7 @@ public class Ordering {
     private Long id;
 
     @Column(nullable = false)
-    private Boolean activity;
+    private boolean activity;
 
     @Column(nullable = false, length = 2000)
     private String description;
@@ -42,5 +42,5 @@ public class Ordering {
     // TODO may be need to change EAGER to LAZY
     @ManyToOne (cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "delivery_id")
-    private Delivery delivery;
+    private CertificateDecoration certificateDecoration;
 }

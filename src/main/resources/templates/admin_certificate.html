@@ -21,17 +21,10 @@
                         <th class="text-center align-middle"><h4><i class="bi bi-camera"></i></h4></th>
                         <th class="text-center align-middle" th:text="#{menu_admin.common.table.activity}"></th>
                         <th class="text-center align-middle"><h4><i class="bi bi-sliders"></i></h4></th>
-
-                        <!--
-                                                <th class="col" th:text="#{menu_admin.common.table.activation}"></th>
-                        -->
                     </tr>
                     </thead>
                     <tbody>
                     <th:block th:each="certificate, state : ${giftCertificateList}">
-                        <!--
-                                                <form method="post" th:action="@{'/admin/certificate/{id}' (id=${certificate.id})}">
-                        -->
                         <tr>
                             <td class="text-center align-middle" th:text="${state.index+1}"></td>
                             <td class="text-center align-middle"
@@ -56,10 +49,18 @@
                             <form th:action="@{/admin/certificate/}" th:method="post"
                                   th:object="${certificate}">
                                 <td class="text-center align-middle">
-                                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                                    <button th:if="${certificate.certificateType.activity}"
+                                            type="button"
+                                            class="btn btn-outline-primary"
+                                            data-bs-toggle="modal"
                                             th:attr="data-bs-target='#editcertificate'+${certificate.id}">
-                                        <h5><i class="bi bi-pencil-square"></i></h5>
+                                            <h5>
+                                                <i class="bi bi-pencil-square"></i>
+                                            </h5>
                                     </button>
+                                    <h5 th:unless="${certificate.certificateType.activity}">
+                                        <i class="bi bi-pencil-square text-black-50"></i>
+                                    </h5>
                                 </td>
 
                                 <!-- Modal for edit certificate -->
@@ -106,6 +107,11 @@
                                                            th:value="${certificate.name}"
                                                            name="name">
                                                 </div>
+
+                                                <!-- Certificate description -->
+                                                <input type="hidden"
+                                                       th:value="${certificate.description}"
+                                                       name="description">
 
                                                 <!-- Horse count in certificate -->
                                                 <div class="input-group mb-3">
@@ -154,10 +160,6 @@
 
                                                 <!-- Is photographer included -->
                                                 <div class="input-group mb-3">
-                                                    <span class="input-group-text text-black-50"
-                                                          id="certPhotographerIncluded"
-                                                          th:text="#{menu_admin.common.table.photographer_included}">
-                                                    </span>
                                                     <h5>
                                                         <div class="form-check form-switch">
                                                             <input type="checkbox"
@@ -166,33 +168,45 @@
                                                                    name="photographerIncluded">
                                                         </div>
                                                     </h5>
+                                                    <span class="text-black-50"
+                                                          id="certPhotographerIncluded"
+                                                          th:text="#{menu_admin.common.table.photographer_included}">
+                                                    </span>
+                                                </div>
+
+                                                <!-- Is certificate active -->
+                                                <div class="input-group mb-3">
+                                                    <h5>
+                                                        <div class="form-check form-switch">
+                                                            <input type="checkbox"
+                                                                   class="form-check-input"
+                                                                   th:checked="${certificate.activity}"
+                                                                   name="activity">
+                                                        </div>
+                                                    </h5>
+                                                    <span class="text-black-50"
+                                                          id="certActivity"
+                                                          th:text="#{menu_admin.common.table.activity}">
+                                                    </span>
                                                 </div>
 
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                    Close
+                                                <button type="button"
+                                                        class="btn btn-secondary"
+                                                        data-bs-dismiss="modal"
+                                                        th:text="#{common.button.cancel}">
                                                 </button>
 
-                                                <button class="btn btn-primary">Save changes</button>
+                                                <button class="btn btn-primary"
+                                                        th:text="#{common.button.save_changes}">
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </form>
-
-                            <!--
-                                                            <td class="text-center align-middle">
-                                                                <input type="hidden" name="_method" value="update"/>
-                                                                <button class="btn btn-outline-primary">
-                                                                    <h5><i class="bi bi-pencil-square"></i></h5>
-                                                                </button>
-                                                            </td>
-                            -->
                         </tr>
-                        <!--
-                                                </form>
-                        -->
                     </th:block>
                     </tbody>
                 </table>
