@@ -1,0 +1,15 @@
+<Configuration xmlns="http://logging.apache.org/log4j/2.0/config">
+    <Appenders>
+        <Console name="ConsoleAppender" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d %m %n"></PatternLayout>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Logger name="org.hibernate" level="OFF" additivity="false">
+            <AppenderRef ref="ConsoleAppender"/>
+        </Logger>
+        <Root level = "ALL">
+            <AppenderRef ref="ConsoleAppender"></AppenderRef>
+        </Root>
+    </Loggers>
+</Configuration>

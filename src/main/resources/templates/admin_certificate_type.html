@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="common/metadata :: content"></head>
+<body>
+<header th:insert="common/admin_header :: content"></header>
+
+<div class="container">
+    <div class="row mx-2 mt-5">
+        <div th:with="condition=${certificateTypeList != null and !certificateTypeList.isEmpty()}">
+            <div th:if="${condition}">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th class="text-center align-middle">№</th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.name}"></th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.activity}"></th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.management}"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <th:block th:each="certificateType, state : ${certificateTypeList}">
+                        <form method="post" th:action="@{'/admin/certificatetype/{id}' (id=${certificateType.id})}">
+                            <tr>
+                                <td class="text-center align-middle" th:text="${state.index+1}"></td>
+                                <td class="text-center align-middle" th:text="#{${certificateType.name}}"></td>
+                                <td class="text-center align-middle">
+                                    <h4><i th:if="${certificateType.activity}"
+                                           class="bi bi-check-circle-fill text-success"></i></h4>
+                                    <h4><i th:unless="${certificateType.activity}"
+                                           class="bi bi-x-circle-fill text-danger"></i></h4>
+                                </td>
+                                <td class="text-center align-middle">
+                                    <input type="hidden" name="_method" value="update"/>
+                                    <button th:if="${certificateType.activity}"
+                                            class="btn btn-outline-danger col-xl-6 col-lg-2">
+                                            <i class="bi bi-x-circle d-xl-none"></i>
+                                            <span class="d-none d-xl-block"
+                                                  th:text="#{menu_admin.common.button.deactivate}"></span>
+                                    </button>
+                                    <button th:unless="${certificateType.activity}"
+                                            class="btn btn-outline-success col-xl-6 col-lg-2">
+                                            <i class="bi bi-check-circle d-xl-none"></i>
+                                            <span class="d-none d-xl-block"
+                                                  th:text="#{menu_admin.common.button.activate}"></span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </form>
+                    </th:block>
+                    </tbody>
+                </table>
+            </div>
+            <span th:unless="${condition}" class="text-danger" th:text="#{menu_admin.common.no_data}"></span>
+        </div>
+
+        <!-- Modal window for course detail -->
+        <!--
+                <div class="modal fade" id="courseDetail" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h6 class="modal-title" id="exampleModalLabel">Info about courses of <span
+                                        class="dmn text-primary"></span></h6>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <span class="text-primary">Course description</span>
+                                    </div>
+                                    <div class="col">
+                                        <span class="text-secondary dcp"/>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col">
+                                        <span class="text-primary">Course admin name</span>
+                                    </div>
+                                    <div class="col">
+                                        <span class="text-secondary dca"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        -->
+
+
+        <!-- Modal window for delete mentor -->
+        <!--
+                <div class="modal fade" id="acceptDelete" tabindex="-1" aria-labelledby="exampleModalLabel02"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h6 class="modal-title" id="exampleModalLabel02">Attention</h6>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <span class="text-secondary text-black-50">Press "Delete" button to delete mentor </span>
+                                        <span class="text-primary dmn"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <form action="${pageContext.request.contextPath}/home?pageName=mentordeletefromdb"
+                                      method="post">
+                                    <input id="hide2" type="hidden" name="mentorId" value="">
+                                    <button class="btn btn-danger "><i class="bi bi-x-square"></i>&nbsp;Delete
+                                    </button>
+                                </form>
+                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        -->
+
+        <script>
+            $(function () {
+                $(".js-delete-accept").click(
+                    function () {
+                        var dataMentorNameForDelete = $(this).attr('data-mentor-name-for-delete');
+                        var mentorForDelete = $(this).attr('data-mentor-for-delete');
+
+                        $(".dmn").text(dataMentorNameForDelete);
+                        $("#hide2").attr('value', mentorForDelete);
+                    })
+            });
+        </script>
+
+        <script>
+            $(function () {
+                $(".js-course-detail").click(
+                    function () {
+                        var dataCourseProgram = $(this).attr('data-course-program');
+                        var dataCourseAdmin = $(this).attr('data-course-admin');
+                        var dataMentorName = $(this).attr('data-mentor-name');
+
+                        $(".dcp").text(dataCourseProgram);
+                        $(".dca").text(dataCourseAdmin);
+                        $(".dmn").text(dataMentorName);
+                    })
+            });
+        </script>
+    </div>
+
+</div>
+<footer th:insert="common/admin_footer :: content"></footer>
+</body>
+</html>

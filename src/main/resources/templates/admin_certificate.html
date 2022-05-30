@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="common/metadata :: content"></head>
+<body>
+<header th:insert="common/admin_header :: content"></header>
+
+<div class="container">
+    <div class="row mx-2 mt-5">
+        <div th:with="condition=${giftCertificateList != null and !giftCertificateList.isEmpty()}">
+            <div th:if="${condition}">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th class="text-center align-middle">№</th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.certificate_type}"></th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.name}"></th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.description}"></th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.horse_count}"></th>
+                        <th class="text-center align-middle"><h4><i class="bi bi-clock"></i></h4></th>
+                        <th class="text-center align-middle"><h4><i class="bi bi-coin"></i></h4></th>
+                        <th class="text-center align-middle"><h4><i class="bi bi-camera"></i></h4></th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.activity}"></th>
+                        <th class="text-center align-middle"><h4><i class="bi bi-sliders"></i></h4></th>
+
+                        <!--
+                                                <th class="col" th:text="#{menu_admin.common.table.activation}"></th>
+                        -->
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <th:block th:each="certificate, state : ${giftCertificateList}">
+                        <!--
+                                                <form method="post" th:action="@{'/admin/certificate/{id}' (id=${certificate.id})}">
+                        -->
+                        <tr>
+                            <td class="text-center align-middle" th:text="${state.index+1}"></td>
+                            <td class="text-center align-middle"
+                                th:text="#{${certificate.certificateType.getName()}}"></td>
+                            <td class="text-center align-middle" th:text="#{${certificate.name}}"></td>
+                            <td class="align-middle" th:text="#{${certificate.description}}"></td>
+                            <td class="text-center align-middle" th:text="${certificate.horseCount}"></td>
+                            <td class="text-center align-middle" th:text="${certificate.duration}"></td>
+                            <td class="text-center align-middle" th:text="${certificate.price}"></td>
+                            <td class="text-center align-middle">
+                                <h4><i th:if="${certificate.photographerIncluded}"
+                                       class="bi bi-plus-square text-success"></i></h4>
+                                <h4><i th:unless="${certificate.photographerIncluded}"
+                                       class="bi bi-dash-square text-danger"></i></h4>
+                            </td>
+                            <td class="text-center align-middle">
+                                <h4><i th:if="${certificate.activity}"
+                                       class="bi bi-check-circle-fill text-success"></i></h4>
+                                <h4><i th:unless="${certificate.activity}"
+                                       class="bi bi-x-circle-fill text-danger"></i></h4>
+                            </td>
+                            <form th:action="@{/admin/certificate/}" th:method="post"
+                                  th:object="${certificate}">
+                                <td class="text-center align-middle">
+                                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                                            th:attr="data-bs-target='#editcertificate'+${certificate.id}">
+                                        <h5><i class="bi bi-pencil-square"></i></h5>
+                                    </button>
+                                </td>
+
+                                <!-- Modal for edit certificate -->
+                                <div class="modal fade" th:id="${'editcertificate'+certificate.id}" tabindex="-1"
+                                     role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <!-- Certificate id -->
+                                                <input type="hidden"
+                                                       th:value="${certificate.id}"
+                                                       name="id">
+
+                                                <!-- Certificate type -->
+                                                <div class="input-group mb-3">
+
+                                                    <span class="input-group-text text-black-50"
+                                                          th:text="#{menu_admin.common.table.certificate_type}">
+                                                    </span>
+                                                    <span class="form-control"
+                                                          th:text="#{${certificate.certificateType.getName()}}">
+                                                    </span>
+                                                    <input type="hidden"
+                                                           th:value="${certificate.certificateType.id}"
+                                                           name="certificateType">
+                                                </div>
+
+                                                <!-- Certificate name -->
+                                                <div class="input-group mb-3">
+
+                                                    <span class="input-group-text text-black-50"
+                                                          th:text="#{menu_admin.common.table.name}">
+                                                    </span>
+                                                    <span class="form-control"
+                                                          th:text="#{${certificate.name}}">
+                                                    </span>
+                                                    <input type="hidden"
+                                                           th:value="${certificate.name}"
+                                                           name="name">
+                                                </div>
+
+                                                <!-- Horse count in certificate -->
+                                                <div class="input-group mb-3">
+
+                                                    <span class="input-group-text text-black-50"
+                                                          id="certHorseCount"
+                                                          th:text="#{menu_admin.common.table.horse_count}">
+                                                    </span>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           th:value="${certificate.horseCount}"
+                                                           name="horseCount"
+                                                           th:aria-label="${certificate.horseCount}"
+                                                           aria-describedby="certHorseCount">
+                                                </div>
+
+                                                <!-- Duration -->
+                                                <div class="input-group mb-3">
+
+                                                    <span class="input-group-text text-black-50"
+                                                          id="certDuration"
+                                                          th:text="#{menu_admin.common.table.duration}">
+                                                    </span>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           th:value="${certificate.duration}"
+                                                           name="duration"
+                                                           th:aria-label="${certificate.duration}"
+                                                           aria-describedby="certDuration">
+                                                </div>
+
+                                                <!-- Price -->
+                                                <div class="input-group mb-3">
+
+                                                    <span class="input-group-text text-black-50"
+                                                          id="certPrice"
+                                                          th:text="#{menu_admin.common.table.price}">
+                                                    </span>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           th:value="${certificate.price}"
+                                                           name="price"
+                                                           th:aria-label="${certificate.price}"
+                                                           aria-describedby="certPrice">
+                                                </div>
+
+                                                <!-- Is photographer included -->
+                                                <div class="input-group mb-3">
+                                                    <input type="checkbox"
+                                                        data-toggle="toggle" data-onstyle="success"
+
+                                                           th:checked="${certificate.photographerIncluded}"
+                                                        name="photographerIncluded">
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                    Close
+                                                </button>
+
+                                                <button class="btn btn-primary">Save changes</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <!--
+                                                            <td class="text-center align-middle">
+                                                                <input type="hidden" name="_method" value="update"/>
+                                                                <button class="btn btn-outline-primary">
+                                                                    <h5><i class="bi bi-pencil-square"></i></h5>
+                                                                </button>
+                                                            </td>
+                            -->
+                        </tr>
+                        <!--
+                                                </form>
+                        -->
+                    </th:block>
+                    </tbody>
+                </table>
+            </div>
+            <span th:unless="${condition}" class="text-danger" th:text="#{menu_admin.common.no_data}"></span>
+        </div>
+    </div>
+</div>
+<footer th:insert="common/admin_footer :: content"></footer>
+</body>
+</html>
