@@ -154,11 +154,18 @@
 
                                                 <!-- Is photographer included -->
                                                 <div class="input-group mb-3">
-                                                    <input type="checkbox"
-                                                        data-toggle="toggle" data-onstyle="success"
-
-                                                           th:checked="${certificate.photographerIncluded}"
-                                                        name="photographerIncluded">
+                                                    <span class="input-group-text text-black-50"
+                                                          id="certPhotographerIncluded"
+                                                          th:text="#{menu_admin.common.table.photographer_included}">
+                                                    </span>
+                                                    <h5>
+                                                        <div class="form-check form-switch">
+                                                            <input type="checkbox"
+                                                                   class="form-check-input"
+                                                                   th:checked="${certificate.photographerIncluded}"
+                                                                   name="photographerIncluded">
+                                                        </div>
+                                                    </h5>
                                                 </div>
 
                                             </div>
