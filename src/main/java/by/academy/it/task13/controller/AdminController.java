@@ -1,6 +1,7 @@
 package by.academy.it.task13.controller;
 
 import by.academy.it.task13.entity.Certificate;
+import by.academy.it.task13.entity.CertificateDecoration;
 import by.academy.it.task13.service.CertificateDecorationService;
 import by.academy.it.task13.service.CertificateService;
 import by.academy.it.task13.service.CertificateTypeService;
@@ -80,5 +81,11 @@ public class AdminController {
                 Constant.MENU_ADMIN_CERTIFICATE_DECORATION_MESSAGE);
         model.addAttribute(Constant.CERTIFICATE_DECORATION_LIST, certificateDecorationService.findAll());
         return Constant.ADMIN_CERTIFICATE_DECORATION_PAGE;
+    }
+
+    @PostMapping(Constant.ADMIN_CERTIFICATE_DECORATION_MAPPING)
+    public String saveCertificateDecorationChange(@ModelAttribute CertificateDecoration certificateDecoration) {
+        certificateDecorationService.save(certificateDecoration);
+        return "redirect:/admin/certificatedecoration";
     }
 }

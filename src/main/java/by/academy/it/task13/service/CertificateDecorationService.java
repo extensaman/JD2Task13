@@ -21,5 +21,8 @@ public class CertificateDecorationService {
     public void saveAll(List<CertificateDecoration> list) {
         repository.saveAll(list);
     }
+    public void save(CertificateDecoration certificateDecoration) {
+        repository.save(certificateDecoration);
+    }
 
 }

@@ -1,10 +1,142 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="common/metadata :: content"></head>
 <body>
+<header th:insert="common/admin_header :: content"></header>
 
+<div class="container">
+    <div class="row mx-2 mt-5">
+        <div th:with="condition=${certificateDecorationList != null and !certificateDecorationList.isEmpty()}">
+            <div th:if="${condition}">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th class="text-center align-middle">№</th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.name}"></th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.description}"></th>
+                        <th class="text-center align-middle"><h4><i class="bi bi-coin"></i></h4></th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.activity}"></th>
+                        <th class="text-center align-middle"><h4><i class="bi bi-sliders"></i></h4></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <th:block th:each="decoration, state : ${certificateDecorationList}">
+                        <tr>
+                            <td class="text-center align-middle" th:text="${state.index+1}"></td>
+                            <td class="text-center align-middle" th:text="#{${decoration.name}}"></td>
+                            <td class="align-middle" th:text="#{${decoration.description}}"></td>
+                            <td class="text-center align-middle" th:text="${decoration.price}"></td>
+                            <td class="text-center align-middle">
+                                <h4><i th:if="${decoration.activity}"
+                                       class="bi bi-check-circle-fill text-success"></i></h4>
+                                <h4><i th:unless="${decoration.activity}"
+                                       class="bi bi-x-circle-fill text-danger"></i></h4>
+                            </td>
+                            <form th:action="@{/admin/certificatedecoration/}" th:method="post"
+                                  th:object="${decoration}">
+                                <td class="text-center align-middle">
+                                    <button type="button"
+                                            class="btn btn-outline-primary"
+                                            data-bs-toggle="modal"
+                                            th:attr="data-bs-target='#editcertificatedecoration'+${decoration.id}">
+                                        <h5>
+                                            <i class="bi bi-pencil-square"></i>
+                                        </h5>
+                                    </button>
+                                </td>
+
+                                <!-- Modal for edit decoration -->
+                                <div class="modal fade" th:id="${'editcertificatedecoration'+decoration.id}" tabindex="-1"
+                                     role="dialog" aria-labelledby="exampleModalLabel02" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel02" th:text="#{common.button.editing}"></h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <!-- CertificateDecoration id -->
+                                                <input type="hidden"
+                                                       th:value="${decoration.id}"
+                                                       name="id">
+
+                                                <!-- CertificateDecoration name -->
+                                                <div class="input-group mb-3">
+
+                                                    <span class="input-group-text text-black-50"
+                                                          th:text="#{menu_admin.common.table.name}">
+                                                    </span>
+                                                    <span class="form-control"
+                                                          th:text="#{${decoration.name}}">
+                                                    </span>
+                                                    <input type="hidden"
+                                                           th:value="${decoration.name}"
+                                                           name="name">
+                                                </div>
+
+                                                <!-- CertificateDecoration description -->
+                                                <input type="hidden"
+                                                       th:value="${decoration.description}"
+                                                       name="description">
+
+                                                <!-- CertificateDecoration Price -->
+                                                <div class="input-group mb-3">
+
+                                                    <span class="input-group-text text-black-50"
+                                                          id="certDecorationPrice"
+                                                          th:text="#{menu_admin.common.table.price}">
+                                                    </span>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           th:value="${decoration.price}"
+                                                           name="price"
+                                                           th:aria-label="${decoration.price}"
+                                                           aria-describedby="certDecorationPrice">
+                                                </div>
+
+                                                <!-- Is decoration active -->
+                                                <div class="input-group mb-3">
+                                                    <h5>
+                                                        <div class="form-check form-switch">
+                                                            <input type="checkbox"
+                                                                   class="form-check-input"
+                                                                   th:checked="${decoration.activity}"
+                                                                   name="activity">
+                                                        </div>
+                                                    </h5>
+                                                    <span class="text-black-50"
+                                                          id="certDecorationActivity"
+                                                          th:text="#{menu_admin.common.table.activity}">
+                                                    </span>
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button"
+                                                        class="btn btn-secondary"
+                                                        data-bs-dismiss="modal"
+                                                        th:text="#{common.button.cancel}">
+                                                </button>
+
+                                                <button class="btn btn-primary"
+                                                        th:text="#{common.button.save_changes}">
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </tr>
+                    </th:block>
+                    </tbody>
+                </table>
+            </div>
+            <span th:unless="${condition}" class="text-danger" th:text="#{menu_admin.common.no_data}"></span>
+        </div>
+    </div>
+</div>
+<footer th:insert="common/admin_footer :: content"></footer>
 </body>
 </html>
