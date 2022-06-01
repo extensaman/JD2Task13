@@ -1,6 +1,5 @@
 package by.academy.it.task13.controller.admin;
 
-import by.academy.it.task13.controller.Constant;
 import by.academy.it.task13.entity.Certificate;
 import by.academy.it.task13.service.CertificateService;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(Constant.ADMIN_GIFT_CERTIFICATE_MAPPING)
+@RequestMapping(AdminConstant.ADMIN_GIFT_CERTIFICATE_MAPPING)
 @RequiredArgsConstructor
 public class AdminCertificateController {
     private static final Logger LOGGER = LogManager.getLogger(AdminCertificateController.class);
@@ -25,10 +24,10 @@ public class AdminCertificateController {
 
     @GetMapping
     public String getGiftCertificatePage(Model model) {
-        model.addAttribute(Constant.TITLE,
-                Constant.MENU_ADMIN_GIFT_CERTIFICATE_MESSAGE);
-        model.addAttribute(Constant.GIFT_CERTIFICATE_LIST, certificateService.findAll());
-        return Constant.ADMIN_GIFT_CERTIFICATE_PAGE;
+        model.addAttribute(AdminConstant.TITLE,
+                AdminConstant.MENU_ADMIN_GIFT_CERTIFICATE_MESSAGE);
+        model.addAttribute(AdminConstant.GIFT_CERTIFICATE_LIST, certificateService.findAll());
+        return AdminConstant.ADMIN_GIFT_CERTIFICATE_PAGE;
     }
 
     @PostMapping

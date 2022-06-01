@@ -1,6 +1,5 @@
 package by.academy.it.task13.controller.admin;
 
-import by.academy.it.task13.controller.Constant;
 import by.academy.it.task13.service.CertificateService;
 import by.academy.it.task13.service.CertificateTypeService;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(Constant.ADMIN_CERTIFICATE_TYPE_MAPPING)
+@RequestMapping(AdminConstant.ADMIN_CERTIFICATE_TYPE_MAPPING)
 @RequiredArgsConstructor
 public class AdminCertificateTypeController {
 
@@ -28,10 +27,10 @@ public class AdminCertificateTypeController {
 
     @GetMapping
     public String getCertificateTypePage(Model model) {
-        model.addAttribute(Constant.TITLE,
-                Constant.MENU_ADMIN_CERTIFICATE_TYPE_MESSAGE);
-        model.addAttribute(Constant.CERTIFICATE_TYPE_LIST, certificateTypeService.findAll());
-        return Constant.ADMIN_CERTIFICATE_TYPE_PAGE;
+        model.addAttribute(AdminConstant.TITLE,
+                AdminConstant.MENU_ADMIN_CERTIFICATE_TYPE_MESSAGE);
+        model.addAttribute(AdminConstant.CERTIFICATE_TYPE_LIST, certificateTypeService.findAll());
+        return AdminConstant.ADMIN_CERTIFICATE_TYPE_PAGE;
     }
 
     @PostMapping("/{id}")

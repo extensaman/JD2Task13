@@ -46,3 +46,8 @@ div{
     background: #cccc url("/img/seo.jpg") no-repeat center center;
     background-size: cover;
 }
+
+.top-panel {
+    position: sticky;
+    top: 0;
+}
