@@ -9,8 +9,9 @@ public class Constant {
 
     public static final String ADMIN_MAIN_PAGE = "admin";
     public static final String MENU_ADMIN_MAIN_MESSAGE = "menu_admin.main";
-    public static final String ADMIN_CERTIFICATE_TYPE_MAPPING = "/certificatetype";
-    public static final String ADMIN_GIFT_CERTIFICATE_MAPPING = "/certificate";
+    public static final String MENU_USER_MAIN_MESSAGE = "menu_user.main";
+    public static final String ADMIN_CERTIFICATE_TYPE_MAPPING = "/admin/certificatetype";
+    public static final String ADMIN_GIFT_CERTIFICATE_MAPPING = "/admin/certificate";
     public static final String ADMIN_CERTIFICATE_DECORATION_MAPPING = "/certificatedecoration";
     public static final String MENU_ADMIN_CERTIFICATE_TYPE_MESSAGE = "menu_admin.certificate_type";
     public static final String MENU_ADMIN_GIFT_CERTIFICATE_MESSAGE = "menu_admin.certificate";

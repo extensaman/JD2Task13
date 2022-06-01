@@ -5,8 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping(Constant.ROOT_PATH_MAPPING)
 public class WebController {
 
     @Autowired
@@ -17,10 +19,9 @@ public class WebController {
     }
 
 
-    @GetMapping(Constant.ROOT_PATH_MAPPING)
+    @GetMapping
     public String getMainPage(Model model){
-        model.addAttribute("list", certificateTypeService.findAll());
-        model.addAttribute(Constant.TITLE,"menu_admin.main");
+        model.addAttribute(Constant.TITLE,Constant.MENU_USER_MAIN_MESSAGE);
         return Constant.HOME_PAGE;
     }
 }
