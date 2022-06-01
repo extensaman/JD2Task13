@@ -4,6 +4,22 @@
 div{
     font-family: 'Roboto Condensed', sans-serif;
 }
+
+.wrapper {
+    width: 100%;
+    height: 200px;
+}
+.img__object__fit img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.img__10vh{
+    height: auto;
+    width: 100%;
+}
+
 .intro{
     position: relative;
     display: flex;

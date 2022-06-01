@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="common/metadata :: content"></head>
+<body>
+<header th:insert="common/user_header :: content"></header>
+
+<div class="container-fluid">
+    <div class="wrapper img__object__fit">
+        <img th:src="@{img/giftCert.jpg}">
+    </div>
+    <div class="row mt-4">
+        <div th:with="condition=${activeCertificateTypeList != null and !activeCertificateTypeList.isEmpty()}">
+            <div th:if="${condition}">
+                <div class="dropdown">
+                    <a class="btn btn-outline-dark dropdown-toggle"
+                       href="#" role="button" id="dropdownMenuLink"
+                       data-bs-toggle="dropdown" aria-expanded="false"
+                       th:utext="#{menu_user.certificate.choose_certificate_type}">
+                    </a>
+
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <th:block th:each="certificateType : ${activeCertificateTypeList}">
+                            <form method="get" th:action="@{/certificate/type}">
+                                <li>
+                                    <button class="dropdown-item"
+                                            th:utext="#{${certificateType.name}}"
+                                            th:name="id"
+                                            th:value="${certificateType.id}">
+                                    </button>
+                                </li>
+                            </form>
+                        </th:block>
+                    </ul>
+                </div>
+            </div>
+            <span th:unless="${condition}" class="text-danger" th:text="#{menu_admin.common.no_data}"></span>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div th:with="condition=${activeCertificateList != null and !activeCertificateList.isEmpty()}">
+            <div th:if="${condition}">
+
+                <h4>Hello</h4>
+            </div>
+            <span th:unless="${condition}" class="text-danger" th:text="#{menu_admin.common.no_data}"></span>
+        </div>
+    </div>
+    <footer th:insert="common/user_footer :: content"></footer>
+</body>
+</html>
