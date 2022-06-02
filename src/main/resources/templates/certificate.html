@@ -6,7 +6,7 @@
 
 <div class="container-fluid">
     <div class="wrapper img__object__fit">
-        <img th:src="@{img/giftCert.jpg}">
+        <img th:src="@{/img/giftCert.jpg}">
     </div>
     <div class="row mt-4">
         <div th:with="condition=${activeCertificateTypeList != null and !activeCertificateTypeList.isEmpty()}">
@@ -20,32 +20,59 @@
 
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                         <th:block th:each="certificateType : ${activeCertificateTypeList}">
-                            <form method="get" th:action="@{/certificate/type}">
+                            <form method="get" th:action="@{'/certificate/{id}' (id=${certificateType.id})}">
                                 <li>
                                     <button class="dropdown-item"
-                                            th:utext="#{${certificateType.name}}"
-                                            th:name="id"
-                                            th:value="${certificateType.id}">
+                                            th:utext="#{${certificateType.name}}">
                                     </button>
                                 </li>
                             </form>
                         </th:block>
+                        <form method="get" th:action="@{/certificate}">
+                            <li>
+                                <button class="dropdown-item"
+                                        th:utext="#{common.button.all}">
+                                </button>
+                            </li>
+                        </form>
                     </ul>
                 </div>
             </div>
             <span th:unless="${condition}" class="text-danger" th:text="#{menu_admin.common.no_data}"></span>
         </div>
     </div>
+    <div th:with="condition=${activeCertificateList != null and !activeCertificateList.isEmpty()}">
+        <div th:if="${condition}">
+            <div class="row mt-4">
 
-    <div class="row mt-4">
-        <div th:with="condition=${activeCertificateList != null and !activeCertificateList.isEmpty()}">
-            <div th:if="${condition}">
+                <th:block th:each="certificate : ${activeCertificateList}" >
 
-                <h4>Hello</h4>
+                    <div class="card col-3 ms-auto me-auto mt-4" style="width: 18rem;">
+                        <img th:src="@{/img/certificate_1.jpg}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title" th:utext="#{${certificate.name}}">Card title</h5>
+<!--                            <p class="card-text">Some quick example text to build on the card title and make up the
+                                bulk of the card's content.</p>-->
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="bi bi-suit-spade"></i></li>
+                            <li class="list-group-item"><i class="bi bi-clock"></i></li>
+                            <li class="list-group-item"><i class="bi bi-camera"></i></li>
+                        </ul>
+                        <div class="card-body">
+                            <a href="#" class="card-link">Order</a>
+                        </div>
+                    </div>
+
+                </th:block>
+
             </div>
+        </div>
+        <div class="row mt-4 text-center">
             <span th:unless="${condition}" class="text-danger" th:text="#{menu_admin.common.no_data}"></span>
         </div>
     </div>
+
     <footer th:insert="common/user_footer :: content"></footer>
 </body>
 </html>

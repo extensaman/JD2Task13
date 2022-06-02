@@ -15,9 +15,10 @@ div{
     height: 100%;
 }
 
-.img__10vh{
-    height: auto;
+.card-img-top {
     width: 100%;
+    height: 20vh;
+    object-fit: cover;
 }
 
 .intro{

@@ -90,8 +90,18 @@ public class InitiateUtil implements CommandLineRunner {
                 .price(BigDecimal.valueOf(75.0))
                 .photographerIncluded(false)
                 .build();
+        Certificate certificate10 = Certificate.builder()
+                .activity(true)
+                .certificateType(certificateType01)
+                .name("certificate.name.lord_of_the_horse")
+                .description("certificate.description.lord_of_the_horse")
+                .horseCount(1)
+                .duration(10.0)
+                .price(BigDecimal.valueOf(340.0))
+                .photographerIncluded(false)
+                .build();
         certificateService.saveAll(
-                List.of(certificate01,certificate02,certificate03));
+                List.of(certificate01,certificate02,certificate03, certificate10));
         LOGGER.info("Initialization of 'Certificate' done");
 
         CertificateDecoration certificateDecoration01 = CertificateDecoration.builder()

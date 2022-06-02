@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Controller
@@ -34,31 +36,34 @@ public class CertificateController {
 
     @GetMapping
     public String getCertificatePage(Model model) {
-        model.addAttribute(Constant.TITLE,
-                Constant.TITLE_CERTIFICATE_MESSAGE);
         List<Certificate> activeCertificateList = certificateService.findAll().stream()
-                .filter(certificate -> certificate.getCertificateType().isActivity())
+                .filter(Certificate::isActivity)
                 .collect(Collectors.toList());
         List<CertificateType> activeCertificateTypeList = getActiveCertificateTypeList();
         model.addAttribute(Constant.ACTIVE_CERTIFICATE_LIST, activeCertificateList);
         model.addAttribute(Constant.ACTIVE_CERTIFICATE_TYPE_LIST, activeCertificateTypeList);
+        model.addAttribute(Constant.TITLE,
+                Constant.TITLE_CERTIFICATE_MESSAGE);
         return Constant.CERTIFICATE_PAGE;
     }
 
-    @GetMapping("/type")
-    public String getCertificateWithSpecificType(@RequestParam("id") String id, Model model) {
+    @GetMapping("/{id}")
+    public String getCertificateWithSpecificType(@PathVariable String id, Model model) {
         LOGGER.info("Getting certificates with type's id = " + id);
+
         List<Certificate> certificateListWithSpecificType = certificateTypeService.findById(id)
                 .map(type ->
                     certificateService.findAll().stream()
-                            .filter(certificate -> certificate.getCertificateType().equals(type))
+                            .filter(certificate ->
+                                    certificate.getCertificateType().equals(type) &&
+                                            certificate.isActivity())
                             .collect(Collectors.toList())
                 ).orElse(null);
         List<CertificateType> activeCertificateTypeList = getActiveCertificateTypeList();
-        model.addAttribute(Constant.TITLE,
-                Constant.TITLE_CERTIFICATE_MESSAGE);
         model.addAttribute(Constant.ACTIVE_CERTIFICATE_LIST, certificateListWithSpecificType);
         model.addAttribute(Constant.ACTIVE_CERTIFICATE_TYPE_LIST, activeCertificateTypeList);
+        model.addAttribute(Constant.TITLE,
+                Constant.TITLE_CERTIFICATE_MESSAGE);
         return Constant.CERTIFICATE_PAGE;
     }
 
