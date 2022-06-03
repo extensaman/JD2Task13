@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -34,8 +36,9 @@ public class Certificate {
     @Column(nullable = false)
     private boolean activity;
 
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "certificate_type_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private CertificateType certificateType;
 
     @Column(nullable = false, length = 50)

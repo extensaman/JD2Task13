@@ -31,8 +31,14 @@ public class AdminCertificateDecorationController {
     }
 
     @PostMapping
-    public String saveCertificateDecorationChange(@ModelAttribute CertificateDecoration certificateDecoration) {
+    public String saveCertificateDecoration(@ModelAttribute CertificateDecoration certificateDecoration) {
         certificateDecorationService.save(certificateDecoration);
+        return "redirect:/admin/certificatedecoration";
+    }
+
+    @PostMapping("/delete")
+    public String deleteCertificateDecoration(@ModelAttribute CertificateDecoration certificateDecoration) {
+        certificateDecorationService.delete(certificateDecoration);
         return "redirect:/admin/certificatedecoration";
     }
 }

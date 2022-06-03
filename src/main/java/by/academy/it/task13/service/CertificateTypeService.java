@@ -1,5 +1,6 @@
 package by.academy.it.task13.service;
 
+import by.academy.it.task13.entity.CertificateDecoration;
 import by.academy.it.task13.entity.CertificateType;
 import by.academy.it.task13.repo.CertificateTypeRepository;
 import lombok.RequiredArgsConstructor;
@@ -40,5 +41,9 @@ public class CertificateTypeService {
     public void saveAll(List<CertificateType> list) {
         repository.saveAll(list);
     }
+    public void delete(CertificateType certificateType) {
+        repository.delete(certificateType);
+    }
+
 
 }
