@@ -84,12 +84,16 @@
                                                 <!-- Certificate type -->
 
                                                 <div class="input-group mb-3">
+                                                    <span class="input-group-text text-black-50"
+                                                          th:text="#{menu_admin.common.table.certificate_type}">
+                                                    </span>
                                                     <select class="form-select"
                                                             aria-label="Default select example"
                                                             name="certificateType">
                                                         <th:block th:each="certificateType : ${certificateTypeList}">
                                                             <option th:value="${certificateType.id}"
-                                                                    th:utext="${certificateType.name}">
+                                                                    th:utext="${certificateType.name}"
+                                                                    th:selected="${certificateType.id == certificate.certificateType.id}">
                                                             </option>
                                                         </th:block>
                                                     </select>
