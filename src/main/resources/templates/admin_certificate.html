@@ -54,9 +54,9 @@
                                             class="btn btn-outline-primary"
                                             data-bs-toggle="modal"
                                             th:attr="data-bs-target='#editcertificate'+${certificate.id}">
-                                            <h5>
-                                                <i class="bi bi-pencil-square"></i>
-                                            </h5>
+                                        <h5>
+                                            <i class="bi bi-pencil-square"></i>
+                                        </h5>
                                     </button>
                                     <h5 th:unless="${certificate.certificateType.activity}">
                                         <i class="bi bi-pencil-square text-black-50"></i>
@@ -69,7 +69,8 @@
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel" th:text="#{common.button.editing}"></h5>
+                                                <h5 class="modal-title" id="exampleModalLabel"
+                                                    th:text="#{common.button.editing}"></h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                             </div>
@@ -81,6 +82,21 @@
                                                        name="id">
 
                                                 <!-- Certificate type -->
+
+                                                <div class="input-group mb-3">
+                                                    <select class="form-select"
+                                                            aria-label="Default select example"
+                                                            name="certificateType">
+                                                        <th:block th:each="certificateType : ${certificateTypeList}">
+                                                            <option th:value="${certificateType.id}"
+                                                                    th:utext="${certificateType.name}">
+                                                            </option>
+                                                        </th:block>
+                                                    </select>
+
+                                                </div>
+
+<!--
                                                 <div class="input-group mb-3">
 
                                                     <span class="input-group-text text-black-50"
@@ -93,6 +109,7 @@
                                                            th:value="${certificate.certificateType.id}"
                                                            name="certificateType">
                                                 </div>
+-->
 
                                                 <!-- Certificate name -->
                                                 <div class="input-group mb-3">
