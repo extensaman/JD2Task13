@@ -1,6 +1,7 @@
 package by.academy.it.task13.controller.admin;
 
 import by.academy.it.task13.entity.Certificate;
+import by.academy.it.task13.entity.CertificateDecoration;
 import by.academy.it.task13.service.CertificateService;
 import by.academy.it.task13.service.CertificateTypeService;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +39,12 @@ public class AdminCertificateController {
     public String saveGiftCertificateChange(@ModelAttribute Certificate certificate) {
         LOGGER.info("CertificatType = " + certificate.getCertificateType());
         certificateService.save(certificate);
+        return "redirect:/admin/certificate";
+    }
+
+    @PostMapping(AdminConstant.DELETE_MAPPING)
+    public String deleteCertificate(@ModelAttribute Certificate certificate) {
+        certificateService.delete(certificate);
         return "redirect:/admin/certificate";
     }
 }

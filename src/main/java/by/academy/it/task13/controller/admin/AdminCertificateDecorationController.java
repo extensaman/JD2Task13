@@ -36,7 +36,7 @@ public class AdminCertificateDecorationController {
         return "redirect:/admin/certificatedecoration";
     }
 
-    @PostMapping("/delete")
+    @PostMapping(AdminConstant.DELETE_MAPPING)
     public String deleteCertificateDecoration(@ModelAttribute CertificateDecoration certificateDecoration) {
         certificateDecorationService.delete(certificateDecoration);
         return "redirect:/admin/certificatedecoration";

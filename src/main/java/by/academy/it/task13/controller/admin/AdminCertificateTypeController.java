@@ -47,7 +47,7 @@ public class AdminCertificateTypeController {
         return "redirect:/admin/certificatetype";
     }
 
-    @PostMapping("/delete")
+    @PostMapping(AdminConstant.DELETE_MAPPING)
     public String deleteCertificateType(@ModelAttribute CertificateType certificateType) {
         certificateTypeService.delete(certificateType);
         return "redirect:/admin/certificatetype";

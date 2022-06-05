@@ -5,7 +5,158 @@
 <header th:insert="common/admin_header :: content"></header>
 
 <div class="container">
+
+    <!-- Add new certificate -->
     <div class="row mx-2 mt-5">
+        <div class='d-flex justify-content-start'>
+            <form th:action="@{/admin/certificate/}" th:method="post"
+                  th:object="${certificate}">
+                <button type="button"
+                        class="btn btn-outline-primary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#add-certificate"
+                        th:utext="#{common.button.add}">
+                </button>
+                <!-- Modal for add certificate -->
+                <div class="modal fade" id="add-certificate" tabindex="-1"
+                     role="dialog" aria-labelledby="exampleModalLabel14" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel14" th:text="#{common.button.adding}"></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+
+                                <!-- Certificate id -->
+                                <!== NOT FILLING -->
+
+                                <!-- Certificate type -->
+                                <div class="input-group mb-3">
+                                                    <span class="input-group-text text-black-50"
+                                                          th:text="#{menu_admin.common.table.certificate_type}">
+                                                    </span>
+                                    <select class="form-select"
+                                            aria-label="Default select example"
+                                            name="certificateType">
+                                        <th:block th:each="certificateType : ${certificateTypeList}">
+                                            <option th:value="${certificateType.id}"
+                                                    th:utext="${certificateType.name}">
+                                            </option>
+                                        </th:block>
+                                    </select>
+
+                                </div>
+
+                                <!-- Certificate name -->
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-black-50"
+                                          th:text="#{menu_admin.common.table.name}">
+                                    </span>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="name">
+                                </div>
+
+                                <!-- Certificate description -->
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-black-50"
+                                          th:text="#{menu_admin.common.table.description}">
+                                    </span>
+                                    <textarea class="form-control"
+                                              aria-label="With textarea"
+                                              rows="5"
+                                              name="description"></textarea>
+                                </div>
+
+                                <!-- Horse count in certificate -->
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-black-50"
+                                          id="certHorseCount"
+                                          th:text="#{menu_admin.common.table.horse_count}">
+                                    </span>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="horseCount"
+                                           aria-describedby="certHorseCount">
+                                </div>
+
+                                <!-- Duration -->
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-black-50"
+                                          id="certDuration"
+                                          th:text="#{menu_admin.common.table.duration}">
+                                    </span>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="duration"
+                                           aria-describedby="certDuration">
+                                </div>
+
+                                <!-- Price -->
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-black-50"
+                                          id="certPrice"
+                                          th:text="#{menu_admin.common.table.price}">
+                                    </span>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="price"
+                                           aria-describedby="certPrice">
+                                </div>
+
+                                <!-- Is photographer included -->
+                                <div class="input-group mb-3">
+                                    <h5>
+                                        <div class="form-check form-switch">
+                                            <input type="checkbox"
+                                                   class="form-check-input"
+                                                   name="photographerIncluded">
+                                        </div>
+                                    </h5>
+                                    <span class="text-black-50"
+                                          id="certPhotographerIncluded"
+                                          th:text="#{menu_admin.common.table.photographer_included}">
+                                    </span>
+                                </div>
+
+                                <!-- Is certificate active -->
+                                <div class="input-group mb-3">
+                                    <h5>
+                                        <div class="form-check form-switch">
+                                            <input type="checkbox"
+                                                   class="form-check-input"
+                                                   name="activity">
+                                        </div>
+                                    </h5>
+                                    <span class="text-black-50"
+                                          id="certActivity"
+                                          th:text="#{menu_admin.common.table.activity}">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button"
+                                        class="btn btn-secondary"
+                                        data-bs-dismiss="modal"
+                                        th:text="#{common.button.cancel}">
+                                </button>
+
+                                <button class="btn btn-primary"
+                                        th:text="#{common.button.save}">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+
+    <div class="row mx-2 mt-2">
         <div th:with="condition=${giftCertificateList != null and !giftCertificateList.isEmpty()}">
             <div th:if="${condition}">
                 <table class="table">
@@ -16,11 +167,12 @@
                         <th class="text-center align-middle" th:text="#{menu_admin.common.table.name}"></th>
                         <th class="text-center align-middle" th:text="#{menu_admin.common.table.description}"></th>
                         <th class="text-center align-middle" th:text="#{menu_admin.common.table.horse_count}"></th>
-                        <th class="text-center align-middle"><h4><i class="bi bi-clock"></i></h4></th>
-                        <th class="text-center align-middle"><h4><i class="bi bi-coin"></i></h4></th>
-                        <th class="text-center align-middle"><h4><i class="bi bi-camera"></i></h4></th>
+                        <th class="text-center align-middle"><i class="bi bi-clock icon_size_24"></i></th>
+                        <th class="text-center align-middle"><i class="bi bi-coin icon_size_24"></i></th>
+                        <th class="text-center align-middle"><i class="bi bi-camera icon_size_24"></i></th>
                         <th class="text-center align-middle" th:text="#{menu_admin.common.table.activity}"></th>
-                        <th class="text-center align-middle"><h4><i class="bi bi-sliders"></i></h4></th>
+                        <th class="text-center align-middle"><i class="bi bi-sliders icon_size_24"></i></th>
+                        <th class="text-center align-middle"><i class="bi bi-x-lg icon_size_24"></i></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -28,24 +180,26 @@
                         <tr>
                             <td class="text-center align-middle" th:text="${state.index+1}"></td>
                             <td class="text-center align-middle"
-                                th:text="#{${certificate.certificateType.getName()}}"></td>
-                            <td class="text-center align-middle" th:text="#{${certificate.name}}"></td>
-                            <td class="align-middle" th:text="#{${certificate.description}}"></td>
+                                th:text="${certificate.certificateType.getName()}"></td>
+                            <td class="text-center align-middle" th:text="${certificate.name}"></td>
+                            <td class="align-middle" th:text="${certificate.description}"></td>
                             <td class="text-center align-middle" th:text="${certificate.horseCount}"></td>
                             <td class="text-center align-middle" th:text="${certificate.duration}"></td>
                             <td class="text-center align-middle" th:text="${certificate.price}"></td>
                             <td class="text-center align-middle">
-                                <h4><i th:if="${certificate.photographerIncluded}"
-                                       class="bi bi-plus-square text-success"></i></h4>
-                                <h4><i th:unless="${certificate.photographerIncluded}"
-                                       class="bi bi-dash-square text-danger"></i></h4>
+                                <i th:if="${certificate.photographerIncluded}"
+                                   class="bi bi-plus-square text-success icon_size_20"></i>
+                                <i th:unless="${certificate.photographerIncluded}"
+                                   class="bi bi-dash-square text-danger icon_size_20"></i>
                             </td>
                             <td class="text-center align-middle">
-                                <h4><i th:if="${certificate.activity}"
-                                       class="bi bi-check-circle-fill text-success"></i></h4>
-                                <h4><i th:unless="${certificate.activity}"
-                                       class="bi bi-x-circle-fill text-danger"></i></h4>
+                                <i th:if="${certificate.activity}"
+                                   class="bi bi-check-circle-fill text-success icon_size_24"></i>
+                                <i th:unless="${certificate.activity}"
+                                   class="bi bi-x-circle-fill text-danger icon_size_24"></i>
                             </td>
+
+                            <!-- Form for editing item -->
                             <form th:action="@{/admin/certificate/}" th:method="post"
                                   th:object="${certificate}">
                                 <td class="text-center align-middle">
@@ -54,13 +208,12 @@
                                             class="btn btn-outline-primary"
                                             data-bs-toggle="modal"
                                             th:attr="data-bs-target='#editcertificate'+${certificate.id}">
-                                        <h5>
-                                            <i class="bi bi-pencil-square"></i>
-                                        </h5>
+                                        <i class="bi bi-pencil-square icon_size_20"></i>
+
                                     </button>
-                                    <h5 th:unless="${certificate.certificateType.activity}">
-                                        <i class="bi bi-pencil-square text-black-50"></i>
-                                    </h5>
+                                    <i th:unless="${certificate.certificateType.activity}"
+                                       class="bi bi-pencil-square text-black-50 icon_size_20">
+                                    </i>
                                 </td>
 
                                 <!-- Modal for edit certificate -->
@@ -100,39 +253,28 @@
 
                                                 </div>
 
-<!--
-                                                <div class="input-group mb-3">
-
-                                                    <span class="input-group-text text-black-50"
-                                                          th:text="#{menu_admin.common.table.certificate_type}">
-                                                    </span>
-                                                    <span class="form-control"
-                                                          th:text="#{${certificate.certificateType.getName()}}">
-                                                    </span>
-                                                    <input type="hidden"
-                                                           th:value="${certificate.certificateType.id}"
-                                                           name="certificateType">
-                                                </div>
--->
-
                                                 <!-- Certificate name -->
                                                 <div class="input-group mb-3">
-
                                                     <span class="input-group-text text-black-50"
                                                           th:text="#{menu_admin.common.table.name}">
                                                     </span>
-                                                    <span class="form-control"
-                                                          th:text="#{${certificate.name}}">
-                                                    </span>
-                                                    <input type="hidden"
+                                                    <input type="text"
+                                                           class="form-control"
                                                            th:value="${certificate.name}"
                                                            name="name">
                                                 </div>
 
                                                 <!-- Certificate description -->
-                                                <input type="hidden"
-                                                       th:value="${certificate.description}"
-                                                       name="description">
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text text-black-50"
+                                                          th:text="#{menu_admin.common.table.description}">
+                                                    </span>
+                                                    <textarea class="form-control"
+                                                              aria-label="With textarea"
+                                                              th:text="${certificate.description}"
+                                                              rows="5"
+                                                              name="description"></textarea>
+                                                </div>
 
                                                 <!-- Horse count in certificate -->
                                                 <div class="input-group mb-3">
@@ -221,6 +363,182 @@
 
                                                 <button class="btn btn-primary"
                                                         th:text="#{common.button.save_changes}">
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <!-- Form for deleting item -->
+                            <form th:action="@{/admin/certificate/delete}" th:method="post"
+                                  th:object="${certificate}">
+                                <td class="text-center align-middle">
+                                    <button th:if="${certificate.certificateType.activity}"
+                                            type="button"
+                                            class="btn btn-outline-danger"
+                                            data-bs-toggle="modal"
+                                            th:attr="data-bs-target='#deletecertificate'+${certificate.id}">
+                                        <i class="bi bi-trash3 icon_size_20"></i>
+                                    </button>
+                                    <i th:unless="${certificate.certificateType.activity}"
+                                       class="bi bi-trash3 text-black-50 icon_size_20">
+                                    </i>
+                                </td>
+
+                                <!-- Modal for delete decoration -->
+                                <div class="modal fade" th:id="${'deletecertificate'+certificate.id}" tabindex="-1"
+                                     role="dialog" aria-labelledby="exampleModalLabel08" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel08"
+                                                    th:text="#{common.button.deleting}"></h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <!-- Certificate id -->
+                                                <input type="hidden"
+                                                       th:value="${certificate.id}"
+                                                       name="id">
+
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text text-black-50"
+                                                          th:text="#{menu_admin.common.table.certificate_type}">
+                                                    </span>
+                                                    <select class="form-select"
+                                                            aria-label="Default select example"
+                                                            name="certificateType"
+                                                            disabled>
+                                                        <th:block th:each="certificateType : ${certificateTypeList}">
+                                                            <option th:value="${certificateType.id}"
+                                                                    th:utext="${certificateType.name}"
+                                                                    th:selected="${certificateType.id == certificate.certificateType.id}">
+                                                            </option>
+                                                        </th:block>
+                                                    </select>
+
+                                                </div>
+
+                                                <!-- Certificate name -->
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text text-black-50"
+                                                          th:text="#{menu_admin.common.table.name}">
+                                                    </span>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           th:value="${certificate.name}"
+                                                           name="name"
+                                                           disabled>
+                                                </div>
+
+                                                <!-- Certificate description -->
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text text-black-50"
+                                                          th:text="#{menu_admin.common.table.description}">
+                                                    </span>
+                                                    <textarea class="form-control"
+                                                              aria-label="With textarea"
+                                                              th:text="${certificate.description}"
+                                                              rows="5"
+                                                              disabled
+                                                              name="description"></textarea>
+                                                </div>
+
+                                                <!-- Horse count in certificate -->
+                                                <div class="input-group mb-3">
+
+                                                    <span class="input-group-text text-black-50"
+                                                          id="certHorseCount"
+                                                          th:text="#{menu_admin.common.table.horse_count}">
+                                                    </span>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           th:value="${certificate.horseCount}"
+                                                           name="horseCount"
+                                                           th:aria-label="${certificate.horseCount}"
+                                                           aria-describedby="certHorseCount"
+                                                           disabled>
+                                                </div>
+
+                                                <!-- Duration -->
+                                                <div class="input-group mb-3">
+
+                                                    <span class="input-group-text text-black-50"
+                                                          id="certDuration"
+                                                          th:text="#{menu_admin.common.table.duration}">
+                                                    </span>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           th:value="${certificate.duration}"
+                                                           name="duration"
+                                                           th:aria-label="${certificate.duration}"
+                                                           disabled
+                                                           aria-describedby="certDuration">
+                                                </div>
+
+                                                <!-- Price -->
+                                                <div class="input-group mb-3">
+
+                                                    <span class="input-group-text text-black-50"
+                                                          id="certPrice"
+                                                          th:text="#{menu_admin.common.table.price}">
+                                                    </span>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           th:value="${certificate.price}"
+                                                           name="price"
+                                                           th:aria-label="${certificate.price}"
+                                                           disabled
+                                                           aria-describedby="certPrice">
+                                                </div>
+
+                                                <!-- Is photographer included -->
+                                                <div class="input-group mb-3">
+                                                    <h5>
+                                                        <div class="form-check form-switch">
+                                                            <input type="checkbox"
+                                                                   class="form-check-input"
+                                                                   th:checked="${certificate.photographerIncluded}"
+                                                                   disabled
+                                                                   name="photographerIncluded">
+                                                        </div>
+                                                    </h5>
+                                                    <span class="text-black-50"
+                                                          id="certPhotographerIncluded"
+                                                          th:text="#{menu_admin.common.table.photographer_included}">
+                                                    </span>
+                                                </div>
+
+                                                <!-- Is certificate active -->
+                                                <div class="input-group mb-3">
+                                                    <h5>
+                                                        <div class="form-check form-switch">
+                                                            <input type="checkbox"
+                                                                   class="form-check-input"
+                                                                   th:checked="${certificate.activity}"
+                                                                   disabled
+                                                                   name="activity">
+                                                        </div>
+                                                    </h5>
+                                                    <span class="text-black-50"
+                                                          id="certActivity"
+                                                          th:text="#{menu_admin.common.table.activity}">
+                                                    </span>
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button"
+                                                        class="btn btn-secondary"
+                                                        data-bs-dismiss="modal"
+                                                        th:text="#{common.button.cancel}">
+                                                </button>
+
+                                                <button class="btn btn-danger"
+                                                        th:text="#{common.button.delete}">
                                                 </button>
                                             </div>
                                         </div>

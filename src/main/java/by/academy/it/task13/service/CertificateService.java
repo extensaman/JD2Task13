@@ -26,4 +26,9 @@ public class CertificateService {
     public void save(Certificate certificate) {
         repository.save(certificate);
     }
+
+    public void delete(Certificate certificate) {
+        repository.delete(certificate);
+    }
+
 }
