@@ -5,11 +5,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -28,18 +26,13 @@ import java.math.BigDecimal;
 @Setter
 @Entity
 @Table
-public class Certificate {
+public class PhotoSession {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
     private boolean activity;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "certificate_type_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private CertificateType certificateType;
 
     @Column(nullable = false, length = 50)
     private String name;
@@ -56,9 +49,8 @@ public class Certificate {
     @Column(nullable = false)
     private BigDecimal price;
 
-    @Column(nullable = false, name = "photographer_included")
-    private boolean photographerIncluded;
-
-    @Column(nullable = false)
-    private String photoFile;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "photo_id")
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
+    private Photo photo;
 }

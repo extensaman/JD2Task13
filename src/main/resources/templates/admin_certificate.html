@@ -70,6 +70,16 @@
                                               name="description"></textarea>
                                 </div>
 
+                                <!-- Certificate photoFile -->
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-black-50"
+                                          th:text="#{menu_admin.common.table.photo_file}">
+                                    </span>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="photoFile">
+                                </div>
+
                                 <!-- Horse count in certificate -->
                                 <div class="input-group mb-3">
                                     <span class="input-group-text text-black-50"
@@ -166,6 +176,7 @@
                         <th class="text-center align-middle" th:text="#{menu_admin.common.table.certificate_type}"></th>
                         <th class="text-center align-middle" th:text="#{menu_admin.common.table.name}"></th>
                         <th class="text-center align-middle" th:text="#{menu_admin.common.table.description}"></th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.photo_file}"></th>
                         <th class="text-center align-middle" th:text="#{menu_admin.common.table.horse_count}"></th>
                         <th class="text-center align-middle"><i class="bi bi-clock icon_size_24"></i></th>
                         <th class="text-center align-middle"><i class="bi bi-coin icon_size_24"></i></th>
@@ -183,6 +194,7 @@
                                 th:text="${certificate.certificateType.getName()}"></td>
                             <td class="text-center align-middle" th:text="${certificate.name}"></td>
                             <td class="align-middle" th:text="${certificate.description}"></td>
+                            <td class="text-center align-middle" th:text="${certificate.photoFile}"></td>
                             <td class="text-center align-middle" th:text="${certificate.horseCount}"></td>
                             <td class="text-center align-middle" th:text="${certificate.duration}"></td>
                             <td class="text-center align-middle" th:text="${certificate.price}"></td>
@@ -235,7 +247,6 @@
                                                        name="id">
 
                                                 <!-- Certificate type -->
-
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text text-black-50"
                                                           th:text="#{menu_admin.common.table.certificate_type}">
@@ -274,6 +285,17 @@
                                                               th:text="${certificate.description}"
                                                               rows="5"
                                                               name="description"></textarea>
+                                                </div>
+
+                                                <!-- Certificate photoFile -->
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text text-black-50"
+                                                        th:utext="#{menu_admin.common.table.photo_file}">
+                                                    </span>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           th:value="${certificate.photoFile}"
+                                                           name="photoFile">
                                                 </div>
 
                                                 <!-- Horse count in certificate -->
@@ -445,6 +467,18 @@
                                                               rows="5"
                                                               disabled
                                                               name="description"></textarea>
+                                                </div>
+
+                                                <!-- Certificate photoFile -->
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text text-black-50"
+                                                          th:utext="#{menu_admin.common.table.photo_file}">
+                                                    </span>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           th:value="${certificate.photoFile}"
+                                                           disabled
+                                                           name="photoFile">
                                                 </div>
 
                                                 <!-- Horse count in certificate -->

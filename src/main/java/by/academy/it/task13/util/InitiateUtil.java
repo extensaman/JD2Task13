@@ -69,6 +69,7 @@ public class InitiateUtil implements CommandLineRunner {
                 .duration(1.0)
                 .price(BigDecimal.valueOf(52.5))
                 .photographerIncluded(false)
+                .photoFile("certificate_single_01.jpg")
                 .build();
         Certificate certificate02 = Certificate.builder()
                 .activity(true)
@@ -79,6 +80,7 @@ public class InitiateUtil implements CommandLineRunner {
                 .duration(2.0)
                 .price(BigDecimal.valueOf(80.0))
                 .photographerIncluded(true)
+                .photoFile("certificate_single_02.jpg")
                 .build();
         Certificate certificate03 = Certificate.builder()
                 .activity(true)
@@ -89,6 +91,73 @@ public class InitiateUtil implements CommandLineRunner {
                 .duration(1.5)
                 .price(BigDecimal.valueOf(75.0))
                 .photographerIncluded(false)
+                .photoFile("certificate_single_03.jpg")
+                .build();
+        Certificate certificate04 = Certificate.builder()
+                .activity(true)
+                .certificateType(certificateType01)
+                .name("Лесная прогулка")
+                .description("Обучение (инструктаж) 60 минут на плацу или в манеж + 60 минут прогулка в лес. Программа подходит для начинающих всадников")
+                .horseCount(1)
+                .duration(2.0)
+                .price(BigDecimal.valueOf(85.0))
+                .photographerIncluded(false)
+                .photoFile("certificate_single_04.jpg")
+                .build();
+        Certificate certificate05 = Certificate.builder()
+                .activity(true)
+                .certificateType(certificateType01)
+                .name("Фотосессия мини")
+                .description("Подарочный сертификат на Мини-фотосъёмку с лошадьми, продолжительностью 30 минут")
+                .horseCount(1)
+                .duration(0.5)
+                .price(BigDecimal.valueOf(100.0))
+                .photographerIncluded(true)
+                .photoFile("certificate_single_05.jpg")
+                .build();
+        Certificate certificate06 = Certificate.builder()
+                .activity(true)
+                .certificateType(certificateType01)
+                .name("Амазонка")
+                .description("Фотосессия с лошадью с фотографом клуба (аренда лошади, работа фотографа и ассистента, 20 фотографий в обработке: 10 штук – цветокоррекция, 10 штук – ретушь)")
+                .horseCount(1)
+                .duration(1.0)
+                .price(BigDecimal.valueOf(200.0))
+                .photographerIncluded(true)
+                .photoFile("certificate_single_06.jpg")
+                .build();
+        Certificate certificate07 = Certificate.builder()
+                .activity(true)
+                .certificateType(certificateType01)
+                .name("Сказка")
+                .description("Катание на лошади (индивидуальное занятие верховой ездой) и фотосессия с лошадью с фотографом клуба (аренда лошади, работа фотографа и ассистента)")
+                .horseCount(1)
+                .duration(2.0)
+                .price(BigDecimal.valueOf(240.0))
+                .photographerIncluded(true)
+                .photoFile("certificate_single_07.jpg")
+                .build();
+        Certificate certificate08 = Certificate.builder()
+                .activity(true)
+                .certificateType(certificateType01)
+                .name("Драйв")
+                .description("Курс занятий верховой ездой из 6-ти занятий. Занятия проходят в мини группе.")
+                .horseCount(1)
+                .duration(6.0)
+                .price(BigDecimal.valueOf(210.0))
+                .photographerIncluded(false)
+                .photoFile("certificate_single_08.jpg")
+                .build();
+        Certificate certificate09 = Certificate.builder()
+                .activity(true)
+                .certificateType(certificateType01)
+                .name("Погружение")
+                .description("Курс индивидуальных занятий верховой ездой (5 часов)")
+                .horseCount(1)
+                .duration(5.0)
+                .price(BigDecimal.valueOf(230.0))
+                .photographerIncluded(false)
+                .photoFile("certificate_single_09.jpg")
                 .build();
         Certificate certificate10 = Certificate.builder()
                 .activity(true)
@@ -99,9 +168,19 @@ public class InitiateUtil implements CommandLineRunner {
                 .duration(10.0)
                 .price(BigDecimal.valueOf(340.0))
                 .photographerIncluded(false)
+                .photoFile("certificate_single_10.jpg")
                 .build();
         certificateService.saveAll(
-                List.of(certificate01,certificate02,certificate03, certificate10));
+                List.of(certificate01,
+                        certificate02,
+                        certificate03,
+                        certificate04,
+                        certificate05,
+                        certificate06,
+                        certificate07,
+                        certificate08,
+                        certificate09,
+                        certificate10));
         LOGGER.info("Initialization of 'Certificate' done");
 
         CertificateDecoration certificateDecoration01 = CertificateDecoration.builder()

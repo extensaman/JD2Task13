@@ -23,7 +23,7 @@
                             <form method="get" th:action="@{'/certificate/{id}' (id=${certificateType.id})}">
                                 <li>
                                     <button class="dropdown-item"
-                                            th:utext="#{${certificateType.name}}">
+                                            th:utext="${certificateType.name}">
                                     </button>
                                 </li>
                             </form>
@@ -45,19 +45,59 @@
         <div th:if="${condition}">
             <div class="row mt-4">
 
-                <th:block th:each="certificate : ${activeCertificateList}" >
+                <th:block th:each="certificate : ${activeCertificateList}">
 
                     <div class="card col-3 ms-auto me-auto mt-4" style="width: 18rem;">
-                        <img th:src="@{/img/certificate_1.jpg}" class="card-img-top" alt="...">
+                        <img th:src="@{${'/img/'+certificate.photoFile}}"
+                             class="card-img-top" alt="..."
+                             data-bs-toggle="tooltip"
+                             data-bs-placement="top"
+                             th:attr="title=${certificate.description}">
                         <div class="card-body">
-                            <h5 class="card-title" th:utext="#{${certificate.name}}">Card title</h5>
-<!--                            <p class="card-text">Some quick example text to build on the card title and make up the
-                                bulk of the card's content.</p>-->
+                            <h5 class="card-title" th:utext="${certificate.name}"></h5>
+                            <!--                            <p class="card-text">Some quick example text to build on the card title and make up the
+                                                            bulk of the card's content.</p>-->
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><i class="bi bi-suit-spade"></i></li>
-                            <li class="list-group-item"><i class="bi bi-clock"></i></li>
-                            <li class="list-group-item"><i class="bi bi-camera"></i></li>
+                            <li class="list-group-item">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-6 text-start">
+                                            <i class="bi bi-suit-spade"></i>
+                                        </div>
+                                        <div class="col-6 text-end">
+                                            <span th:text="${certificate.horseCount}">
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-6 text-start">
+                                            <i class="bi bi-clock"></i>
+                                        </div>
+                                        <div class="col-6 text-end">
+                                            <span th:text="${certificate.duration}">
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-6 text-start">
+                                            <i class="bi bi-camera"></i>
+                                        </div>
+                                        <div class="col-6 text-end">
+                                            <span th:text="${certificate.photographerIncluded}">
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
                         </ul>
                         <div class="card-body">
                             <a href="#" class="card-link">Order</a>
