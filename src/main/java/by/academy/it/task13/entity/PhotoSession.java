@@ -39,7 +39,7 @@ public class PhotoSession {
     private Integer horseCount;
 
     @Column(nullable = false)
-    private Double duration;
+    private Integer duration;
 
     @Column(nullable = false)
     private BigDecimal price;

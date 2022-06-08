@@ -3,9 +3,11 @@ package by.academy.it.task13.util;
 import by.academy.it.task13.entity.Certificate;
 import by.academy.it.task13.entity.CertificateDecoration;
 import by.academy.it.task13.entity.CertificateType;
+import by.academy.it.task13.entity.PhotoSession;
 import by.academy.it.task13.service.CertificateDecorationService;
 import by.academy.it.task13.service.CertificateService;
 import by.academy.it.task13.service.CertificateTypeService;
+import by.academy.it.task13.service.PhotoSessionService;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -33,6 +35,8 @@ public class InitiateUtil implements CommandLineRunner {
     private final CertificateService certificateService;
     @Autowired
     private final CertificateDecorationService certificateDecorationService;
+    @Autowired
+    private final PhotoSessionService photoSessionService;
 
     public static String[] getImageFileList() {
         return imageFileList;
@@ -86,7 +90,7 @@ public class InitiateUtil implements CommandLineRunner {
                 .horseCount(1)
                 .duration(2.0)
                 .price(BigDecimal.valueOf(80.0))
-                .photographerIncluded(true)
+                .photographerIncluded(false)
                 .photoFile("certificate_single_02.jpg")
                 .build();
         Certificate certificate03 = Certificate.builder()
@@ -220,5 +224,59 @@ public class InitiateUtil implements CommandLineRunner {
                         certificateDecoration03,
                         certificateDecoration04));
         LOGGER.info("Initialization of 'CertificateDecoration' done");
+
+        PhotoSession photoSession01 = PhotoSession.builder()
+                .activity(true)
+                .name("Минифотосессия")
+                .description("8-10 фотографий (4-5 фотографий в лёгкой ретуши, 4-5 фотографий в цветокоррекции)")
+                .photoFile("photosession_mini.jpg")
+                .horseCount(1)
+                .duration(30)
+                .price(BigDecimal.valueOf(100.0))
+                .build();
+        PhotoSession photoSession02 = PhotoSession.builder()
+                .activity(true)
+                .name("Индивидуальная")
+                .description("20 фотографий (10 фотографий в лёгкой ретуши, 10 фотографий в цветокоррекции)")
+                .photoFile("photosession_single.png")
+                .horseCount(1)
+                .duration(60)
+                .price(BigDecimal.valueOf(200.0))
+                .build();
+        PhotoSession photoSession03 = PhotoSession.builder()
+                .activity(true)
+                .name("Для семьи")
+                .description("20-25 фотографий (10 фотографий в лёгкой ретуши, 15 фотографий в цветокоррекции)")
+                .photoFile("photosession_family_01.png")
+                .horseCount(1)
+                .duration(60)
+                .price(BigDecimal.valueOf(220.0))
+                .build();
+        PhotoSession photoSession04 = PhotoSession.builder()
+                .activity(true)
+                .name("Для семьи+")
+                .description("20-25 фотографий (10 фотографий в лёгкой ретуши, 15 фотографий в цветокоррекции)")
+                .photoFile("photosession_family_02.png")
+                .horseCount(2)
+                .duration(60)
+                .price(BigDecimal.valueOf(260.0))
+                .build();
+        PhotoSession photoSession05 = PhotoSession.builder()
+                .activity(true)
+                .name("Самостоятельная")
+                .description("Прекрасная возможность провести собственную фотосессию в сопровождении ассистента")
+                .photoFile("photosession_yourself.jpg")
+                .horseCount(1)
+                .duration(60)
+                .price(BigDecimal.valueOf(60.0))
+                .build();
+        photoSessionService.saveAll(
+                List.of(photoSession01,
+                        photoSession02,
+                        photoSession03,
+                        photoSession04,
+                        photoSession05));
+        LOGGER.info("Initialization of 'PhotoSession' done");
+
     }
 }

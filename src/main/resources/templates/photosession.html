@@ -6,7 +6,7 @@
 
 <div class="container-fluid">
     <div class="wrapper img__object__fit">
-        <img th:src="@{/img/giftCert.jpg}">
+        <img th:src="@{/img/photosession_common.jpg}">
     </div>
     <div th:with="condition=${activePhotosessionList != null and !activePhotosessionList.isEmpty()}">
         <div th:if="${condition}">
@@ -58,8 +58,8 @@
                                         <a href="#" class="card-link">Order</a>
                                     </div>
                                     <div class="col-6 text-end">
-                                            <span th:text="${photosession.price} + #{common.byn}">
-                                            </span>
+                                            <strong th:text="${photosession.price} + #{common.byn}">
+                                            </strong>
                                     </div>
                                 </div>
                             </div>
