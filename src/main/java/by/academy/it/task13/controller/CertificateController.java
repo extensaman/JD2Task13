@@ -13,13 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Controller
@@ -53,11 +49,11 @@ public class CertificateController {
 
         List<Certificate> certificateListWithSpecificType = certificateTypeService.findById(id)
                 .map(type ->
-                    certificateService.findAll().stream()
-                            .filter(certificate ->
-                                    certificate.getCertificateType().equals(type) &&
-                                            certificate.isActivity())
-                            .collect(Collectors.toList())
+                        certificateService.findAll().stream()
+                                .filter(certificate ->
+                                        certificate.getCertificateType().equals(type) &&
+                                                certificate.isActivity())
+                                .collect(Collectors.toList())
                 ).orElse(null);
         List<CertificateType> activeCertificateTypeList = getActiveCertificateTypeList();
         model.addAttribute(Constant.ACTIVE_CERTIFICATE_LIST, certificateListWithSpecificType);

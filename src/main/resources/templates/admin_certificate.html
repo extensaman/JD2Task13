@@ -15,7 +15,7 @@
                         class="btn btn-outline-primary"
                         data-bs-toggle="modal"
                         data-bs-target="#add-certificate"
-                        th:utext="#{common.button.add}">
+                        th:text="#{common.button.add}">
                 </button>
                 <!-- Modal for add certificate -->
                 <div class="modal fade" id="add-certificate" tabindex="-1"
@@ -42,7 +42,7 @@
                                             name="certificateType">
                                         <th:block th:each="certificateType : ${certificateTypeList}">
                                             <option th:value="${certificateType.id}"
-                                                    th:utext="${certificateType.name}">
+                                                    th:text="${certificateType.name}">
                                             </option>
                                         </th:block>
                                     </select>
@@ -194,7 +194,10 @@
                                 th:text="${certificate.certificateType.getName()}"></td>
                             <td class="text-center align-middle" th:text="${certificate.name}"></td>
                             <td class="align-middle" th:text="${certificate.description}"></td>
-                            <td class="text-center align-middle" th:text="${certificate.photoFile}"></td>
+                            <td class="text-center align-middle">
+                                <img th:src="@{${'/img/'+certificate.photoFile}}"
+                                     class="img-fluid" alt="">
+                            </td>
                             <td class="text-center align-middle" th:text="${certificate.horseCount}"></td>
                             <td class="text-center align-middle" th:text="${certificate.duration}"></td>
                             <td class="text-center align-middle" th:text="${certificate.price}"></td>
@@ -256,7 +259,7 @@
                                                             name="certificateType">
                                                         <th:block th:each="certificateType : ${certificateTypeList}">
                                                             <option th:value="${certificateType.id}"
-                                                                    th:utext="${certificateType.name}"
+                                                                    th:text="${certificateType.name}"
                                                                     th:selected="${certificateType.id == certificate.certificateType.id}">
                                                             </option>
                                                         </th:block>
@@ -290,7 +293,7 @@
                                                 <!-- Certificate photoFile -->
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text text-black-50"
-                                                        th:utext="#{menu_admin.common.table.photo_file}">
+                                                          th:text="#{menu_admin.common.table.photo_file}">
                                                     </span>
                                                     <input type="text"
                                                            class="form-control"
@@ -436,7 +439,7 @@
                                                             disabled>
                                                         <th:block th:each="certificateType : ${certificateTypeList}">
                                                             <option th:value="${certificateType.id}"
-                                                                    th:utext="${certificateType.name}"
+                                                                    th:text="${certificateType.name}"
                                                                     th:selected="${certificateType.id == certificate.certificateType.id}">
                                                             </option>
                                                         </th:block>
@@ -472,7 +475,7 @@
                                                 <!-- Certificate photoFile -->
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text text-black-50"
-                                                          th:utext="#{menu_admin.common.table.photo_file}">
+                                                          th:text="#{menu_admin.common.table.photo_file}">
                                                     </span>
                                                     <input type="text"
                                                            class="form-control"

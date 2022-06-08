@@ -5,126 +5,132 @@
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Navbar</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <a class="navbar-brand" href="#" th:text="#{common.horse_club.name}"></a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" th:href="@{/certificate}" th:utext="#{menu.certificate}"></a>
+                        <li class="nav-item" th:with="condition=${title eq 'menu.certificate'}">
+                            <a th:if="${condition}" class="nav-link active underline" aria-current="page" href=""
+                               th:text="#{menu.certificate}"></a>
+                            <a th:unless="${condition}" class="nav-link" aria-current="page" th:href="@{/certificate}"
+                               th:text="#{menu.certificate}"></a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
+                        <li class="nav-item" th:with="condition=${title eq 'menu.photosession'}">
+                            <a th:if="${condition}" class="nav-link active underline" aria-current="page" href=""
+                               th:text="#{menu.photosession}"></a>
+                            <a th:unless="${condition}" class="nav-link" aria-current="page" th:href="@{/photosession}"
+                               th:text="#{menu.photosession}"></a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
                                 Dropdown
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="#">Action</a></li>
                                 <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
                                 <li><a class="dropdown-item" href="#">Something else here</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                        </li>
                     </ul>
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
                 </div>
+
+
             </div>
         </nav>
 
 
-<!--
-        <nav class="navbar navbar-default" role="navigation">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggler-icon" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Навигация</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">itProger</a>
-                </div>
-
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Ссылка</a></li>
-                        <li><a href="#">Ссылка</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Действие</a></li>
-                                <li><a href="#">Другое действие</a></li>
-                                <li><a href="#">Что-то еще</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Отдельная ссылка</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Еще одна отдельная ссылка</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Поиск">
+        <!--
+                <nav class="navbar navbar-default" role="navigation">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggler-icon" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                <span class="sr-only">Навигация</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" href="#">itProger</a>
                         </div>
-                        <button type="submit" class="btn btn-default">Отправить</button>
-                    </form>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Ссылка</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Действие</a></li>
-                                <li><a href="#">Другое действие</a></li>
-                                <li><a href="#">Что-то еще</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Отдельная ссылка</a></li>
+
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li class="active"><a href="#">Ссылка</a></li>
+                                <li><a href="#">Ссылка</a></li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Действие</a></li>
+                                        <li><a href="#">Другое действие</a></li>
+                                        <li><a href="#">Что-то еще</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">Отдельная ссылка</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">Еще одна отдельная ссылка</a></li>
+                                    </ul>
+                                </li>
                             </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
--->
+                            <form class="navbar-form navbar-left" role="search">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Поиск">
+                                </div>
+                                <button type="submit" class="btn btn-default">Отправить</button>
+                            </form>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a href="#">Ссылка</a></li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Действие</a></li>
+                                        <li><a href="#">Другое действие</a></li>
+                                        <li><a href="#">Что-то еще</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">Отдельная ссылка</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+        -->
 
 
-<!--
-        <nav class="nav">
-            <div class="col" th:with="condition=${title eq 'menu_admin.main'}">
-                <a th:if="${condition}" class="nav-link text-secondary underline" href=""
-                   th:text="#{menu_admin.main}"></a>
-                <a th:unless="${condition}" class="nav-link text-primary" th:href="@{/admin}"
-                   th:text="#{menu_admin.main}"></a>
-            </div>
-            <div class="col" th:with="condition=${title eq 'menu_admin.certificate'}">
-                <a th:if="${condition}" class="nav-link text-secondary underline" href=""
-                   th:text="#{menu_admin.certificate}"></a>
-                <a th:unless="${condition}" class="nav-link text-primary" th:href="@{/admin/certificate}"
-                   th:text="#{menu_admin.certificate}"></a>
-            </div>
-            <div class="col" th:with="condition=${title eq 'menu_admin.certificate_type'}">
-                <a th:if="${condition}" class="nav-link text-secondary underline" href=""
-                   th:text="#{menu_admin.certificate_type}"></a>
-                <a th:unless="${condition}" class="nav-link text-primary" th:href="@{/admin/certificatetype}"
-                   th:text="#{menu_admin.certificate_type}"></a>
-            </div>
-            <div class="col" th:with="condition=${title eq 'menu_admin.certificate_decoration'}">
-                <a th:if="${condition}" class="nav-link text-secondary underline" href=""
-                   th:text="#{menu_admin.certificate_decoration}"></a>
-                <a th:unless="${condition}" class="nav-link text-primary" th:href="@{/admin/certificatedecoration}"
-                   th:text="#{menu_admin.certificate_decoration}"></a>
-            </div>
-        </nav>
--->
-        <hr/>
+        <!--
+                <nav class="nav">
+                    <div class="col" th:with="condition=${title eq 'menu_admin.main'}">
+                        <a th:if="${condition}" class="nav-link text-secondary underline" href=""
+                           th:text="#{menu_admin.main}"></a>
+                        <a th:unless="${condition}" class="nav-link text-primary" th:href="@{/admin}"
+                           th:text="#{menu_admin.main}"></a>
+                    </div>
+                    <div class="col" th:with="condition=${title eq 'menu_admin.certificate'}">
+                        <a th:if="${condition}" class="nav-link text-secondary underline" href=""
+                           th:text="#{menu_admin.certificate}"></a>
+                        <a th:unless="${condition}" class="nav-link text-primary" th:href="@{/admin/certificate}"
+                           th:text="#{menu_admin.certificate}"></a>
+                    </div>
+                    <div class="col" th:with="condition=${title eq 'menu_admin.certificate_type'}">
+                        <a th:if="${condition}" class="nav-link text-secondary underline" href=""
+                           th:text="#{menu_admin.certificate_type}"></a>
+                        <a th:unless="${condition}" class="nav-link text-primary" th:href="@{/admin/certificatetype}"
+                           th:text="#{menu_admin.certificate_type}"></a>
+                    </div>
+                    <div class="col" th:with="condition=${title eq 'menu_admin.certificate_decoration'}">
+                        <a th:if="${condition}" class="nav-link text-secondary underline" href=""
+                           th:text="#{menu_admin.certificate_decoration}"></a>
+                        <a th:unless="${condition}" class="nav-link text-primary" th:href="@{/admin/certificatedecoration}"
+                           th:text="#{menu_admin.certificate_decoration}"></a>
+                    </div>
+                </nav>
+        -->
         <hr/>
     </div>
 </div>

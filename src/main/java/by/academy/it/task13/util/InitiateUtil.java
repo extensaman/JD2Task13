@@ -1,8 +1,8 @@
 package by.academy.it.task13.util;
 
 import by.academy.it.task13.entity.Certificate;
-import by.academy.it.task13.entity.CertificateType;
 import by.academy.it.task13.entity.CertificateDecoration;
+import by.academy.it.task13.entity.CertificateType;
 import by.academy.it.task13.service.CertificateDecorationService;
 import by.academy.it.task13.service.CertificateService;
 import by.academy.it.task13.service.CertificateTypeService;
@@ -13,16 +13,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class InitiateUtil implements CommandLineRunner {
 
     private static final Logger LOGGER = LogManager.getLogger(InitiateUtil.class);
+    private static final String[] imageFileList = new File("./src/main/resources/static/img").list();
 
     @Autowired
     private final CertificateTypeService certificateTypeService;
@@ -30,6 +33,10 @@ public class InitiateUtil implements CommandLineRunner {
     private final CertificateService certificateService;
     @Autowired
     private final CertificateDecorationService certificateDecorationService;
+
+    public static String[] getImageFileList() {
+        return imageFileList;
+    }
 
     @Override
     public void run(String[] args) throws Exception {

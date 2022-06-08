@@ -6,44 +6,43 @@
 
 <div class="container">
 
-    <!-- Add new certificate decoration -->
+    <!-- Add new horse -->
     <div class="row mx-2 mt-5">
         <div class='d-flex justify-content-start'>
-            <form th:action="@{/admin/certificatedecoration/}" th:method="post"
-                  th:object="${decoration}">
+            <form th:action="@{/admin/horse/}" th:method="post"
+                  th:object="${horse}">
                 <button type="button"
                         class="btn btn-outline-primary"
                         data-bs-toggle="modal"
-                        data-bs-target="#add-certificate-decoration"
+                        data-bs-target="#add-horse"
                         th:text="#{common.button.add}">
                 </button>
-                <!-- Modal for add decoration -->
-                <div class="modal fade" id="add-certificate-decoration" tabindex="-1"
-                     role="dialog" aria-labelledby="exampleModalLabel06" aria-hidden="true">
+                <!-- Modal for add horse -->
+                <div class="modal fade" id="add-horse" tabindex="-1"
+                     role="dialog" aria-labelledby="exampleModalLabel16" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel06" th:text="#{common.button.adding}"></h5>
+                                <h5 class="modal-title" id="exampleModalLabel16" th:text="#{common.button.adding}"></h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
 
-                                <!-- CertificateDecoration id -->
-                                <!-- NOT FILL -->
+                                <!-- Horse id -->
+                                <!== NOT FILLING -->
 
-                                <!-- CertificateDecoration name -->
+                                <!-- Horse name -->
                                 <div class="input-group mb-3">
                                     <span class="input-group-text text-black-50"
                                           th:text="#{menu_admin.common.table.name}">
                                     </span>
                                     <input type="text"
                                            class="form-control"
-                                           name="name"
-                                           aria-describedby="certDecorationPrice">
+                                           name="name">
                                 </div>
 
-                                <!-- CertificateDecoration description -->
+                                <!-- Horse description -->
                                 <div class="input-group mb-3">
                                     <span class="input-group-text text-black-50"
                                           th:text="#{menu_admin.common.table.description}">
@@ -54,19 +53,17 @@
                                               name="description"></textarea>
                                 </div>
 
-                                <!-- CertificateDecoration Price -->
+                                <!-- Horse photoFile -->
                                 <div class="input-group mb-3">
                                     <span class="input-group-text text-black-50"
-                                          id="certDecorationPrice"
-                                          th:text="#{menu_admin.common.table.price}">
+                                          th:text="#{menu_admin.common.table.photo_file}">
                                     </span>
                                     <input type="text"
                                            class="form-control"
-                                           name="price"
-                                           aria-describedby="certDecorationPrice">
+                                           name="photoFile">
                                 </div>
 
-                                <!-- Is decoration active -->
+                                <!-- Is horse active -->
                                 <div class="input-group mb-3">
                                     <h5>
                                         <div class="form-check form-switch">
@@ -76,11 +73,10 @@
                                         </div>
                                     </h5>
                                     <span class="text-black-50"
-                                          id="certDecorationActivity"
+                                          id="horseActivity"
                                           th:text="#{menu_admin.common.table.activity}">
                                     </span>
                                 </div>
-
                             </div>
                             <div class="modal-footer">
                                 <button type="button"
@@ -102,9 +98,8 @@
     </div>
 
 
-    <!-- Table -->
     <div class="row mx-2 mt-2">
-        <div th:with="condition=${certificateDecorationList != null and !certificateDecorationList.isEmpty()}">
+        <div th:with="condition=${horseList != null and !horseList.isEmpty()}">
             <div th:if="${condition}">
                 <table class="table">
                     <thead>
@@ -112,105 +107,104 @@
                         <th class="text-center align-middle">№</th>
                         <th class="text-center align-middle" th:text="#{menu_admin.common.table.name}"></th>
                         <th class="text-center align-middle" th:text="#{menu_admin.common.table.description}"></th>
-                        <th class="text-center align-middle"><i class="bi bi-coin icon_size_24"></i></th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.photo_file}"></th>
                         <th class="text-center align-middle" th:text="#{menu_admin.common.table.activity}"></th>
                         <th class="text-center align-middle"><i class="bi bi-sliders icon_size_24"></i></th>
                         <th class="text-center align-middle"><i class="bi bi-x-lg icon_size_24"></i></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <th:block th:each="decoration, state : ${certificateDecorationList}">
+                    <th:block th:each="horse, state : ${horseList}">
                         <tr>
                             <td class="text-center align-middle" th:text="${state.index+1}"></td>
-                            <td class="text-center align-middle" th:text="${decoration.name}"></td>
-                            <td class="align-middle" th:text="${decoration.description}"></td>
-                            <td class="text-center align-middle" th:text="${decoration.price}"></td>
+                            <td class="text-center align-middle" th:text="${horse.name}"></td>
+                            <td class="align-middle" th:text="${horse.description}"></td>
                             <td class="text-center align-middle">
-                                <i th:if="${decoration.activity}"
-                                       class="bi bi-check-circle-fill text-success icon_size_24"></i>
-                                <i th:unless="${decoration.activity}"
-                                       class="bi bi-x-circle-fill text-danger icon_size_24"></i>
+                                <img th:src="@{${'/img/'+horse.photoFile}}"
+                                     class="img-fluid" alt="">
+                            </td>
+                            <td class="text-center align-middle">
+                                <i th:if="${horse.activity}"
+                                   class="bi bi-check-circle-fill text-success icon_size_24"></i>
+                                <i th:unless="${horse.activity}"
+                                   class="bi bi-x-circle-fill text-danger icon_size_24"></i>
                             </td>
 
                             <!-- Form for editing item -->
-                            <form th:action="@{/admin/certificatedecoration/}" th:method="post"
-                                  th:object="${decoration}">
+                            <form th:action="@{/admin/horse/}" th:method="post"
+                                  th:object="${horse}">
                                 <td class="text-center align-middle">
                                     <button type="button"
                                             class="btn btn-outline-primary"
                                             data-bs-toggle="modal"
-                                            th:attr="data-bs-target='#editcertificatedecoration'+${decoration.id}">
-                                            <i class="bi bi-pencil-square icon_size_20"></i>
+                                            th:attr="data-bs-target='#edithorse'+${horse.id}">
+                                        <i class="bi bi-pencil-square icon_size_20"></i>
                                     </button>
                                 </td>
 
                                 <!-- Modal for edit decoration -->
-                                <div class="modal fade" th:id="${'editcertificatedecoration'+decoration.id}" tabindex="-1"
-                                     role="dialog" aria-labelledby="exampleModalLabel02" aria-hidden="true">
+                                <div class="modal fade" th:id="${'edithorse'+horse.id}" tabindex="-1"
+                                     role="dialog" aria-labelledby="exampleModalLabel17" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel02" th:text="#{common.button.editing}"></h5>
+                                                <h5 class="modal-title" id="exampleModalLabel17" th:text="#{common.button.editing}"></h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
 
-                                                <!-- CertificateDecoration id -->
+                                                <!-- Horse id -->
                                                 <input type="hidden"
-                                                       th:value="${decoration.id}"
+                                                       th:value="${horse.id}"
                                                        name="id">
 
-                                                <!-- CertificateDecoration name -->
+                                                <!-- Horse name -->
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text text-black-50"
                                                           th:text="#{menu_admin.common.table.name}">
                                                     </span>
                                                     <input type="text"
                                                            class="form-control"
-                                                           th:value="${decoration.name}"
+                                                           th:value="${horse.name}"
                                                            name="name">
                                                 </div>
 
-                                                <!-- CertificateDecoration description -->
+                                                <!-- Horse description -->
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text text-black-50"
-                                                            th:text="#{menu_admin.common.table.description}">
+                                                          th:text="#{menu_admin.common.table.description}">
                                                     </span>
                                                     <textarea class="form-control"
                                                               aria-label="With textarea"
-                                                              th:text="${decoration.description}"
+                                                              th:text="${horse.description}"
                                                               rows="5"
                                                               name="description"></textarea>
                                                 </div>
 
-                                                <!-- CertificateDecoration Price -->
+                                                <!-- Horse photoFile -->
                                                 <div class="input-group mb-3">
-
                                                     <span class="input-group-text text-black-50"
-                                                          id="certDecorationPrice"
-                                                          th:text="#{menu_admin.common.table.price}">
+                                                        th:text="#{menu_admin.common.table.photo_file}">
                                                     </span>
                                                     <input type="text"
                                                            class="form-control"
-                                                           th:value="${decoration.price}"
-                                                           name="price"
-                                                           th:aria-label="${decoration.price}"
-                                                           aria-describedby="certDecorationPrice">
+                                                           th:value="${horse.photoFile}"
+                                                           name="photoFile">
                                                 </div>
 
-                                                <!-- Is decoration active -->
+                                                <!-- Is horse active -->
                                                 <div class="input-group mb-3">
                                                     <h5>
                                                         <div class="form-check form-switch">
                                                             <input type="checkbox"
                                                                    class="form-check-input"
-                                                                   th:checked="${decoration.activity}"
+                                                                   th:checked="${horse.activity}"
                                                                    name="activity">
                                                         </div>
                                                     </h5>
                                                     <span class="text-black-50"
-                                                          id="certDecorationActivity"
+                                                          id="horseIsActive"
                                                           th:text="#{menu_admin.common.table.activity}">
                                                     </span>
                                                 </div>
@@ -233,84 +227,79 @@
                             </form>
 
 
-
                             <!-- Form for deleting item -->
-                            <form th:action="@{/admin/certificatedecoration/delete}" th:method="post"
-                                  th:object="${decoration}">
+                            <form th:action="@{/admin/horse/delete}" th:method="post"
+                                  th:object="${horse}">
                                 <td class="text-center align-middle">
                                     <button type="button"
                                             class="btn btn-outline-danger"
                                             data-bs-toggle="modal"
-                                            th:attr="data-bs-target='#deletecertificatedecoration'+${decoration.id}">
+                                            th:attr="data-bs-target='#deletehorse'+${horse.id}">
                                         <i class="bi bi-trash3 icon_size_20"></i>
                                     </button>
                                 </td>
 
-                                <!-- Modal for delete decoration -->
-                                <div class="modal fade" th:id="${'deletecertificatedecoration'+decoration.id}" tabindex="-1"
-                                     role="dialog" aria-labelledby="exampleModalLabel08" aria-hidden="true">
+                                <!-- Modal for delete horse -->
+                                <div class="modal fade" th:id="${'deletehorse'+horse.id}" tabindex="-1"
+                                     role="dialog" aria-labelledby="exampleModalLabel18" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel08" th:text="#{common.button.deleting}"></h5>
+                                                <h5 class="modal-title" id="exampleModalLabel18" th:text="#{common.button.deleting}"></h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
 
-                                                <!-- CertificateDecoration id -->
+                                                <!-- Horse id -->
                                                 <input type="hidden"
-                                                       th:value="${decoration.id}"
+                                                       th:value="${horse.id}"
                                                        name="id">
 
-                                                <!-- CertificateDecoration name -->
+                                                <!-- Horse name -->
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text text-black-50"
                                                           th:text="#{menu_admin.common.table.name}">
                                                     </span>
                                                     <input type="text"
                                                            class="form-control"
-                                                           th:value="${decoration.name}"
+                                                           th:value="${horse.name}"
                                                            name="name"
                                                            disabled>
                                                 </div>
 
-                                                <!-- CertificateDecoration description -->
+                                                <!-- Horse description -->
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text text-black-50"
                                                           th:text="#{menu_admin.common.table.description}">
                                                     </span>
                                                     <textarea class="form-control"
                                                               aria-label="With textarea"
-                                                              th:text="${decoration.description}"
+                                                              th:text="${horse.description}"
                                                               rows="5"
                                                               name="description"
                                                               disabled></textarea>
                                                 </div>
 
-                                                <!-- CertificateDecoration Price -->
+                                                <!-- Horse photoFile -->
                                                 <div class="input-group mb-3">
-
                                                     <span class="input-group-text text-black-50"
-                                                          id="certDecorationPrice"
-                                                          th:text="#{menu_admin.common.table.price}">
+                                                          th:text="#{menu_admin.common.table.photo_file}">
                                                     </span>
                                                     <input type="text"
                                                            class="form-control"
-                                                           th:value="${decoration.price}"
-                                                           name="price"
-                                                           th:aria-label="${decoration.price}"
-                                                           aria-describedby="certDecorationPrice"
-                                                           disabled>
+                                                           th:value="${horse.photoFile}"
+                                                           disabled
+                                                           name="photoFile">
                                                 </div>
 
-                                                <!-- Is decoration active -->
+                                                <!-- Is horse active -->
                                                 <div class="input-group mb-3">
                                                     <h5>
                                                         <div class="form-check form-switch">
                                                             <input type="checkbox"
                                                                    class="form-check-input"
-                                                                   th:checked="${decoration.activity}"
+                                                                   th:checked="${horse.activity}"
                                                                    name="activity"
                                                                    disabled>
                                                         </div>

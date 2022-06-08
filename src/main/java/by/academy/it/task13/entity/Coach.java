@@ -39,8 +39,6 @@ public class Coach {
     @Column(length = 2000)
     private String description;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "photo_id")
-    @OnDelete(action = OnDeleteAction.NO_ACTION)
-    private Photo photo;
+    @Column(nullable = false, length = 50)
+    private String photoFile;
 }

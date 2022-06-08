@@ -15,7 +15,7 @@
                     <a class="btn btn-outline-dark dropdown-toggle"
                        href="#" role="button" id="dropdownMenuLink"
                        data-bs-toggle="dropdown" aria-expanded="false"
-                       th:utext="#{menu_user.certificate.choose_certificate_type}">
+                       th:text="#{menu_user.certificate.choose_certificate_type}">
                     </a>
 
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -23,7 +23,7 @@
                             <form method="get" th:action="@{'/certificate/{id}' (id=${certificateType.id})}">
                                 <li>
                                     <button class="dropdown-item"
-                                            th:utext="${certificateType.name}">
+                                            th:text="${certificateType.name}">
                                     </button>
                                 </li>
                             </form>
@@ -31,7 +31,7 @@
                         <form method="get" th:action="@{/certificate}">
                             <li>
                                 <button class="dropdown-item"
-                                        th:utext="#{common.button.all}">
+                                        th:text="#{common.button.all}">
                                 </button>
                             </li>
                         </form>
@@ -54,7 +54,7 @@
                              data-bs-placement="top"
                              th:attr="title=${certificate.description}">
                         <div class="card-body">
-                            <h5 class="card-title" th:utext="${certificate.name}"></h5>
+                            <h5 class="card-title" th:text="${certificate.name}"></h5>
                             <!--                            <p class="card-text">Some quick example text to build on the card title and make up the
                                                             bulk of the card's content.</p>-->
                         </div>

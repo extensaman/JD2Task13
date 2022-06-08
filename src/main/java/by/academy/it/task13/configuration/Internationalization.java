@@ -13,7 +13,7 @@ import java.util.Locale;
 @Configuration
 public class Internationalization implements WebMvcConfigurer {
 
-    public static final String LANGUAGE = "language";
+    public static final String LANGUAGE = "lang";
 
     @Bean
     public LocaleResolver localeResolver(){
