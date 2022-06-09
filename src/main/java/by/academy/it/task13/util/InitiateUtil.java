@@ -3,10 +3,14 @@ package by.academy.it.task13.util;
 import by.academy.it.task13.entity.Certificate;
 import by.academy.it.task13.entity.CertificateDecoration;
 import by.academy.it.task13.entity.CertificateType;
+import by.academy.it.task13.entity.Coach;
+import by.academy.it.task13.entity.Horse;
 import by.academy.it.task13.entity.PhotoSession;
 import by.academy.it.task13.service.CertificateDecorationService;
 import by.academy.it.task13.service.CertificateService;
 import by.academy.it.task13.service.CertificateTypeService;
+import by.academy.it.task13.service.CoachService;
+import by.academy.it.task13.service.HorseService;
 import by.academy.it.task13.service.PhotoSessionService;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -37,6 +41,10 @@ public class InitiateUtil implements CommandLineRunner {
     private final CertificateDecorationService certificateDecorationService;
     @Autowired
     private final PhotoSessionService photoSessionService;
+    @Autowired
+    private final HorseService horseService;
+    @Autowired
+    private final CoachService coachService;
 
     public static String[] getImageFileList() {
         return imageFileList;
@@ -278,5 +286,178 @@ public class InitiateUtil implements CommandLineRunner {
                         photoSession05));
         LOGGER.info("Initialization of 'PhotoSession' done");
 
+        Horse horse01 = Horse.builder()
+                .activity(true)
+                .name("Грей")
+                .description("Белазим (Зимогор — 20647 Биалка), серый мерин, спортивная помесь русской верховой и орловской рысистой породы, Курский конный завод")
+                .photoFile("horse_01.jpg")
+                .build();
+        Horse horse02 = Horse.builder()
+                .activity(true)
+                .name("Рада")
+                .description("Рада (621 Туляк — 1421 Орхидея), вороная кобыла владимирской тяжеловозной породы, записана в ГПК, Линия Литого, Гаврило-Посадский конный завод")
+                .photoFile("horse_02.jpg")
+                .build();
+        Horse horse03 = Horse.builder()
+                .activity(true)
+                .name("Кориолис")
+                .description("Кориолис (Конкорд — Олимпия), серый мерин голштинской породы")
+                .photoFile("horse_03.jpg")
+                .build();
+        Horse horse04 = Horse.builder()
+                .activity(true)
+                .name("Буся")
+                .description("Буся — рыжая кобыла, спортивная помесь")
+                .photoFile("horse_04.jpg")
+                .build();
+        Horse horse05 = Horse.builder()
+                .activity(true)
+                .name("Баронесса")
+                .description("Баронесса (Baron fon Droft — Bayern Beat), серая кобыла першеронской породы, 2014-го года рождения")
+                .photoFile("horse_05.jpg")
+                .build();
+        Horse horse06 = Horse.builder()
+                .activity(true)
+                .name("Гривка")
+                .description("Гривка — Голштино — будённовская кобыла светло-ряжей масти")
+                .photoFile("horse_06.jpg")
+                .build();
+        Horse horse07 = Horse.builder()
+                .activity(true)
+                .name("Дейзи")
+                .description("Дейзи — гнедая кобыла будённовской породы")
+                .photoFile("horse_07.jpg")
+                .build();
+        Horse horse08 = Horse.builder()
+                .activity(true)
+                .name("Санни")
+                .description("Санни — вороная кобыла русской верховой породы")
+                .photoFile("horse_08.jpg")
+                .build();
+        Horse horse09 = Horse.builder()
+                .activity(true)
+                .name("Игрушка")
+                .description("Игрушка — пегая кобыла")
+                .photoFile("horse_09.jpg")
+                .build();
+        Horse horse10 = Horse.builder()
+                .activity(true)
+                .name("Марти")
+                .description("Марти — гнедая кобыла арабо-латвийской породы")
+                .photoFile("horse_10.jpg")
+                .build();
+        Horse horse11 = Horse.builder()
+                .activity(true)
+                .name("Дейв")
+                .description("Дейв — рыжий жеребец владимирской тяжеловозной породы")
+                .photoFile("horse_11.jpg")
+                .build();
+        Horse horse12 = Horse.builder()
+                .activity(true)
+                .name("Зая")
+                .description("Зая — вороная кобыла будённовской породы")
+                .photoFile("horse_12.jpg")
+                .build();
+        Horse horse13 = Horse.builder()
+                .activity(true)
+                .name("Лори")
+                .description("Лори — Голштино — будённовская кобыла светло-рыжей масти")
+                .photoFile("horse_13.jpg")
+                .build();
+        Horse horse14 = Horse.builder()
+                .activity(true)
+                .name("Бак")
+                .description("Бак — гнедой мерин орловской рысистой породы")
+                .photoFile("horse_14.jpg")
+                .build();
+        Horse horse15 = Horse.builder()
+                .activity(true)
+                .name("Тайга")
+                .description("Тайга — гнедая кобыла тяжеловозной пород")
+                .photoFile("horse_15.jpg")
+                .build();
+        Horse horse16 = Horse.builder()
+                .activity(true)
+                .name("Кисси")
+                .description("Кисси — соловая пони Уэльской породы")
+                .photoFile("horse_16.jpg")
+                .build();
+        Horse horse17 = Horse.builder()
+                .activity(true)
+                .name("Марсик")
+                .description("Марсик — рыжий мерин породы шетлендский пони")
+                .photoFile("horse_17.jpg")
+                .build();
+        Horse horse18 = Horse.builder()
+                .activity(true)
+                .name("Снежок")
+                .description("Снежок — серый мерин, Богатырский пони")
+                .photoFile("horse_18.jpg")
+                .build();
+        horseService.saveAll(
+                List.of(horse01,
+                        horse02,
+                        horse03,
+                        horse04,
+                        horse05,
+                        horse06,
+                        horse07,
+                        horse08,
+                        horse09,
+                        horse10,
+                        horse11,
+                        horse12,
+                        horse13,
+                        horse14,
+                        horse15,
+                        horse16,
+                        horse17,
+                        horse18));
+        LOGGER.info("Initialization of 'Horse' done");
+
+        Coach coach01 = Coach.builder()
+                .activity(true)
+                .name("Петров Иван Александрович")
+                .description("Чемпион и бронзовый призёр Олимпийских игр1980 года, семикратный чемпион СССР, серебряный призёр чемпионата Европы 1979, бронзовый призёр Чемпионата мира 1978, чемпион Спартакиады народов СССР, заслуженный мастер спорта, заслуженный деятель физической культуры, создатель школы верховой езды в Белорусской ССР, тренер чемпионов СССР, тренер чемпионов спартакиады народов СССР.")
+                .photoFile("coach_01.jpg")
+                .build();
+        Coach coach02 = Coach.builder()
+                .activity(true)
+                .name("Леонов Артур Габитович")
+                .description("Тренер преподаватель по конному спорту 1 категории, мастер спорта СССР. Неоднократный участник и призер Чемпионатов Башкирии и России по троеборью и конкуру. Обладатель командного кубка России по конкуру, участник чемпионата СССР по троеборью. Под руководством Артур Габитовича всадники становились призёрами Региональной России, Федеральных округов РФ.")
+                .photoFile("coach_02.jpg")
+                .build();
+        Coach coach03 = Coach.builder()
+                .activity(true)
+                .name("Ольга Карамазова")
+                .description("Mастер спорта по конному троеборью, «Лучший спортсмен по троеборью 2012 года”, участница Чемпионата Европы во Франции (Haras de Jardy) 2013г., тренер-преподаватель по физической культуре и конному спорту (МГАФК).")
+                .photoFile("coach_03.jpg")
+                .build();
+        Coach coach04 = Coach.builder()
+                .activity(true)
+                .name("Антонина Быкова")
+                .description("педагог-психолог (МПГУ); инструктор с двадцатилетним опытом работы; дипломированный тренер по верховой езде (ВНИИК); ученица Ивана Александровича Петрова; фотограф; автор тематических статей по конному спорту (журналы «Золотой Мустанг», «Конный Парк»), руководитель клуба")
+                .photoFile("coach_04.jpg")
+                .build();
+        Coach coach05 = Coach.builder()
+                .activity(true)
+                .name("Алина Прохорик")
+                .description("Тренер-преподаватель по физической культуре и конному спорту (МГАФК); тренер-инструктор по верховой езде, играющий тренер, специализация: конкур.")
+                .photoFile("coach_05.jpg")
+                .build();
+        Coach coach06 = Coach.builder()
+                .activity(true)
+                .name("Светлана Акирова")
+                .description("Клинический психолог (МГППУ); иппотерапевт («Наш Солнечный мир»); тренер-инструктор по верховой езде.")
+                .photoFile("coach_06.jpg")
+                .build();
+        coachService.saveAll(
+                List.of(coach01,
+                        coach02,
+                        coach03,
+                        coach04,
+                        coach05,
+                        coach06));
+        LOGGER.info("Initialization of 'Coach' done");
     }
 }

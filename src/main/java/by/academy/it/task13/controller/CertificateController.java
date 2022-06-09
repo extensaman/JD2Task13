@@ -2,7 +2,10 @@ package by.academy.it.task13.controller;
 
 import by.academy.it.task13.controller.admin.AdminCertificateController;
 import by.academy.it.task13.entity.Certificate;
+import by.academy.it.task13.entity.CertificateDecoration;
 import by.academy.it.task13.entity.CertificateType;
+import by.academy.it.task13.entity.Ordering;
+import by.academy.it.task13.service.CertificateDecorationService;
 import by.academy.it.task13.service.CertificateService;
 import by.academy.it.task13.service.CertificateTypeService;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -29,6 +34,9 @@ public class CertificateController {
 
     @Autowired
     private final CertificateTypeService certificateTypeService;
+
+    @Autowired
+    private final CertificateDecorationService certificateDecorationService;
 
     @GetMapping
     public String getCertificatePage(Model model) {
@@ -61,6 +69,19 @@ public class CertificateController {
         model.addAttribute(Constant.TITLE,
                 Constant.TITLE_CERTIFICATE_MESSAGE);
         return Constant.CERTIFICATE_PAGE;
+    }
+
+    @PostMapping(Constant.ORDER_MAPPING)
+    public String orderCertificate(@ModelAttribute Certificate certificate, Model model) {
+        List<CertificateDecoration> activeCertificateDecorationList = certificateDecorationService.findAll().stream()
+                .filter(CertificateDecoration::isActivity)
+                .collect(Collectors.toList());
+        //model.addAttribute(Constant.CERTIFICATE, certificate);
+        model.addAttribute(Constant.ACTIVE_CERTIFICATE_DECORATION_LIST, activeCertificateDecorationList);
+        model.addAttribute(Constant.CERTIFICATE_ORDER, new Ordering());
+        model.addAttribute(Constant.TITLE,
+                Constant.TITLE_CERTIFICATE_ORDER_MESSAGE);
+        return Constant.CERTIFICATE_ORDER_PAGE;
     }
 
     private List<CertificateType> getActiveCertificateTypeList() {

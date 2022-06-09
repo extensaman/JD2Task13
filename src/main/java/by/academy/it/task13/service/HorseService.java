@@ -1,6 +1,7 @@
 package by.academy.it.task13.service;
 
 import by.academy.it.task13.entity.Horse;
+import by.academy.it.task13.entity.PhotoSession;
 import by.academy.it.task13.repo.HorseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +26,10 @@ public class HorseService {
     public void delete(Horse horse){
         repository.delete(horse);
     }
+
+    public void saveAll(List<Horse> list) {
+        repository.saveAll(list);
+    }
+
 
 }
