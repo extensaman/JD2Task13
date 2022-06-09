@@ -189,6 +189,160 @@ public class InitiateUtil implements CommandLineRunner {
                 .photographerIncluded(false)
                 .photoFile("certificate_single_10.jpg")
                 .build();
+        Certificate certificate11 = Certificate.builder()
+                .activity(true)
+                .certificateType(certificateType02)
+                .name("Романтика")
+                .description("Катание на лошади для пары (индивидуальное занятие верховой ездой для двоих)")
+                .horseCount(2)
+                .duration(1.0)
+                .price(BigDecimal.valueOf(100.0))
+                .photographerIncluded(false)
+                .photoFile("certificate_family_01.jpg")
+                .build();
+        Certificate certificate12 = Certificate.builder()
+                .activity(true)
+                .certificateType(certificateType02)
+                .name("Романтика +")
+                .description("Катание на лошади для пары (индивидуальное занятие верховой ездой) + часовая аренда лошади для самостоятельной фотосессии (в сопровождении ассистента)")
+                .horseCount(2)
+                .duration(2.0)
+                .price(BigDecimal.valueOf(130.0))
+                .photographerIncluded(false)
+                .photoFile("certificate_family_02.jpg")
+                .build();
+        Certificate certificate13 = Certificate.builder()
+                .activity(true)
+                .certificateType(certificateType02)
+                .name("Романтика Леса")
+                .description("Индивидуальная программа для двоих, включающая получасовой инструктаж (30 минут обучение) и часовую прогулку по лесу (60 минут прогулка) с фотографиями в лесу на телефон/фотоаппарат участников")
+                .horseCount(2)
+                .duration(1.5)
+                .price(BigDecimal.valueOf(140.0))
+                .photographerIncluded(false)
+                .photoFile("certificate_family_03.jpg")
+                .build();
+        Certificate certificate14 = Certificate.builder()
+                .activity(true)
+                .certificateType(certificateType02)
+                .name("Созвездие — 2")
+                .description("Верховая езда для пары, друзей, семьи (два часа — для двоих)")
+                .horseCount(2)
+                .duration(1.0)
+                .price(BigDecimal.valueOf(92.0))
+                .photographerIncluded(false)
+                .photoFile("certificate_family_04.jpg")
+                .build();
+        Certificate certificate15 = Certificate.builder()
+                .activity(true)
+                .certificateType(certificateType02)
+                .name("Кантри — 1")
+                .description("Фотосессия с лошадью для пары")
+                .horseCount(1)
+                .duration(1.0)
+                .price(BigDecimal.valueOf(220.0))
+                .photographerIncluded(true)
+                .photoFile("certificate_family_05.jpg")
+                .build();
+        Certificate certificate16 = Certificate.builder()
+                .activity(true)
+                .certificateType(certificateType02)
+                .name("Кантри — 2")
+                .description("Фотосессия с двумя лошадьми для пары")
+                .horseCount(2)
+                .duration(1.0)
+                .price(BigDecimal.valueOf(260.0))
+                .photographerIncluded(true)
+                .photoFile("certificate_family_06.jpg")
+                .build();
+        Certificate certificate17 = Certificate.builder()
+                .activity(true)
+                .certificateType(certificateType02)
+                .name("Рандеву – 1")
+                .description("Индивидуальное занятие верховой ездой для пары + фотосессия с одной лошадью с фотографом клуба")
+                .horseCount(2)
+                .duration(2.0)
+                .price(BigDecimal.valueOf(300.0))
+                .photographerIncluded(true)
+                .photoFile("certificate_family_07.jpg")
+                .build();
+        Certificate certificate18 = Certificate.builder()
+                .activity(true)
+                .certificateType(certificateType02)
+                .name("Рандеву – 2")
+                .description("Индивидуальное занятие верховой ездой для пары + фотосессия с двумя лошадьми и фотографом клуба")
+                .horseCount(2)
+                .duration(2.0)
+                .price(BigDecimal.valueOf(320.0))
+                .photographerIncluded(true)
+                .photoFile("certificate_family_08.jpg")
+                .build();
+        Certificate certificate19 = Certificate.builder()
+                .activity(true)
+                .certificateType(certificateType02)
+                .name("Богатырский")
+                .description("Обучение 60 мин плюс 60 мин прогулка в лес для пары, фотосессия с двумя лошадьми")
+                .horseCount(2)
+                .duration(3.0)
+                .price(BigDecimal.valueOf(450.0))
+                .photographerIncluded(true)
+                .photoFile("certificate_family_09.png")
+                .build();
+        Certificate certificate20 = Certificate.builder()
+                .activity(true)
+                .certificateType(certificateType03)
+                .name("Созвездие — 3")
+                .description("Верховая езда для компании, семьи (три часа — для троих)")
+                .horseCount(3)
+                .duration(1.0)
+                .price(BigDecimal.valueOf(138.0))
+                .photographerIncluded(false)
+                .photoFile("certificate_big_family_01.jpg")
+                .build();
+        Certificate certificate21 = Certificate.builder()
+                .activity(true)
+                .certificateType(certificateType03)
+                .name("Созвездие — 4")
+                .description("Верховая езда для компании, семьи (четыре часа — 4 занятия)")
+                .horseCount(4)
+                .duration(1.0)
+                .price(BigDecimal.valueOf(184.0))
+                .photographerIncluded(false)
+                .photoFile("certificate_big_family_02.jpg")
+                .build();
+        Certificate certificate22 = Certificate.builder()
+                .activity(true)
+                .certificateType(certificateType04)
+                .name("Радость")
+                .description("Катание на лошади или пони для ребёнка (индивидуальное занятие верховой ездой)")
+                .horseCount(1)
+                .duration(1.0)
+                .price(BigDecimal.valueOf(52.0))
+                .photographerIncluded(false)
+                .photoFile("certificate_child_01.jpg")
+                .build();
+        Certificate certificate23 = Certificate.builder()
+                .activity(true)
+                .certificateType(certificateType04)
+                .name("Радость +")
+                .description("Катание на лошади или пони для ребёнка (индивидуальное занятие верховой ездой) + часовая арнеда лошади для самостоятельной фотосессии (в сопровождении ассистента)")
+                .horseCount(1)
+                .duration(2.0)
+                .price(BigDecimal.valueOf(80.0))
+                .photographerIncluded(false)
+                .photoFile("certificate_child_02.jpg")
+                .build();
+        Certificate certificate24 = Certificate.builder()
+                .activity(true)
+                .certificateType(certificateType04)
+                .name("Драйв-пони")
+                .description("Курс занятий на пони из 6 занятий по 30мин для ребёнка (индивидуальное занятие верховой ездой)")
+                .horseCount(1)
+                .duration(3.0)
+                .price(BigDecimal.valueOf(108.0))
+                .photographerIncluded(false)
+                .photoFile("certificate_child_03.jpg")
+                .build();
         certificateService.saveAll(
                 List.of(certificate01,
                         certificate02,
@@ -199,7 +353,21 @@ public class InitiateUtil implements CommandLineRunner {
                         certificate07,
                         certificate08,
                         certificate09,
-                        certificate10));
+                        certificate10,
+                        certificate11,
+                        certificate12,
+                        certificate13,
+                        certificate14,
+                        certificate15,
+                        certificate16,
+                        certificate17,
+                        certificate18,
+                        certificate19,
+                        certificate20,
+                        certificate21,
+                        certificate22,
+                        certificate23,
+                        certificate24));
         LOGGER.info("Initialization of 'Certificate' done");
 
         CertificateDecoration certificateDecoration01 = CertificateDecoration.builder()

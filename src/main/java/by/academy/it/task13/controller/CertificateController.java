@@ -40,8 +40,9 @@ public class CertificateController {
 
     @GetMapping
     public String getCertificatePage(Model model) {
+        // TODO Need make specific method in Repository
         List<Certificate> activeCertificateList = certificateService.findAll().stream()
-                .filter(Certificate::isActivity)
+                .filter(certificate -> certificate.isActivity() && certificate.getCertificateType().isActivity())
                 .collect(Collectors.toList());
         List<CertificateType> activeCertificateTypeList = getActiveCertificateTypeList();
         model.addAttribute(Constant.ACTIVE_CERTIFICATE_LIST, activeCertificateList);
