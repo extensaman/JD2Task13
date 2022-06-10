@@ -1,6 +1,7 @@
 package by.academy.it.task13.controller;
 
 import by.academy.it.task13.controller.admin.AdminCertificateController;
+import by.academy.it.task13.dto.CoachDto;
 import by.academy.it.task13.entity.Coach;
 import by.academy.it.task13.service.CoachService;
 import lombok.RequiredArgsConstructor;
@@ -28,10 +29,8 @@ public class CoachController {
     public String getActiveCoachPage(Model model) {
         model.addAttribute(Constant.TITLE,
                 Constant.TITLE_COACH_MESSAGE);
-        List<Coach> activeHorseList = coachService.findAll().stream()
-                .filter(Coach::isActivity)
-                .collect(Collectors.toList());
-        model.addAttribute(Constant.ACTIVE_COACH_LIST, activeHorseList);
+        List<CoachDto> activeCoachList = coachService.findAllActiveCoach();
+        model.addAttribute(Constant.ACTIVE_COACH_LIST, activeCoachList);
         return Constant.COACH_PAGE;
     }
 }

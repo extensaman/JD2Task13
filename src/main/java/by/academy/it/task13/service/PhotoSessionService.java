@@ -1,33 +1,15 @@
 package by.academy.it.task13.service;
 
-import by.academy.it.task13.entity.Certificate;
 import by.academy.it.task13.entity.PhotoSession;
-import by.academy.it.task13.repo.PhotoSessionRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-@RequiredArgsConstructor
-public class PhotoSessionService {
-    @Autowired
-    private final PhotoSessionRepository repository;
+public interface PhotoSessionService {
+    List<PhotoSession> findAll();
 
-    public List<PhotoSession> findAll() {
-        return repository.findAll();
-    }
+    void saveAll(List<PhotoSession> list);
 
-    public void saveAll(List<PhotoSession> list) {
-        repository.saveAll(list);
-    }
+    PhotoSession save(PhotoSession photoSession);
 
-    public PhotoSession save(PhotoSession photoSession) {
-        return repository.save(photoSession);
-    }
-
-    public void delete(PhotoSession photoSession) {
-        repository.delete(photoSession);
-    }
+    void delete(PhotoSession photoSession);
 }

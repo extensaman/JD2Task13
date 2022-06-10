@@ -15,8 +15,8 @@ import by.academy.it.task13.service.PhotoSessionService;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -24,31 +24,25 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class InitiateUtil implements CommandLineRunner {
 
     private static final Logger LOGGER = LogManager.getLogger(InitiateUtil.class);
-    private static final String[] imageFileList = new File("./src/main/resources/static/img").list();
 
-    @Autowired
+
     private final CertificateTypeService certificateTypeService;
-    @Autowired
-    private final CertificateService certificateService;
-    @Autowired
-    private final CertificateDecorationService certificateDecorationService;
-    @Autowired
-    private final PhotoSessionService photoSessionService;
-    @Autowired
-    private final HorseService horseService;
-    @Autowired
-    private final CoachService coachService;
 
-    public static String[] getImageFileList() {
-        return imageFileList;
-    }
+    private final CertificateService certificateService;
+
+    private final CertificateDecorationService certificateDecorationService;
+
+    private final PhotoSessionService photoSessionService;
+
+    private final HorseService horseService;
+
+    private final CoachService coachService;
 
     @Override
     public void run(String[] args) throws Exception {

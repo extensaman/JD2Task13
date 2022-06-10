@@ -28,6 +28,7 @@ public class AdminConstant {
     public static final String CERTIFICATE_DECORATION_LIST = "certificateDecorationList";
     public static final String HORSE_LIST = "horseList";
     public static final String COACH_LIST = "coachList";
+    public static final String IMAGE_FILE_LIST = "imageFileList";
     public static final String PHOTO_SESSION_LIST = "photosessionList";
     public static final String GIFT_CERTIFICATE_LIST = "giftCertificateList";
     public static final String DELETE_MAPPING = "/delete";

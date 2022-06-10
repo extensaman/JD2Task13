@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.Objects;
 
 @Builder
 @NoArgsConstructor
@@ -43,4 +44,17 @@ public class Ordering {
     @ManyToOne (cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "delivery_id")
     private CertificateDecoration certificateDecoration;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ordering ordering = (Ordering) o;
+        return Objects.equals(id, ordering.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

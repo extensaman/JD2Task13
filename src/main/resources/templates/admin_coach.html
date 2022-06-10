@@ -10,7 +10,7 @@
     <div class="row mx-2 mt-5">
         <div class='d-flex justify-content-start'>
             <form th:action="@{/admin/coach/}" th:method="post"
-                  th:object="${coach}">
+                  th:object="${coachDto}">
                 <button type="button"
                         class="btn btn-outline-primary"
                         data-bs-toggle="modal"
@@ -114,36 +114,36 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <th:block th:each="coach, state : ${coachList}">
+                    <th:block th:each="coachDto, state : ${coachList}">
                         <tr>
                             <td class="text-center align-middle" th:text="${state.index+1}"></td>
-                            <td class="text-center align-middle" th:text="${coach.name}"></td>
-                            <td class="align-middle" th:text="${coach.description}"></td>
+                            <td class="text-center align-middle" th:text="${coachDto.name}"></td>
+                            <td class="align-middle" th:text="${coachDto.description}"></td>
                             <td class="text-center align-middle">
-                                <img th:src="@{${'/img/'+coach.photoFile}}"
+                                <img th:src="@{${'/img/'+coachDto.photoFile}}"
                                      class="img-fluid" alt="">
                             </td>
                             <td class="text-center align-middle">
-                                <i th:if="${coach.activity}"
+                                <i th:if="${coachDto.activity}"
                                    class="bi bi-check-circle-fill text-success icon_size_24"></i>
-                                <i th:unless="${coach.activity}"
+                                <i th:unless="${coachDto.activity}"
                                    class="bi bi-x-circle-fill text-danger icon_size_24"></i>
                             </td>
 
                             <!-- Form for editing item -->
                             <form th:action="@{/admin/coach/}" th:method="post"
-                                  th:object="${coach}">
+                                  th:object="${coachDto}">
                                 <td class="text-center align-middle">
                                     <button type="button"
                                             class="btn btn-outline-primary"
                                             data-bs-toggle="modal"
-                                            th:attr="data-bs-target='#editcoach'+${coach.id}">
+                                            th:attr="data-bs-target='#editcoach'+${coachDto.id}">
                                         <i class="bi bi-pencil-square icon_size_20"></i>
                                     </button>
                                 </td>
 
                                 <!-- Modal for edit decoration -->
-                                <div class="modal fade" th:id="${'editcoach'+coach.id}" tabindex="-1"
+                                <div class="modal fade" th:id="${'editcoach'+coachDto.id}" tabindex="-1"
                                      role="dialog" aria-labelledby="exampleModalLabel21" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -156,7 +156,7 @@
 
                                                 <!-- Horse id -->
                                                 <input type="hidden"
-                                                       th:value="${coach.id}"
+                                                       th:value="${coachDto.id}"
                                                        name="id">
 
                                                 <!-- Horse name -->
@@ -166,7 +166,7 @@
                                                     </span>
                                                     <input type="text"
                                                            class="form-control"
-                                                           th:value="${coach.name}"
+                                                           th:value="${coachDto.name}"
                                                            name="name">
                                                 </div>
 
@@ -177,7 +177,7 @@
                                                     </span>
                                                     <textarea class="form-control"
                                                               aria-label="With textarea"
-                                                              th:text="${coach.description}"
+                                                              th:text="${coachDto.description}"
                                                               rows="5"
                                                               name="description"></textarea>
                                                 </div>
@@ -189,7 +189,7 @@
                                                     </span>
                                                     <input type="text"
                                                            class="form-control"
-                                                           th:value="${coach.photoFile}"
+                                                           th:value="${coachDto.photoFile}"
                                                            name="photoFile">
                                                 </div>
 
@@ -199,7 +199,7 @@
                                                         <div class="form-check form-switch">
                                                             <input type="checkbox"
                                                                    class="form-check-input"
-                                                                   th:checked="${coach.activity}"
+                                                                   th:checked="${coachDto.activity}"
                                                                    name="activity">
                                                         </div>
                                                     </h5>
@@ -229,18 +229,18 @@
 
                             <!-- Form for deleting item -->
                             <form th:action="@{/admin/coach/delete}" th:method="post"
-                                  th:object="${coach}">
+                                  th:object="${coachDto}">
                                 <td class="text-center align-middle">
                                     <button type="button"
                                             class="btn btn-outline-danger"
                                             data-bs-toggle="modal"
-                                            th:attr="data-bs-target='#deletecoach'+${coach.id}">
+                                            th:attr="data-bs-target='#deletecoach'+${coachDto.id}">
                                         <i class="bi bi-trash3 icon_size_20"></i>
                                     </button>
                                 </td>
 
                                 <!-- Modal for delete coach -->
-                                <div class="modal fade" th:id="${'deletecoach'+coach.id}" tabindex="-1"
+                                <div class="modal fade" th:id="${'deletecoach'+coachDto.id}" tabindex="-1"
                                      role="dialog" aria-labelledby="exampleModalLabel22" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -253,7 +253,7 @@
 
                                                 <!-- Horse id -->
                                                 <input type="hidden"
-                                                       th:value="${coach.id}"
+                                                       th:value="${coachDto.id}"
                                                        name="id">
 
                                                 <!-- Horse name -->
@@ -263,7 +263,7 @@
                                                     </span>
                                                     <input type="text"
                                                            class="form-control"
-                                                           th:value="${coach.name}"
+                                                           th:value="${coachDto.name}"
                                                            name="name"
                                                            disabled>
                                                 </div>
@@ -275,7 +275,7 @@
                                                     </span>
                                                     <textarea class="form-control"
                                                               aria-label="With textarea"
-                                                              th:text="${coach.description}"
+                                                              th:text="${coachDto.description}"
                                                               rows="5"
                                                               name="description"
                                                               disabled></textarea>
@@ -288,7 +288,7 @@
                                                     </span>
                                                     <input type="text"
                                                            class="form-control"
-                                                           th:value="${coach.photoFile}"
+                                                           th:value="${coachDto.photoFile}"
                                                            disabled
                                                            name="photoFile">
                                                 </div>
@@ -299,7 +299,7 @@
                                                         <div class="form-check form-switch">
                                                             <input type="checkbox"
                                                                    class="form-check-input"
-                                                                   th:checked="${coach.activity}"
+                                                                   th:checked="${coachDto.activity}"
                                                                    name="activity"
                                                                    disabled>
                                                         </div>
