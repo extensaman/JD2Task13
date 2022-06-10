@@ -1,18 +1,21 @@
 package by.academy.it.task13.service;
 
+import by.academy.it.task13.dto.CertificateTypeDto;
 import by.academy.it.task13.entity.CertificateType;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface CertificateTypeService {
-    List<CertificateType> findAll();
+    List<CertificateTypeDto> findAll();
 
-    Optional<CertificateType> findById(String id);
+    //Optional<CertificateType> findById(String id);
 
-    void save(CertificateType type);
+    CertificateType saveCertificateTypeAndUpdateAllCertificate(CertificateTypeDto certificateTypeDto);
 
     void saveAll(List<CertificateType> list);
 
-    void delete(CertificateType certificateType);
+    void delete(CertificateTypeDto certificateTypeDto);
+
+    List<CertificateTypeDto> findAllActiveCertificateType();
 }

@@ -1,40 +1,61 @@
 package by.academy.it.task13.service.impl;
 
+import by.academy.it.task13.dto.HorseDto;
 import by.academy.it.task13.entity.Horse;
-import by.academy.it.task13.entity.PhotoSession;
+import by.academy.it.task13.mapper.Mapper;
 import by.academy.it.task13.repo.HorseRepository;
 import by.academy.it.task13.service.HorseService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class HorseServiceImpl implements HorseService {
-    @Autowired
+    private static final Logger LOGGER = LogManager.getLogger(HorseServiceImpl.class);
+
     private final HorseRepository repository;
+    private final Mapper<Horse, HorseDto> mapper;
 
     @Override
-    public List<Horse> findAll(){
-        return repository.findAll();
+    public List<HorseDto> findAll() {
+        LOGGER.info("findAll");
+        List<HorseDto> horseDtos = new ArrayList<>();
+        for (Horse horse : repository.findAll()) {
+            horseDtos.add(mapper.toDto(horse));
+        }
+        return horseDtos;
     }
 
     @Override
-    public Horse save(Horse horse){
-        return repository.save(horse);
+    public List<HorseDto> findAllActiveHorse() {
+        LOGGER.info("findAllActiveHorse");
+        return repository.findHorsesByActivityTrue().stream()
+                .map(mapper::toDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public void delete(Horse horse){
-        repository.delete(horse);
+    public Horse save(HorseDto horseDto) {
+        LOGGER.info("save");
+        return repository.save(mapper.toEntity(horseDto));
     }
 
     @Override
     public void saveAll(List<Horse> list) {
+        LOGGER.info("saveAll");
         repository.saveAll(list);
     }
 
+    @Override
+    public void delete(HorseDto horseDto) {
+        LOGGER.info("delete");
+        repository.delete(mapper.toEntity(horseDto));
+    }
 
 }

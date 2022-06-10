@@ -58,9 +58,15 @@
                                     <span class="input-group-text text-black-50"
                                           th:text="#{menu_admin.common.table.photo_file}">
                                     </span>
-                                    <input type="text"
-                                           class="form-control"
-                                           name="photoFile">
+                                    <select class="form-select"
+                                            aria-label="Default select example"
+                                            name="photoFile">
+                                        <th:block th:each="imageFile : ${imageFileList}">
+                                            <option th:value="${imageFile}"
+                                                    th:text="${imageFile}">
+                                            </option>
+                                        </th:block>
+                                    </select>
                                 </div>
 
                                 <!-- Is coach active -->
@@ -154,12 +160,12 @@
                                             </div>
                                             <div class="modal-body">
 
-                                                <!-- Horse id -->
+                                                <!-- Coach id -->
                                                 <input type="hidden"
                                                        th:value="${coachDto.id}"
                                                        name="id">
 
-                                                <!-- Horse name -->
+                                                <!-- Coach name -->
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text text-black-50"
                                                           th:text="#{menu_admin.common.table.name}">
@@ -170,7 +176,7 @@
                                                            name="name">
                                                 </div>
 
-                                                <!-- Horse description -->
+                                                <!-- Coach description -->
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text text-black-50"
                                                           th:text="#{menu_admin.common.table.description}">
@@ -182,18 +188,24 @@
                                                               name="description"></textarea>
                                                 </div>
 
-                                                <!-- Horse photoFile -->
+                                                <!-- Coach photoFile -->
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text text-black-50"
-                                                        th:text="#{menu_admin.common.table.photo_file}">
+                                                          th:text="#{menu_admin.common.table.photo_file}">
                                                     </span>
-                                                    <input type="text"
-                                                           class="form-control"
-                                                           th:value="${coachDto.photoFile}"
-                                                           name="photoFile">
+                                                    <select class="form-select"
+                                                            aria-label="Default select example"
+                                                            name="photoFile">
+                                                        <th:block th:each="imageFile : ${imageFileList}">
+                                                            <option th:value="${imageFile}"
+                                                                    th:text="${imageFile}"
+                                                                    th:selected="${imageFile == coachDto.photoFile}">
+                                                            </option>
+                                                        </th:block>
+                                                    </select>
                                                 </div>
 
-                                                <!-- Is horse active -->
+                                                <!-- Is coach active -->
                                                 <div class="input-group mb-3">
                                                     <h5>
                                                         <div class="form-check form-switch">

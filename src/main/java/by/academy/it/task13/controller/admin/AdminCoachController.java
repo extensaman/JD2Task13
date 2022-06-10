@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(AdminConstant.ADMIN_COACH_MAPPING)
 @RequiredArgsConstructor
 public class AdminCoachController {
-    private static final Logger LOGGER = LogManager.getLogger(AdminCertificateController.class);
+    private static final Logger LOGGER = LogManager.getLogger(AdminCoachController.class);
 
     private final CoachService coachService;
 
@@ -26,6 +26,7 @@ public class AdminCoachController {
 
     @GetMapping
     public String getCoachPage(Model model) {
+        LOGGER.info("getCoachPage");
         model.addAttribute(AdminConstant.TITLE,
                 AdminConstant.MENU_ADMIN_COACH_MESSAGE);
         model.addAttribute(AdminConstant.COACH_LIST, coachService.findAll());
@@ -36,12 +37,14 @@ public class AdminCoachController {
 
     @PostMapping
     public String saveCoach(@ModelAttribute CoachDto coachDto) {
+        LOGGER.info("saveCoach");
         coachService.save(coachDto);
         return "redirect:/admin/coach";
     }
 
     @PostMapping(AdminConstant.DELETE_MAPPING)
     public String deleteCoach(@ModelAttribute CoachDto coachDto) {
+        LOGGER.info("deleteCoach");
         coachService.delete(coachDto);
         return "redirect:/admin/coach";
     }

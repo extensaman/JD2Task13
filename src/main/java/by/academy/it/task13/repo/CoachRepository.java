@@ -9,6 +9,5 @@ import java.util.List;
 @Repository
 public interface CoachRepository extends CrudRepository<Coach, Long> {
 
-    List<Coach> findCoachesByActivity(boolean activity);
-
+    List<Coach> findCoachesByActivityTrue();
 }

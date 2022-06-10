@@ -58,9 +58,15 @@
                                     <span class="input-group-text text-black-50"
                                           th:text="#{menu_admin.common.table.photo_file}">
                                     </span>
-                                    <input type="text"
-                                           class="form-control"
-                                           name="photoFile">
+                                    <select class="form-select"
+                                            aria-label="Default select example"
+                                            name="photoFile">
+                                        <th:block th:each="imageFile : ${imageFileList}">
+                                            <option th:value="${imageFile}"
+                                                    th:text="${imageFile}">
+                                            </option>
+                                        </th:block>
+                                    </select>
                                 </div>
 
                                 <!-- Is horse active -->
@@ -142,7 +148,7 @@
                                     </button>
                                 </td>
 
-                                <!-- Modal for edit decoration -->
+                                <!-- Modal for edit horse -->
                                 <div class="modal fade" th:id="${'edithorse'+horse.id}" tabindex="-1"
                                      role="dialog" aria-labelledby="exampleModalLabel17" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -185,12 +191,18 @@
                                                 <!-- Horse photoFile -->
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text text-black-50"
-                                                        th:text="#{menu_admin.common.table.photo_file}">
+                                                          th:text="#{menu_admin.common.table.photo_file}">
                                                     </span>
-                                                    <input type="text"
-                                                           class="form-control"
-                                                           th:value="${horse.photoFile}"
-                                                           name="photoFile">
+                                                    <select class="form-select"
+                                                            aria-label="Default select example"
+                                                            name="photoFile">
+                                                        <th:block th:each="imageFile : ${imageFileList}">
+                                                            <option th:value="${imageFile}"
+                                                                    th:text="${imageFile}"
+                                                                    th:selected="${imageFile == horse.photoFile}">
+                                                            </option>
+                                                        </th:block>
+                                                    </select>
                                                 </div>
 
                                                 <!-- Is horse active -->
