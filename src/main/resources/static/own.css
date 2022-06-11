@@ -46,6 +46,7 @@ div{
 .intro__content{
     z-index: 10;
     color: white;
+    opacity: .5;
     text-align: center;
 }
 .intro__media-video{
@@ -74,7 +75,7 @@ div{
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background: #cccc url("/img/seo.jpg") no-repeat center center;
+    background: #cccc url("/img/video_first_shoot.jpg") no-repeat center center;
     background-size: cover;
 }
 
