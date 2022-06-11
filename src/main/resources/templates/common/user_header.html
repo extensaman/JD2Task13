@@ -5,8 +5,9 @@
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" th:href="@{/}" th:text="#{common.horse_club.name}"></a>
-
+                <div class="wrapper_h img__object__fit mx-2">
+                    <a th:href="@{/}"><img th:src="@{/img/logo_small.png}" th:alt="#{common.horse_club.name}"></a>
+                </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">

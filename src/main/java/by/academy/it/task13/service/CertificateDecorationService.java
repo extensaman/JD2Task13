@@ -1,15 +1,18 @@
 package by.academy.it.task13.service;
 
+import by.academy.it.task13.dto.CertificateDecorationDto;
 import by.academy.it.task13.entity.CertificateDecoration;
 
 import java.util.List;
 
 public interface CertificateDecorationService {
-    List<CertificateDecoration> findAll();
+    List<CertificateDecorationDto> findAll();
+
+    CertificateDecoration save(CertificateDecorationDto certificateDecorationDto);
 
     void saveAll(List<CertificateDecoration> list);
 
-    void save(CertificateDecoration certificateDecoration);
+    void delete(CertificateDecorationDto certificateDecorationDto);
 
-    void delete(CertificateDecoration certificateDecoration);
+    List<CertificateDecorationDto> findAllActiveCertificateDecoration();
 }

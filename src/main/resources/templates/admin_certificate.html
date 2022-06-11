@@ -75,10 +75,25 @@
                                     <span class="input-group-text text-black-50"
                                           th:text="#{menu_admin.common.table.photo_file}">
                                     </span>
+                                    <select class="form-select"
+                                            aria-label="Default select example"
+                                            name="photoFile">
+                                        <th:block th:each="imageFile : ${imageFileList}">
+                                            <option th:value="${imageFile}"
+                                                    th:text="${imageFile}">
+                                            </option>
+                                        </th:block>
+                                    </select>
+                                </div>
+
+<!--                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-black-50"
+                                          th:text="#{menu_admin.common.table.photo_file}">
+                                    </span>
                                     <input type="text"
                                            class="form-control"
                                            name="photoFile">
-                                </div>
+                                </div>-->
 
                                 <!-- Horse count in certificate -->
                                 <div class="input-group mb-3">
@@ -217,6 +232,16 @@
                             <!-- Form for editing item -->
                             <form th:action="@{/admin/certificate/}" th:method="post"
                                   th:object="${certificate}">
+
+                                <td class="text-center align-middle">
+                                    <button type="button"
+                                            class="btn btn-outline-primary"
+                                            data-bs-toggle="modal"
+                                            th:attr="data-bs-target='#editcertificate'+${certificate.id}">
+                                        <i class="bi bi-pencil-square icon_size_20"></i>
+                                    </button>
+                                </td>
+<!--
                                 <td class="text-center align-middle">
                                     <button th:if="${certificate.certificateType.activity}"
                                             type="button"
@@ -230,6 +255,7 @@
                                        class="bi bi-pencil-square text-black-50 icon_size_20">
                                     </i>
                                 </td>
+-->
 
                                 <!-- Modal for edit certificate -->
                                 <div class="modal fade" th:id="${'editcertificate'+certificate.id}" tabindex="-1"
@@ -295,11 +321,27 @@
                                                     <span class="input-group-text text-black-50"
                                                           th:text="#{menu_admin.common.table.photo_file}">
                                                     </span>
+                                                    <select class="form-select"
+                                                            aria-label="Default select example"
+                                                            name="photoFile">
+                                                        <th:block th:each="imageFile : ${imageFileList}">
+                                                            <option th:value="${imageFile}"
+                                                                    th:text="${imageFile}"
+                                                                    th:selected="${imageFile == certificate.photoFile}">
+                                                            </option>
+                                                        </th:block>
+                                                    </select>
+                                                </div>
+
+<!--                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text text-black-50"
+                                                          th:text="#{menu_admin.common.table.photo_file}">
+                                                    </span>
                                                     <input type="text"
                                                            class="form-control"
                                                            th:value="${certificate.photoFile}"
                                                            name="photoFile">
-                                                </div>
+                                                </div>-->
 
                                                 <!-- Horse count in certificate -->
                                                 <div class="input-group mb-3">
@@ -399,6 +441,16 @@
                             <form th:action="@{/admin/certificate/delete}" th:method="post"
                                   th:object="${certificate}">
                                 <td class="text-center align-middle">
+                                    <button type="button"
+                                            class="btn btn-outline-danger"
+                                            data-bs-toggle="modal"
+                                            th:attr="data-bs-target='#deletecertificate'+${certificate.id}">
+                                        <i class="bi bi-trash3 icon_size_20"></i>
+                                    </button>
+                                </td>
+
+<!--
+                                <td class="text-center align-middle">
                                     <button th:if="${certificate.certificateType.activity}"
                                             type="button"
                                             class="btn btn-outline-danger"
@@ -410,6 +462,7 @@
                                        class="bi bi-trash3 text-black-50 icon_size_20">
                                     </i>
                                 </td>
+-->
 
                                 <!-- Modal for delete decoration -->
                                 <div class="modal fade" th:id="${'deletecertificate'+certificate.id}" tabindex="-1"

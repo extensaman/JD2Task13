@@ -46,7 +46,8 @@ public class CertificateTypeServiceImpl implements CertificateTypeService {
     public CertificateType saveCertificateTypeAndUpdateAllCertificate(CertificateTypeDto certificateTypeDto) {
         LOGGER.info("saveCertificateTypeAndUpdateAllCertificate");
         CertificateType certificateType = certificateTypeRepository.save(mapper.toEntity(certificateTypeDto));
-        certificateRepository.updateCertificateActivity(certificateType, certificateType.isActivity());
+        certificateRepository.updateCertificateActivity(certificateType);
+        //certificateRepository.updateCertificateActivity(certificateType, certificateType.isActivity());
         /*certificateRepository.findAll().stream()
                 .filter(certificate -> certificate.getCertificateType().equals(certificateType))
                 .peek(certificate -> certificate.setActivity(certificateType.isActivity()))

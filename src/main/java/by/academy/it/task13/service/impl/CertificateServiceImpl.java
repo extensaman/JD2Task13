@@ -54,12 +54,21 @@ public class CertificateServiceImpl implements CertificateService {
     @Override
     public Certificate save(CertificateDto certificateDto) {
         LOGGER.info("save");
-        return repository.save(mapper.toEntity(certificateDto));
+        Certificate certificate = mapper.toEntity(certificateDto);
+        if(!certificate.getCertificateType().isActivity()){
+            certificate.setActivity(false);
+        }
+        return repository.save(certificate);
     }
 
     @Override
     public void saveAll(List<Certificate> list) {
         LOGGER.info("saveAll");
+        list.forEach(certificate -> {
+            if(!certificate.getCertificateType().isActivity()){
+                certificate.setActivity(false);
+            }
+        });
         repository.saveAll(list);
     }
 

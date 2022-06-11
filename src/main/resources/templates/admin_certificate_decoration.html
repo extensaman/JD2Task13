@@ -54,6 +54,22 @@
                                               name="description"></textarea>
                                 </div>
 
+                                <!-- CertificateDecoration photoFile -->
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-black-50"
+                                          th:text="#{menu_admin.common.table.photo_file}">
+                                    </span>
+                                    <select class="form-select"
+                                            aria-label="Default select example"
+                                            name="photoFile">
+                                        <th:block th:each="imageFile : ${imageFileList}">
+                                            <option th:value="${imageFile}"
+                                                    th:text="${imageFile}">
+                                            </option>
+                                        </th:block>
+                                    </select>
+                                </div>
+
                                 <!-- CertificateDecoration Price -->
                                 <div class="input-group mb-3">
                                     <span class="input-group-text text-black-50"
@@ -112,6 +128,7 @@
                         <th class="text-center align-middle">№</th>
                         <th class="text-center align-middle" th:text="#{menu_admin.common.table.name}"></th>
                         <th class="text-center align-middle" th:text="#{menu_admin.common.table.description}"></th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.photo_file}"></th>
                         <th class="text-center align-middle"><i class="bi bi-coin icon_size_24"></i></th>
                         <th class="text-center align-middle" th:text="#{menu_admin.common.table.activity}"></th>
                         <th class="text-center align-middle"><i class="bi bi-sliders icon_size_24"></i></th>
@@ -124,6 +141,10 @@
                             <td class="text-center align-middle" th:text="${state.index+1}"></td>
                             <td class="text-center align-middle" th:text="${decoration.name}"></td>
                             <td class="align-middle" th:text="${decoration.description}"></td>
+                            <td class="text-center align-middle">
+                                <img th:src="@{${'/img/'+decoration.photoFile}}"
+                                     class="img-fluid" alt="">
+                            </td>
                             <td class="text-center align-middle" th:text="${decoration.price}"></td>
                             <td class="text-center align-middle">
                                 <i th:if="${decoration.activity}"
@@ -182,6 +203,23 @@
                                                               th:text="${decoration.description}"
                                                               rows="5"
                                                               name="description"></textarea>
+                                                </div>
+
+                                                <!-- CertificateDecoration photoFile -->
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text text-black-50"
+                                                          th:text="#{menu_admin.common.table.photo_file}">
+                                                    </span>
+                                                    <select class="form-select"
+                                                            aria-label="Default select example"
+                                                            name="photoFile">
+                                                        <th:block th:each="imageFile : ${imageFileList}">
+                                                            <option th:value="${imageFile}"
+                                                                    th:text="${imageFile}"
+                                                                    th:selected="${imageFile == decoration.photoFile}">
+                                                            </option>
+                                                        </th:block>
+                                                    </select>
                                                 </div>
 
                                                 <!-- CertificateDecoration Price -->
@@ -286,6 +324,18 @@
                                                               rows="5"
                                                               name="description"
                                                               disabled></textarea>
+                                                </div>
+
+                                                <!-- CertificateDecoration photoFile -->
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text text-black-50"
+                                                          th:text="#{menu_admin.common.table.photo_file}">
+                                                    </span>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           th:value="${decoration.photoFile}"
+                                                           disabled
+                                                           name="photoFile">
                                                 </div>
 
                                                 <!-- CertificateDecoration Price -->

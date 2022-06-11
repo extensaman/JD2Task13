@@ -69,11 +69,7 @@ public class CertificateController {
 
     @PostMapping(Constant.ORDER_MAPPING)
     public String orderCertificate(@ModelAttribute Certificate certificate, Model model) {
-        List<CertificateDecoration> activeCertificateDecorationList = certificateDecorationService.findAll().stream()
-                .filter(CertificateDecoration::isActivity)
-                .collect(Collectors.toList());
-        //model.addAttribute(Constant.CERTIFICATE, certificate);
-        model.addAttribute(Constant.ACTIVE_CERTIFICATE_DECORATION_LIST, activeCertificateDecorationList);
+        model.addAttribute(Constant.ACTIVE_CERTIFICATE_DECORATION_LIST, certificateDecorationService.findAllActiveCertificateDecoration());
         model.addAttribute(Constant.CERTIFICATE_ORDER, new Ordering());
         model.addAttribute(Constant.TITLE,
                 Constant.TITLE_CERTIFICATE_ORDER_MESSAGE);

@@ -39,6 +39,9 @@ public class CertificateDecoration {
     @Column
     private BigDecimal price;
 
+    @Column(nullable = false, length = 50)
+    private String photoFile;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

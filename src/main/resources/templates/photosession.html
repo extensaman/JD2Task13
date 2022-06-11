@@ -5,7 +5,7 @@
 <header th:insert="common/user_header :: content"></header>
 
 <div class="container-fluid">
-    <div class="wrapper img__object__fit">
+    <div class="wrapper_w img__object__fit">
         <img th:src="@{/img/photosession_common.jpg}">
     </div>
     <div th:with="condition=${activePhotosessionList != null and !activePhotosessionList.isEmpty()}">

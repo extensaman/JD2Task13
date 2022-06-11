@@ -13,10 +13,16 @@ div{
     font-size: 24px;
 }
 
-.wrapper {
+.wrapper_w {
     width: 100%;
     height: 200px;
 }
+
+.wrapper_h {
+    width: 50px;
+    height: 100%;
+}
+
 .img__object__fit img {
     object-fit: cover;
     width: 100%;

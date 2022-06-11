@@ -5,7 +5,7 @@
 <header th:insert="common/user_header :: content"></header>
 
 <div class="container-fluid">
-    <div class="wrapper img__object__fit">
+    <div class="wrapper_w img__object__fit">
         <img th:src="@{/img/horse_common.jpg}">
     </div>
     <div th:with="condition=${activeHorseList != null and !activeHorseList.isEmpty()}">

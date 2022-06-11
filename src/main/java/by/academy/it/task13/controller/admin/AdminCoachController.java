@@ -21,7 +21,6 @@ public class AdminCoachController {
     private static final Logger LOGGER = LogManager.getLogger(AdminCoachController.class);
 
     private final CoachService coachService;
-
     private final ImageFileList imageFileList;
 
     @GetMapping
