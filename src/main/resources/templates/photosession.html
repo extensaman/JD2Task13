@@ -58,8 +58,8 @@
                                         <a href="#" class="card-link">Order</a>
                                     </div>
                                     <div class="col-6 text-end">
-                                            <strong th:text="${photosession.price} + #{common.byn}">
-                                            </strong>
+                                        <strong th:text="${photosession.price} + #{common.byn}">
+                                        </strong>
                                     </div>
                                 </div>
                             </div>
@@ -71,10 +71,11 @@
             </div>
         </div>
         <div class="row mt-4 text-center">
-            <span th:unless="${condition}" class="text-danger text-center" th:text="#{menu_admin.common.no_data}"></span>
+            <span th:unless="${condition}" class="text-danger text-center"
+                  th:text="#{menu_admin.common.no_data}"></span>
         </div>
     </div>
-
-    <footer th:insert="common/user_footer :: content"></footer>
+</div>
+<footer th:insert="common/user_footer :: content"></footer>
 </body>
 </html>

@@ -42,6 +42,12 @@
                                 <li><a class="dropdown-item" th:href="@{/coach}" th:text="#{menu.coaches}"></a></li>
                             </ul>
                         </li>
+                        <li class="nav-item" th:with="condition=${title eq 'menu.registration'}">
+                            <a th:if="${condition}" class="nav-link active underline" aria-current="page" href="#"
+                               th:text="#{menu.registration}"></a>
+                            <a th:unless="${condition}" class="nav-link" aria-current="page" th:href="@{/registration}"
+                               th:text="#{menu.registration}"></a>
+                        </li>
                     </ul>
                 </div>
             </div>

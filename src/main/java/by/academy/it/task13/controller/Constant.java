@@ -26,6 +26,7 @@ public class Constant {
     public static final String TITLE_CERTIFICATE_MESSAGE = "menu.certificate";
     public static final String TITLE_CERTIFICATE_ORDER_MESSAGE = "menu.certificate_order";
     public static final String TITLE_PHOTOSESSION_MESSAGE = "menu.photosession";
+    public static final String TITLE_REGISTRATION_MESSAGE = "menu.registration";
     public static final String TITLE_HORSE_MESSAGE = "menu.horses";
     public static final String TITLE_COACH_MESSAGE = "menu.coaches";
 

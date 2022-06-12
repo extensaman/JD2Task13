@@ -3,7 +3,9 @@
 <head th:insert="common/metadata :: content"></head>
 <body>
 <header th:insert="common/user_header :: content"></header>
-
+<div th:if="${error}">
+    Unable to login. Check your username and password.
+</div>
 <div class="container-fluid">
     <div class="wrapper_w img__object__fit">
         <img th:src="@{/img/certificate_common.jpg}">
@@ -153,7 +155,7 @@
             <span th:unless="${condition}" class="text-danger" th:text="#{menu_admin.common.no_data}"></span>
         </div>
     </div>
-
+</div>
     <footer th:insert="common/user_footer :: content"></footer>
 </body>
 </html>

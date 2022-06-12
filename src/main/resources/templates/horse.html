@@ -23,17 +23,17 @@
                         <div class="card-body">
                             <h5 class="card-title" th:text="${horse.name}"></h5>
                         </div>
-<!--
-                        <div class="card-body">
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-6 text-start">
-                                        <a href="#" class="card-link">Order</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
--->
+                        <!--
+                                                <div class="card-body">
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <div class="col-6 text-start">
+                                                                <a href="#" class="card-link">Order</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                        -->
                     </div>
 
                 </th:block>
@@ -41,10 +41,11 @@
             </div>
         </div>
         <div class="row mt-4 text-center">
-            <span th:unless="${condition}" class="text-danger text-center" th:text="#{menu_admin.common.no_data}"></span>
+            <span th:unless="${condition}" class="text-danger text-center"
+                  th:text="#{menu_admin.common.no_data}"></span>
         </div>
     </div>
-
-    <footer th:insert="common/user_footer :: content"></footer>
+</div>
+<footer th:insert="common/user_footer :: content"></footer>
 </body>
 </html>

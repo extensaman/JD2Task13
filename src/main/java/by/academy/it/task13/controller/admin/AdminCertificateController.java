@@ -37,14 +37,14 @@ public class AdminCertificateController {
     }
 
     @PostMapping
-    public String saveGiftCertificateChange(@ModelAttribute CertificateDto certificateDto) {
+    public String saveGiftCertificateChange(CertificateDto certificateDto) {
         LOGGER.info("CertificateType = " + certificateDto.getCertificateType());
         certificateService.save(certificateDto);
         return "redirect:/admin/certificate";
     }
 
     @PostMapping(AdminConstant.DELETE_MAPPING)
-    public String deleteCertificate(@ModelAttribute CertificateDto certificateDto) {
+    public String deleteCertificate(CertificateDto certificateDto) {
         LOGGER.info("deleteCertificate");
         certificateService.delete(certificateDto);
         return "redirect:/admin/certificate";
