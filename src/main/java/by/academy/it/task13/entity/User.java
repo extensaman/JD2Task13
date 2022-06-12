@@ -29,7 +29,12 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority role_user = new SimpleGrantedAuthority("ROLE_USER");
+        SimpleGrantedAuthority role_user;
+        if ("admin".equals(username)) {
+            role_user = new SimpleGrantedAuthority("ROLE_ADMIN");
+        } else {
+            role_user = new SimpleGrantedAuthority("ROLE_USER");
+        }
         return List.of(role_user);
     }
 

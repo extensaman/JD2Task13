@@ -8,7 +8,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -30,32 +29,16 @@ public class AdminCertificateTypeController {
     }
 
     @PostMapping
-    public String saveCertificateType(@ModelAttribute CertificateTypeDto certificateTypeDto) {
+    public String saveCertificateType(CertificateTypeDto certificateTypeDto) {
         LOGGER.info("saveCertificateType");
         certificateTypeService.saveCertificateTypeAndUpdateAllCertificate(certificateTypeDto);
         return "redirect:/admin/certificatetype";
     }
 
     @PostMapping(AdminConstant.DELETE_MAPPING)
-    public String deleteCertificateType(@ModelAttribute CertificateTypeDto certificateTypeDto) {
+    public String deleteCertificateType(CertificateTypeDto certificateTypeDto) {
         LOGGER.info("deleteCertificateType");
         certificateTypeService.delete(certificateTypeDto);
         return "redirect:/admin/certificatetype";
     }
-
-/*    @PostMapping("/{id}")
-    public String saveCertificateTypeChange(@PathVariable String id) {
-        LOGGER.info("Changing state of usage of certificateType with id = " + id);
-        certificateTypeService.findById(id)
-                .ifPresent(certificateType -> {
-                    boolean typeActivity = certificateType.isActivity();
-                    certificateType.setActivity(!typeActivity);
-                    certificateTypeService.saveCertificateTypeAndUpdateAllCertificate(certificateType);
-                    certificateService.findAll().stream()
-                            .filter(certificate -> certificate.getCertificateType().equals(certificateType))
-                            .peek(certificate -> certificate.setActivity(!typeActivity))
-                            .forEach(certificateService::save);
-                });
-        return "redirect:/admin/certificatetype";
-    }*/
 }

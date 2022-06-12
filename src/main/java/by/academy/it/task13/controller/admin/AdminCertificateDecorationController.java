@@ -9,7 +9,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -34,14 +33,14 @@ public class AdminCertificateDecorationController {
     }
 
     @PostMapping
-    public String saveCertificateDecoration(@ModelAttribute CertificateDecorationDto certificateDecorationDto) {
+    public String saveCertificateDecoration(CertificateDecorationDto certificateDecorationDto) {
         LOGGER.info("saveCertificateDecoration");
         certificateDecorationService.save(certificateDecorationDto);
         return "redirect:/admin/certificatedecoration";
     }
 
     @PostMapping(AdminConstant.DELETE_MAPPING)
-    public String deleteCertificateDecoration(@ModelAttribute CertificateDecorationDto certificateDecorationDto) {
+    public String deleteCertificateDecoration(CertificateDecorationDto certificateDecorationDto) {
         LOGGER.info("deleteCertificateDecoration");
         certificateDecorationService.delete(certificateDecorationDto);
         return "redirect:/admin/certificatedecoration";

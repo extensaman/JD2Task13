@@ -14,6 +14,7 @@ public class AdminController {
 
     @GetMapping
     public String getMainAdminPage(Model model) {
+        LOGGER.info("getMainAdminPage");
         model.addAttribute(AdminConstant.TITLE,
                 AdminConstant.MENU_ADMIN_MAIN_MESSAGE);
         return AdminConstant.ADMIN_MAIN_PAGE;

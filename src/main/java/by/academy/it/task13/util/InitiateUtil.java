@@ -6,20 +6,21 @@ import by.academy.it.task13.entity.CertificateType;
 import by.academy.it.task13.entity.Coach;
 import by.academy.it.task13.entity.Horse;
 import by.academy.it.task13.entity.PhotoSession;
+import by.academy.it.task13.entity.User;
 import by.academy.it.task13.service.CertificateDecorationService;
 import by.academy.it.task13.service.CertificateService;
 import by.academy.it.task13.service.CertificateTypeService;
 import by.academy.it.task13.service.CoachService;
 import by.academy.it.task13.service.HorseService;
 import by.academy.it.task13.service.PhotoSessionService;
+import by.academy.it.task13.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,16 +34,13 @@ public class InitiateUtil implements CommandLineRunner {
 
 
     private final CertificateTypeService certificateTypeService;
-
     private final CertificateService certificateService;
-
     private final CertificateDecorationService certificateDecorationService;
-
     private final PhotoSessionService photoSessionService;
-
     private final HorseService horseService;
-
     private final CoachService coachService;
+    private final UserService userService;
+    private final PasswordEncoder encoder;
 
     @Override
     public void run(String[] args) throws Exception {
@@ -625,5 +623,12 @@ public class InitiateUtil implements CommandLineRunner {
                         coach05,
                         coach06));
         LOGGER.info("Initialization of 'Coach' done");
+
+        User user01 = new User("admin",encoder.encode("admin"));
+        User user02 = new User("user",encoder.encode("user"));
+        userService.saveAll(
+                List.of(user01,user02));
+        LOGGER.info("Initialization of 'User' done");
+
     }
 }

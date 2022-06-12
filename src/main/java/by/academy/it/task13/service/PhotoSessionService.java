@@ -1,15 +1,18 @@
 package by.academy.it.task13.service;
 
+import by.academy.it.task13.dto.PhotoSessionDto;
 import by.academy.it.task13.entity.PhotoSession;
 
 import java.util.List;
 
 public interface PhotoSessionService {
-    List<PhotoSession> findAll();
+    List<PhotoSessionDto> findAll();
+
+    PhotoSession save(PhotoSessionDto photoSessionDto);
 
     void saveAll(List<PhotoSession> list);
 
-    PhotoSession save(PhotoSession photoSession);
+    void delete(PhotoSessionDto photoSessionDto);
 
-    void delete(PhotoSession photoSession);
+    List<PhotoSessionDto> findAllActivePhotoSession();
 }

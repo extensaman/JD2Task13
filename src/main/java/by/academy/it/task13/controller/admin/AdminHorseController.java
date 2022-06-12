@@ -34,14 +34,14 @@ public class AdminHorseController {
     }
 
     @PostMapping
-    public String saveHorse(@ModelAttribute HorseDto horseDto) {
+    public String saveHorse(HorseDto horseDto) {
         LOGGER.info("saveHorse");
         horseService.save(horseDto);
         return "redirect:/admin/horse";
     }
 
     @PostMapping(AdminConstant.DELETE_MAPPING)
-    public String deleteHorse(@ModelAttribute HorseDto horseDto) {
+    public String deleteHorse(HorseDto horseDto) {
         LOGGER.info("deleteHorse");
         horseService.delete(horseDto);
         return "redirect:/admin/horse";

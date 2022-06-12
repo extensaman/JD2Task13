@@ -35,14 +35,14 @@ public class AdminCoachController {
     }
 
     @PostMapping
-    public String saveCoach(@ModelAttribute CoachDto coachDto) {
+    public String saveCoach(CoachDto coachDto) {
         LOGGER.info("saveCoach");
         coachService.save(coachDto);
         return "redirect:/admin/coach";
     }
 
     @PostMapping(AdminConstant.DELETE_MAPPING)
-    public String deleteCoach(@ModelAttribute CoachDto coachDto) {
+    public String deleteCoach(CoachDto coachDto) {
         LOGGER.info("deleteCoach");
         coachService.delete(coachDto);
         return "redirect:/admin/coach";

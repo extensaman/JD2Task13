@@ -13,7 +13,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>JD2Task13</name>
-	<description>Horse club &apos;Pegas&apos;</description>
+	<description>Horse club &apos;Cavalier&apos;</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
@@ -39,12 +39,12 @@
 			<artifactId>liquibase-core</artifactId>
 		</dependency>-->
 
-		<dependency>
+<!--		<dependency>
 			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
-		</dependency>
+		</dependency>-->
 
-		<dependency>
+<!--		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
@@ -54,7 +54,7 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
-		</dependency>
+		</dependency>-->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>

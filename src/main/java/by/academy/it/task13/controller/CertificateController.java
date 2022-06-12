@@ -1,7 +1,6 @@
 package by.academy.it.task13.controller;
 
 import by.academy.it.task13.entity.Certificate;
-import by.academy.it.task13.entity.CertificateDecoration;
 import by.academy.it.task13.entity.Ordering;
 import by.academy.it.task13.service.CertificateDecorationService;
 import by.academy.it.task13.service.CertificateService;
@@ -17,9 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Controller
 @RequestMapping(Constant.CERTIFICATE_MAPPING)
 @RequiredArgsConstructor
@@ -33,11 +29,6 @@ public class CertificateController {
     @GetMapping
     public String getCertificatePage(Model model) {
         LOGGER.info("getCertificatePage");
-        // TODO Need make specific method in Repository
-        /*List<Certificate> activeCertificateList = certificateService.findAll().stream()
-                .filter(certificate -> certificate.isActivity() && certificate.getCertificateType().isActivity())
-                .collect(Collectors.toList());
-        List<CertificateType> activeCertificateTypeList = getActiveCertificateTypeList();*/
         model.addAttribute(Constant.ACTIVE_CERTIFICATE_LIST, certificateService.findAllActiveCertificate());
         model.addAttribute(Constant.ACTIVE_CERTIFICATE_TYPE_LIST, certificateTypeService.findAllActiveCertificateType());
         model.addAttribute(Constant.TITLE,
@@ -48,16 +39,6 @@ public class CertificateController {
     @GetMapping("/{id}")
     public String getCertificateWithSpecificType(@PathVariable String id, Model model) {
         LOGGER.info("Getting certificates with type's id = " + id);
-
-/*        List<Certificate> certificateListWithSpecificType = certificateTypeService.findById(id)
-                .map(type ->
-                        certificateService.findAll().stream()
-                                .filter(certificate ->
-                                        certificate.getCertificateType().equals(type) &&
-                                                certificate.isActivity())
-                                .collect(Collectors.toList())
-                ).orElse(null);
-        List<CertificateType> activeCertificateTypeList = getActiveCertificateTypeList();*/
         model.addAttribute(Constant.ACTIVE_CERTIFICATE_LIST,
                 certificateService.findCertificatesByActivityTrueAndCertificateTypeId(id));
         model.addAttribute(Constant.ACTIVE_CERTIFICATE_TYPE_LIST,
@@ -75,11 +56,4 @@ public class CertificateController {
                 Constant.TITLE_CERTIFICATE_ORDER_MESSAGE);
         return Constant.CERTIFICATE_ORDER_PAGE;
     }
-
-/*    private List<CertificateType> getActiveCertificateTypeList() {
-        return certificateTypeService.findAll().stream()
-                .filter(CertificateType::isActivity)
-                .collect(Collectors.toList());
-    }*/
-
 }
