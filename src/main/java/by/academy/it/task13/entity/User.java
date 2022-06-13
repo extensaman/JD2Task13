@@ -2,6 +2,7 @@ package by.academy.it.task13.entity;
 
 import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,6 +18,7 @@ import java.util.List;
 
 @Entity
 @Data
+@Getter
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
 public class User implements UserDetails {

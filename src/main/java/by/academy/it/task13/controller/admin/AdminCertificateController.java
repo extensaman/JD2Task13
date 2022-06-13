@@ -1,12 +1,15 @@
 package by.academy.it.task13.controller.admin;
 
 import by.academy.it.task13.dto.CertificateDto;
+import by.academy.it.task13.entity.User;
 import by.academy.it.task13.service.CertificateService;
 import by.academy.it.task13.service.CertificateTypeService;
 import by.academy.it.task13.util.ImageFileList;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

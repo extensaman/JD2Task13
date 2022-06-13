@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <div th:fragment="content">
     <div class="container-fluid text-center mt-3">
 
@@ -16,11 +17,14 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a th:if="${title eq 'menu.certificate'}" class="nav-link active underline" aria-current="page" href="#"
+                            <a th:if="${title eq 'menu.certificate'}" class="nav-link active underline"
+                               aria-current="page" href="#"
                                th:text="#{menu.certificate}"></a>
-                            <a th:if="${title eq 'menu.certificate_order'}" class="nav-link active underline" aria-current="page" th:href="@{/certificate}"
+                            <a th:if="${title eq 'menu.certificate_order'}" class="nav-link active underline"
+                               aria-current="page" th:href="@{/certificate}"
                                th:text="#{menu.certificate}"></a>
-                            <a th:unless="${title eq 'menu.certificate' or title eq 'menu.certificate_order'}" class="nav-link" aria-current="page" th:href="@{/certificate}"
+                            <a th:unless="${title eq 'menu.certificate' or title eq 'menu.certificate_order'}"
+                               class="nav-link" aria-current="page" th:href="@{/certificate}"
                                th:text="#{menu.certificate}"></a>
                         </li>
                         <li class="nav-item" th:with="condition=${title eq 'menu.photosession'}">
@@ -29,26 +33,133 @@
                             <a th:unless="${condition}" class="nav-link" aria-current="page" th:href="@{/photosession}"
                                th:text="#{menu.photosession}"></a>
                         </li>
-                        <li class="nav-item dropdown" th:with="condition=${title eq 'menu.horses' or title eq 'menu.coaches'}">
-                            <a th:if="${condition}" class="nav-link active underline dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        <li class="nav-item dropdown"
+                            th:with="condition=${title eq 'menu.horses' or title eq 'menu.coaches'}">
+                            <a th:if="${condition}" class="nav-link active underline dropdown-toggle" href="#"
+                               id="navbarDropdown" role="button"
                                data-bs-toggle="dropdown" aria-expanded="false"
-                                th:text="#{menu.about}"></a>
-                            <a th:unless="${condition}" class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button"
+                               th:text="#{menu.about}"></a>
+                            <a th:unless="${condition}" class="nav-link dropdown-toggle" href="" id="navbarDropdown"
+                               role="button"
                                data-bs-toggle="dropdown" aria-expanded="false"
                                th:text="#{menu.about}"></a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" th:href="@{/horse}" th:text="#{menu.horses}"></a></li>
-                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
                                 <li><a class="dropdown-item" th:href="@{/coach}" th:text="#{menu.coaches}"></a></li>
                             </ul>
                         </li>
+                        <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item">
+                            <a class="nav-link" th:href="@{/admin}"
+                               th:text="#{menu_admin.main}"></a>
+                        </li>
+<!--
                         <li class="nav-item" th:with="condition=${title eq 'menu.registration'}">
                             <a th:if="${condition}" class="nav-link active underline" aria-current="page" href="#"
                                th:text="#{menu.registration}"></a>
                             <a th:unless="${condition}" class="nav-link" aria-current="page" th:href="@{/registration}"
                                th:text="#{menu.registration}"></a>
                         </li>
+-->
                     </ul>
+                    <div th:with="condition=${currentUser != null}">
+                        <div th:if="${condition}">
+
+                            <form class="d-flex" method="POST" th:action="@{/logout}">
+                                <span class="navbar-text me-2"
+                                      th:text="${currentUser.username}">
+                                </span>
+                                <button type="button"
+                                        class="btn btn-outline-primary"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#logout"
+                                        th:text="#{common.button.logout}"></button>
+                                <!-- Modal for logout -->
+                                <div class="modal fade" id="logout" tabindex="-1"
+                                     role="dialog" aria-labelledby="exampleModalLabel25" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+
+                                            <div class="modal-body"
+                                                 th:text="#{common.attention.logout}">
+                                            </div>
+                                            <div class="modal-footer text-center">
+                                                <button type="button"
+                                                        class="btn btn-secondary"
+                                                        data-bs-dismiss="modal"
+                                                        th:text="#{common.button.cancel}">
+                                                </button>
+
+                                                <button class="btn btn-primary"
+                                                        th:text="#{common.button.logout}">
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div sec:authorize="!isAuthenticated()">
+                        <form class="d-flex" method="POST" th:action="@{/login}">
+                            <button type="button"
+                                    class="btn btn-outline-primary"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#login"
+                                    th:text="#{common.button.login}"></button>
+                            <!-- Modal for login -->
+                            <div class="modal fade" id="login" tabindex="-1"
+                                 role="dialog" aria-labelledby="exampleModalLabel26" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel26" th:text="#{common.button.login}"></h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!-- Username -->
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text text-black-50"
+                                                        th:text="#{menu_user.login}">
+                                                </span>
+                                                <input type="text"
+                                                       class="form-control"
+                                                       name="username">
+                                            </div>
+                                            <!-- Password -->
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text text-black-50"
+                                                      th:text="#{menu_user.password}">
+                                                </span>
+                                                <input type="password"
+                                                       class="form-control"
+                                                       name="password">
+                                            </div>
+                                            <!-- Registration -->
+                                            <div class="input-group mb-3">
+                                                <a class="text-black-50" th:href="@{/registration}"
+                                                   th:text="#{menu.registration}"></a>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer text-center">
+                                            <button type="button"
+                                                    class="btn btn-secondary"
+                                                    data-bs-dismiss="modal"
+                                                    th:text="#{common.button.cancel}">
+                                            </button>
+
+                                            <button class="btn btn-primary"
+                                                    th:text="#{common.button.login}">
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </nav>

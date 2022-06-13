@@ -30,6 +30,9 @@ public class SecurityConfiguration {
                 .formLogin()
                 .loginPage("/login")
                 .and()
+                .logout()
+                .logoutSuccessUrl("/")
+                .and()
                 .build();
     }
 }
