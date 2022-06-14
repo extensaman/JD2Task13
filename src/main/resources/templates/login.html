@@ -1,17 +1,58 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="common/metadata :: content"></head>
 <body>
-<form method="POST" th:action="@{/login}" id="loginForm">
-    <label for="username">Username: </label>
-    <input type="text" name="username" id="username"/><br/>
-    <label for="password">Password: </label>
-    <input type="password" name="password" id="password"/><br/>
-    <input type="submit" value="Login"/>
-</form>
+<header th:insert="common/user_header :: content"></header>
+
+<div class="intro">
+    <div class="intro__media">
+        <img class="intro__media-video" th:src="@{/img/login_substrate.jpg}"></img>
+    </div>
+    <div class="intro__content">
+        <form method="post" th:action="@{/login}">
+            <div class="container">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" aria-label="Username"
+                           th:placeholder="#{menu_user.login}"
+                           name="username">
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" class="form-control"
+                           th:placeholder="#{menu_user.password}" aria-label="Password"
+                           name="password">
+                </div>
+                <button class="btn btn-outline-primary"
+                        th:text="#{common.button.login}"></button>
+            </div>
+        </form>
+    </div>
+</div>
+<!--
+<div class="container-fluid">
+    <form method="post" th:action="@{/registration}">
+        <div class="container">
+            <div class="row offset-4 col-4">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" aria-label="Username"
+                           th:placeholder="#{menu_user.login}"
+                           name="username">
+                </div>
+            </div>
+            <div class="row offset-4 col-4">
+                <div class="input-group mb-3">
+                    <input type="password" class="form-control"
+                           th:placeholder="#{menu_user.password}" aria-label="Password"
+                           name="password">
+                </div>
+            </div>
+            <div class="row offset-5 col-2">
+                <button class="btn btn-outline-primary"
+                        th:text="#{common.button.registration}"></button>
+            </div>
+        </div>
+    </form>
+</div>
+-->
+<footer th:insert="common/user_footer :: content"></footer>
 </body>
 </html>

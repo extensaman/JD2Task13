@@ -1,4 +1,4 @@
-package by.academy.it.task13.advice;
+package by.academy.it.task13.controller.advice;
 
 import by.academy.it.task13.entity.User;
 import org.apache.logging.log4j.LogManager;

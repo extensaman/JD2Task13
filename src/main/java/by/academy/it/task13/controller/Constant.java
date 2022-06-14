@@ -15,6 +15,8 @@ public class Constant {
     public static final String PHOTOSESSION_PAGE = "photosession";
     public static final String HORSE_PAGE = "horse";
     public static final String COACH_PAGE = "coach";
+    public static final String REGISTRATION_PAGE = "registration";
+    public static final String LOGIN_PAGE = "login";
     public static final String ACTIVE_CERTIFICATE_LIST = "activeCertificateList";
     public static final String ACTIVE_PHOTOSESSION_LIST = "activePhotosessionList";
     public static final String ACTIVE_HORSE_LIST = "activeHorseList";
@@ -27,6 +29,7 @@ public class Constant {
     public static final String TITLE_CERTIFICATE_ORDER_MESSAGE = "menu.certificate_order";
     public static final String TITLE_PHOTOSESSION_MESSAGE = "menu.photosession";
     public static final String TITLE_REGISTRATION_MESSAGE = "menu.registration";
+    public static final String TITLE_LOGIN_MESSAGE = "menu.login";
     public static final String TITLE_HORSE_MESSAGE = "menu.horses";
     public static final String TITLE_COACH_MESSAGE = "menu.coaches";
 

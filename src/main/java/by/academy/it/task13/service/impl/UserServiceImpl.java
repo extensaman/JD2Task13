@@ -23,9 +23,14 @@ public class UserServiceImpl implements UserService {
     private final Mapper<User, UserDto> mapper;
 
     @Override
-    public User save(UserDto userDto) {
+    public boolean save(UserDto userDto) {
         LOGGER.info("save");
-        return repository.save(mapper.toEntity(userDto));
+        User user = mapper.toEntity(userDto);
+        if (repository.findByUsername(user.getUsername()) == null) {
+            repository.save(user);
+            return true;
+        }
+        return false;
     }
 
     @Override

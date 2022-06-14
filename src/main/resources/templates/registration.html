@@ -4,6 +4,33 @@
 <body>
 <header th:insert="common/user_header :: content"></header>
 
+<div class="intro">
+    <div class="intro__media">
+        <img class="intro__media-video" th:src="@{/img/registration_substrate.jpg}"></img>
+    </div>
+    <div class="intro__content">
+        <form method="post" th:action="@{/registration}">
+            <div class="container">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" aria-label="Username"
+                           th:placeholder="#{menu_user.login}"
+                           name="username">
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" class="form-control"
+                           th:placeholder="#{menu_user.password}" aria-label="Password"
+                           name="password">
+                </div>
+                <button class="btn btn-outline-primary"
+                        th:text="#{common.button.registration}"></button>
+                <div class="text-bg-warning mt-4" th:if="${existenceOfUser != null}"
+                     th:text="#{common.attention.user_exists}">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!--
 <div class="container-fluid">
     <form method="post" th:action="@{/registration}">
         <div class="container">
@@ -28,6 +55,7 @@
         </div>
     </form>
 </div>
+-->
 <footer th:insert="common/user_footer :: content"></footer>
 </body>
 </html>

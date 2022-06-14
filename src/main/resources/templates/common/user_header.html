@@ -55,19 +55,12 @@
                             <a class="nav-link" th:href="@{/admin}"
                                th:text="#{menu_admin.main}"></a>
                         </li>
-<!--
-                        <li class="nav-item" th:with="condition=${title eq 'menu.registration'}">
-                            <a th:if="${condition}" class="nav-link active underline" aria-current="page" href="#"
-                               th:text="#{menu.registration}"></a>
-                            <a th:unless="${condition}" class="nav-link" aria-current="page" th:href="@{/registration}"
-                               th:text="#{menu.registration}"></a>
-                        </li>
--->
                     </ul>
                     <div th:with="condition=${currentUser != null}">
                         <div th:if="${condition}">
 
                             <form class="d-flex" method="POST" th:action="@{/logout}">
+                                <i class="bi bi-person-circle navbar-text me-2"></i>
                                 <span class="navbar-text me-2"
                                       th:text="${currentUser.username}">
                                 </span>
