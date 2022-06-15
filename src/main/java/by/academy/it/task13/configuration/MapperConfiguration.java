@@ -15,7 +15,7 @@ public class MapperConfiguration {
         mapper.getConfiguration()
                 .setMatchingStrategy(MatchingStrategies.STRICT)
                 .setFieldMatchingEnabled(true)
-                .setSkipNullEnabled(true) // TODO need delete this 'set'
+                .setSkipNullEnabled(true)
                 .setFieldAccessLevel(PRIVATE);
         return mapper;
     }
