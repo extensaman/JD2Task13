@@ -5,39 +5,61 @@
 <header th:insert="common/user_header :: content"></header>
 
 <div class="container-fluid">
-    <div th:if="${certificate != null}">
+    <div th:if="${certificate}">
         <div class="wrapper_w img__object__fit">
             <img th:src="@{${'/img/'+certificate.photoFile}}">
         </div>
         <div class="row mt-4 text-center">
-            <strong th:text="${certificate.name}">
-            </strong>
+            <h2 th:text="${certificate.name}">
+            </h2>
         </div>
         <div class="row mt-1 text-center">
-            <small th:text="${certificate.description}">
-            </small>
+            <strong th:text="${certificate.description}">
+            </strong>
         </div>
     </div>
+    <div class="container-fluid mt-4">
+        <div class="row offset-2">
+            <div class="col">
+                <img class="w-100" th:src="@{${'/img/'+certificate.photoFile}}">
+            </div>
+            <div class="col my-2 d-flex flex-column align-items-center">
+                <div th:text="${certificate.horseCount}"></div>
+                <div th:text="${certificate.duration}"></div>
+                <div th:text="${certificate.photographerIncluded}"></div>
+                <div th:text="${certificate.price}"></div>
+            </div>
+        </div>
+    </div>
+    <label>
+        <input type="radio" name="test" value="small" checked>
+        <img src="https://via.placeholder.com/40x60/0bf/fff&text=A">
+    </label>
+
+    <label>
+        <input type="radio" name="test" value="big">
+        <img src="https://via.placeholder.com/40x60/b0f/fff&text=B">
+    </label>
 
     <div th:with="condition=${activeCertificateDecorationList != null and !activeCertificateDecorationList.isEmpty()}">
         <div th:if="${condition}">
             <div class="row mt-4">
 
                 <th:block th:each="certificateDecoration : ${activeCertificateDecorationList}">
-
-                    <div class="card col-3 ms-auto me-auto mt-4" style="width: 18rem;">
-                        <img th:src="@{${'/img/'+certificateDecoration.photoFile}}"
-                             class="card-img-top" alt="..."
-                             data-bs-toggle="tooltip"
-                             data-bs-placement="top"
-                             th:attr="title=${certificateDecoration.description}">
-                        <div class="card-body">
-                            <h5 class="card-title" th:text="${certificateDecoration.name}"></h5>
+                    <label class="card col-3 ms-auto me-auto mt-4" style="width: 18rem;">
+                        <input type="radio" name="test" th:value="${certificateDecoration.id}">
+                        <div>
+                            <img th:src="@{${'/img/'+certificateDecoration.photoFile}}"
+                                 class="card-img-top" alt="..."
+                                 data-bs-toggle="tooltip"
+                                 data-bs-placement="top"
+                                 th:attr="title=${certificateDecoration.description}">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${certificateDecoration.name}"></h5>
+                            </div>
                         </div>
-                    </div>
-
+                    </label>
                 </th:block>
-
             </div>
         </div>
         <div class="row mt-4 text-center">

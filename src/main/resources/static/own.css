@@ -83,3 +83,22 @@ div{
     position: sticky;
     top: 0;
 }
+
+/* HIDE RADIO */
+[type=radio] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* IMAGE STYLES */
+[type=radio] + div {
+    cursor: pointer;
+}
+
+/* CHECKED STYLES */
+[type=radio]:checked + div {
+    filter: brightness(.5);
+    color:rgba(var(--bs-primary-rgb),var(--bs-text-opacity))
+}
