@@ -129,10 +129,10 @@
                         <th class="text-center align-middle" th:text="#{menu_admin.common.table.name}"></th>
                         <th class="text-center align-middle" th:text="#{menu_admin.common.table.description}"></th>
                         <th class="text-center align-middle" th:text="#{menu_admin.common.table.photo_file}"></th>
-                        <th class="text-center align-middle"><i class="bi bi-coin icon_size_24"></i></th>
+                        <th class="text-center align-middle"><i class="bi bi-coin font_size_24"></i></th>
                         <th class="text-center align-middle" th:text="#{menu_admin.common.table.activity}"></th>
-                        <th class="text-center align-middle"><i class="bi bi-sliders icon_size_24"></i></th>
-                        <th class="text-center align-middle"><i class="bi bi-x-lg icon_size_24"></i></th>
+                        <th class="text-center align-middle"><i class="bi bi-sliders font_size_24"></i></th>
+                        <th class="text-center align-middle"><i class="bi bi-x-lg font_size_24"></i></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -148,9 +148,9 @@
                             <td class="text-center align-middle" th:text="${decoration.price}"></td>
                             <td class="text-center align-middle">
                                 <i th:if="${decoration.activity}"
-                                       class="bi bi-check-circle-fill text-success icon_size_24"></i>
+                                       class="bi bi-check-circle-fill text-success font_size_24"></i>
                                 <i th:unless="${decoration.activity}"
-                                       class="bi bi-x-circle-fill text-danger icon_size_24"></i>
+                                       class="bi bi-x-circle-fill text-danger font_size_24"></i>
                             </td>
 
                             <!-- Form for editing item -->
@@ -161,7 +161,7 @@
                                             class="btn btn-outline-primary"
                                             data-bs-toggle="modal"
                                             th:attr="data-bs-target='#editcertificatedecoration'+${decoration.id}">
-                                            <i class="bi bi-pencil-square icon_size_20"></i>
+                                            <i class="bi bi-pencil-square font_size_20"></i>
                                     </button>
                                 </td>
 
@@ -280,7 +280,7 @@
                                             class="btn btn-outline-danger"
                                             data-bs-toggle="modal"
                                             th:attr="data-bs-target='#deletecertificatedecoration'+${decoration.id}">
-                                        <i class="bi bi-trash3 icon_size_20"></i>
+                                        <i class="bi bi-trash3 font_size_20"></i>
                                     </button>
                                 </td>
 
