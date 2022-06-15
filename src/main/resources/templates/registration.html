@@ -9,23 +9,27 @@
         <img class="intro__media-video" th:src="@{/img/registration_substrate.jpg}"></img>
     </div>
     <div class="intro__content">
-        <form method="post" th:action="@{/registration}">
+        <form method="post" th:action="@{/registration}" th:object="${userDto}">
             <div class="container">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" aria-label="Username"
                            th:placeholder="#{menu_user.login}"
-                           name="username">
+                           th:field="*{username}">
                 </div>
                 <div class="input-group mb-3">
                     <input type="password" class="form-control"
                            th:placeholder="#{menu_user.password}" aria-label="Password"
-                           name="password">
+                           th:field="*{password}">
                 </div>
-                <button class="btn btn-outline-primary"
+                <button class="btn btn-outline-primary mb-3"
                         th:text="#{common.button.registration}"></button>
-                <div class="text-bg-warning mt-4" th:if="${existenceOfUser != null}"
+                <div class="text-bg-warning mt-4" th:if="${existenceOfUser}"
                      th:text="#{common.attention.user_exists}">
                 </div>
+                <div class="text-danger mb-2" th:if="${#fields.hasErrors('username')}"
+                      th:errors="*{username}"></div>
+                <div class="text-danger mb-2" th:if="${#fields.hasErrors('password')}"
+                      th:errors="*{password}"></div>
             </div>
         </form>
     </div>

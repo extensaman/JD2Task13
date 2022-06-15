@@ -7,10 +7,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/registration")
@@ -25,18 +28,25 @@ public class RegistrationController {
         LOGGER.info("getRegistrationPage");
         model.addAttribute(Constant.TITLE,
                 Constant.TITLE_REGISTRATION_MESSAGE);
+        model.addAttribute("userDto",
+                new UserDto());
         return Constant.REGISTRATION_PAGE;
     }
 
     @PostMapping
-    public String processRegistration(Model model, UserDto userDto) {
+    public String processRegistration(Model model, @Valid UserDto userDto, Errors errors) {
         LOGGER.info("processRegistration");
+        model.addAttribute(Constant.TITLE,
+                Constant.TITLE_REGISTRATION_MESSAGE);
+        if(errors.hasErrors()){
+            LOGGER.info("processRegistration :: errors.hasErrors()");
+            return Constant.REGISTRATION_PAGE;
+        }
+
         if(userService.save(userDto)){
             return "redirect:/login";
         }
         model.addAttribute("existenceOfUser","true");
-        model.addAttribute(Constant.TITLE,
-                Constant.TITLE_REGISTRATION_MESSAGE);
         return Constant.REGISTRATION_PAGE;
     }
 }

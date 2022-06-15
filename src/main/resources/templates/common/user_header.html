@@ -56,45 +56,49 @@
                                th:text="#{menu_admin.main}"></a>
                         </li>
                     </ul>
-                    <div th:with="condition=${currentUser != null}">
-                        <div th:if="${condition}">
-
-                            <form class="d-flex" method="POST" th:action="@{/logout}">
-                                <i class="bi bi-person-circle navbar-text me-2"></i>
-                                <span class="navbar-text me-2"
-                                      th:text="${currentUser.username}">
+                    <a class="navbar-text" th:href="@{''(lang=en)}"
+                          th:text="#{lang.en}">
+                                </a>&nbsp;/&nbsp;
+                    <a class="navbar-text me-2" th:href="@{''(lang=ru)}"
+                       th:text="#{lang.ru}">
+                    </a>
+                    <div th:if="${currentUser}">
+                        <form class="d-flex" method="POST" th:action="@{/logout}">
+                            <i class="bi bi-person-circle navbar-text me-2"></i>
+                            <span class="navbar-text me-2"
+                                  th:text="${currentUser.username}">
                                 </span>
-                                <button type="button"
-                                        class="btn btn-outline-primary"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#logout"
-                                        th:text="#{common.button.logout}"></button>
-                                <!-- Modal for logout -->
-                                <div class="modal fade" id="logout" tabindex="-1"
-                                     role="dialog" aria-labelledby="exampleModalLabel25" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
+                            <button type="button"
+                                    class="btn btn-outline-primary"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#logout"
+                                    th:text="#{common.button.logout}"></button>
+                            <!-- Modal for logout -->
+                            <div class="modal fade" id="logout" tabindex="-1"
+                                 role="dialog" aria-labelledby="exampleModalLabel25" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
 
-                                            <div class="modal-body"
-                                                 th:text="#{common.attention.logout}">
-                                            </div>
-                                            <div class="modal-footer text-center">
-                                                <button type="button"
-                                                        class="btn btn-secondary"
-                                                        data-bs-dismiss="modal"
-                                                        th:text="#{common.button.cancel}">
-                                                </button>
+                                        <div class="modal-body"
+                                             th:text="#{common.attention.logout}">
+                                        </div>
+                                        <div class="modal-footer text-center">
+                                            <button type="button"
+                                                    class="btn btn-secondary"
+                                                    data-bs-dismiss="modal"
+                                                    th:text="#{common.button.cancel}">
+                                            </button>
 
-                                                <button class="btn btn-primary"
-                                                        th:text="#{common.button.logout}">
-                                                </button>
-                                            </div>
+                                            <button class="btn btn-primary"
+                                                    th:text="#{common.button.logout}">
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
+
                     <div sec:authorize="!isAuthenticated()">
                         <form class="d-flex" method="POST" th:action="@{/login}">
                             <button type="button"
@@ -108,7 +112,8 @@
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel26" th:text="#{common.button.login}"></h5>
+                                            <h5 class="modal-title" id="exampleModalLabel26"
+                                                th:text="#{common.button.login}"></h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                         </div>
@@ -116,7 +121,7 @@
                                             <!-- Username -->
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text text-black-50"
-                                                        th:text="#{menu_user.login}">
+                                                      th:text="#{menu_user.login}">
                                                 </span>
                                                 <input type="text"
                                                        class="form-control"
