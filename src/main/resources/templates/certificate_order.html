@@ -34,10 +34,9 @@
                     <strong th:text="#{menu_admin.common.table.duration} + ': '"></strong>
                     <span class="font_size_24" th:text="${certificate.duration}"></span>
                 </div>
-                <div>
+                <div th:if="${certificate.photographerIncluded}">
                     <i class="bi bi-camera my-2 font_size_24"></i>
-                    <strong th:text="#{menu_admin.common.table.photographer_included} + ': '"></strong>
-                    <span class="font_size_24" th:text="${certificate.photographerIncluded}"></span>
+                    <strong th:text="#{menu_admin.common.table.photographer_included}"></strong>
                 </div>
                 <div>
                     <i class="bi bi-coin my-2 font_size_24"></i>
@@ -73,6 +72,13 @@
                   th:text="#{menu_admin.common.no_data}"></span>
         </div>
     </div>
+    <div class="row offset-5 mt-5 mb-5">
+        <h3>
+            <button class="col-3 btn btn-outline-primary"
+                    th:text="#{common.button.order}"></button>
+        </h3>
+    </div>
+
 </div>
 <footer th:insert="common/user_footer :: content"></footer>
 </body>

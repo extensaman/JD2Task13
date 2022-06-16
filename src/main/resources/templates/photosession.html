@@ -55,7 +55,9 @@
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-6 text-start">
-                                        <a href="#" class="card-link">Order</a>
+                                        <button class="btn btn-outline-primary"
+                                                th:text="#{common.button.order}">
+                                        </button>
                                     </div>
                                     <div class="col-6 text-end">
                                         <strong th:text="${photosession.price} + #{common.byn}">
