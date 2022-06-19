@@ -20,6 +20,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -629,6 +631,10 @@ public class InitiateUtil implements CommandLineRunner {
         userService.saveAll(
                 List.of(user01,user02));
         LOGGER.info("Initialization of 'User' done");
+
+        TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
+        telegramBotsApi.registerBot(new TelegramBot());
+        LOGGER.info("TelegramBot registered");
 
     }
 }

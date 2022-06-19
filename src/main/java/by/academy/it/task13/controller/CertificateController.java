@@ -2,14 +2,13 @@ package by.academy.it.task13.controller;
 
 import by.academy.it.task13.entity.Certificate;
 import by.academy.it.task13.entity.Ordering;
-import by.academy.it.task13.entity.User;
 import by.academy.it.task13.service.CertificateDecorationService;
 import by.academy.it.task13.service.CertificateService;
 import by.academy.it.task13.service.CertificateTypeService;
+import by.academy.it.task13.util.TelegramBot;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +26,7 @@ public class CertificateController {
     private final CertificateService certificateService;
     private final CertificateTypeService certificateTypeService;
     private final CertificateDecorationService certificateDecorationService;
+    private final TelegramBot bot;
 
     @GetMapping
     public String getCertificatePage(Model model) {
@@ -35,6 +35,7 @@ public class CertificateController {
         model.addAttribute(Constant.ACTIVE_CERTIFICATE_TYPE_LIST, certificateTypeService.findAllActiveCertificateType());
         model.addAttribute(Constant.TITLE,
                 Constant.TITLE_CERTIFICATE_MESSAGE);
+        bot.broadcastMessage("Hello from CERTIFICATE page");
         return Constant.CERTIFICATE_PAGE;
     }
 
