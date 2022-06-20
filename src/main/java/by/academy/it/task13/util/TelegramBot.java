@@ -17,42 +17,40 @@ public class TelegramBot extends TelegramLongPollingBot {
     private static final Logger LOGGER = LogManager.getLogger(TelegramBot.class);
     private static final String TOKEN = "5527014400:AAGpoUmTsvYiIfUXis-OJl_i-BI6H-7cKEw";
     private static final String BOT_USERNAME = "CavalierHorseClubBot";
+    private static final String PASSWORD_FOR_SUBSCRIBE = "admin";
+    public static final String UNSUBSCRIBE_COMMAND = "/unsubscribe";
 
     private final List<String> listOfChatIdForBroadcasting = new ArrayList<>();
 
-
-
-
     @Override
     public void onUpdateReceived(Update update) {
-        if(update.hasMessage() && update.getMessage().hasText()){
-            String text = update.getMessage().getText();
+        if (update.hasMessage() && update.getMessage().hasText()) {
+            String receivedText = update.getMessage().getText();
             String chatId = update.getMessage().getChatId().toString();
-            if("/start".equals(text)){
-                sendMessage(chatId, "Enter password");
-            }
-            if("admin".equals(text)){
-                if(listOfChatIdForBroadcasting.add(chatId)){
-
-                    LOGGER.warn("ADDED: List size = " + listOfChatIdForBroadcasting.size());
-                }
-                sendMessage(chatId, "You've just subscribed to Cavalier horse club orders broadcasting");
-            }
-            if("/unsubscribe".equals(text)){
-                listOfChatIdForBroadcasting.remove(chatId);
-                sendMessage(chatId, "You've just unsubscribed from Cavalier horse club orders broadcasting");
+            switch (receivedText) {
+                case PASSWORD_FOR_SUBSCRIBE:
+                    listOfChatIdForBroadcasting.add(chatId);
+                    sendMessage(chatId, "You've just subscribed to Cavalier horse club orders broadcasting");
+                    break;
+                case UNSUBSCRIBE_COMMAND:
+                    listOfChatIdForBroadcasting.remove(chatId);
+                    sendMessage(chatId, "You've just unsubscribed from Cavalier horse club orders broadcasting");
+                    break;
+                default:
+                    sendMessage(chatId, "Enter the password");
+                    break;
             }
         }
     }
 
-    public void broadcastMessage(String message){
+    public void broadcastMessage(String message) {
         LOGGER.warn("List size = " + listOfChatIdForBroadcasting.size());
         listOfChatIdForBroadcasting.forEach(chatId -> {
             sendMessage(chatId, message);
         });
     }
 
-    public void sendMessage(String chatId, String message){
+    public void sendMessage(String chatId, String message) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatId);
         sendMessage.enableMarkdown(true);
@@ -63,7 +61,6 @@ public class TelegramBot extends TelegramLongPollingBot {
             LOGGER.warn(e);
         }
     }
-
 
     @Override
     public String getBotUsername() {

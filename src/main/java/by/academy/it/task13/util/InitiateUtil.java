@@ -18,9 +18,11 @@ import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.ApplicationContext;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 import java.math.BigDecimal;
@@ -34,6 +36,7 @@ public class InitiateUtil implements CommandLineRunner {
 
     private static final Logger LOGGER = LogManager.getLogger(InitiateUtil.class);
 
+    //private final ApplicationContext context;
 
     private final CertificateTypeService certificateTypeService;
     private final CertificateService certificateService;
@@ -632,9 +635,13 @@ public class InitiateUtil implements CommandLineRunner {
                 List.of(user01,user02));
         LOGGER.info("Initialization of 'User' done");
 
-        TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
-        telegramBotsApi.registerBot(new TelegramBot());
+        //TelegramBot telegramBot = context.getBean("telegramBot", TelegramBot.class);
+        try {
+            TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
+            telegramBotsApi.registerBot(new TelegramBot());
+        } catch (TelegramApiException e){
+            LOGGER.warn("Telegram bot isn't registered");
+        }
         LOGGER.info("TelegramBot registered");
-
     }
 }
