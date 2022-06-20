@@ -1,6 +1,6 @@
 package by.academy.it.task13.service.impl;
 
-import by.academy.it.task13.dto.UserDto;
+import by.academy.it.task13.dto.user.UserDto;
 import by.academy.it.task13.entity.User;
 import by.academy.it.task13.mapper.Mapper;
 import by.academy.it.task13.repo.UserRepository;

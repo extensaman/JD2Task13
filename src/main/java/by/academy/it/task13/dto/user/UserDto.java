@@ -1,4 +1,4 @@
-package by.academy.it.task13.dto;
+package by.academy.it.task13.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
