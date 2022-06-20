@@ -57,6 +57,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         sendMessage.setText(message);
         try {
             execute(sendMessage);
+            LOGGER.info("Send " + message + " to " + chatId);
         } catch (TelegramApiException e) {
             LOGGER.warn(e);
         }
