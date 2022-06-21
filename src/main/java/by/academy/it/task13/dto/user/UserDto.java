@@ -17,4 +17,8 @@ public class UserDto {
     private String username;
     @NotBlank(message = "{validation.password_not_blank}")
     private String password;
+    @NotBlank(message = "{validation.phone_not_blank}")
+    private String phone;
+
+    private boolean activity;
 }

@@ -21,8 +21,17 @@
                            th:placeholder="#{menu_user.password}" aria-label="Password"
                            th:field="*{password}">
                 </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control"
+                           th:placeholder="#{menu_user.phone}" aria-label="Phone"
+                           th:field="*{phone}">
+                </div>
+
+                <input type="hidden" name="activity" th:value="${true}">
+
                 <button class="btn btn-outline-primary mb-3"
-                        th:text="#{common.button.registration}"></button>
+                        th:text="#{common.button.registration}">
+                </button>
                 <div class="text-bg-warning mt-4" th:if="${existenceOfUser}"
                      th:text="#{common.attention.user_exists}">
                 </div>
@@ -30,7 +39,11 @@
                      th:errors="*{username}"></div>
                  </div>
                 <div class="text-danger mb-2" th:if="${#fields.hasErrors('password')}"
-                      th:errors="*{password}"></div>
+                      th:errors="*{password}">
+                </div>
+                <div class="text-danger mb-2" th:if="${#fields.hasErrors('phone')}"
+                    th:errors="*{phone}">
+                </div>
             </div>
         </form>
     </div>

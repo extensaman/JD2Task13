@@ -32,7 +32,7 @@ public class Certificate {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column
     private boolean activity;
 
     @ManyToOne(fetch = FetchType.EAGER)

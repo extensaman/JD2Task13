@@ -53,6 +53,7 @@ public class CertificateController {
 
     @PostMapping(Constant.ORDER_MAPPING)
     public String orderCertificate(@ModelAttribute Certificate certificate, Model model) {
+        LOGGER.info("orderCertificate");
         model.addAttribute(Constant.ACTIVE_CERTIFICATE_DECORATION_LIST, certificateDecorationService.findAllActiveCertificateDecoration());
         model.addAttribute(Constant.CERTIFICATE_ORDER, new Ordering());
         model.addAttribute(Constant.TITLE,

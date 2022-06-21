@@ -27,7 +27,7 @@ public class CertificateDecoration {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column
     private boolean activity;
 
     @Column(nullable = false, length = 50)

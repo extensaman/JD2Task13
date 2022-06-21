@@ -630,8 +630,18 @@ public class InitiateUtil implements CommandLineRunner {
                         coach06));
         LOGGER.info("Initialization of 'Coach' done");
 
-        User user01 = new User("admin",encoder.encode("admin"));
-        User user02 = new User("user",encoder.encode("user"));
+        User user01 = User.builder()
+                            .username("admin")
+                            .password(encoder.encode("admin"))
+                            .phone("+375291112233")
+                            .activity(true)
+                            .build();
+        User user02 = User.builder()
+                        .username("user")
+                        .password(encoder.encode("user"))
+                        .phone("+375445556677")
+                        .activity(true)
+                        .build();
         userService.saveAll(
                 List.of(user01,user02));
         LOGGER.info("Initialization of 'User' done");

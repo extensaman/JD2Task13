@@ -34,7 +34,7 @@ public class CertificateDecorationServiceImpl implements CertificateDecorationSe
 
     @Override
     public List<CertificateDecorationDto> findAllActiveCertificateDecoration() {
-        LOGGER.info("findAllActiveCoach");
+        LOGGER.info("findAllActiveCertificateDecoration");
         return repository.findCertificateDecorationsByActivityTrue().stream()
                 .map(mapper::toDto)
                 .collect(Collectors.toList());

@@ -20,7 +20,12 @@ public class UserMapper implements Mapper<User, UserDto> {
     public User toEntity(UserDto dto) {
         return Objects.isNull(dto)
                 ? null
-                : new User(dto.getUsername(), encoder.encode(dto.getPassword()));
+                : User.builder()
+                    .username(dto.getUsername())
+                    .password(encoder.encode(dto.getPassword()))
+                    .phone(dto.getPhone())
+                    .activity(dto.isActivity())
+                    .build();
     }
 
     @Override

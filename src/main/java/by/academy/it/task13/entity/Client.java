@@ -6,15 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.List;
 import java.util.Objects;
 
 @Builder
@@ -29,7 +26,7 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column
     private boolean activity;
 
     @Column(nullable = false, length = 50)
@@ -40,9 +37,6 @@ public class Client {
 
     @Column(nullable = false, length = 254)
     private String email;
-
-    @OneToMany (mappedBy = "client", cascade = CascadeType.MERGE)
-    private List<Ordering> orderList;
 
     @Override
     public boolean equals(Object o) {
