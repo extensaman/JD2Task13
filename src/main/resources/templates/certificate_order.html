@@ -46,39 +46,56 @@
             </div>
         </div>
     </div>
-    <div th:with="condition=${activeCertificateDecorationList != null and !activeCertificateDecorationList.isEmpty()}">
-        <div th:if="${condition}">
-            <div class="row mt-4">
+    <form method="post" th:action="@{/order}" th:object="${order}">
 
-                <th:block th:each="certificateDecoration : ${activeCertificateDecorationList}">
-                    <label class="card col-3 ms-auto me-auto mt-4" style="width: 18rem;">
-                        <input type="radio" name="test" th:value="${certificateDecoration.id}">
-                        <div>
-                            <img th:src="@{${'/img/'+certificateDecoration.photoFile}}"
-                                 class="card-img-top" alt="..."
-                                 data-bs-toggle="tooltip"
-                                 data-bs-placement="top"
-                                 th:attr="title=${certificateDecoration.description}">
-                            <div class="card-body">
-                                <h5 class="card-title" th:text="${certificateDecoration.name}"></h5>
-                            </div>
-                        </div>
-                    </label>
-                </th:block>
-            </div>
+        <div th:if="${currentUser}">
+            <input type="hidden" name="user" th:value="${currentUser.username}">
         </div>
-        <div class="row mt-4 text-center">
+
+        <div th:with="condition=${activeCertificateDecorationList != null and !activeCertificateDecorationList.isEmpty()}">
+            <div th:if="${condition}">
+                <div class="row mt-4">
+
+                    <th:block th:each="certificateDecoration : ${activeCertificateDecorationList}">
+                        <label class="card col-3 ms-auto me-auto mt-4" style="width: 18rem;">
+                            <input type="radio" name="test" id="decorationSelected"
+                                   onclick="decorationSelect()"
+                                   th:value="${certificateDecoration.id}">
+                            <div>
+                                <img th:src="@{${'/img/'+certificateDecoration.photoFile}}"
+                                     class="card-img-top" alt="..."
+                                     data-bs-toggle="tooltip"
+                                     data-bs-placement="top"
+                                     th:attr="title=${certificateDecoration.description}">
+                                <div class="card-body">
+                                    <h5 class="card-title" th:text="${certificateDecoration.name}"></h5>
+                                </div>
+                            </div>
+                        </label>
+                    </th:block>
+                </div>
+            </div>
+            <div class="row mt-4 text-center">
             <span th:unless="${condition}" class="text-danger text-center"
                   th:text="#{menu_admin.common.no_data}"></span>
+            </div>
         </div>
-    </div>
-    <div class="row offset-5 mt-5 mb-5">
-        <h3>
-            <button class="col-3 btn btn-outline-primary"
-                    th:text="#{common.button.order}"></button>
-        </h3>
-    </div>
 
+        <input type="hidden" name="description"
+               th:value="${certificate.name + '&#10;' + certificate.description + '&#10;' + test}">
+        <div class="row offset-5 mt-5 mb-5">
+            <h3>
+                <button class="col-3 btn btn-outline-primary"
+                        th:text="#{common.button.order}"></button>
+            </h3>
+        </div>
+    </form>
+    <script>
+        function decorationSelect(){
+            var decorationSelectedId = document.querySelector("#decorationSelected").value;
+            alert(decorationSelectedId);
+        }
+    </script>
 </div>
 <footer th:insert="common/user_footer :: content"></footer>
 </body>

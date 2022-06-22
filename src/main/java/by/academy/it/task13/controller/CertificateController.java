@@ -9,6 +9,7 @@ import by.academy.it.task13.util.TelegramBot;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.criterion.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +17,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
 @RequestMapping(Constant.CERTIFICATE_MAPPING)
+@SessionAttributes("order")
 @RequiredArgsConstructor
 public class CertificateController {
     private static final Logger LOGGER = LogManager.getLogger(CertificateController.class);
@@ -39,7 +43,7 @@ public class CertificateController {
         return Constant.CERTIFICATE_PAGE;
     }
 
-    @GetMapping("/{id}")
+    @PostMapping("/{id}")
     public String getCertificateWithSpecificType(@PathVariable String id, Model model) {
         LOGGER.info("Getting certificates with type's id = " + id);
         model.addAttribute(Constant.ACTIVE_CERTIFICATE_LIST,
@@ -51,13 +55,21 @@ public class CertificateController {
         return Constant.CERTIFICATE_PAGE;
     }
 
-    @PostMapping(Constant.ORDER_MAPPING)
+    @PostMapping
     public String orderCertificate(@ModelAttribute Certificate certificate, Model model) {
         LOGGER.info("orderCertificate");
+/*        Ordering order = new Ordering();
+        order.setActivity(true);
+        order.setDescription(certificate.getName());*/
         model.addAttribute(Constant.ACTIVE_CERTIFICATE_DECORATION_LIST, certificateDecorationService.findAllActiveCertificateDecoration());
-        model.addAttribute(Constant.CERTIFICATE_ORDER, new Ordering());
+        //model.addAttribute(Constant.CERTIFICATE_ORDER, order);
         model.addAttribute(Constant.TITLE,
                 Constant.TITLE_CERTIFICATE_ORDER_MESSAGE);
         return Constant.CERTIFICATE_ORDER_PAGE;
+    }
+
+    @ModelAttribute(name = "order")
+    public Ordering order(){
+        return new Ordering();
     }
 }

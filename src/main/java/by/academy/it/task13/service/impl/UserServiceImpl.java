@@ -23,6 +23,11 @@ public class UserServiceImpl implements UserService {
     private final Mapper<User, UserDto> mapper;
 
     @Override
+    public User findByUsername(String username) {
+        return repository.findByUsername(username);
+    }
+
+    @Override
     public boolean save(UserDto userDto) {
         LOGGER.info("save");
         User user = mapper.toEntity(userDto);

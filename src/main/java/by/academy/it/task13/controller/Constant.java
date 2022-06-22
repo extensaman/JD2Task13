@@ -32,6 +32,7 @@ public class Constant {
     public static final String TITLE_LOGIN_MESSAGE = "menu.login";
     public static final String TITLE_HORSE_MESSAGE = "menu.horses";
     public static final String TITLE_COACH_MESSAGE = "menu.coaches";
+    public static final String TITLE_ORDER_MESSAGE = "menu.order";
 
 
 
