@@ -2,10 +2,14 @@ package by.academy.it.task13.service;
 
 import by.academy.it.task13.dto.CertificateDto;
 import by.academy.it.task13.entity.Certificate;
+import by.academy.it.task13.entity.CertificateDecoration;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CertificateService {
+    Optional<Certificate> findById(String id);
+
     List<CertificateDto> findAll();
 
     void saveAll(List<Certificate> list);

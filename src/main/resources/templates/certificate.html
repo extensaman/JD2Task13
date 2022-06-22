@@ -93,9 +93,12 @@
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-6 text-start">
-                                        <form method="post" th:action="@{/certificate}"
-                                              th:object="${certificate}">
-                                            <input type="hidden"
+                                        <form method="get" th:action="@{/certificateorder}"
+                                              th:object="${certificateOrder}">
+                                                <input type="hidden"
+                                                    name="certificate"
+                                                       th:value="${certificate.id}">
+<!--                                            <input type="hidden"
                                                    th:value="${certificate.id}"
                                                    name="id">
                                             <input type="hidden"
@@ -124,7 +127,7 @@
                                                    name="photographerIncluded">
                                             <input type="hidden"
                                                    th:value="${certificate.activity}"
-                                                   name="activity">
+                                                   name="activity">-->
 
                                             <button class="btn btn-outline-primary"
                                                     th:text="#{common.button.order}">

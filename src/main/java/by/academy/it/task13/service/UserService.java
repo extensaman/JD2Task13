@@ -5,9 +5,10 @@ import by.academy.it.task13.entity.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService extends UserDetailsService {
-    User findByUsername(String username);
+    Optional<User> findByUsername(String username);
 
     boolean save(UserDto userDto);
 

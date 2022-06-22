@@ -1,6 +1,5 @@
 package by.academy.it.task13.controller;
 
-import by.academy.it.task13.entity.Certificate;
 import by.academy.it.task13.entity.Ordering;
 import by.academy.it.task13.service.CertificateDecorationService;
 import by.academy.it.task13.service.CertificateService;
@@ -9,7 +8,6 @@ import by.academy.it.task13.util.TelegramBot;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hibernate.criterion.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,11 +16,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping(Constant.CERTIFICATE_MAPPING)
-@SessionAttributes("order")
+@SessionAttributes(names = "certificateOrder")
 @RequiredArgsConstructor
 public class CertificateController {
     private static final Logger LOGGER = LogManager.getLogger(CertificateController.class);
@@ -53,23 +52,5 @@ public class CertificateController {
         model.addAttribute(Constant.TITLE,
                 Constant.TITLE_CERTIFICATE_MESSAGE);
         return Constant.CERTIFICATE_PAGE;
-    }
-
-    @PostMapping
-    public String orderCertificate(@ModelAttribute Certificate certificate, Model model) {
-        LOGGER.info("orderCertificate");
-/*        Ordering order = new Ordering();
-        order.setActivity(true);
-        order.setDescription(certificate.getName());*/
-        model.addAttribute(Constant.ACTIVE_CERTIFICATE_DECORATION_LIST, certificateDecorationService.findAllActiveCertificateDecoration());
-        //model.addAttribute(Constant.CERTIFICATE_ORDER, order);
-        model.addAttribute(Constant.TITLE,
-                Constant.TITLE_CERTIFICATE_ORDER_MESSAGE);
-        return Constant.CERTIFICATE_ORDER_PAGE;
-    }
-
-    @ModelAttribute(name = "order")
-    public Ordering order(){
-        return new Ordering();
     }
 }

@@ -1,7 +1,5 @@
 package by.academy.it.task13.controller.converter;
 
-import by.academy.it.task13.controller.CertificateController;
-import by.academy.it.task13.dto.user.UserNameDto;
 import by.academy.it.task13.entity.User;
 import by.academy.it.task13.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +18,6 @@ public class UserByNameConverter implements Converter<String, User> {
     @Override
     public User convert(String source) {
         LOGGER.info("convert userName " + source + "to User");
-        return userService.findByUsername(source);
+        return userService.findByUsername(source).orElse(null);
     }
 }

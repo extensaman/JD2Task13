@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,6 +22,17 @@ public class CertificateDecorationServiceImpl implements CertificateDecorationSe
 
     private final CertificateDecorationRepository repository;
     private final Mapper<CertificateDecoration, CertificateDecorationDto> mapper;
+
+    @Override
+    public Optional<CertificateDecoration> findById(String id) {
+        Optional<CertificateDecoration> decoration;
+        try {
+            decoration = repository.findById(Long.parseLong(id));
+        } catch (NumberFormatException e) {
+            decoration = Optional.empty();
+        }
+        return decoration;
+    }
 
     @Override
     public List<CertificateDecorationDto> findAll() {

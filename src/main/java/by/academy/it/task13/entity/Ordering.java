@@ -18,6 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -39,6 +41,10 @@ public class Ordering {
     @Column(length = 2000)
     private String description;
 
+    @Column(length = 200)
+    @NotBlank(message = "{validation.owner_not_blank}")
+    private String owner;
+
     @Column
     private LocalDateTime created;
 
@@ -49,7 +55,12 @@ public class Ordering {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne (cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinColumn(name = "certificate_id")
+    private Certificate certificate;
+
     // TODO may be need to change EAGER to LAZY
+    @NotNull(message = "Choose decor")
     @ManyToOne (cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "delivery_id")
     private CertificateDecoration certificateDecoration;

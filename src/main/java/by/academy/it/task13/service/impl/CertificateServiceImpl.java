@@ -2,6 +2,7 @@ package by.academy.it.task13.service.impl;
 
 import by.academy.it.task13.dto.CertificateDto;
 import by.academy.it.task13.entity.Certificate;
+import by.academy.it.task13.entity.CertificateDecoration;
 import by.academy.it.task13.mapper.Mapper;
 import by.academy.it.task13.repo.CertificateRepository;
 import by.academy.it.task13.service.CertificateService;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,6 +23,17 @@ public class CertificateServiceImpl implements CertificateService {
 
     private final CertificateRepository repository;
     private final Mapper<Certificate, CertificateDto> mapper;
+
+    @Override
+    public Optional<Certificate> findById(String id) {
+        Optional<Certificate> certificate;
+        try {
+            certificate = repository.findById(Long.parseLong(id));
+        } catch (NumberFormatException e) {
+            certificate = Optional.empty();
+        }
+        return certificate;
+    }
 
     @Override
     public List<CertificateDto> findAll() {

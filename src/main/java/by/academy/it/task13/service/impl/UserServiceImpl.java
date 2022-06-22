@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,8 +24,8 @@ public class UserServiceImpl implements UserService {
     private final Mapper<User, UserDto> mapper;
 
     @Override
-    public User findByUsername(String username) {
-        return repository.findByUsername(username);
+    public Optional<User> findByUsername(String username) {
+        return Optional.ofNullable(repository.findByUsername(username));
     }
 
     @Override

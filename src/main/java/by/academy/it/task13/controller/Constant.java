@@ -2,7 +2,7 @@ package by.academy.it.task13.controller;
 
 public class Constant {
     public static final String ROOT_PATH_MAPPING = "/";
-    public static final String ORDER_MAPPING = "/order";
+    public static final String ORDER_MAPPING = "/certificateorder";
     public static final String CERTIFICATE_MAPPING = "/certificate";
     public static final String PHOTOSESSION_MAPPING = "/photosession";
     public static final String HORSE_MAPPING = "/horse";

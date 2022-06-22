@@ -5,48 +5,54 @@
 <header th:insert="common/user_header :: content"></header>
 
 <div class="container-fluid">
-    <div th:if="${certificate}">
-        <div class="wrapper_w img__object__fit">
-            <img th:src="@{${'/img/'+certificate.photoFile}}">
-        </div>
-        <div class="row mt-4 text-center">
-            <h2 th:text="${certificate.name}">
-            </h2>
-        </div>
-        <div class="row mt-1 text-center">
-            <strong th:text="${certificate.description}">
-            </strong>
-        </div>
-    </div>
-    <div class="container-fluid mt-4">
-        <div class="offset-2 d-flex align-items-center">
-            <div class="col flex-shrink-0">
-                <img class="w-100" th:src="@{${'/img/'+certificate.photoFile}}">
+    <form method="post" th:action="@{/certificateorder}" th:object="${certificateOrder}">
+        <div th:if="${certificateOrder.certificate}">
+            <div class="wrapper_w img__object__fit">
+                <img th:src="@{${'/img/'+certificateOrder.certificate.photoFile}}">
             </div>
-            <div class="col my-2 flex-grow-1 ms-3">
-                <div>
-                    <i class="bi bi-suit-spade my-2 font_size_24"></i>
-                    <strong th:text="#{menu_admin.common.table.horse_count} + ': '"></strong>
-                    <span class="font_size_24" th:text="${certificate.horseCount}"></span>
-                </div>
-                <div>
-                    <i class="bi bi-clock my-2 font_size_24"></i>
-                    <strong th:text="#{menu_admin.common.table.duration} + ': '"></strong>
-                    <span class="font_size_24" th:text="${certificate.duration}"></span>
-                </div>
-                <div th:if="${certificate.photographerIncluded}">
-                    <i class="bi bi-camera my-2 font_size_24"></i>
-                    <strong th:text="#{menu_admin.common.table.photographer_included}"></strong>
-                </div>
-                <div>
-                    <i class="bi bi-coin my-2 font_size_24"></i>
-                    <strong th:text="#{menu_admin.common.table.price} + ': '"></strong>
-                    <span class="font_size_24" th:text="${certificate.price}"></span>
-                </div>
+            <div class="row mt-4 text-center">
+                <h2 th:text="${certificateOrder.certificate.name}">
+                </h2>
+            </div>
+            <div class="row mt-1 text-center">
+                <strong th:text="${certificateOrder.certificate.description}">
+                </strong>
             </div>
         </div>
-    </div>
-    <form method="post" th:action="@{/order}" th:object="${order}">
+        <div class="container-fluid mt-4">
+            <div class="offset-2 d-flex align-items-center">
+                <div class="col flex-shrink-0">
+                    <img class="w-100" th:src="@{${'/img/'+certificateOrder.certificate.photoFile}}">
+                </div>
+                <div class="col my-2 flex-grow-1 ms-3">
+                    <div>
+                        <i class="bi bi-suit-spade my-2 font_size_24"></i>
+                        <strong th:text="#{menu_admin.common.table.horse_count} + ': '"></strong>
+                        <span class="font_size_24" th:text="${certificateOrder.certificate.horseCount}"></span>
+                    </div>
+                    <div>
+                        <i class="bi bi-clock my-2 font_size_24"></i>
+                        <strong th:text="#{menu_admin.common.table.duration} + ': '"></strong>
+                        <span class="font_size_24" th:text="${certificateOrder.certificate.duration}"></span>
+                    </div>
+                    <div th:if="${certificateOrder.certificate.photographerIncluded}">
+                        <i class="bi bi-camera my-2 font_size_24"></i>
+                        <strong th:text="#{menu_admin.common.table.photographer_included}"></strong>
+                    </div>
+                    <div>
+                        <i class="bi bi-coin my-2 font_size_24"></i>
+                        <strong th:text="#{menu_admin.common.table.price} + ': '"></strong>
+                        <span class="font_size_24" th:text="${certificateOrder.certificate.price}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" aria-label="Username"
+                   th:placeholder="#{menu_user.certificate_owner}"
+                   th:field="*{owner}">
+        </div>
 
         <div th:if="${currentUser}">
             <input type="hidden" name="user" th:value="${currentUser.username}">
@@ -56,23 +62,29 @@
             <div th:if="${condition}">
                 <div class="row mt-4">
 
-                    <th:block th:each="certificateDecoration : ${activeCertificateDecorationList}">
+                    <th:block th:each="certDecor : ${activeCertificateDecorationList}">
                         <label class="card col-3 ms-auto me-auto mt-4" style="width: 18rem;">
-                            <input type="radio" name="test" id="decorationSelected"
-                                   onclick="decorationSelect()"
-                                   th:value="${certificateDecoration.id}">
+                            <input type="radio" th:field="*{certificateDecoration}"
+                                   id="optionsRadios"
+                                   th:value="${certDecor.id}">
                             <div>
-                                <img th:src="@{${'/img/'+certificateDecoration.photoFile}}"
+                                <img th:src="@{${'/img/'+certDecor.photoFile}}"
                                      class="card-img-top" alt="..."
                                      data-bs-toggle="tooltip"
                                      data-bs-placement="top"
-                                     th:attr="title=${certificateDecoration.description}">
+                                     th:attr="title=${certDecor.description}">
                                 <div class="card-body">
-                                    <h5 class="card-title" th:text="${certificateDecoration.name}"></h5>
+                                    <h5 class="card-title" th:text="${certDecor.name}"></h5>
                                 </div>
                             </div>
                         </label>
                     </th:block>
+                </div>
+                <div class="text-danger mb-2" th:if="${#fields.hasErrors()}"
+                     th:errors="*{certificateDecoration}">
+                </div>
+                <div class="text-danger mb-2" th:if="${#fields.hasErrors('owner')}"
+                     th:errors="*{owner}">
                 </div>
             </div>
             <div class="row mt-4 text-center">
@@ -80,9 +92,8 @@
                   th:text="#{menu_admin.common.no_data}"></span>
             </div>
         </div>
-
         <input type="hidden" name="description"
-               th:value="${certificate.name + '&#10;' + certificate.description + '&#10;' + test}">
+               th:value="${certificateOrder.certificate.name + '&#10;' + certificateOrder.certificate.description + '&#10;'}">
         <div class="row offset-5 mt-5 mb-5">
             <h3>
                 <button class="col-3 btn btn-outline-primary"
@@ -91,10 +102,19 @@
         </div>
     </form>
     <script>
-        function decorationSelect(){
-            var decorationSelectedId = document.querySelector("#decorationSelected").value;
-            alert(decorationSelectedId);
+        function decorationSelect() {
+            var decorationSelected = document.querySelector("#decorationSelected").value;
+            alert(decorationSelected);
         }
+
+        function textInputTest() {
+            var textInputTest = document.querySelector("#textInputTest").value;
+            alert(textInputTest);
+        }
+
+    </script>
+    <script>
+        document.getElementById("optionsRadios").setAttribute("checked","checked")
     </script>
 </div>
 <footer th:insert="common/user_footer :: content"></footer>
