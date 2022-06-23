@@ -101,6 +101,13 @@
             </h3>
         </div>
     </form>
+    <form method="post" th:action="@{/certificateorder/test}" th:object="${test}">
+        <input type="text" th:field="*{name}">
+        <button type="submit">OK</button>
+        <div class="text-danger mb-2" th:if="${#fields.hasErrors('name')}"
+             th:errors="*{name}">
+        </div>
+    </form>
     <script>
         function decorationSelect() {
             var decorationSelected = document.querySelector("#decorationSelected").value;

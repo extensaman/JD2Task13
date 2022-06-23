@@ -1,6 +1,8 @@
 package by.academy.it.task13.controller;
 
-import by.academy.it.task13.entity.Ordering;
+import by.academy.it.task13.dto.CertificateOrderDto;
+import by.academy.it.task13.dto.TestDto;
+import by.academy.it.task13.entity.CertificateOrder;
 import by.academy.it.task13.service.CertificateDecorationService;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -27,27 +29,28 @@ public class OrderController {
     private final CertificateDecorationService certificateDecorationService;
 
     @GetMapping
-    public String orderCertificate(@ModelAttribute Ordering certificateOrder, Model model) {
+    public String orderCertificate(@ModelAttribute CertificateOrderDto certificateOrderDto, Model model) {
         LOGGER.info("orderCertificate");
-        if(certificateOrder.getCertificate() == null){
+        if(certificateOrderDto.getCertificate() == null){
             return "redirect:/certificate";
         }
-        Optional.ofNullable(certificateOrder.getCertificate())
+        Optional.ofNullable(certificateOrderDto.getCertificate())
                 .ifPresent(certificate -> LOGGER.info(certificate.getPhotoFile()));
         model.addAttribute(Constant.ACTIVE_CERTIFICATE_DECORATION_LIST, certificateDecorationService.findAllActiveCertificateDecoration());
-        model.addAttribute(Constant.CERTIFICATE_ORDER, certificateOrder);
+        model.addAttribute(Constant.CERTIFICATE_ORDER, certificateOrderDto);
+        model.addAttribute("test", new TestDto());
         model.addAttribute(Constant.TITLE,
                 Constant.TITLE_CERTIFICATE_ORDER_MESSAGE);
         return Constant.CERTIFICATE_ORDER_PAGE;
     }
 
     @ModelAttribute(name = "certificateOrder")
-    public Ordering order() {
-        return new Ordering();
+    public CertificateOrderDto order() {
+        return new CertificateOrderDto();
     }
 
     @PostMapping
-    public String getOrderPage(Model model, @Valid Ordering certificateOrder, Errors errors) {
+    public String getOrderPage(Model model, @Valid CertificateOrderDto certificateOrderDto, Errors errors) {
         LOGGER.info("getOrderPage");
         model.addAttribute(Constant.TITLE,
                 Constant.TITLE_ORDER_MESSAGE);
@@ -56,13 +59,27 @@ public class OrderController {
             model.addAttribute(Constant.ACTIVE_CERTIFICATE_DECORATION_LIST, certificateDecorationService.findAllActiveCertificateDecoration());
             return Constant.CERTIFICATE_ORDER_PAGE;
         }
-        LOGGER.info("DESCRIPTION in ORDER is " + certificateOrder.getDescription());
-        Optional.ofNullable(certificateOrder.getUser())
+        LOGGER.info("DESCRIPTION in ORDER is " + certificateOrderDto.getDescription());
+        Optional.ofNullable(certificateOrderDto.getUser())
                 .ifPresent(user -> LOGGER.info("USER in ORDER is " + user.getUsername()));
-        Optional.ofNullable(certificateOrder.getCertificateDecoration())
+        Optional.ofNullable(certificateOrderDto.getCertificateDecoration())
                 .ifPresent(cD ->
                         LOGGER.info("CERT_DECOR in ORDER is " + cD.getName()));
 
+        return Constant.COACH_PAGE;
+    }
+
+    // KILL IT
+    @PostMapping("/test")
+    public String testPage(Model model, @Valid TestDto dto, Errors errors){
+        LOGGER.info("testPage");
+        model.addAttribute(Constant.TITLE,
+                Constant.TITLE_ORDER_MESSAGE);
+        if(errors.hasErrors()){
+            LOGGER.info("testPage :: errors.hasErrors()" + errors.getFieldError().getField());
+            model.addAttribute(Constant.ACTIVE_CERTIFICATE_DECORATION_LIST, certificateDecorationService.findAllActiveCertificateDecoration());
+            return Constant.CERTIFICATE_ORDER_PAGE;
+        }
         return Constant.COACH_PAGE;
     }
 }

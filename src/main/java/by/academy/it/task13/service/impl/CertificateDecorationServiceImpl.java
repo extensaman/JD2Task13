@@ -24,14 +24,14 @@ public class CertificateDecorationServiceImpl implements CertificateDecorationSe
     private final Mapper<CertificateDecoration, CertificateDecorationDto> mapper;
 
     @Override
-    public Optional<CertificateDecoration> findById(String id) {
+    public Optional<CertificateDecorationDto> findById(String id) {
         Optional<CertificateDecoration> decoration;
         try {
             decoration = repository.findById(Long.parseLong(id));
         } catch (NumberFormatException e) {
             decoration = Optional.empty();
         }
-        return decoration;
+        return decoration.map(mapper::toDto);
     }
 
     @Override

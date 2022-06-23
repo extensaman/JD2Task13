@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CertificateDecorationService {
-    Optional<CertificateDecoration> findById(String id);
+    Optional<CertificateDecorationDto> findById(String id);
 
     List<CertificateDecorationDto> findAll();
 

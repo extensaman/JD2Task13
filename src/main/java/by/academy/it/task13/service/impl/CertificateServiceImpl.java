@@ -25,14 +25,15 @@ public class CertificateServiceImpl implements CertificateService {
     private final Mapper<Certificate, CertificateDto> mapper;
 
     @Override
-    public Optional<Certificate> findById(String id) {
+    public Optional<CertificateDto> findById(String id) {
+        LOGGER.info("findById");
         Optional<Certificate> certificate;
         try {
             certificate = repository.findById(Long.parseLong(id));
         } catch (NumberFormatException e) {
             certificate = Optional.empty();
         }
-        return certificate;
+        return certificate.map(mapper::toDto);
     }
 
     @Override
@@ -55,6 +56,7 @@ public class CertificateServiceImpl implements CertificateService {
 
     @Override
     public List<Certificate> findCertificatesByActivityTrueAndCertificateTypeId(String id) {
+        LOGGER.info("findCertificatesByActivityTrueAndCertificateTypeId");
         long identifier;
         try{
             identifier = Long.parseLong(id);

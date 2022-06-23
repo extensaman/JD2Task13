@@ -29,8 +29,8 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
-@Table (name = "ordering")
-public class Ordering {
+@Table(name = "certificate_order")
+public class CertificateOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -51,17 +51,17 @@ public class Ordering {
     @Column
     private LocalDateTime updated;
 
-    @ManyToOne (cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne (cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "certificate_id")
     private Certificate certificate;
 
     // TODO may be need to change EAGER to LAZY
     @NotNull(message = "Choose decor")
-    @ManyToOne (cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "delivery_id")
     private CertificateDecoration certificateDecoration;
 
@@ -79,8 +79,8 @@ public class Ordering {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Ordering ordering = (Ordering) o;
-        return Objects.equals(id, ordering.id);
+        CertificateOrder certificateOrder = (CertificateOrder) o;
+        return Objects.equals(id, certificateOrder.id);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package by.academy.it.task13.controller.converter;
 
-import by.academy.it.task13.entity.CertificateDecoration;
+import by.academy.it.task13.dto.CertificateDecorationDto;
 import by.academy.it.task13.service.CertificateDecorationService;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -10,14 +10,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class CertificateDecorationByIdConverter implements Converter<String, CertificateDecoration> {
+public class CertificateDecorationByIdConverter implements Converter<String, CertificateDecorationDto> {
     private static final Logger LOGGER = LogManager.getLogger(CertificateDecorationByIdConverter.class);
 
     private final CertificateDecorationService service;
 
     @Override
-    public CertificateDecoration convert(String id) {
-        LOGGER.info("convert certDecorId " + id + "to CertificateDecoration");
+    public CertificateDecorationDto convert(String id) {
+        LOGGER.info("convert CertificateDecoration id = " + id + " to CertificateDecorationDto");
         return service.findById(id).orElse(null);
     }
 }

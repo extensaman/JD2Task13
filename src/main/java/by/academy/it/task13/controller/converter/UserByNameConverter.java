@@ -17,7 +17,7 @@ public class UserByNameConverter implements Converter<String, User> {
 
     @Override
     public User convert(String source) {
-        LOGGER.info("convert userName " + source + "to User");
+        LOGGER.info("convert userName = " + source + " to User");
         return userService.findByUsername(source).orElse(null);
     }
 }
