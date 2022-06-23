@@ -5,44 +5,44 @@
 <header th:insert="common/user_header :: content"></header>
 
 <div class="container-fluid">
-    <form method="post" th:action="@{/certificateorder}" th:object="${certificateOrder}">
-        <div th:if="${certificateOrder.certificate}">
+    <form method="post" th:action="@{/certificateorder}" th:object="${certificateOrderDto}">
+        <div th:if="${certificateOrderDto.certificate}">
             <div class="wrapper_w img__object__fit">
-                <img th:src="@{${'/img/'+certificateOrder.certificate.photoFile}}">
+                <img th:src="@{${'/img/'+certificateOrderDto.certificate.photoFile}}">
             </div>
             <div class="row mt-4 text-center">
-                <h2 th:text="${certificateOrder.certificate.name}">
+                <h2 th:text="${certificateOrderDto.certificate.name}">
                 </h2>
             </div>
             <div class="row mt-1 text-center">
-                <strong th:text="${certificateOrder.certificate.description}">
+                <strong th:text="${certificateOrderDto.certificate.description}">
                 </strong>
             </div>
         </div>
         <div class="container-fluid mt-4">
             <div class="offset-2 d-flex align-items-center">
                 <div class="col flex-shrink-0">
-                    <img class="w-100" th:src="@{${'/img/'+certificateOrder.certificate.photoFile}}">
+                    <img class="w-100" th:src="@{${'/img/'+certificateOrderDto.certificate.photoFile}}">
                 </div>
                 <div class="col my-2 flex-grow-1 ms-3">
                     <div>
                         <i class="bi bi-suit-spade my-2 font_size_24"></i>
                         <strong th:text="#{menu_admin.common.table.horse_count} + ': '"></strong>
-                        <span class="font_size_24" th:text="${certificateOrder.certificate.horseCount}"></span>
+                        <span class="font_size_24" th:text="${certificateOrderDto.certificate.horseCount}"></span>
                     </div>
                     <div>
                         <i class="bi bi-clock my-2 font_size_24"></i>
                         <strong th:text="#{menu_admin.common.table.duration} + ': '"></strong>
-                        <span class="font_size_24" th:text="${certificateOrder.certificate.duration}"></span>
+                        <span class="font_size_24" th:text="${certificateOrderDto.certificate.duration}"></span>
                     </div>
-                    <div th:if="${certificateOrder.certificate.photographerIncluded}">
+                    <div th:if="${certificateOrderDto.certificate.photographerIncluded}">
                         <i class="bi bi-camera my-2 font_size_24"></i>
                         <strong th:text="#{menu_admin.common.table.photographer_included}"></strong>
                     </div>
                     <div>
                         <i class="bi bi-coin my-2 font_size_24"></i>
                         <strong th:text="#{menu_admin.common.table.price} + ': '"></strong>
-                        <span class="font_size_24" th:text="${certificateOrder.certificate.price}"></span>
+                        <span class="font_size_24" th:text="${certificateOrderDto.certificate.price}"></span>
                     </div>
                 </div>
             </div>
@@ -80,7 +80,7 @@
                         </label>
                     </th:block>
                 </div>
-                <div class="text-danger mb-2" th:if="${#fields.hasErrors()}"
+                <div class="text-danger mb-2" th:if="${#fields.hasErrors('certificateDecoration')}"
                      th:errors="*{certificateDecoration}">
                 </div>
                 <div class="text-danger mb-2" th:if="${#fields.hasErrors('owner')}"
@@ -93,19 +93,12 @@
             </div>
         </div>
         <input type="hidden" name="description"
-               th:value="${certificateOrder.certificate.name + '&#10;' + certificateOrder.certificate.description + '&#10;'}">
+               th:value="${certificateOrderDto.certificate.name + '&#10;' + certificateOrderDto.certificate.description + '&#10;'}">
         <div class="row offset-5 mt-5 mb-5">
             <h3>
                 <button class="col-3 btn btn-outline-primary"
                         th:text="#{common.button.order}"></button>
             </h3>
-        </div>
-    </form>
-    <form method="post" th:action="@{/certificateorder/test}" th:object="${test}">
-        <input type="text" th:field="*{name}">
-        <button type="submit">OK</button>
-        <div class="text-danger mb-2" th:if="${#fields.hasErrors('name')}"
-             th:errors="*{name}">
         </div>
     </form>
     <script>

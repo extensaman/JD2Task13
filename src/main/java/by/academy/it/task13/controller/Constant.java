@@ -21,7 +21,7 @@ public class Constant {
     public static final String ACTIVE_PHOTOSESSION_LIST = "activePhotosessionList";
     public static final String ACTIVE_HORSE_LIST = "activeHorseList";
     public static final String ACTIVE_COACH_LIST = "activeCoachList";
-    public static final String CERTIFICATE_ORDER = "certificateOrder";
+    public static final String CERTIFICATE_ORDER = "certificateOrderDto";
     public static final String CERTIFICATE = "certificate";
     public static final String ACTIVE_CERTIFICATE_TYPE_LIST = "activeCertificateTypeList";
     public static final String ACTIVE_CERTIFICATE_DECORATION_LIST = "activeCertificateDecorationList";

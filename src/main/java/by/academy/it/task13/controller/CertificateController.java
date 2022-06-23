@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @RequestMapping(Constant.CERTIFICATE_MAPPING)
-@SessionAttributes(names = "certificateOrder")
+//@SessionAttributes(names = "certificateOrderDto")
 @RequiredArgsConstructor
 public class CertificateController {
     private static final Logger LOGGER = LogManager.getLogger(CertificateController.class);
