@@ -2,6 +2,7 @@ package by.academy.it.task13.controller;
 
 import by.academy.it.task13.dto.CertificateOrderDto;
 import by.academy.it.task13.service.CertificateDecorationService;
+import by.academy.it.task13.service.CertificateOrderService;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,12 +20,13 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping(Constant.ORDER_MAPPING)
-@SessionAttributes(names = "certificateOrderDto")
+@SessionAttributes(names = Constant.CERTIFICATE_ORDER)
 @RequiredArgsConstructor
 public class OrderController {
     private static final Logger LOGGER = LogManager.getLogger(OrderController.class);
 
     private final CertificateDecorationService certificateDecorationService;
+    private final CertificateOrderService certificateOrderService;
 
     @GetMapping
     public String orderCertificate(@ModelAttribute CertificateOrderDto certificateOrderDto, Model model) {
@@ -35,13 +37,12 @@ public class OrderController {
         Optional.ofNullable(certificateOrderDto.getCertificate())
                 .ifPresent(certificate -> LOGGER.info(certificate.getPhotoFile()));
         model.addAttribute(Constant.ACTIVE_CERTIFICATE_DECORATION_LIST, certificateDecorationService.findAllActiveCertificateDecoration());
-        model.addAttribute(Constant.CERTIFICATE_ORDER, certificateOrderDto);
         model.addAttribute(Constant.TITLE,
                 Constant.TITLE_CERTIFICATE_ORDER_MESSAGE);
         return Constant.CERTIFICATE_ORDER_PAGE;
     }
 
-    @ModelAttribute(name = "certificateOrderDto")
+    @ModelAttribute(name = Constant.CERTIFICATE_ORDER)
     public CertificateOrderDto certificateOrderDto() {
         return new CertificateOrderDto();
     }
@@ -52,7 +53,8 @@ public class OrderController {
         model.addAttribute(Constant.TITLE,
                 Constant.TITLE_ORDER_MESSAGE);
         if (errors.hasErrors()) {
-            LOGGER.info("getOrderPage :: errors.hasErrors() " + errors.getFieldError().getField());
+            LOGGER.info(errors.getFieldError().getField());
+            LOGGER.info("Decor id = " + certificateOrderDto.getCertificateDecoration().getId());
             model.addAttribute(Constant.ACTIVE_CERTIFICATE_DECORATION_LIST, certificateDecorationService.findAllActiveCertificateDecoration());
             return Constant.CERTIFICATE_ORDER_PAGE;
         }
@@ -62,7 +64,8 @@ public class OrderController {
         Optional.ofNullable(certificateOrderDto.getCertificateDecoration())
                 .ifPresent(cD ->
                         LOGGER.info("CERT_DECOR in ORDER is " + cD.getName()));
-
+        certificateOrderService.save(certificateOrderDto);
+        LOGGER.info("certificateOrderDto SAVED");
         return Constant.COACH_PAGE;
     }
 

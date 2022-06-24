@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,8 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -42,14 +42,10 @@ public class CertificateOrder {
     private String description;
 
     @Column(length = 200)
-    @NotBlank(message = "{validation.owner_not_blank}")
     private String owner;
 
     @Column
-    private LocalDateTime created;
-
-    @Column
-    private LocalDateTime updated;
+    private LocalDate eventDate;
 
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
@@ -60,10 +56,15 @@ public class CertificateOrder {
     private Certificate certificate;
 
     // TODO may be need to change EAGER to LAZY
-    @NotNull(message = "Choose decor")
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "delivery_id")
     private CertificateDecoration certificateDecoration;
+
+    @Column
+    private LocalDateTime created;
+
+    @Column
+    private LocalDateTime updated;
 
     @PrePersist
     public void preCreated() {

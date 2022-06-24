@@ -49,6 +49,7 @@
 
                     <div class="card col-3 ms-auto me-auto mt-4" style="width: 18rem;">
                         <img th:src="@{${'/img/'+certificate.photoFile}}"
+
                              class="card-img-top" alt="..."
                              data-bs-toggle="tooltip"
                              data-bs-placement="top"
@@ -94,7 +95,7 @@
                                 <div class="row">
                                     <div class="col-6 text-start">
                                         <form method="get" th:action="@{/certificateorder}"
-                                              th:object="${certificateOrder}">
+                                              th:object="${certificateOrderDto}">
                                                 <input type="hidden"
                                                     name="certificate"
                                                        th:value="${certificate.id}">

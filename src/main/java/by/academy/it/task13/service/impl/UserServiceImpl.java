@@ -24,8 +24,8 @@ public class UserServiceImpl implements UserService {
     private final Mapper<User, UserDto> mapper;
 
     @Override
-    public Optional<User> findByUsername(String username) {
-        return Optional.ofNullable(repository.findByUsername(username));
+    public Optional<UserDto> findByUsername(String username) {
+        return Optional.ofNullable(mapper.toDto(repository.findByUsername(username)));
     }
 
     @Override

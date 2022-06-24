@@ -54,6 +54,10 @@
                    th:field="*{owner}">
         </div>
 
+        <div class="row">
+            <input type="date" class="form-control" th:field="*{eventDate}" placeholder="Choose event date">
+        </div>
+
         <div th:if="${currentUser}">
             <input type="hidden" name="user" th:value="${currentUser.username}">
         </div>
@@ -64,7 +68,12 @@
 
                     <th:block th:each="certDecor : ${activeCertificateDecorationList}">
                         <label class="card col-3 ms-auto me-auto mt-4" style="width: 18rem;">
-                            <input type="radio" th:field="*{certificateDecoration}"
+                            <input th:if="${certificateOrderDto.certificateDecoration}"
+                                    type="radio" name="certificateDecoration"
+                                   th:checked="${certDecor.id == certificateOrderDto.certificateDecoration.id}"
+                                   th:value="${certDecor.id}">
+                            <input th:unless="${certificateOrderDto.certificateDecoration}"
+                                   type="radio" name="certificateDecoration"
                                    id="optionsRadios"
                                    th:value="${certDecor.id}">
                             <div>
@@ -83,14 +92,18 @@
                 <div class="text-danger mb-2" th:if="${#fields.hasErrors('certificateDecoration')}"
                      th:errors="*{certificateDecoration}">
                 </div>
-                <div class="text-danger mb-2" th:if="${#fields.hasErrors('owner')}"
-                     th:errors="*{owner}">
-                </div>
+
             </div>
             <div class="row mt-4 text-center">
             <span th:unless="${condition}" class="text-danger text-center"
                   th:text="#{menu_admin.common.no_data}"></span>
             </div>
+        </div>
+        <div class="text-danger mb-2" th:if="${#fields.hasErrors('owner')}"
+             th:errors="*{owner}">
+        </div>
+        <div class="text-danger mb-2" th:if="${#fields.hasErrors('eventDate')}"
+             th:errors="*{eventDate}">
         </div>
         <input type="hidden" name="description"
                th:value="${certificateOrderDto.certificate.name + '&#10;' + certificateOrderDto.certificate.description + '&#10;'}">
@@ -101,18 +114,6 @@
             </h3>
         </div>
     </form>
-    <script>
-        function decorationSelect() {
-            var decorationSelected = document.querySelector("#decorationSelected").value;
-            alert(decorationSelected);
-        }
-
-        function textInputTest() {
-            var textInputTest = document.querySelector("#textInputTest").value;
-            alert(textInputTest);
-        }
-
-    </script>
     <script>
         document.getElementById("optionsRadios").setAttribute("checked","checked")
     </script>

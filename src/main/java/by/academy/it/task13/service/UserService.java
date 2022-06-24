@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserService extends UserDetailsService {
-    Optional<User> findByUsername(String username);
+    Optional<UserDto> findByUsername(String username);
 
     boolean save(UserDto userDto);
 
