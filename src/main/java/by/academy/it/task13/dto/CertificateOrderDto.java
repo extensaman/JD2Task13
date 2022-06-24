@@ -1,6 +1,7 @@
 package by.academy.it.task13.dto;
 
 import by.academy.it.task13.dto.user.UserDto;
+import by.academy.it.task13.entity.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,7 @@ import java.time.LocalDate;
 public class CertificateOrderDto {
     private Long id;
 
-    private boolean activity;
+    private OrderStatus orderStatus;
 
     private String description;
 

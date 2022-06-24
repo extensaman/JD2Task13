@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="common/metadata :: content"></head>
+<body>
+<header th:insert="common/user_header :: content"></header>
+
+<div class="container-fluid">
+
+    <div th:if="${certificateOrderDto.certificate}" class="wrapper_w img__object__fit">
+        <img th:src="@{${'/img/'+certificateOrderDto.certificate.photoFile}}">
+    </div>
+
+    <table class="table mt-4">
+        <tbody>
+        <tr>
+            <td class="text-center align-middle">
+                <a th:href="@{/certificate}">
+                    <i class="bi bi-check2-square fs-1 text-secondary"></i>
+                </a>
+            </td>
+            <td class="text-center align-middle">
+                <a th:href="@{/certificate/decoration}">
+                    <i class="bi bi-brush fs-1 text-secondary"></i>
+                </a>
+            </td>
+            <td class="text-center align-middle text-primary">
+                <i class="bi bi-pencil-square fs-1"></i>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center align-middle">
+                <a th:href="@{/certificate}"
+                   class="text-secondary"
+                   th:text="#{common.button.choose_certificate}">
+                </a>
+            </td>
+            <td class="text-center align-middle">
+                <a th:href="@{/certificate/decoration}"
+                   class="text-secondary"
+                   th:text="#{common.button.choose_certificate_decoration}">
+                </a>
+            </td>
+            <td class="text-center align-middle text-primary"
+                th:text="#{common.button.additional_data}">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <form method="post" th:action="@{/certificate/additional}" th:object="${certificateOrderDto}">
+
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" aria-label="Username"
+                   th:placeholder="#{menu_user.certificate_owner}"
+                   th:field="*{owner}">
+        </div>
+
+        <div class="row">
+            <input type="date" class="form-control" th:field="*{eventDate}" placeholder="Choose event date">
+        </div>
+
+        <div th:if="${currentUser}">
+            <input type="hidden" name="user" th:value="${currentUser.username}">
+        </div>
+
+        <input type="hidden" name="orderStatus"
+               th:value="${T(by.academy.it.task13.entity.OrderStatus).NEW}">
+
+        <div class="text-danger mb-2" th:if="${#fields.hasErrors('owner')}"
+             th:errors="*{owner}">
+        </div>
+        <div class="text-danger mb-2" th:if="${#fields.hasErrors('eventDate')}"
+             th:errors="*{eventDate}">
+        </div>
+
+
+        <div class="row offset-5 mt-5 mb-5">
+            <h3>
+                <button class="col-3 btn btn-outline-primary"
+                        th:text="#{common.button.order}"></button>
+            </h3>
+        </div>
+    </form>
+    <script>
+        document.getElementById("optionsRadios").setAttribute("checked", "checked")
+    </script>
+</div>
+<footer th:insert="common/user_footer :: content"></footer>
+</body>
+</html>

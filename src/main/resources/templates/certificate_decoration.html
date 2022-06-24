@@ -5,11 +5,58 @@
 <header th:insert="common/user_header :: content"></header>
 
 <div class="container-fluid">
-    <form method="post" th:action="@{/certificateorder}" th:object="${certificateOrderDto}">
+
+    <div th:if="${certificateOrderDto.certificate}" class="wrapper_w img__object__fit">
+        <img th:src="@{${'/img/'+certificateOrderDto.certificate.photoFile}}">
+    </div>
+
+    <table class="table mt-4">
+        <tbody>
+        <tr>
+            <td class="text-center align-middle text-secondary">
+                <a th:href="@{/certificate}">
+                    <i class="bi bi-check2-square fs-1 text-secondary"></i>
+                </a>
+            </td>
+            <td class="text-center align-middle text-primary">
+                <i class="bi bi-brush fs-1"></i>
+            </td>
+            <td class="text-center align-middle">
+                <a th:if="${certificateOrderDto.certificateDecoration}"
+                   th:href="@{/certificate/additional}">
+                    <i class="bi bi-pencil-square fs-1 text-secondary"></i>
+                </a>
+                <div th:unless="${certificateOrderDto.certificateDecoration}">
+                    <i class="bi bi-pencil-square fs-1 text-black-50"></i>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center align-middle">
+                <a th:href="@{/certificate}"
+                   class="text-secondary"
+                   th:text="#{common.button.choose_certificate}">
+                </a>
+            </td>
+            <td class="text-center align-middle text-primary"
+                th:text="#{common.button.choose_certificate_decoration}">
+            </td>
+            <td class="text-center align-middle">
+                <a th:if="${certificateOrderDto.certificateDecoration}"
+                        th:href="@{/certificate/additional}"
+                   class="text-secondary"
+                   th:text="#{common.button.additional_data}">
+                </a>
+                <div th:unless="${certificateOrderDto.certificateDecoration}"
+                     class="text-black-50"
+                     th:text="#{common.button.additional_data}">
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <form method="post" th:action="@{/certificate/decoration}" th:object="${certificateOrderDto}">
         <div th:if="${certificateOrderDto.certificate}">
-            <div class="wrapper_w img__object__fit">
-                <img th:src="@{${'/img/'+certificateOrderDto.certificate.photoFile}}">
-            </div>
             <div class="row mt-4 text-center">
                 <h2 th:text="${certificateOrderDto.certificate.name}">
                 </h2>
@@ -19,6 +66,7 @@
                 </strong>
             </div>
         </div>
+
         <div class="container-fluid mt-4">
             <div class="offset-2 d-flex align-items-center">
                 <div class="col flex-shrink-0">
@@ -48,20 +96,6 @@
             </div>
         </div>
 
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" aria-label="Username"
-                   th:placeholder="#{menu_user.certificate_owner}"
-                   th:field="*{owner}">
-        </div>
-
-        <div class="row">
-            <input type="date" class="form-control" th:field="*{eventDate}" placeholder="Choose event date">
-        </div>
-
-        <div th:if="${currentUser}">
-            <input type="hidden" name="user" th:value="${currentUser.username}">
-        </div>
-
         <div th:with="condition=${activeCertificateDecorationList != null and !activeCertificateDecorationList.isEmpty()}">
             <div th:if="${condition}">
                 <div class="row mt-4">
@@ -84,27 +118,22 @@
                                      th:attr="title=${certDecor.description}">
                                 <div class="card-body">
                                     <h5 class="card-title" th:text="${certDecor.name}"></h5>
+                                    <div class="text-end">
+                                        <strong th:text="${certDecor.price} + ' ' + #{common.byn}">
+                                        </strong>
+                                    </div>
                                 </div>
                             </div>
                         </label>
                     </th:block>
                 </div>
-                <div class="text-danger mb-2" th:if="${#fields.hasErrors('certificateDecoration')}"
-                     th:errors="*{certificateDecoration}">
-                </div>
-
             </div>
             <div class="row mt-4 text-center">
             <span th:unless="${condition}" class="text-danger text-center"
                   th:text="#{menu_admin.common.no_data}"></span>
             </div>
         </div>
-        <div class="text-danger mb-2" th:if="${#fields.hasErrors('owner')}"
-             th:errors="*{owner}">
-        </div>
-        <div class="text-danger mb-2" th:if="${#fields.hasErrors('eventDate')}"
-             th:errors="*{eventDate}">
-        </div>
+
         <input type="hidden" name="description"
                th:value="${certificateOrderDto.certificate.name + '&#10;' + certificateOrderDto.certificate.description + '&#10;'}">
         <div class="row offset-5 mt-5 mb-5">

@@ -50,7 +50,7 @@
                     <div class="card col-3 ms-auto me-auto mt-4" style="width: 18rem;">
                         <img th:src="@{${'/img/'+certificate.photoFile}}"
 
-                             class="card-img-top" alt="..."
+                             class="card-img-top"
                              data-bs-toggle="tooltip"
                              data-bs-placement="top"
                              th:attr="title=${certificate.description}">
@@ -94,7 +94,7 @@
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-6 text-start">
-                                        <form method="get" th:action="@{/certificateorder}"
+                                        <form method="get" th:action="@{/certificate/decoration}"
                                               th:object="${certificateOrderDto}">
                                                 <input type="hidden"
                                                     name="certificate"

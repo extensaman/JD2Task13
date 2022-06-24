@@ -11,7 +11,8 @@ public class Constant {
     public static final String TITLE = "title";
     public static final String MENU_USER_MAIN_MESSAGE = "menu_user.main";
     public static final String CERTIFICATE_PAGE = "certificate";
-    public static final String CERTIFICATE_ORDER_PAGE = "certificate_order";
+    public static final String CERTIFICATE_DECORATION_PAGE = "certificate_decoration";
+    public static final String CERTIFICATE_ADDITIONAL_DATA_PAGE = "certificate_additional";
     public static final String PHOTOSESSION_PAGE = "photosession";
     public static final String HORSE_PAGE = "horse";
     public static final String COACH_PAGE = "coach";
