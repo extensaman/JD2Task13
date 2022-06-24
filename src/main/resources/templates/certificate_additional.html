@@ -47,36 +47,45 @@
         </tbody>
     </table>
     <form method="post" th:action="@{/certificate/additional}" th:object="${certificateOrderDto}">
-
+        <div class="text-danger mb-2" th:if="${#fields.hasErrors('owner')}"
+             th:errors="*{owner}">
+        </div>
         <div class="input-group mb-3">
-            <input type="text" class="form-control" aria-label="Username"
+            <input type="text" class="form-control mt-4" aria-label="Username"
                    th:placeholder="#{menu_user.certificate_owner}"
                    th:field="*{owner}">
         </div>
 
         <div class="row">
-            <input type="date" class="form-control" th:field="*{eventDate}" placeholder="Choose event date">
+            <div class="text-danger mb-2" th:if="${#fields.hasErrors('eventDate')}"
+                 th:errors="*{eventDate}">
+            </div>
+            <input type="date" class="form-control mt-4" th:field="*{eventDate}" placeholder="Choose event date">
         </div>
 
         <div th:if="${currentUser}">
             <input type="hidden" name="user" th:value="${currentUser.username}">
         </div>
 
+
+        <div th:if="${certificateOrderDto.certificateDecoration.price > 0}">
+            <div class="text-danger mb-2" th:if="${#fields.hasErrors('description')}"
+                 th:errors="*{description}">
+            </div>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control mt-4"
+                       th:placeholder="#{common.delivery_address}"
+                       name="description">
+            </div>
+        </div>
+
         <input type="hidden" name="orderStatus"
                th:value="${T(by.academy.it.task13.entity.OrderStatus).NEW}">
-
-        <div class="text-danger mb-2" th:if="${#fields.hasErrors('owner')}"
-             th:errors="*{owner}">
-        </div>
-        <div class="text-danger mb-2" th:if="${#fields.hasErrors('eventDate')}"
-             th:errors="*{eventDate}">
-        </div>
-
 
         <div class="row offset-5 mt-5 mb-5">
             <h3>
                 <button class="col-3 btn btn-outline-primary"
-                        th:text="#{common.button.order}"></button>
+                        th:text="#{common.button.next}"></button>
             </h3>
         </div>
     </form>
