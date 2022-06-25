@@ -95,6 +95,11 @@
                 </div>
             </div>
         </div>
+        <hr class="style-gradient mt-5"/>
+
+        <div class="text-center fs-4 mt-3"
+             th:text="#{common.choose_certificate_decoration}">
+        </div>
 
         <div th:with="condition=${activeCertificateDecorationList != null and !activeCertificateDecorationList.isEmpty()}">
             <div th:if="${condition}">
@@ -134,14 +139,13 @@
             </div>
         </div>
 
-        <input type="hidden" name="description"
-               th:value="${certificateOrderDto.certificate.name + '&#10;' + certificateOrderDto.certificate.description + '&#10;'}">
         <div class="row offset-5 mt-5 mb-5">
             <h3>
                 <button class="col-3 btn btn-outline-primary"
                         th:text="#{common.button.next}"></button>
             </h3>
         </div>
+
     </form>
     <script>
         document.getElementById("optionsRadios").setAttribute("checked","checked")

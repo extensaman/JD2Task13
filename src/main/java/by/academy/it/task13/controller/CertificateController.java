@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import javax.validation.Valid;
 import java.util.Optional;
@@ -51,7 +52,7 @@ public class CertificateController {
         return Constant.CERTIFICATE_PAGE;
     }
 
-    @PostMapping("/{id}")
+    @PostMapping(Constant.ID_MAPPING)
     public String getCertificateWithSpecificType(@PathVariable String id, Model model) {
         LOGGER.info("Getting certificates with type's id = " + id);
         model.addAttribute(Constant.ACTIVE_CERTIFICATE_LIST,
@@ -63,49 +64,47 @@ public class CertificateController {
         return Constant.CERTIFICATE_PAGE;
     }
 
-    @GetMapping("/decoration")
+    @GetMapping(Constant.DECORATION_MAPPING)
     public String getDecorationCertificateForm(@ModelAttribute CertificateOrderDto certificateOrderDto, Model model) {
         LOGGER.info("getDecorationCertificateForm");
         if (certificateOrderDto.getCertificate() == null) {
-            return "redirect:/certificate";
+            return Constant.REDIRECT_CERTIFICATE;
         }
         Optional.ofNullable(certificateOrderDto.getCertificate())
-                .ifPresent(certificate -> LOGGER.info(certificate.getName()));
+                .ifPresent(certificate ->
+                        LOGGER.info("Certificate name = " +
+                                certificate.getName()));
         model.addAttribute(Constant.ACTIVE_CERTIFICATE_DECORATION_LIST, certificateDecorationService.findAllActiveCertificateDecoration());
         model.addAttribute(Constant.TITLE,
                 Constant.TITLE_CERTIFICATE_ORDER_MESSAGE);
         return Constant.CERTIFICATE_DECORATION_PAGE;
     }
 
-    @PostMapping("/decoration")
-    public String postDecoration(Model model, @ModelAttribute CertificateOrderDto certificateOrderDto) {
+    @PostMapping(Constant.DECORATION_MAPPING)
+    public String postDecoration(@ModelAttribute CertificateOrderDto certificateOrderDto) {
         LOGGER.info("postDecoration");
-        model.addAttribute(Constant.TITLE,
-                Constant.TITLE_ORDER_MESSAGE);
-        LOGGER.info("DESCRIPTION in ORDER is " + certificateOrderDto.getDescription());
-        Optional.ofNullable(certificateOrderDto.getUser())
-                .ifPresent(user -> LOGGER.info("USER in ORDER is " + user.getUsername()));
-        Optional.ofNullable(certificateOrderDto.getCertificateDecoration())
-                .ifPresent(cD ->
-                        LOGGER.info("CERT_DECOR in ORDER is " + cD.getName()));
-        certificateOrderService.save(certificateOrderDto);
-        LOGGER.info("certificateOrderDto SAVED");
-        return "redirect:/certificate/additional";
+        if(certificateOrderDto.getCertificateDecoration().isDeliveryNecessity()){
+            certificateOrderDto.setDetails(null);
+        }
+        return Constant.REDIRECT_CERTIFICATE_ADDITIONAL;
     }
 
-    @GetMapping("/additional")
+    @GetMapping(Constant.ADDITIONAL_MAPPING)
     public String getCertificateAdditionalDataForm(@ModelAttribute CertificateOrderDto certificateOrderDto, Model model) {
         LOGGER.info("getCertificateAdditionalDataForm");
         if (certificateOrderDto.getCertificateDecoration() == null) {
-            return "redirect:/certificate/decoration";
+            return Constant.REDIRECT_CERTIFICATE_DECORATION;
         }
         model.addAttribute(Constant.TITLE,
                 Constant.TITLE_CERTIFICATE_ORDER_MESSAGE);
         return Constant.CERTIFICATE_ADDITIONAL_DATA_PAGE;
     }
 
-    @PostMapping("/additional")
-    public String postAdditionalData(Model model, @Valid CertificateOrderDto certificateOrderDto, Errors errors) {
+    @PostMapping(Constant.ADDITIONAL_MAPPING)
+    public String postAdditionalData(Model model,
+                                     @Valid CertificateOrderDto certificateOrderDto,
+                                     Errors errors,
+                                     SessionStatus sessionStatus) {
         LOGGER.info("postAdditionalData");
         model.addAttribute(Constant.TITLE,
                 Constant.TITLE_ORDER_MESSAGE);
@@ -114,6 +113,7 @@ public class CertificateController {
             return Constant.CERTIFICATE_ADDITIONAL_DATA_PAGE;
         }
         certificateOrderService.save(certificateOrderDto);
+        sessionStatus.setComplete();
         LOGGER.info("certificateOrderDto SAVED");
         return Constant.HOME_PAGE;
     }

@@ -17,5 +17,6 @@ public class CertificateDecorationDto {
     private String name;
     private String description;
     private BigDecimal price;
+    private boolean deliveryNecessity;
     private String photoFile;
 }

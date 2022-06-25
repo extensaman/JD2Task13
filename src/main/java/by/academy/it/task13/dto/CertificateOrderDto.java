@@ -21,7 +21,8 @@ public class CertificateOrderDto {
 
     private OrderStatus orderStatus;
 
-    private String description;
+    @NotBlank(message = "{validation.details_not_blank}")
+    private String details;
 
     @NotBlank(message = "{validation.owner_not_blank}")
     private String owner;

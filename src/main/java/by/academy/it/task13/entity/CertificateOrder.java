@@ -42,7 +42,7 @@ public class CertificateOrder {
     private OrderStatus orderStatus;
 
     @Column(length = 2000)
-    private String description;
+    private String details;
 
     @Column(length = 200)
     private String owner;
@@ -60,7 +60,7 @@ public class CertificateOrder {
 
     // TODO may be need to change EAGER to LAZY
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    @JoinColumn(name = "delivery_id")
+    @JoinColumn(name = "decoration_id")
     private CertificateDecoration certificateDecoration;
 
     @Column

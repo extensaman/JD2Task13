@@ -374,12 +374,14 @@ public class InitiateUtil implements CommandLineRunner {
                 .description("Любой из представленных сертификатов может быть оформлен в электронном виде. Дизайн сертификата разрабатывался специально для печати. А если распечатать его цветным на плотной бумаге, то он ни чем не уступает сертификатам, напечатанным в типографии. Этот сертификат можно послать по почте в элеронном виде. Сразу после оплаты готовый к печати файл придёт Вам на почту. Просто и быстро.")
                 .price(BigDecimal.ZERO)
                 .photoFile("certificate_decoration_01.jpg")
+                .deliveryNecessity(false)
                 .build();
         CertificateDecoration certificateDecoration02 = CertificateDecoration.builder()
                 .activity(true)
                 .name("Сертификат в конверте")
                 .description("Подарочный сертификат в конверте выполнен в разных стилях: летний (зелёный), зимний (голубой) и универсальны (коричневый). Сертификат-вкладыш напечатана на плотной бумаге и облечён в красивую супер-обложку. На вкладыше внутри указывается название подарка и имя того, кому он торжественно вручается.")
                 .price(BigDecimal.TEN)
+                .deliveryNecessity(true)
                 .photoFile("certificate_decoration_02.jpg")
                 .build();
         CertificateDecoration certificateDecoration03 = CertificateDecoration.builder()
@@ -387,6 +389,7 @@ public class InitiateUtil implements CommandLineRunner {
                 .name("Пластиковая карта")
                 .description("Подарочный сертификат на любую сумму от 200р избавляет Вас от необходимости выбора подарка за тех, кому он вручается. Вы определяете сумму подарка, остальное выбирает счастливый обладатель подарка! Фотосессии и катание на лошадях, курс занятий верховой ездой, катание на пони и даже конные походы – каждый найдёт себе подарок по душе!")
                 .price(BigDecimal.valueOf(15.0))
+                .deliveryNecessity(true)
                 .photoFile("certificate_decoration_03.jpg")
                 .build();
         CertificateDecoration certificateDecoration04 = CertificateDecoration.builder()
@@ -394,6 +397,7 @@ public class InitiateUtil implements CommandLineRunner {
                 .name("Подарочная корзинка")
                 .description("Подарочный сертификат в упаковке включает в себя: коробочку из бересты с сеном, резную лошадку из художественной школы в Сморгони, подарочный сертификат в конверте и печенье из злаков для лошадей (и их всадников). Корзинка упаковывается в плёнку или доставляется без упаковки, если Вы захотите добавить в неё записку или письмо от Деда мороза.")
                 .price(BigDecimal.valueOf(30.0))
+                .deliveryNecessity(true)
                 .photoFile("certificate_decoration_04.jpg")
                 .build();
         certificateDecorationService.saveAll(

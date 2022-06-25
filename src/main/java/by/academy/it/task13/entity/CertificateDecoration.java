@@ -42,6 +42,9 @@ public class CertificateDecoration {
     @Column(nullable = false, length = 50)
     private String photoFile;
 
+    @Column(name = "delivery_necessity")
+    private boolean deliveryNecessity;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

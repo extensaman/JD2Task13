@@ -36,5 +36,10 @@ public class Constant {
     public static final String TITLE_ORDER_MESSAGE = "menu.order";
 
 
-
+    public static final String DECORATION_MAPPING = "/decoration";
+    public static final String ADDITIONAL_MAPPING = "/additional";
+    public static final String ID_MAPPING = "/{id}";
+    public static final String REDIRECT_CERTIFICATE = "redirect:/certificate";
+    public static final String REDIRECT_CERTIFICATE_ADDITIONAL = "redirect:/certificate/additional";
+    public static final String REDIRECT_CERTIFICATE_DECORATION = "redirect:/certificate/decoration";
 }

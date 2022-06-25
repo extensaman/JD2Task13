@@ -46,12 +46,18 @@
         </tr>
         </tbody>
     </table>
+
+
     <form method="post" th:action="@{/certificate/additional}" th:object="${certificateOrderDto}">
-        <div class="text-danger mb-2" th:if="${#fields.hasErrors('owner')}"
-             th:errors="*{owner}">
+        <div class="d-flex">
+            <div class="text-center align-middle">Certificate</div>
         </div>
-        <div class="input-group mb-3">
-            <input type="text" class="form-control mt-4" aria-label="Username"
+
+        <div class="mt-4">
+            <div class="text-danger" th:if="${#fields.hasErrors('owner')}"
+                  th:errors="*{owner}">
+            </div>
+            <input type="text" class="form-control" aria-label="Username"
                    th:placeholder="#{menu_user.certificate_owner}"
                    th:field="*{owner}">
         </div>
@@ -60,7 +66,7 @@
             <div class="text-danger mb-2" th:if="${#fields.hasErrors('eventDate')}"
                  th:errors="*{eventDate}">
             </div>
-            <input type="date" class="form-control mt-4" th:field="*{eventDate}" placeholder="Choose event date">
+            <input type="date" class="form-control mt-4" th:field="*{eventDate}">
         </div>
 
         <div th:if="${currentUser}">
@@ -68,14 +74,24 @@
         </div>
 
 
-        <div th:if="${certificateOrderDto.certificateDecoration.price > 0}">
-            <div class="text-danger mb-2" th:if="${#fields.hasErrors('description')}"
-                 th:errors="*{description}">
+        <div th:if="${certificateOrderDto.certificateDecoration.deliveryNecessity}">
+            <div class="text-danger mb-2"
+                 th:if="${#fields.hasErrors('details')}"
+                 th:errors="*{details}">
             </div>
             <div class="input-group mb-3">
                 <input type="text" class="form-control mt-4"
+                       aria-label="details"
                        th:placeholder="#{common.delivery_address}"
-                       name="description">
+                       th:field="*{details}">
+            </div>
+        </div>
+        <div th:unless="${certificateOrderDto.certificateDecoration.deliveryNecessity}">
+            <div class="input-group mb-3">
+                <input type="hidden"
+                       aria-label="details"
+                       name="details"
+                       value="-">
             </div>
         </div>
 
@@ -89,9 +105,6 @@
             </h3>
         </div>
     </form>
-    <script>
-        document.getElementById("optionsRadios").setAttribute("checked", "checked")
-    </script>
 </div>
 <footer th:insert="common/user_footer :: content"></footer>
 </body>

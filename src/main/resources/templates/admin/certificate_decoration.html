@@ -70,6 +70,21 @@
                                     </select>
                                 </div>
 
+                                <!-- Is delivery necessary -->
+                                <div class="input-group mb-3">
+                                    <h5>
+                                        <div class="form-check form-switch">
+                                            <input type="checkbox"
+                                                   class="form-check-input"
+                                                   name="deliveryNecessity">
+                                        </div>
+                                    </h5>
+                                    <span class="text-black-50"
+                                          id="certDecorationDeliveryNecessity"
+                                          th:text="#{menu_admin.common.table.deliveryNecessity}">
+                                    </span>
+                                </div>
+
                                 <!-- CertificateDecoration Price -->
                                 <div class="input-group mb-3">
                                     <span class="input-group-text text-black-50"
@@ -129,6 +144,7 @@
                         <th class="text-center align-middle" th:text="#{menu_admin.common.table.name}"></th>
                         <th class="text-center align-middle" th:text="#{menu_admin.common.table.description}"></th>
                         <th class="text-center align-middle" th:text="#{menu_admin.common.table.photo_file}"></th>
+                        <th class="text-center align-middle"><i class="bi bi-truck font_size_24"></i></th>
                         <th class="text-center align-middle"><i class="bi bi-coin font_size_24"></i></th>
                         <th class="text-center align-middle" th:text="#{menu_admin.common.table.activity}"></th>
                         <th class="text-center align-middle"><i class="bi bi-sliders font_size_24"></i></th>
@@ -145,6 +161,14 @@
                                 <img th:src="@{${'/img/'+decoration.photoFile}}"
                                      class="img-fluid" alt="">
                             </td>
+
+                            <td class="text-center align-middle">
+                                <i th:if="${decoration.deliveryNecessity}"
+                                   class="bi bi-plus-square text-success font_size_24"></i>
+                                <i th:unless="${decoration.deliveryNecessity}"
+                                   class="bi bi-dash-square text-danger font_size_24"></i>
+                            </td>
+
                             <td class="text-center align-middle" th:text="${decoration.price}"></td>
                             <td class="text-center align-middle">
                                 <i th:if="${decoration.activity}"
@@ -222,11 +246,27 @@
                                                     </select>
                                                 </div>
 
+                                                <!-- Is delivery necessary -->
+                                                <div class="input-group mb-3">
+                                                    <h5>
+                                                        <div class="form-check form-switch">
+                                                            <input type="checkbox"
+                                                                   class="form-check-input"
+                                                                   th:checked="${decoration.deliveryNecessity}"
+                                                                   name="deliveryNecessity">
+                                                        </div>
+                                                    </h5>
+                                                    <span class="text-black-50"
+                                                          id="certDecorationDeliveryNecessityEdit"
+                                                          th:text="#{menu_admin.common.table.deliveryNecessity}">
+                                                    </span>
+                                                </div>
+
                                                 <!-- CertificateDecoration Price -->
                                                 <div class="input-group mb-3">
 
                                                     <span class="input-group-text text-black-50"
-                                                          id="certDecorationPrice"
+                                                          id="certDecorationPriceEdit"
                                                           th:text="#{menu_admin.common.table.price}">
                                                     </span>
                                                     <input type="text"
@@ -248,7 +288,7 @@
                                                         </div>
                                                     </h5>
                                                     <span class="text-black-50"
-                                                          id="certDecorationActivity"
+                                                          id="certDecorationActivityEdit"
                                                           th:text="#{menu_admin.common.table.activity}">
                                                     </span>
                                                 </div>
@@ -338,11 +378,28 @@
                                                            name="photoFile">
                                                 </div>
 
+                                                <!-- Is delivery necessary -->
+                                                <div class="input-group mb-3">
+                                                    <h5>
+                                                        <div class="form-check form-switch">
+                                                            <input type="checkbox"
+                                                                   class="form-check-input"
+                                                                   th:checked="${decoration.deliveryNecessity}"
+                                                                   name="deliveryNecessity"
+                                                                   disabled>
+                                                        </div>
+                                                    </h5>
+                                                    <span class="text-black-50"
+                                                          id="certDecorationDeliveryNecessityDelete"
+                                                          th:text="#{menu_admin.common.table.deliveryNecessity}">
+                                                    </span>
+                                                </div>
+
                                                 <!-- CertificateDecoration Price -->
                                                 <div class="input-group mb-3">
 
                                                     <span class="input-group-text text-black-50"
-                                                          id="certDecorationPrice"
+                                                          id="certDecorationPriceDelete"
                                                           th:text="#{menu_admin.common.table.price}">
                                                     </span>
                                                     <input type="text"
@@ -366,7 +423,7 @@
                                                         </div>
                                                     </h5>
                                                     <span class="text-black-50"
-                                                          id="certDecorationActivity"
+                                                          id="certDecorationActivityDelete"
                                                           th:text="#{menu_admin.common.table.activity}">
                                                     </span>
                                                 </div>
