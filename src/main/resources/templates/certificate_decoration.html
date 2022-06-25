@@ -90,7 +90,9 @@
                     <div>
                         <i class="bi bi-coin my-2 font_size_24"></i>
                         <strong th:text="#{menu_admin.common.table.price} + ': '"></strong>
-                        <span class="font_size_24" th:text="${certificateOrderDto.certificate.price}"></span>
+                        <span class="font_size_24"
+                              th:text="${certificateOrderDto.certificate.price} + ' ' + #{common.byn}">
+                        </span>
                     </div>
                 </div>
             </div>

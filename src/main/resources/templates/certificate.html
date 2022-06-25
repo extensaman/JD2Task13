@@ -96,40 +96,9 @@
                                     <div class="col-6 text-start">
                                         <form method="get" th:action="@{/certificate/decoration}"
                                               th:object="${certificateOrderDto}">
-                                                <input type="hidden"
-                                                    name="certificate"
-                                                       th:value="${certificate.id}">
-<!--                                            <input type="hidden"
-                                                   th:value="${certificate.id}"
-                                                   name="id">
                                             <input type="hidden"
-                                                   th:value="${certificate.certificateType.id}"
-                                                   name="certificateType">
-                                            <input type="hidden"
-                                                   th:value="${certificate.name}"
-                                                   name="name">
-                                            <input type="hidden"
-                                                   th:value="${certificate.description}"
-                                                   name="description">
-                                            <input type="hidden"
-                                                   th:value="${certificate.photoFile}"
-                                                   name="photoFile">
-                                            <input type="hidden"
-                                                   th:value="${certificate.horseCount}"
-                                                   name="horseCount">
-                                            <input type="hidden"
-                                                   th:value="${certificate.duration}"
-                                                   name="duration">
-                                            <input type="hidden"
-                                                   th:value="${certificate.price}"
-                                                   name="price">
-                                            <input type="hidden"
-                                                   th:value="${certificate.photographerIncluded}"
-                                                   name="photographerIncluded">
-                                            <input type="hidden"
-                                                   th:value="${certificate.activity}"
-                                                   name="activity">-->
-
+                                                   name="certificate"
+                                                   th:value="${certificate.id}">
                                             <button class="btn btn-outline-primary"
                                                     th:text="#{common.button.order}">
                                             </button>
@@ -153,6 +122,6 @@
         </div>
     </div>
 </div>
-    <footer th:insert="common/user_footer :: content"></footer>
+<footer th:insert="common/user_footer :: content"></footer>
 </body>
 </html>
