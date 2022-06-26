@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 @AllArgsConstructor
@@ -17,8 +18,9 @@ public class UserDto {
     private String username;
     @NotBlank(message = "{validation.password_not_blank}")
     private String password;
-    @NotBlank(message = "{validation.phone_not_blank}")
-    private String phone;
+    @Email(message = "{validation.email}")
+    @NotBlank(message = "{validation.email_not_blank}")
+    private String email;
 
-    private boolean activity;
+    //private boolean activity;
 }

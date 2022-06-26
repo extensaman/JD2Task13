@@ -637,13 +637,13 @@ public class InitiateUtil implements CommandLineRunner {
         User user01 = User.builder()
                             .username("admin")
                             .password(encoder.encode("admin"))
-                            .phone("+375291112233")
+                            .email("cavalierhorseclub@gmail.com")
                             .activity(true)
                             .build();
         User user02 = User.builder()
                         .username("user")
                         .password(encoder.encode("user"))
-                        .phone("+375445556677")
+                        .email("123@mail.ru")
                         .activity(true)
                         .build();
         userService.saveAll(

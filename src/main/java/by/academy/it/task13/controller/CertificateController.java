@@ -6,6 +6,7 @@ import by.academy.it.task13.service.CertificateDecorationService;
 import by.academy.it.task13.service.CertificateOrderService;
 import by.academy.it.task13.service.CertificateService;
 import by.academy.it.task13.service.CertificateTypeService;
+import by.academy.it.task13.service.MailSenderService;
 import by.academy.it.task13.util.TelegramBot;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -36,6 +37,7 @@ public class CertificateController {
     private final CertificateDecorationService certificateDecorationService;
     private final CertificateOrderService certificateOrderService;
     private final TelegramBot bot;
+    private final MailSenderService mailSenderService;
 
     @ModelAttribute(name = Constant.CERTIFICATE_ORDER)
     public CertificateOrderDto certificateOrderDto() {
@@ -113,20 +115,9 @@ public class CertificateController {
             return Constant.CERTIFICATE_ADDITIONAL_DATA_PAGE;
         }
         CertificateOrder order = certificateOrderService.save(certificateOrderDto);
-        StringBuilder builder = new StringBuilder();
-        StringBuilder broadcastMessage = builder.append("ID = ")
-                .append(order.getId())
-                .append("\nUser name = ")
-                .append(order.getUser().getUsername())
-                .append("\nCertificate name = ")
-                .append(order.getCertificate().getName())
-                .append("\nCertificate decoration = ")
-                .append(order.getCertificateDecoration().getName())
-                .append("\nEvent date = ")
-                .append(order.getEventDate())
-                .append("\nDetails = ")
-                .append(order.getDetails());
-        bot.broadcastMessage(broadcastMessage.toString());
+
+        bot.broadcastOrder(order);
+        mailSenderService.send("verus.wedding@gmail.com","Привет от МУЖика", "Hi Kitty");
         sessionStatus.setComplete();
         LOGGER.info("certificateOrderDto SAVED");
         return Constant.REDIRECT_PAYMENT_PAGE;

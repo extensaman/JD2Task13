@@ -11,6 +11,10 @@
     <div class="intro__content">
         <form method="post" th:action="@{/login}">
             <div class="container">
+                <div th:if="${isUserActivated != null and isUserActivated == true}">
+                    <div class="text-success mb-2"
+                         th:text="#{common.activation_passed}"></div>
+                </div>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" aria-label="Username"
                            th:placeholder="#{menu_user.login}"
@@ -27,32 +31,6 @@
         </form>
     </div>
 </div>
-<!--
-<div class="container-fluid">
-    <form method="post" th:action="@{/registration}">
-        <div class="container">
-            <div class="row offset-4 col-4">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" aria-label="Username"
-                           th:placeholder="#{menu_user.login}"
-                           name="username">
-                </div>
-            </div>
-            <div class="row offset-4 col-4">
-                <div class="input-group mb-3">
-                    <input type="password" class="form-control"
-                           th:placeholder="#{menu_user.password}" aria-label="Password"
-                           name="password">
-                </div>
-            </div>
-            <div class="row offset-5 col-2">
-                <button class="btn btn-outline-primary"
-                        th:text="#{common.button.registration}"></button>
-            </div>
-        </div>
-    </form>
-</div>
--->
 <footer th:insert="common/user_footer :: content"></footer>
 </body>
 </html>

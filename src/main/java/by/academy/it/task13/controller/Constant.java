@@ -7,6 +7,8 @@ public class Constant {
     public static final String PHOTOSESSION_MAPPING = "/photosession";
     public static final String HORSE_MAPPING = "/horse";
     public static final String COACH_MAPPING = "/coach";
+    public static final String REGISTRATION_MAPPING = "/registration";
+    public static final String ACTIVATE_MAPPING = "/activate/{code}";
     public static final String HOME_PAGE = "home";
     public static final String TITLE = "title";
     public static final String MENU_USER_MAIN_MESSAGE = "menu_user.main";
@@ -23,6 +25,8 @@ public class Constant {
     public static final String ACTIVE_HORSE_LIST = "activeHorseList";
     public static final String ACTIVE_COACH_LIST = "activeCoachList";
     public static final String CERTIFICATE_ORDER = "certificateOrderDto";
+    public static final String IS_USER_ACTIVATED = "isUserActivated";
+    public static final String USER_DTO = "userDto";
     public static final String CERTIFICATE = "certificate";
     public static final String ACTIVE_CERTIFICATE_TYPE_LIST = "activeCertificateTypeList";
     public static final String ACTIVE_CERTIFICATE_DECORATION_LIST = "activeCertificateDecorationList";

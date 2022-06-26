@@ -23,8 +23,8 @@ public class UserMapper implements Mapper<User, UserDto> {
                 : User.builder()
                     .username(dto.getUsername())
                     .password(encoder.encode(dto.getPassword()))
-                    .phone(dto.getPhone())
-                    .activity(dto.isActivity())
+                    .email(dto.getEmail())
+                    //.activity(dto.isActivity())
                     .build();
     }
 

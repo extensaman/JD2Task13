@@ -1,5 +1,6 @@
 package by.academy.it.task13.util;
 
+import by.academy.it.task13.entity.CertificateOrder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
@@ -43,8 +44,25 @@ public class TelegramBot extends TelegramLongPollingBot {
         }
     }
 
+    public void broadcastOrder(CertificateOrder order) {
+        StringBuilder message = new StringBuilder()
+                .append("ID = ")
+                .append(order.getId())
+                .append("\nUser name = ")
+                .append(order.getUser().getUsername())
+                .append("\nCertificate name = ")
+                .append(order.getCertificate().getName())
+                .append("\nCertificate decoration = ")
+                .append(order.getCertificateDecoration().getName())
+                .append("\nEvent date = ")
+                .append(order.getEventDate())
+                .append("\nDetails = ")
+                .append(order.getDetails());
+        broadcastMessage(message.toString());
+    }
+
     public void broadcastMessage(String message) {
-        LOGGER.warn("List size = " + listOfChatIdForBroadcasting.size());
+        LOGGER.info("List size = " + listOfChatIdForBroadcasting.size());
         listOfChatIdForBroadcasting.forEach(chatId -> {
             sendMessage(chatId, message);
         });

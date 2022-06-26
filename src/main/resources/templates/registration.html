@@ -11,6 +11,10 @@
     <div class="intro__content">
         <form method="post" th:action="@{/registration}" th:object="${userDto}">
             <div class="container">
+                <div th:if="${isUserActivated != null and isUserActivated == false}">
+                    <div class="text-danger mb-2"
+                         th:text="#{common.activation_failed}"></div>
+                </div>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" aria-label="Username"
                            th:placeholder="#{menu_user.login}"
@@ -23,11 +27,9 @@
                 </div>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control"
-                           th:placeholder="#{menu_user.phone}" aria-label="Phone"
-                           th:field="*{phone}">
+                           th:placeholder="#{menu_user.email}" aria-label="Email"
+                           th:field="*{email}">
                 </div>
-
-                <input type="hidden" name="activity" th:value="${true}">
 
                 <button class="btn btn-outline-primary mb-3"
                         th:text="#{common.button.registration}">
@@ -37,16 +39,16 @@
                 </div>
                 <div class="text-danger mb-2" th:if="${#fields.hasErrors('username')}"
                      th:errors="*{username}"></div>
-                 </div>
-                <div class="text-danger mb-2" th:if="${#fields.hasErrors('password')}"
-                      th:errors="*{password}">
-                </div>
-                <div class="text-danger mb-2" th:if="${#fields.hasErrors('phone')}"
-                    th:errors="*{phone}">
-                </div>
             </div>
-        </form>
+            <div class="text-danger mb-2" th:if="${#fields.hasErrors('password')}"
+                 th:errors="*{password}">
+            </div>
+            <div class="text-danger mb-2" th:if="${#fields.hasErrors('email')}"
+                 th:errors="*{email}">
+            </div>
     </div>
+    </form>
+</div>
 </div>
 <footer th:insert="common/user_footer :: content"></footer>
 </body>

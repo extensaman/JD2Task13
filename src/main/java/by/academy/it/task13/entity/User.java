@@ -40,7 +40,10 @@ public class User implements UserDetails {
     private final String password;
 
     @Column(nullable = false)
-    private final String phone;
+    private final String email;
+
+    @Column
+    private String activationCode;
 
     @Column
     private boolean activity;
@@ -76,6 +79,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return activity;
     }
 }
