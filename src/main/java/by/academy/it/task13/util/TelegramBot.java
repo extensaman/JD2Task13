@@ -1,5 +1,6 @@
 package by.academy.it.task13.util;
 
+import by.academy.it.task13.dto.Sendable;
 import by.academy.it.task13.entity.CertificateOrder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,7 +17,7 @@ import java.util.List;
 public class TelegramBot extends TelegramLongPollingBot {
 
     private static final Logger LOGGER = LogManager.getLogger(TelegramBot.class);
-    private static final String TOKEN = "5527014400:AAGpoUmTsvYiIfUXis-OJl_i-BI6H-7cKEw";
+    private static final String TOKEN = "";
     private static final String BOT_USERNAME = "CavalierHorseClubBot";
     private static final String PASSWORD_FOR_SUBSCRIBE = "admin";
     public static final String UNSUBSCRIBE_COMMAND = "/unsubscribe";
@@ -44,21 +45,9 @@ public class TelegramBot extends TelegramLongPollingBot {
         }
     }
 
-    public void broadcastOrder(CertificateOrder order) {
-        StringBuilder message = new StringBuilder()
-                .append("ID = ")
-                .append(order.getId())
-                .append("\nUser name = ")
-                .append(order.getUser().getUsername())
-                .append("\nCertificate name = ")
-                .append(order.getCertificate().getName())
-                .append("\nCertificate decoration = ")
-                .append(order.getCertificateDecoration().getName())
-                .append("\nEvent date = ")
-                .append(order.getEventDate())
-                .append("\nDetails = ")
-                .append(order.getDetails());
-        broadcastMessage(message.toString());
+    public void broadcastOrder(Sendable sendable) {
+        LOGGER.info("broadcastOrder");
+        broadcastMessage(sendable.getMessage());
     }
 
     public void broadcastMessage(String message) {

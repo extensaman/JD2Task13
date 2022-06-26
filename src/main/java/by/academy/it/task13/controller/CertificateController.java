@@ -111,15 +111,13 @@ public class CertificateController {
         model.addAttribute(Constant.TITLE,
                 Constant.TITLE_ORDER_MESSAGE);
         if (errors.hasErrors()) {
-            LOGGER.info(errors.getFieldError().getField());
+            LOGGER.info("Error field: " + errors.getFieldError().getField());
             return Constant.CERTIFICATE_ADDITIONAL_DATA_PAGE;
         }
-        CertificateOrder order = certificateOrderService.save(certificateOrderDto);
-
-        bot.broadcastOrder(order);
-        mailSenderService.send("verus.wedding@gmail.com","Привет от МУЖика", "Hi Kitty");
+        certificateOrderService.save(certificateOrderDto);
+        bot.broadcastOrder(certificateOrderDto);
+        mailSenderService.sendOrderAcceptanceMail(certificateOrderDto);
         sessionStatus.setComplete();
-        LOGGER.info("certificateOrderDto SAVED");
         return Constant.REDIRECT_PAYMENT_PAGE;
     }
 }

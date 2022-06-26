@@ -11,12 +11,22 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.Objects;
+import java.util.Optional;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
-public class CertificateOrderDto {
+public class CertificateOrderDto implements Sendable{
+    public static final String ID_STRING = "ID: ";
+    public static final String USER_NAME_STRING = "\nUser name: ";
+    public static final String CERTIFICATE_NAME_STRING = "\nCertificate name: ";
+    public static final String CERTIFICATE_DECORATION_STRING = "\nCertificate decoration: ";
+    public static final String EVENT_DATE_STRING = "\nEvent date: ";
+    public static final String DETAILS_STRING = "\nDetails: ";
+    public static final String EMPTY_STRING = "";
+
     private Long id;
 
     private OrderStatus orderStatus;
@@ -37,4 +47,40 @@ public class CertificateOrderDto {
 
     @NotNull(message = "{validation.decoration_not_null}")
     private CertificateDecorationDto certificateDecoration;
+
+    @Override
+    public String getReceiver() {
+        return user.getEmail();
+    }
+
+    @Override
+    public String getMessage() {
+        return new StringBuilder()
+                .append(ID_STRING)
+                .append(id)
+                .append(USER_NAME_STRING)
+                .append(Optional.ofNullable(user).map(UserDto::getUsername).orElse(EMPTY_STRING))
+                .append(CERTIFICATE_NAME_STRING)
+                .append(Optional.ofNullable(certificate).map(CertificateDto::getName).orElse(EMPTY_STRING))
+                .append(CERTIFICATE_DECORATION_STRING)
+                .append(Optional.ofNullable(certificateDecoration).map(CertificateDecorationDto::getName).orElse(EMPTY_STRING))
+                .append(EVENT_DATE_STRING)
+                .append(Optional.ofNullable(eventDate).map(LocalDate::toString).orElse(EMPTY_STRING))
+                .append(DETAILS_STRING)
+                .append(Optional.ofNullable(details).map(String::toString).orElse(EMPTY_STRING))
+                .toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CertificateOrderDto that = (CertificateOrderDto) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
