@@ -1,6 +1,7 @@
 package by.academy.it.task13.controller;
 
 import by.academy.it.task13.dto.CertificateOrderDto;
+import by.academy.it.task13.entity.CertificateOrder;
 import by.academy.it.task13.service.CertificateDecorationService;
 import by.academy.it.task13.service.CertificateOrderService;
 import by.academy.it.task13.service.CertificateService;
@@ -48,7 +49,6 @@ public class CertificateController {
         model.addAttribute(Constant.ACTIVE_CERTIFICATE_TYPE_LIST, certificateTypeService.findAllActiveCertificateType());
         model.addAttribute(Constant.TITLE,
                 Constant.TITLE_CERTIFICATE_MESSAGE);
-        bot.broadcastMessage("Hello from CERTIFICATE page");
         return Constant.CERTIFICATE_PAGE;
     }
 
@@ -112,9 +112,23 @@ public class CertificateController {
             LOGGER.info(errors.getFieldError().getField());
             return Constant.CERTIFICATE_ADDITIONAL_DATA_PAGE;
         }
-        certificateOrderService.save(certificateOrderDto);
+        CertificateOrder order = certificateOrderService.save(certificateOrderDto);
+        StringBuilder builder = new StringBuilder();
+        StringBuilder broadcastMessage = builder.append("ID = ")
+                .append(order.getId())
+                .append("\nUser name = ")
+                .append(order.getUser().getUsername())
+                .append("\nCertificate name = ")
+                .append(order.getCertificate().getName())
+                .append("\nCertificate decoration = ")
+                .append(order.getCertificateDecoration().getName())
+                .append("\nEvent date = ")
+                .append(order.getEventDate())
+                .append("\nDetails = ")
+                .append(order.getDetails());
+        bot.broadcastMessage(broadcastMessage.toString());
         sessionStatus.setComplete();
         LOGGER.info("certificateOrderDto SAVED");
-        return Constant.HOME_PAGE;
+        return Constant.REDIRECT_PAYMENT_PAGE;
     }
 }

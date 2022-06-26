@@ -50,12 +50,15 @@
 
     <form method="post" th:action="@{/certificate/additional}" th:object="${certificateOrderDto}">
         <div class="container-fluid">
-            <div class="row mt-4">
-                <div class="col text-center">
-                    Certificate
+
+            <!--- Certificate data START --->
+            <div class="row mt-5">
+                <div class="col text-center fs-1"
+                     th:text="#{common.certificate}">
                 </div>
             </div>
-            <div class="row mt-4">
+            <hr class="style-gradient"/>
+            <div class="row mt-5">
                 <div class="col">
                     <div class="mt-4">
                         <label for="ownerLabel"
@@ -90,9 +93,79 @@
                          th:src="@{${'/img/'+certificateOrderDto.certificate.photoFile}}">
                 </div>
                 <div class="col text-center">
+                    <div class="text-secondary fs-3"
+                         th:text="${certificateOrderDto.certificate.name}">
+                    </div>
+                    <div class="text-secondary fs-5"
+                         th:text="${certificateOrderDto.certificate.description}">
+                    </div>
                     <div class="text-success fs-1"
                          th:text="${certificateOrderDto.certificate.price} + ' ' + #{common.byn}">
                     </div>
+                </div>
+            </div>
+            <!--- Certificate data END--->
+
+            <!--- Certificate DECORATION data START--->
+            <div class="row mt-5">
+                <div class="col text-center fs-1"
+                     th:text="#{common.decoration}">
+                </div>
+            </div>
+            <hr class="style-gradient"/>
+
+            <div class="row mt-5">
+                <div class="col">
+                    <div th:if="${certificateOrderDto.certificateDecoration.deliveryNecessity}"
+                         class="mt-4">
+                        <label for="deliveryLabel"
+                               class="form-label"
+                               th:text="#{common.delivery_address}">
+                        </label>
+                        <input type="text" class="form-control"
+                               id="deliveryLabel"
+                               th:field="*{details}">
+                        <small class="text-danger"
+                               th:if="${#fields.hasErrors('details')}"
+                               th:errors="*{details}">
+                        </small>
+                    </div>
+                    <div th:unless="${certificateOrderDto.certificateDecoration.deliveryNecessity}">
+                        <div class="input-group">
+                            <input type="hidden"
+                                   name="details"
+                                   value="-">
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <img class="w-100 rounded shadow"
+                         th:src="@{${'/img/'+certificateOrderDto.certificateDecoration.photoFile}}">
+                </div>
+                <div class="col text-center">
+                    <div class="text-secondary fs-3"
+                         th:text="${certificateOrderDto.certificateDecoration.name}">
+                    </div>
+                    <div class="text-secondary fs-5"
+                         th:text="${certificateOrderDto.certificateDecoration.description}">
+                    </div>
+                    <div class="text-success fs-1"
+                         th:text="${certificateOrderDto.certificateDecoration.price} + ' ' + #{common.byn}">
+                    </div>
+                </div>
+            </div>
+            <!--- Certificate DECORATION data END--->
+
+            <!--- Certificate SUMMARY data START--->
+            <div class="row mt-5">
+                <div class="col text-center fs-1"
+                     th:text="#{common.summary}">
+                </div>
+            </div>
+            <hr class="style-gradient"/>
+            <div class="col text-center">
+                <div class="text-success fs-1"
+                     th:text="${certificateOrderDto.certificateDecoration.price + certificateOrderDto.certificate.price} + ' ' + #{common.byn}">
                 </div>
             </div>
         </div>
@@ -101,35 +174,14 @@
             <input type="hidden" name="user" th:value="${currentUser.username}">
         </div>
 
-
-        <div th:if="${certificateOrderDto.certificateDecoration.deliveryNecessity}">
-            <div class="text-danger mb-2"
-                 th:if="${#fields.hasErrors('details')}"
-                 th:errors="*{details}">
-            </div>
-            <div class="input-group mb-3">
-                <input type="text" class="form-control mt-4"
-                       aria-label="details"
-                       th:placeholder="#{common.delivery_address}"
-                       th:field="*{details}">
-            </div>
-        </div>
-        <div th:unless="${certificateOrderDto.certificateDecoration.deliveryNecessity}">
-            <div class="input-group mb-3">
-                <input type="hidden"
-                       aria-label="details"
-                       name="details"
-                       value="-">
-            </div>
-        </div>
-
         <input type="hidden" name="orderStatus"
                th:value="${T(by.academy.it.task13.entity.OrderStatus).NEW}">
 
         <div class="row offset-5 mt-5 mb-5">
             <h3>
                 <button class="col-3 btn btn-outline-primary"
-                        th:text="#{common.button.next}"></button>
+                        th:text="#{common.button.pay}"
+                ></button>
             </h3>
         </div>
     </form>
