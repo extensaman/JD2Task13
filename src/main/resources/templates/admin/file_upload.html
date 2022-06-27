@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="common/metadata :: content"></head>
+<body>
+<header th:insert="common/admin_header :: content"></header>
+
+<div class="container">
+    <form method="post" enctype="multipart/form-data" th:action="@{/admin/upload/}">
+        <input type="file" name="file">
+        <input type="submit">
+    </form>
+    <img th:if="${file != null}"
+         th:src="${'/img/' + file}">
+</div>
+<footer th:insert="common/admin_footer :: content"></footer>
+</body>
+</html>

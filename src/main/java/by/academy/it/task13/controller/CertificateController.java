@@ -2,6 +2,7 @@ package by.academy.it.task13.controller;
 
 import by.academy.it.task13.dto.CertificateOrderDto;
 import by.academy.it.task13.entity.CertificateOrder;
+import by.academy.it.task13.mapper.Mapper;
 import by.academy.it.task13.service.CertificateDecorationService;
 import by.academy.it.task13.service.CertificateOrderService;
 import by.academy.it.task13.service.CertificateService;
@@ -36,6 +37,7 @@ public class CertificateController {
     private final CertificateTypeService certificateTypeService;
     private final CertificateDecorationService certificateDecorationService;
     private final CertificateOrderService certificateOrderService;
+    private final Mapper<CertificateOrder, CertificateOrderDto> mapper;
     private final TelegramBot bot;
     private final MailSenderService mailSenderService;
 
@@ -114,9 +116,11 @@ public class CertificateController {
             LOGGER.info("Error field: " + errors.getFieldError().getField());
             return Constant.CERTIFICATE_ADDITIONAL_DATA_PAGE;
         }
-        certificateOrderService.save(certificateOrderDto);
-        bot.broadcastOrder(certificateOrderDto);
-        mailSenderService.sendOrderAcceptanceMail(certificateOrderDto);
+        CertificateOrder order = certificateOrderService.save(certificateOrderDto);
+        CertificateOrderDto orderDto = mapper.toDto(order);
+
+        bot.broadcastOrder(orderDto);
+        mailSenderService.sendOrderAcceptanceMail(orderDto);
         sessionStatus.setComplete();
         return Constant.REDIRECT_PAYMENT_PAGE;
     }

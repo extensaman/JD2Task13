@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="common/metadata :: content"></head>
+<body>
+<header th:insert="common/admin_header :: content"></header>
+
+<div class="container">
+    <img th:if="${fileName != null}"
+         th:src="${'/img/' + fileName}">
+</div>
+<footer th:insert="common/admin_footer :: content"></footer>
+</body>
+</html>
