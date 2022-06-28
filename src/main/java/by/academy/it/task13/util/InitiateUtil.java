@@ -1,5 +1,6 @@
 package by.academy.it.task13.util;
 
+import by.academy.it.task13.configuration.MvcConfiguration;
 import by.academy.it.task13.entity.Certificate;
 import by.academy.it.task13.entity.CertificateDecoration;
 import by.academy.it.task13.entity.CertificateType;
@@ -17,6 +18,7 @@ import by.academy.it.task13.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,6 +28,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.generics.BotSession;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,7 +37,6 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class InitiateUtil implements CommandLineRunner {
-
     private static final Logger LOGGER = LogManager.getLogger(InitiateUtil.class);
 
     private final ApplicationContext context;
@@ -50,6 +52,9 @@ public class InitiateUtil implements CommandLineRunner {
 
     @Override
     public void run(String[] args) throws Exception {
+
+        new File(MvcConfiguration.uploadPath).mkdirs();
+
         CertificateType certificateType01 = CertificateType.builder()
                 .activity(true)
                 .name("Для одного")

@@ -6,7 +6,8 @@
 
 <div class="container">
     <img th:if="${fileName != null}"
-         th:src="${'/img/' + fileName}">
+         th:src="@{/uploads/1.jpg}">
+    <p>Hello</p>
 </div>
 <footer th:insert="common/admin_footer :: content"></footer>
 </body>

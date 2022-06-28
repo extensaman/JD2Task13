@@ -1,5 +1,6 @@
 package by.academy.it.task13.controller.admin;
 
+import by.academy.it.task13.configuration.MvcConfiguration;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,9 +20,6 @@ import java.io.IOException;
 public class AdminFileUpload {
     private static final Logger LOGGER = LogManager.getLogger(AdminFileUpload.class);
 
-    @Value("${upload.path}")
-    private String uploadPath;
-
     @GetMapping
     public String getUploadForm(Model model) {
         LOGGER.info("getUploadForm");
@@ -31,18 +29,19 @@ public class AdminFileUpload {
     }
 
     @PostMapping
-    public String postUploadForm(Model model, @ModelAttribute MultipartFile file) throws IOException {
-        if (file != null) {
-            LOGGER.info(file.getOriginalFilename());
-            File path = new File(uploadPath);
-            if (!path.exists()) {
-                path.mkdirs();
+    public String postUploadForm(Model model, @ModelAttribute MultipartFile[] files) throws IOException {
+        if (files != null) {
+            //LOGGER.info(files.getOriginalFilename());
+
+            for(MultipartFile multipartFile : files){
+                LOGGER.info(MvcConfiguration.uploadPath + '/' + multipartFile.getOriginalFilename());
+                multipartFile.transferTo(new File(MvcConfiguration.uploadPath + '/' + multipartFile.getOriginalFilename()));
             }
-            LOGGER.info(uploadPath + '/' + file.getOriginalFilename());
-            file.transferTo(new File(uploadPath + '/' + file.getOriginalFilename()));
+
 /*            Attachment.builder()
             .fileName(file.getOriginalFilename())*/
-            model.addAttribute("fileName", file.getOriginalFilename());
+
+            model.addAttribute("fileName", files.getOriginalFilename());
         }
         model.addAttribute(AdminConstant.TITLE,
                 AdminConstant.MENU_ADMIN_COACH_MESSAGE);
