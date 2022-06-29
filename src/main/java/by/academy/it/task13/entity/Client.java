@@ -29,13 +29,13 @@ public class Client {
     @Column
     private boolean activity;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     private String phone;
 
-    @Column(nullable = false, length = 254)
+    @Column(nullable = false)
     private String email;
 
     @Override

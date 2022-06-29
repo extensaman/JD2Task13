@@ -30,7 +30,7 @@ public class PhotoSession {
     @Column
     private boolean activity;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     private String name;
 
     @Column(length = 2000)
@@ -45,7 +45,7 @@ public class PhotoSession {
     @Column(nullable = false)
     private BigDecimal price;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     private String photoFile;
 
     @Override

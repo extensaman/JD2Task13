@@ -6,7 +6,7 @@
 
 <div class="container-fluid">
     <div class="wrapper_w img__object__fit">
-        <img th:src="@{/img/certificate_common.jpg}">
+        <img th:src="@{/uploads/certificate_common.jpg}">
     </div>
     <div class="row mt-4">
         <div th:with="condition=${activeCertificateTypeList != null and !activeCertificateTypeList.isEmpty()}">
@@ -48,7 +48,7 @@
                 <th:block th:each="certificate : ${activeCertificateList}">
 
                     <div class="card col-3 ms-auto me-auto mt-4" style="width: 18rem;">
-                        <img th:src="@{${'/img/'+certificate.photoFile}}"
+                        <img th:src="@{${'/uploads/'+certificate.photoFile}}"
 
                              class="card-img-top"
                              data-bs-toggle="tooltip"

@@ -36,13 +36,13 @@ public class Horse{
     @Column
     private boolean activity;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     private String name;
 
     @Column(length = 2000)
     private String description;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     private String photoFile;
 
     @Override

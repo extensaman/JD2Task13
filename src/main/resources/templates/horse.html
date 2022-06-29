@@ -6,7 +6,7 @@
 
 <div class="container-fluid">
     <div class="wrapper_w img__object__fit">
-        <img th:src="@{/img/horse_common.jpg}">
+        <img th:src="@{/uploads/horse_common.jpg}">
     </div>
     <div th:with="condition=${activeHorseList != null and !activeHorseList.isEmpty()}">
         <div th:if="${condition}">
@@ -15,7 +15,7 @@
                 <th:block th:each="horse : ${activeHorseList}">
 
                     <div class="card col-3 ms-auto me-auto mt-4" style="width: 18rem;">
-                        <img th:src="@{${'/img/'+horse.photoFile}}"
+                        <img th:src="@{${'/uploads/'+horse.photoFile}}"
                              class="card-img-top" alt="..."
                              data-bs-toggle="tooltip"
                              data-bs-placement="top"

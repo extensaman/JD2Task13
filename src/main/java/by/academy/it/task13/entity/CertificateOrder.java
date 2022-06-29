@@ -44,7 +44,7 @@ public class CertificateOrder {
     @Column(length = 2000)
     private String details;
 
-    @Column(length = 200)
+    @Column
     private String owner;
 
     @Column

@@ -40,7 +40,7 @@ public class Certificate {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private CertificateType certificateType;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     private String name;
 
     @Column(length = 2000)

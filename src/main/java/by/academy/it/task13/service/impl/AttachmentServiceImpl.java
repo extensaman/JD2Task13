@@ -1,21 +1,22 @@
 package by.academy.it.task13.service.impl;
 
-import by.academy.it.task13.configuration.MvcConfiguration;
 import by.academy.it.task13.dto.AttachmentDto;
 import by.academy.it.task13.entity.Attachment;
 import by.academy.it.task13.exception.AttachmentException;
 import by.academy.it.task13.mapper.impl.AttachmentMapper;
 import by.academy.it.task13.repo.AttachmentRepository;
 import by.academy.it.task13.service.AttachmentService;
+import by.academy.it.task13.AppSetting;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,11 +31,9 @@ public class AttachmentServiceImpl implements AttachmentService {
     public static final String DASH_SYMBOL = "-";
     public static final String SPACE_SYMBOL = " ";
 
-    @Value("${upload.path}")
-    public String uploadPath;
-
     private final AttachmentRepository repository;
     private final AttachmentMapper mapper;
+    private final AppSetting appSetting;
 
     @Override
     public void addAttachment(MultipartFile file) {
@@ -42,10 +41,17 @@ public class AttachmentServiceImpl implements AttachmentService {
         String fileName = new StringBuilder()
                 .append(LocalDateTime.now().toString().replaceAll(PUNCT_SYMBOL, DASH_SYMBOL))
                 .append('-')
-                .append(file.getOriginalFilename().toLowerCase().replaceAll(SPACE_SYMBOL, DASH_SYMBOL))
+                .append(
+                        URLEncoder.encode(
+                                file.getOriginalFilename()
+                                        .toLowerCase()
+                                        .replaceAll(SPACE_SYMBOL, DASH_SYMBOL),
+                                StandardCharsets.UTF_8
+                        )
+                )
                 .toString();
         try {
-            file.transferTo(new File(uploadPath + '/' + fileName));
+            file.transferTo(new File(appSetting.getUploadPath() + '/' + fileName));
         } catch (IOException | NullPointerException e) {
             throw new AttachmentException(e);
         }

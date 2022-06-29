@@ -34,6 +34,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -661,12 +662,13 @@ public class InitiateUtil implements CommandLineRunner {
                 List.of(user01, user02));
         LOGGER.info("Initialization of 'User' done");
 
-        imageFileList.getImageFileList().stream()
+        List<Attachment> attachments = imageFileList.getImageFileList().stream()
                 .map(fileName ->
                         Attachment.builder()
-                            .fileName(fileName)
-                            .build())
-                .forEach(attachmentService::save);
+                                .fileName(fileName)
+                                .build())
+                .collect(Collectors.toList());
+        attachmentService.saveAll(attachments);
 
         TelegramBot telegramBot = context.getBean("telegramBot", TelegramBot.class);
         try {

@@ -7,7 +7,7 @@
 <div class="container-fluid">
 
     <div th:if="${certificateOrderDto.certificate}" class="wrapper_w img__object__fit">
-        <img th:src="@{${'/img/'+certificateOrderDto.certificate.photoFile}}">
+        <img th:src="@{${'/uploads/'+certificateOrderDto.certificate.photoFile}}">
     </div>
 
     <table class="table mt-4">
@@ -90,7 +90,7 @@
                 </div>
                 <div class="col">
                     <img class="w-100 rounded shadow"
-                         th:src="@{${'/img/'+certificateOrderDto.certificate.photoFile}}">
+                         th:src="@{${'/uploads/'+certificateOrderDto.certificate.photoFile}}">
                 </div>
                 <div class="col text-center">
                     <div class="text-secondary fs-3"
@@ -140,7 +140,7 @@
                 </div>
                 <div class="col">
                     <img class="w-100 rounded shadow"
-                         th:src="@{${'/img/'+certificateOrderDto.certificateDecoration.photoFile}}">
+                         th:src="@{${'/uploads/'+certificateOrderDto.certificateDecoration.photoFile}}">
                 </div>
                 <div class="col text-center">
                     <div class="text-secondary fs-3"

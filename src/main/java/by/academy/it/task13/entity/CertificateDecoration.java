@@ -30,7 +30,7 @@ public class CertificateDecoration {
     @Column
     private boolean activity;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     private String name;
 
     @Column (length = 2000)
@@ -39,7 +39,7 @@ public class CertificateDecoration {
     @Column
     private BigDecimal price;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     private String photoFile;
 
     @Column(name = "delivery_necessity")
