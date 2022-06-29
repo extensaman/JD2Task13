@@ -10,6 +10,7 @@ import by.academy.it.task13.service.AttachmentService;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,8 +26,12 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AttachmentServiceImpl implements AttachmentService {
     private static final Logger LOGGER = LogManager.getLogger(AttachmentServiceImpl.class);
-    public static final String SPACE_SYMBOL = " ";
+    public static final String PUNCT_SYMBOL = "\\p{Punct}";
     public static final String DASH_SYMBOL = "-";
+    public static final String SPACE_SYMBOL = " ";
+
+    @Value("${upload.path}")
+    public String uploadPath;
 
     private final AttachmentRepository repository;
     private final AttachmentMapper mapper;
@@ -35,12 +40,12 @@ public class AttachmentServiceImpl implements AttachmentService {
     public void addAttachment(MultipartFile file) {
         LOGGER.info("addAttachment");
         String fileName = new StringBuilder()
-                .append(file.getOriginalFilename().toLowerCase().replaceAll(SPACE_SYMBOL, DASH_SYMBOL))
+                .append(LocalDateTime.now().toString().replaceAll(PUNCT_SYMBOL, DASH_SYMBOL))
                 .append('-')
-                .append(LocalDateTime.now().toString())
+                .append(file.getOriginalFilename().toLowerCase().replaceAll(SPACE_SYMBOL, DASH_SYMBOL))
                 .toString();
         try {
-            file.transferTo(new File(MvcConfiguration.uploadPath + '/' + fileName));
+            file.transferTo(new File(uploadPath + '/' + fileName));
         } catch (IOException | NullPointerException e) {
             throw new AttachmentException(e);
         }

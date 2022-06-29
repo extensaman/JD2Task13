@@ -20,6 +20,7 @@ import by.academy.it.task13.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -41,6 +42,9 @@ public class InitiateUtil implements CommandLineRunner {
 
     private final ApplicationContext context;
 
+    @Value("${upload.path}")
+    public String uploadPath;
+
     private final CertificateTypeService certificateTypeService;
     private final CertificateService certificateService;
     private final CertificateDecorationService certificateDecorationService;
@@ -55,7 +59,7 @@ public class InitiateUtil implements CommandLineRunner {
     @Override
     public void run(String[] args) throws Exception {
 
-        new File("d:/uploads").mkdirs();
+        new File(uploadPath).mkdirs();
 
         CertificateType certificateType01 = CertificateType.builder()
                 .activity(true)

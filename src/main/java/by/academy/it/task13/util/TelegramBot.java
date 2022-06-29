@@ -17,7 +17,7 @@ import java.util.List;
 public class TelegramBot extends TelegramLongPollingBot {
 
     private static final Logger LOGGER = LogManager.getLogger(TelegramBot.class);
-    private static final String TOKEN = "5527014400:-OJl_i-BI6H-7cKEw";
+    private static final String TOKEN = "5527014400:AAGpoUmTsvYiIfUXis-OJl_i-BI6H-7cKEw";
     private static final String BOT_USERNAME = "CavalierHorseClubBot";
     private static final String PASSWORD_FOR_SUBSCRIBE = "admin";
     public static final String UNSUBSCRIBE_COMMAND = "/unsubscribe";

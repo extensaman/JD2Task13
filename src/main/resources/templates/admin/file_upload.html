@@ -9,10 +9,23 @@
     <!-- Add new coach -->
     <div class="row mx-2 mt-5">
         <div class='d-flex justify-content-start'>
-            <form th:action="@{/admin/upload/}" th:method="post">
+            <form th:action="@{/admin/upload/}"
+                  th:method="post"
+                  enctype="multipart/form-data">
 
-                <input type="file" name="files" multiple>
-                <input type="submit">
+                <div class="input-group">
+                    <input type="file"
+                           class="form-control"
+                           id="inputGroupFile04"
+                           aria-describedby="inputGroupFileAddon04"
+                           aria-label="Upload"
+                           name="files"
+                           multiple>
+                    <button class="btn btn-outline-primary"
+                            id="inputGroupFileAddon04"
+                            th:text="#{common.button.upload}">
+                    </button>
+                </div>
 
                 <!--                <button type="button"
                                         class="btn btn-outline-primary"
@@ -129,7 +142,7 @@
                             <td class="text-center align-middle" th:text="${attachment.fileName}"></td>
                             <td class="text-center align-middle" th:text="${attachment.created}"></td>
                             <td class="text-center align-middle">
-                                <img th:src="@{${'/upload/'+attachment.fileName}}"
+                                <img th:src="@{${'/uploads/'+attachment.fileName}}"
                                      class="img-fluid" alt="">
                             </td>
 
@@ -140,6 +153,7 @@
 
 
                             <!-- Form for editing item -->
+<!--
                             <form th:action="@{/admin/coach/}" th:method="post"
                                   th:object="${attachment}">
                                 <td class="text-center align-middle">
@@ -151,7 +165,7 @@
                                     </button>
                                 </td>
 
-                                <!-- Modal for edit decoration -->
+                                &lt;!&ndash; Modal for edit decoration &ndash;&gt;
                                 <div class="modal fade" th:id="${'editcoach'+attachment.id}" tabindex="-1"
                                      role="dialog" aria-labelledby="exampleModalLabel21" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -164,12 +178,12 @@
                                             </div>
                                             <div class="modal-body">
 
-                                                <!-- Coach id -->
+                                                &lt;!&ndash; Coach id &ndash;&gt;
                                                 <input type="hidden"
                                                        th:value="${attachment.id}"
                                                        name="id">
 
-                                                <!-- Coach name -->
+                                                &lt;!&ndash; Coach name &ndash;&gt;
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text text-black-50"
                                                           th:text="#{menu_admin.common.table.name}">
@@ -180,7 +194,7 @@
                                                            name="name">
                                                 </div>
 
-                                                <!-- Coach description -->
+                                                &lt;!&ndash; Coach description &ndash;&gt;
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text text-black-50"
                                                           th:text="#{menu_admin.common.table.description}">
@@ -192,7 +206,7 @@
                                                               name="description"></textarea>
                                                 </div>
 
-                                                <!-- Coach photoFile -->
+                                                &lt;!&ndash; Coach photoFile &ndash;&gt;
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text text-black-50"
                                                           th:text="#{menu_admin.common.table.photo_file}">
@@ -209,7 +223,7 @@
                                                     </select>
                                                 </div>
 
-                                                <!-- Is coach active -->
+                                                &lt;!&ndash; Is coach active &ndash;&gt;
                                                 <div class="input-group mb-3">
                                                     <h5>
                                                         <div class="form-check form-switch">
@@ -241,9 +255,11 @@
                                     </div>
                                 </div>
                             </form>
+-->
 
 
                             <!-- Form for deleting item -->
+<!--
                             <form th:action="@{/admin/coach/delete}" th:method="post"
                                   th:object="${attachment}">
                                 <td class="text-center align-middle">
@@ -255,7 +271,7 @@
                                     </button>
                                 </td>
 
-                                <!-- Modal for delete coach -->
+                                &lt;!&ndash; Modal for delete coach &ndash;&gt;
                                 <div class="modal fade" th:id="${'deletecoach'+attachment.id}" tabindex="-1"
                                      role="dialog" aria-labelledby="exampleModalLabel22" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -268,12 +284,12 @@
                                             </div>
                                             <div class="modal-body">
 
-                                                <!-- coach id -->
+                                                &lt;!&ndash; coach id &ndash;&gt;
                                                 <input type="hidden"
                                                        th:value="${attachment.id}"
                                                        name="id">
 
-                                                <!-- coach name -->
+                                                &lt;!&ndash; coach name &ndash;&gt;
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text text-black-50"
                                                           th:text="#{menu_admin.common.table.name}">
@@ -285,7 +301,7 @@
                                                            disabled>
                                                 </div>
 
-                                                <!-- coach description -->
+                                                &lt;!&ndash; coach description &ndash;&gt;
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text text-black-50"
                                                           th:text="#{menu_admin.common.table.description}">
@@ -298,7 +314,7 @@
                                                               disabled></textarea>
                                                 </div>
 
-                                                <!-- coach photoFile -->
+                                                &lt;!&ndash; coach photoFile &ndash;&gt;
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text text-black-50"
                                                           th:text="#{menu_admin.common.table.photo_file}">
@@ -310,7 +326,7 @@
                                                            name="photoFile">
                                                 </div>
 
-                                                <!-- Is coach active -->
+                                                &lt;!&ndash; Is coach active &ndash;&gt;
                                                 <div class="input-group mb-3">
                                                     <h5>
                                                         <div class="form-check form-switch">
@@ -343,6 +359,7 @@
                                     </div>
                                 </div>
                             </form>
+-->
 
                         </tr>
                     </th:block>
