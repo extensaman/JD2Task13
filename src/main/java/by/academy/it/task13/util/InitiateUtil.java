@@ -1,6 +1,7 @@
 package by.academy.it.task13.util;
 
 import by.academy.it.task13.configuration.MvcConfiguration;
+import by.academy.it.task13.entity.Attachment;
 import by.academy.it.task13.entity.Certificate;
 import by.academy.it.task13.entity.CertificateDecoration;
 import by.academy.it.task13.entity.CertificateType;
@@ -8,6 +9,7 @@ import by.academy.it.task13.entity.Coach;
 import by.academy.it.task13.entity.Horse;
 import by.academy.it.task13.entity.PhotoSession;
 import by.academy.it.task13.entity.User;
+import by.academy.it.task13.service.AttachmentService;
 import by.academy.it.task13.service.CertificateDecorationService;
 import by.academy.it.task13.service.CertificateService;
 import by.academy.it.task13.service.CertificateTypeService;
@@ -18,14 +20,12 @@ import by.academy.it.task13.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import org.telegram.telegrambots.meta.generics.BotSession;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 import java.io.File;
@@ -48,12 +48,14 @@ public class InitiateUtil implements CommandLineRunner {
     private final HorseService horseService;
     private final CoachService coachService;
     private final UserService userService;
+    private final AttachmentService attachmentService;
+    private final ImageFileList imageFileList;
     private final PasswordEncoder encoder;
 
     @Override
     public void run(String[] args) throws Exception {
 
-        new File(MvcConfiguration.uploadPath).mkdirs();
+        new File("d:/uploads").mkdirs();
 
         CertificateType certificateType01 = CertificateType.builder()
                 .activity(true)
@@ -640,27 +642,34 @@ public class InitiateUtil implements CommandLineRunner {
         LOGGER.info("Initialization of 'Coach' done");
 
         User user01 = User.builder()
-                            .username("admin")
-                            .password(encoder.encode("admin"))
-                            .email("cavalierhorseclub@gmail.com")
-                            .activity(true)
-                            .build();
+                .username("admin")
+                .password(encoder.encode("admin"))
+                .email("cavalierhorseclub@gmail.com")
+                .activity(true)
+                .build();
         User user02 = User.builder()
-                        .username("user")
-                        .password(encoder.encode("user"))
-                        .email("123@mail.ru")
-                        .activity(true)
-                        .build();
+                .username("user")
+                .password(encoder.encode("user"))
+                .email("123@mail.ru")
+                .activity(true)
+                .build();
         userService.saveAll(
-                List.of(user01,user02));
+                List.of(user01, user02));
         LOGGER.info("Initialization of 'User' done");
+
+        imageFileList.getImageFileList().stream()
+                .map(fileName ->
+                        Attachment.builder()
+                            .fileName(fileName)
+                            .build())
+                .forEach(attachmentService::save);
 
         TelegramBot telegramBot = context.getBean("telegramBot", TelegramBot.class);
         try {
             TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
             telegramBotsApi.registerBot(telegramBot);
             LOGGER.info("TelegramBot registered");
-        } catch (TelegramApiException e){
+        } catch (TelegramApiException e) {
             LOGGER.warn("Telegram bot isn't registered");
         }
     }

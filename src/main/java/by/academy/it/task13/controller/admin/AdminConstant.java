@@ -17,6 +17,7 @@ public class AdminConstant {
     public static final String MENU_ADMIN_CERTIFICATE_DECORATION_MESSAGE = "menu_admin.certificate_decoration";
     public static final String MENU_ADMIN_HORSE_MESSAGE = "menu_admin.horses";
     public static final String MENU_ADMIN_COACH_MESSAGE = "menu_admin.coaches";
+    public static final String MENU_ADMIN_UPLOAD_MESSAGE = "menu_admin.upload";
     public static final String MENU_ADMIN_PHOTO_SESSION_MESSAGE = "menu_admin.photosession";
     public static final String ADMIN_GIFT_CERTIFICATE_PAGE = "admin/certificate";
     public static final String ADMIN_CERTIFICATE_TYPE_PAGE = "admin/certificate_type";
@@ -28,6 +29,7 @@ public class AdminConstant {
     public static final String CERTIFICATE_DECORATION_LIST = "certificateDecorationList";
     public static final String HORSE_LIST = "horseList";
     public static final String COACH_LIST = "coachList";
+    public static final String ATTACHMENT_LIST = "attachmentList";
     public static final String IMAGE_FILE_LIST = "imageFileList";
     public static final String PHOTO_SESSION_LIST = "photosessionList";
     public static final String GIFT_CERTIFICATE_LIST = "giftCertificateList";

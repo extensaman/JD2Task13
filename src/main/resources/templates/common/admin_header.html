@@ -43,6 +43,12 @@
                 <a th:unless="${condition}" class="nav-link text-primary" th:href="@{/admin/coach}"
                    th:text="#{menu_admin.coaches}"></a>
             </div>
+            <div class="col" th:with="condition=${title eq 'menu_admin.upload'}">
+                <a th:if="${condition}" class="nav-link text-secondary underline" href=""
+                   th:text="#{menu_admin.upload}"></a>
+                <a th:unless="${condition}" class="nav-link text-primary" th:href="@{/admin/upload}"
+                   th:text="#{menu_admin.upload}"></a>
+            </div>
         </nav>
         <hr/>
     </div>
