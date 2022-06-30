@@ -1,7 +1,9 @@
 package by.academy.it.task13.util;
 
+import by.academy.it.task13.AppSetting;
 import by.academy.it.task13.dto.Sendable;
 import by.academy.it.task13.entity.CertificateOrder;
+import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
@@ -14,14 +16,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class TelegramBot extends TelegramLongPollingBot {
-
     private static final Logger LOGGER = LogManager.getLogger(TelegramBot.class);
-    private static final String TOKEN = "5527014400:-OJl_i-BI6H-7cKEw";
-    private static final String BOT_USERNAME = "CavalierHorseClubBot";
-    private static final String PASSWORD_FOR_SUBSCRIBE = "admin";
-    public static final String UNSUBSCRIBE_COMMAND = "/unsubscribe";
+    public static final String YOU_VE_JUST_SUBSCRIBED_TO_CAVALIER_HORSE_CLUB_ORDERS_BROADCASTING = "You've just subscribed to Cavalier horse club orders broadcasting";
+    public static final String YOU_VE_JUST_UNSUBSCRIBED_FROM_CAVALIER_HORSE_CLUB_ORDERS_BROADCASTING = "You've just unsubscribed from Cavalier horse club orders broadcasting";
+    public static final String ENTER_THE_PASSWORD = "Enter the password";
 
+    private final AppSetting appSetting;
     private final List<String> listOfChatIdForBroadcasting = new ArrayList<>();
 
     @Override
@@ -29,18 +31,15 @@ public class TelegramBot extends TelegramLongPollingBot {
         if (update.hasMessage() && update.getMessage().hasText()) {
             String receivedText = update.getMessage().getText();
             String chatId = update.getMessage().getChatId().toString();
-            switch (receivedText) {
-                case PASSWORD_FOR_SUBSCRIBE:
-                    listOfChatIdForBroadcasting.add(chatId);
-                    sendMessage(chatId, "You've just subscribed to Cavalier horse club orders broadcasting");
-                    break;
-                case UNSUBSCRIBE_COMMAND:
-                    listOfChatIdForBroadcasting.remove(chatId);
-                    sendMessage(chatId, "You've just unsubscribed from Cavalier horse club orders broadcasting");
-                    break;
-                default:
-                    sendMessage(chatId, "Enter the password");
-                    break;
+
+            if(receivedText.equals(appSetting.getTelegramBotPasswordForSubscribe())){
+                listOfChatIdForBroadcasting.add(chatId);
+                sendMessage(chatId, YOU_VE_JUST_SUBSCRIBED_TO_CAVALIER_HORSE_CLUB_ORDERS_BROADCASTING);
+            } else if(receivedText.equals(appSetting.getTelegramBotUnsubscribeCommand())){
+                listOfChatIdForBroadcasting.remove(chatId);
+                sendMessage(chatId, YOU_VE_JUST_UNSUBSCRIBED_FROM_CAVALIER_HORSE_CLUB_ORDERS_BROADCASTING);
+            } else {
+                sendMessage(chatId, ENTER_THE_PASSWORD);
             }
         }
     }
@@ -60,7 +59,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     public void sendMessage(String chatId, String message) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatId);
-        sendMessage.enableMarkdown(true);
+        sendMessage.enableMarkdown(false);
         sendMessage.setText(message);
         try {
             execute(sendMessage);
@@ -72,11 +71,11 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return BOT_USERNAME;
+        return appSetting.getTelegramBotUsername();
     }
 
     @Override
     public String getBotToken() {
-        return TOKEN;
+        return appSetting.getTelegramBotToken();
     }
 }
