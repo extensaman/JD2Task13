@@ -56,4 +56,10 @@ public class CertificateOrderServiceImpl implements CertificateOrderService {
         LOGGER.info("save");
         return repository.save(mapper.toEntity(certificateOrderDto));
     }
+
+    @Override
+    public void delete(CertificateOrderDto certificateOrderDto) {
+        LOGGER.info("delete");
+        repository.delete(mapper.toEntity(certificateOrderDto));
+    }
 }

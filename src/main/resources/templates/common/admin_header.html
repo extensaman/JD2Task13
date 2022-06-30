@@ -7,6 +7,12 @@
                 <a class="nav-link text-primary" th:href="@{/}"
                    th:text="#{menu_admin.back_to_main}"></a>
             </div>
+            <div class="col" th:with="condition=${title eq 'menu_admin.certificate_order'}">
+                <a th:if="${condition}" class="nav-link text-secondary underline" href=""
+                   th:text="#{menu_admin.certificate_order}"></a>
+                <a th:unless="${condition}" class="nav-link text-primary" th:href="@{/admin/certificateorder}"
+                   th:text="#{menu_admin.certificate_order}"></a>
+            </div>
             <div class="col" th:with="condition=${title eq 'menu_admin.certificate'}">
                 <a th:if="${condition}" class="nav-link text-secondary underline" href=""
                    th:text="#{menu.certificate}"></a>

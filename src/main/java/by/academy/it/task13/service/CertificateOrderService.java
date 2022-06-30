@@ -14,4 +14,6 @@ public interface CertificateOrderService {
     void saveAll(List<CertificateOrder> list);
 
     CertificateOrder save(CertificateOrderDto certificateOrderDto);
+
+    void delete(CertificateOrderDto certificateOrderDto);
 }
