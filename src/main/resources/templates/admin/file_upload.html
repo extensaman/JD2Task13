@@ -142,7 +142,7 @@
                             <td class="text-center align-middle" th:text="${attachment.fileName}"></td>
                             <td class="text-center align-middle" th:text="${attachment.created}"></td>
                             <td class="text-center align-middle">
-                                <img th:src="@{${'/uploads/' + attachment.fileName}}"
+                                <img th:src="@{${'/' + attachment.fileName}}"
                                      class="img-fluid" alt="">
                             </td>
 

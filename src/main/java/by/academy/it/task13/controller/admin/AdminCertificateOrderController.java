@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminCertificateOrderController {
     private static final Logger LOGGER = LogManager.getLogger(AdminCertificateOrderController.class);
 
-    private final CertificateService certificateService;
     private final CertificateOrderService certificateOrderService;
 
     @GetMapping

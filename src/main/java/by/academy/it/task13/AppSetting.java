@@ -12,6 +12,27 @@ public class AppSetting {
     @Value("${upload.path}")
     private String uploadPath;
 
+    // MAIL
+    @Value("${spring.mail.host}")
+    private String mailHost;
+
+    @Value("${spring.mail.username}")
+    private String mailUsername;
+
+    @Value("${spring.mail.password}")
+    private String mailPassword;
+
+    @Value("${spring.mail.port}")
+    private int mailPort;
+
+    @Value("${spring.mail.protocol}")
+    private String mailProtocol;
+
+    @Value("${mail.debug}")
+    private String mailDebug;
+
+
+    // TELEGRAM BOT
     @Value("${telegram.bot.token}")
     private String telegramBotToken;
 

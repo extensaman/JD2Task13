@@ -89,37 +89,37 @@
                                 <!-- Horse count in certificate -->
                                 <div class="input-group mb-3">
                                     <span class="input-group-text text-black-50"
-                                          id="certHorseCount"
+                                          id="certHorseCount45"
                                           th:text="#{menu_admin.common.table.horse_count}">
                                     </span>
                                     <input type="text"
                                            class="form-control"
                                            name="horseCount"
-                                           aria-describedby="certHorseCount">
+                                           aria-describedby="certHorseCount45">
                                 </div>
 
                                 <!-- Duration -->
                                 <div class="input-group mb-3">
                                     <span class="input-group-text text-black-50"
-                                          id="certDuration"
+                                          id="certDuration32"
                                           th:text="#{menu_admin.common.table.duration}">
                                     </span>
                                     <input type="text"
                                            class="form-control"
                                            name="duration"
-                                           aria-describedby="certDuration">
+                                           aria-describedby="certDuration32">
                                 </div>
 
                                 <!-- Price -->
                                 <div class="input-group mb-3">
                                     <span class="input-group-text text-black-50"
-                                          id="certPrice"
+                                          id="certPrice32"
                                           th:text="#{menu_admin.common.table.price}">
                                     </span>
                                     <input type="text"
                                            class="form-control"
                                            name="price"
-                                           aria-describedby="certPrice">
+                                           aria-describedby="certPrice32">
                                 </div>
 
                                 <!-- Is photographer included -->
@@ -132,7 +132,7 @@
                                         </div>
                                     </h5>
                                     <span class="text-black-50"
-                                          id="certPhotographerIncluded"
+                                          id="certPhotographerIncluded32"
                                           th:text="#{menu_admin.common.table.photographer_included}">
                                     </span>
                                 </div>
@@ -147,7 +147,7 @@
                                         </div>
                                     </h5>
                                     <span class="text-black-50"
-                                          id="certActivity"
+                                          id="certActivity32"
                                           th:text="#{menu_admin.common.table.activity}">
                                     </span>
                                 </div>
@@ -201,7 +201,7 @@
                             <td class="text-center align-middle" th:text="${certificate.name}"></td>
                             <td class="align-middle" th:text="${certificate.description}"></td>
                             <td class="text-center align-middle">
-                                <img th:src="@{${'/uploads/'+certificate.photoFile}}"
+                                <img th:src="@{${'/'+certificate.photoFile}}"
                                      class="img-fluid" alt="">
                             </td>
                             <td class="text-center align-middle" th:text="${certificate.horseCount}"></td>
@@ -232,21 +232,6 @@
                                         <i class="bi bi-pencil-square font_size_20"></i>
                                     </button>
                                 </td>
-<!--
-                                <td class="text-center align-middle">
-                                    <button th:if="${certificate.certificateType.activity}"
-                                            type="button"
-                                            class="btn btn-outline-primary"
-                                            data-bs-toggle="modal"
-                                            th:attr="data-bs-target='#editcertificate'+${certificate.id}">
-                                        <i class="bi bi-pencil-square icon_size_20"></i>
-
-                                    </button>
-                                    <i th:unless="${certificate.certificateType.activity}"
-                                       class="bi bi-pencil-square text-black-50 icon_size_20">
-                                    </i>
-                                </td>
--->
 
                                 <!-- Modal for edit certificate -->
                                 <div class="modal fade" th:id="${'editcertificate'+certificate.id}" tabindex="-1"

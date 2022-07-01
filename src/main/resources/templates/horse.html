@@ -6,7 +6,7 @@
 
 <div class="container-fluid">
     <div class="wrapper_w img__object__fit">
-        <img th:src="@{/uploads/horse_common.jpg}">
+        <img th:src="@{/horse_common.jpg}">
     </div>
     <div th:with="condition=${activeHorseList != null and !activeHorseList.isEmpty()}">
         <div th:if="${condition}">
@@ -15,7 +15,7 @@
                 <th:block th:each="horse : ${activeHorseList}">
 
                     <div class="card col-3 ms-auto me-auto mt-4" style="width: 18rem;">
-                        <img th:src="@{${'/uploads/'+horse.photoFile}}"
+                        <img th:src="@{${'/'+horse.photoFile}}"
                              class="card-img-top" alt="..."
                              data-bs-toggle="tooltip"
                              data-bs-placement="top"
@@ -23,21 +23,8 @@
                         <div class="card-body">
                             <h5 class="card-title" th:text="${horse.name}"></h5>
                         </div>
-                        <!--
-                                                <div class="card-body">
-                                                    <div class="container-fluid">
-                                                        <div class="row">
-                                                            <div class="col-6 text-start">
-                                                                <a href="#" class="card-link">Order</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                        -->
                     </div>
-
                 </th:block>
-
             </div>
         </div>
         <div class="row mt-4 text-center">

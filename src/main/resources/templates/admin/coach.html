@@ -126,7 +126,7 @@
                             <td class="text-center align-middle" th:text="${coachDto.name}"></td>
                             <td class="align-middle" th:text="${coachDto.description}"></td>
                             <td class="text-center align-middle">
-                                <img th:src="@{${'/uploads/'+coachDto.photoFile}}"
+                                <img th:src="@{${'/'+coachDto.photoFile}}"
                                      class="img-fluid" alt="">
                             </td>
                             <td class="text-center align-middle">

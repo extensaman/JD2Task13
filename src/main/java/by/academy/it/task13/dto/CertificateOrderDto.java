@@ -50,7 +50,7 @@ public class CertificateOrderDto implements Sendable{
 
     @Override
     public String getReceiver() {
-        return user.getEmail();
+        return Optional.ofNullable(user).map(UserDto::getEmail).orElse(null);
     }
 
     @Override
