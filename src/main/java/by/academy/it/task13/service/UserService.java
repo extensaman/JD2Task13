@@ -10,6 +10,8 @@ import java.util.Optional;
 public interface UserService extends UserDetailsService {
     Optional<UserDto> findByUsername(String username);
 
+    List<UserDto> findAllActiveUser();
+
     boolean addUser(UserDto userDto);
 
     void saveAll(List<User> list);

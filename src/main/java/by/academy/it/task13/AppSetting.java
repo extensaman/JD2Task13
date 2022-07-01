@@ -12,6 +12,9 @@ public class AppSetting {
     @Value("${upload.path}")
     private String uploadPath;
 
+    @Value("${app.url}")
+    private String appUrl;
+
     // MAIL
     @Value("${spring.mail.host}")
     private String mailHost;

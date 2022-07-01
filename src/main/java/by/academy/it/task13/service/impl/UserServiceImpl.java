@@ -1,5 +1,6 @@
 package by.academy.it.task13.service.impl;
 
+import by.academy.it.task13.AppSetting;
 import by.academy.it.task13.dto.user.UserDto;
 import by.academy.it.task13.entity.User;
 import by.academy.it.task13.mapper.Mapper;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -29,13 +31,16 @@ public class UserServiceImpl implements UserService {
     private final UserRepository repository;
     private final Mapper<User, UserDto> mapper;
     private final MailSenderService mailSenderService;
-
-    @Value("${app.url}")
-    private String appUrl;
+    private final AppSetting appSetting;
 
     @Override
     public Optional<UserDto> findByUsername(String username) {
         return Optional.ofNullable(mapper.toDto(repository.findByUsername(username)));
+    }
+
+    @Override
+    public List<UserDto> findAllActiveUser(){
+        return repository.findAllByActivityIsTrue().stream().map(mapper::toDto).collect(Collectors.toList());
     }
 
     @Override
@@ -46,7 +51,7 @@ public class UserServiceImpl implements UserService {
             return false;
         }
         user.setActivationCode(UUID.randomUUID().toString());
-        String message = String.format(MESSAGE_TEMPLATE, user.getUsername(),appUrl,user.getActivationCode());
+        String message = String.format(MESSAGE_TEMPLATE, user.getUsername(),appSetting.getAppUrl(),user.getActivationCode());
         mailSenderService.send(user.getEmail(),
                 SUBJECT, message);
         repository.save(user);

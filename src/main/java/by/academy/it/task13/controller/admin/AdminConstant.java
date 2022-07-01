@@ -37,6 +37,8 @@ public class AdminConstant {
     public static final String ATTACHMENT_LIST = "attachmentList";
     public static final String IMAGE_FILE_LIST = "imageFileList";
     public static final String PHOTO_SESSION_LIST = "photosessionList";
+    public static final String ACTIVE_USER_LIST = "activeUserList";
+    public static final String ORDER_STATUS_LIST = "orderStatusList";
     public static final String GIFT_CERTIFICATE_LIST = "giftCertificateList";
     public static final String CERTIFICATE_ORDER_LIST = "certificateOrderList";
     public static final String DELETE_MAPPING = "/delete";

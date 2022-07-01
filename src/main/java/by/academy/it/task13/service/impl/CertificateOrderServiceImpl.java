@@ -8,6 +8,9 @@ import by.academy.it.task13.service.CertificateOrderService;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -61,5 +64,11 @@ public class CertificateOrderServiceImpl implements CertificateOrderService {
     public void delete(CertificateOrderDto certificateOrderDto) {
         LOGGER.info("delete");
         repository.delete(mapper.toEntity(certificateOrderDto));
+    }
+
+    public Paged<CertificateOrderDto> getPage(int pageNumber, int size) {
+        PageRequest request = PageRequest.of(pageNumber - 1, size, new Sort(Sort.Direction.ASC, "id"));
+        Page<CertificateOrderDto> postPage = repository.findAll(request);
+        return new Paged<>(postPage, Paging.of(postPage.getTotalPages(), pageNumber, size));
     }
 }
