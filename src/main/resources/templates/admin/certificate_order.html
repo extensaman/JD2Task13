@@ -180,14 +180,46 @@
                     <thead>
                     <tr>
                         <th class="text-center align-middle">№</th>
-                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.user}"></th>
-                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.event_date}"></th>
-                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.order_status}"></th>
-                        <th class="text-center align-middle" th:text="#{common.certificate}"></th>
-                        <th class="text-center align-middle" th:text="#{common.decoration}"></th>
-                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.certificate_owner}"></th>
-                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.details}"></th>
-                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.created}"></th>
+                        <th class="text-center align-middle">
+                            <a th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber} + '&sortField=user&sortDirection='+ ${reverseSortDirection}}"
+                                th:text="#{menu_admin.common.table.user}">
+                            </a>
+                        </th>
+                        <th class="text-center align-middle">
+                            <a th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber} + '&sortField=eventDate&sortDirection='+ ${reverseSortDirection}}"
+                               th:text="#{menu_admin.common.table.event_date}">
+                            </a>
+                        </th>
+                        <th class="text-center align-middle">
+                            <a th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber} + '&sortField=orderStatus&sortDirection='+ ${reverseSortDirection}}"
+                               th:text="#{menu_admin.common.table.order_status}">
+                            </a>
+                        </th>
+                        <th class="text-center align-middle">
+                            <a th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber} + '&sortField=certificate&sortDirection='+ ${reverseSortDirection}}"
+                               th:text="#{common.certificate}">
+                            </a>
+                        </th>
+                        <th class="text-center align-middle">
+                            <a th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber} + '&sortField=certificateDecoration&sortDirection='+ ${reverseSortDirection}}"
+                               th:text="#{common.decoration}">
+                            </a>
+                        </th>
+                        <th class="text-center align-middle">
+                            <a th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber} + '&sortField=owner&sortDirection='+ ${reverseSortDirection}}"
+                               th:text="#{menu_admin.common.table.certificate_owner}">
+                            </a>
+                        </th>
+                        <th class="text-center align-middle">
+                            <a th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber} + '&sortField=details&sortDirection='+ ${reverseSortDirection}}"
+                               th:text="#{menu_admin.common.table.details}">
+                            </a>
+                        </th>
+                        <th class="text-center align-middle">
+                            <a th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber} + '&sortField=created&sortDirection='+ ${reverseSortDirection}}"
+                               th:text="#{menu_admin.common.table.created}">
+                            </a>
+                        </th>
                         <th class="text-center align-middle"><i class="bi bi-sliders font_size_24"></i></th>
                         <th class="text-center align-middle"><i class="bi bi-x-lg font_size_24"></i></th>
                     </tr>
@@ -614,13 +646,13 @@
                 <nav aria-label="Page navigation" class="paging">
                     <ul class="pagination" th:if="${certificateOrderPage.page.totalPages > 1}">
                         <li class="page-item" th:classappend="${!certificateOrderPage.control.isPrevEnable()? 'disabled' : ''}">
-                            <a class="page-link" th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber - 1}}"
+                            <a class="page-link" th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber - 1} + '&sortField=' + ${sortField} + '&sortDirection='+ ${sortDirection}}"
                                tabindex="-1">Previous</a>
                         </li>
                         <th:block th:each="item : ${certificateOrderPage.control.getItems()}">
                             <li class="page-item" th:classappend="${item.index == certificateOrderPage.control.pageNumber? 'active' : ''}"
                                 th:if="${item.type.name() == 'PAGE'}">
-                                <a class="page-link" th:href="@{'/admin/certificateorder?pageNumber=' + ${item.index}}"
+                                <a class="page-link" th:href="@{'/admin/certificateorder?pageNumber=' + ${item.index} + '&sortField=' + ${sortField} + '&sortDirection='+ ${sortDirection}}"
                                    th:text="${item.index}"></a>
                             </li>
                             <li class="page-item disabled" th:if="${item.type.name() == 'DOTS'}">
@@ -628,7 +660,7 @@
                             </li>
                         </th:block>
                         <li class="page-item" th:classappend="${!certificateOrderPage.control.isNextEnable()? 'disabled' : ''}">
-                            <a class="page-link" th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber + 1}}">Next</a>
+                            <a class="page-link" th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber + 1} + '&sortField=' + ${sortField} + '&sortDirection='+ ${sortDirection}}">Next</a>
                         </li>
                     </ul>
                 </nav>

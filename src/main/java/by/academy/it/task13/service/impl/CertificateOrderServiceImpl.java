@@ -23,6 +23,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CertificateOrderServiceImpl implements CertificateOrderService {
     private static final Logger LOGGER = LogManager.getLogger(CertificateOrderServiceImpl.class);
+    public static final String ASC = "asc";
 
     private final CertificateOrderRepository repository;
     private final Mapper<CertificateOrder, CertificateOrderDto> mapper;
@@ -69,9 +70,11 @@ public class CertificateOrderServiceImpl implements CertificateOrderService {
     }
 
     @Override
-    public ExtendedPage<CertificateOrderDto> getExtendedPage(int pageNumber, int size) {
+    public ExtendedPage<CertificateOrderDto> getExtendedPage(int pageNumber, int size, String sortField, String sortDirection) {
         LOGGER.info("getExtendedPage");
-        PageRequest request = PageRequest.of(pageNumber - 1, size, Sort.by(Sort.Direction.ASC, "id"));
+        Sort sort = Sort.by(sortField);
+        sort = ASC.equals(sortDirection.toLowerCase()) ? sort.ascending() : sort.descending();
+        PageRequest request = PageRequest.of(pageNumber - 1, size, sort);
         Page<CertificateOrderDto> postPage = repository.findAll(request).map(mapper::toDto);
         return new ExtendedPage<>(postPage, PaginationControl.of(postPage.getTotalPages(), pageNumber, size));
     }

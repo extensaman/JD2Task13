@@ -42,4 +42,9 @@ public class AdminConstant {
     public static final String GIFT_CERTIFICATE_LIST = "giftCertificateList";
     public static final String CERTIFICATE_ORDER_PAGE = "certificateOrderPage";
     public static final String DELETE_MAPPING = "/delete";
+    public static final String SORT_FIELD = "sortField";
+    public static final String SORT_DIRECTION = "sortDirection";
+    public static final String REVERSE_SORT_DIRECTION = "reverseSortDirection";
+    public static final String ASC = "asc";
+    public static final String DESC = "desc";
 }

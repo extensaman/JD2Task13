@@ -12,7 +12,7 @@ public interface CertificateOrderService {
 
     List<CertificateOrderDto> findAll();
 
-    ExtendedPage<CertificateOrderDto> getExtendedPage(int pageNumber, int size);
+    ExtendedPage<CertificateOrderDto> getExtendedPage(int pageNumber, int size, String sortField, String sortDir);
 
     void saveAll(List<CertificateOrder> list);
 
