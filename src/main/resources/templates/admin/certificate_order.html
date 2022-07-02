@@ -185,7 +185,9 @@
                         <th class="text-center align-middle" th:text="#{menu_admin.common.table.order_status}"></th>
                         <th class="text-center align-middle" th:text="#{common.certificate}"></th>
                         <th class="text-center align-middle" th:text="#{common.decoration}"></th>
-                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.activity}"></th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.certificate_owner}"></th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.details}"></th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.created}"></th>
                         <th class="text-center align-middle"><i class="bi bi-sliders font_size_24"></i></th>
                         <th class="text-center align-middle"><i class="bi bi-x-lg font_size_24"></i></th>
                     </tr>
@@ -193,32 +195,35 @@
                     <tbody>
                     <th:block th:each="certificateOrder, state : ${certificateOrderPage.page}">
                         <tr>
-                            <td class="text-center align-middle" th:text="${state.index+1}"></td>
                             <td class="text-center align-middle"
-                                th:text="${certificate.certificateType.getName()}"></td>
-                            <td class="text-center align-middle" th:text="${certificate.name}"></td>
-                            <td class="align-middle" th:text="${certificate.description}"></td>
-                            <td class="text-center align-middle">
-                                <img th:src="@{${'/uploads/'+certificate.photoFile}}"
-                                     class="img-fluid" alt="">
+                                th:text="${state.index + 1 + (certificateOrderPage.control.pageNumber - 1) * certificateOrderPage.control.pageSize}">
                             </td>
-                            <td class="text-center align-middle" th:text="${certificate.horseCount}"></td>
-                            <td class="text-center align-middle" th:text="${certificate.duration}"></td>
-                            <td class="text-center align-middle" th:text="${certificate.price}"></td>
-                            <td class="text-center align-middle">
-                                <i th:if="${certificate.photographerIncluded}"
-                                   class="bi bi-plus-square text-success font_size_20"></i>
-                                <i th:unless="${certificate.photographerIncluded}"
-                                   class="bi bi-dash-square text-danger font_size_20"></i>
+                            <td class="text-center align-middle"
+                                th:text="${certificateOrder.user.username}">
                             </td>
-                            <td class="text-center align-middle">
-                                <i th:if="${certificate.activity}"
-                                   class="bi bi-check-circle-fill text-success font_size_24"></i>
-                                <i th:unless="${certificate.activity}"
-                                   class="bi bi-x-circle-fill text-danger font_size_24"></i>
+                            <td class="text-center align-middle"
+                                th:text="${certificateOrder.eventDate}">
                             </td>
-
-                            <!-- Form for editing item -->
+                            <td class="align-middle align-middle"
+                                th:text="${certificateOrder.orderStatus.name()}">
+                            </td>
+                            <td class="text-center align-middle"
+                                th:text="${certificateOrder.certificate.name}">
+                            </td>
+                            <td class="text-center align-middle"
+                                th:text="${certificateOrder.certificateDecoration.name}">
+                            </td>
+                            <td class="text-center align-middle"
+                                th:text="${certificateOrder.owner}">
+                            </td>
+                            <td class="text-center align-middle"
+                                th:text="${certificateOrder.details}">
+                            </td>
+                            <td class="text-center align-middle"
+                                th:text="${certificateOrder.created}">
+                            </td>
+<!--
+                            &lt;!&ndash; Form for editing item &ndash;&gt;
                             <form th:action="@{/admin/certificate/}" th:method="post"
                                   th:object="${certificate}">
 
@@ -245,7 +250,7 @@
                                     </i>
                                 </td>
 
-                                <!-- Modal for edit certificate -->
+                                &lt;!&ndash; Modal for edit certificate &ndash;&gt;
                                 <div class="modal fade" th:id="${'editcertificate'+certificate.id}" tabindex="-1"
                                      role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -598,6 +603,8 @@
                                     </div>
                                 </div>
                             </form>
+
+                        -->
                         </tr>
                     </th:block>
                     </tbody>
@@ -607,13 +614,13 @@
                 <nav aria-label="Page navigation" class="paging">
                     <ul class="pagination" th:if="${certificateOrderPage.page.totalPages > 1}">
                         <li class="page-item" th:classappend="${!certificateOrderPage.control.isPrevEnable()? 'disabled' : ''}">
-                            <a class="page-link" th:href="@{'/?pageNumber=' + ${certificateOrderPage.control.pageNumber - 1}}"
+                            <a class="page-link" th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber - 1}}"
                                tabindex="-1">Previous</a>
                         </li>
                         <th:block th:each="item : ${certificateOrderPage.control.getItems()}">
                             <li class="page-item" th:classappend="${item.index == certificateOrderPage.control.pageNumber? 'active' : ''}"
                                 th:if="${item.type.name() == 'PAGE'}">
-                                <a class="page-link" th:href="@{'/?pageNumber=' + ${item.index}}"
+                                <a class="page-link" th:href="@{'/admin/certificateorder?pageNumber=' + ${item.index}}"
                                    th:text="${item.index}"></a>
                             </li>
                             <li class="page-item disabled" th:if="${item.type.name() == 'DOTS'}">
@@ -621,7 +628,7 @@
                             </li>
                         </th:block>
                         <li class="page-item" th:classappend="${!certificateOrderPage.control.isNextEnable()? 'disabled' : ''}">
-                            <a class="page-link" th:href="@{'/?pageNumber=' + ${certificateOrderPage.control.pageNumber + 1}}">Next</a>
+                            <a class="page-link" th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber + 1}}">Next</a>
                         </li>
                     </ul>
                 </nav>

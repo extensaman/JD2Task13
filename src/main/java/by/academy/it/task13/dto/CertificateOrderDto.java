@@ -11,6 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -47,6 +48,8 @@ public class CertificateOrderDto implements Sendable{
 
     @NotNull(message = "{validation.decoration_not_null}")
     private CertificateDecorationDto certificateDecoration;
+
+    private LocalDateTime created;
 
     @Override
     public String getReceiver() {

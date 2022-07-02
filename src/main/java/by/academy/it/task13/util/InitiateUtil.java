@@ -721,12 +721,73 @@ public class InitiateUtil implements CommandLineRunner {
                 .owner("Алексндров Александр Александрович")
                 .user(user02)
                 .build();
+
+        CertificateOrder certificateOrder07 = CertificateOrder.builder()
+                .certificate(certificate01)
+                .certificateDecoration(certificateDecoration01)
+                .details("-")
+                .orderStatus(OrderStatus.NEW)
+                .eventDate(LocalDate.now())
+                .owner("Иванов Иван Иванович")
+                .user(user02)
+                .build();
+        CertificateOrder certificateOrder08 = CertificateOrder.builder()
+                .certificate(certificate02)
+                .certificateDecoration(certificateDecoration02)
+                .details("г.Минск, пр-т Кутузова, 45-78")
+                .orderStatus(OrderStatus.ACTIVATED)
+                .eventDate(LocalDate.now())
+                .owner("Петров Петр Петрович")
+                .user(user02)
+                .build();
+        CertificateOrder certificateOrder09 = CertificateOrder.builder()
+                .certificate(certificate03)
+                .certificateDecoration(certificateDecoration03)
+                .details("г.Минск, пр-т Грибоедова, 25-18")
+                .orderStatus(OrderStatus.ACTIVATED)
+                .eventDate(LocalDate.now())
+                .owner("Сидоров Сидр Сидорович")
+                .user(user02)
+                .build();
+        CertificateOrder certificateOrder10 = CertificateOrder.builder()
+                .certificate(certificate04)
+                .certificateDecoration(certificateDecoration04)
+                .details("г.Пинск, ул. Красная, 15-73")
+                .orderStatus(OrderStatus.CLOSED)
+                .eventDate(LocalDate.now())
+                .owner("Поликарпов Поликарп Поликарпович")
+                .user(user01)
+                .build();
+        CertificateOrder certificateOrder11 = CertificateOrder.builder()
+                .certificate(certificate05)
+                .certificateDecoration(certificateDecoration02)
+                .details("г.Псков, пр-т Любимова, 42-58")
+                .orderStatus(OrderStatus.CLOSED)
+                .eventDate(LocalDate.now())
+                .owner("Николаев Николай Николаевич")
+                .user(user01)
+                .build();
+        CertificateOrder certificateOrder12 = CertificateOrder.builder()
+                .certificate(certificate06)
+                .certificateDecoration(certificateDecoration02)
+                .details("г.Слуцк, пр-т Мира, 65-71")
+                .orderStatus(OrderStatus.ACTIVATED)
+                .eventDate(LocalDate.now())
+                .owner("Алексндров Александр Александрович")
+                .user(user02)
+                .build();
         certificateOrderService.saveAll(List.of(certificateOrder01,
                 certificateOrder02,
                 certificateOrder03,
                 certificateOrder04,
                 certificateOrder05,
-                certificateOrder06));
+                certificateOrder06,
+                certificateOrder07,
+                certificateOrder08,
+                certificateOrder09,
+                certificateOrder10,
+                certificateOrder11,
+                certificateOrder12));
         LOGGER.info("Initialization of 'CertificateOrder' done");
 
         List<Attachment> attachments = imageFileList.getImageFileList().stream()
