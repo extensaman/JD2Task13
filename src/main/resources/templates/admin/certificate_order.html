@@ -646,8 +646,11 @@
                 <nav aria-label="Page navigation" class="paging">
                     <ul class="pagination" th:if="${certificateOrderPage.page.totalPages > 1}">
                         <li class="page-item" th:classappend="${!certificateOrderPage.control.isPrevEnable()? 'disabled' : ''}">
-                            <a class="page-link" th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber - 1} + '&sortField=' + ${sortField} + '&sortDirection='+ ${sortDirection}}"
-                               tabindex="-1">Previous</a>
+                            <a class="page-link"
+                               th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber - 1} + '&sortField=' + ${sortField} + '&sortDirection='+ ${sortDirection}}"
+                               tabindex="-1"
+                               th:text="#{common.button.previous_pagination}">
+                            </a>
                         </li>
                         <th:block th:each="item : ${certificateOrderPage.control.getItems()}">
                             <li class="page-item" th:classappend="${item.index == certificateOrderPage.control.pageNumber? 'active' : ''}"
@@ -660,7 +663,9 @@
                             </li>
                         </th:block>
                         <li class="page-item" th:classappend="${!certificateOrderPage.control.isNextEnable()? 'disabled' : ''}">
-                            <a class="page-link" th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber + 1} + '&sortField=' + ${sortField} + '&sortDirection='+ ${sortDirection}}">Next</a>
+                            <a class="page-link" th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber + 1} + '&sortField=' + ${sortField} + '&sortDirection='+ ${sortDirection}}"
+                               th:text="#{common.button.next_pagination}">
+                            </a>
                         </li>
                     </ul>
                 </nav>
