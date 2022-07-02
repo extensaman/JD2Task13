@@ -1,16 +1,20 @@
 package by.academy.it.task13.util;
 
+import by.academy.it.task13.AppSetting;
 import by.academy.it.task13.configuration.MvcConfiguration;
 import by.academy.it.task13.entity.Attachment;
 import by.academy.it.task13.entity.Certificate;
 import by.academy.it.task13.entity.CertificateDecoration;
+import by.academy.it.task13.entity.CertificateOrder;
 import by.academy.it.task13.entity.CertificateType;
 import by.academy.it.task13.entity.Coach;
 import by.academy.it.task13.entity.Horse;
+import by.academy.it.task13.entity.OrderStatus;
 import by.academy.it.task13.entity.PhotoSession;
 import by.academy.it.task13.entity.User;
 import by.academy.it.task13.service.AttachmentService;
 import by.academy.it.task13.service.CertificateDecorationService;
+import by.academy.it.task13.service.CertificateOrderService;
 import by.academy.it.task13.service.CertificateService;
 import by.academy.it.task13.service.CertificateTypeService;
 import by.academy.it.task13.service.CoachService;
@@ -31,6 +35,7 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -43,12 +48,10 @@ public class InitiateUtil implements CommandLineRunner {
 
     private final ApplicationContext context;
 
-    @Value("${upload.path}")
-    public String uploadPath;
-
     private final CertificateTypeService certificateTypeService;
     private final CertificateService certificateService;
     private final CertificateDecorationService certificateDecorationService;
+    private final CertificateOrderService certificateOrderService;
     private final PhotoSessionService photoSessionService;
     private final HorseService horseService;
     private final CoachService coachService;
@@ -56,11 +59,13 @@ public class InitiateUtil implements CommandLineRunner {
     private final AttachmentService attachmentService;
     private final ImageFileList imageFileList;
     private final PasswordEncoder encoder;
+    private final AppSetting appSetting;
+
 
     @Override
     public void run(String[] args) throws Exception {
 
-        new File(uploadPath).mkdirs();
+        new File(appSetting.getUploadPath()).mkdirs();
 
         CertificateType certificateType01 = CertificateType.builder()
                 .activity(true)
@@ -661,6 +666,68 @@ public class InitiateUtil implements CommandLineRunner {
         userService.saveAll(
                 List.of(user01, user02));
         LOGGER.info("Initialization of 'User' done");
+
+        CertificateOrder certificateOrder01 = CertificateOrder.builder()
+                .certificate(certificate01)
+                .certificateDecoration(certificateDecoration01)
+                .details("-")
+                .orderStatus(OrderStatus.NEW)
+                .eventDate(LocalDate.now())
+                .owner("Иванов Иван Иванович")
+                .user(user02)
+                .build();
+        CertificateOrder certificateOrder02 = CertificateOrder.builder()
+                .certificate(certificate02)
+                .certificateDecoration(certificateDecoration02)
+                .details("г.Минск, пр-т Кутузова, 45-78")
+                .orderStatus(OrderStatus.ACTIVATED)
+                .eventDate(LocalDate.now())
+                .owner("Петров Петр Петрович")
+                .user(user02)
+                .build();
+        CertificateOrder certificateOrder03 = CertificateOrder.builder()
+                .certificate(certificate03)
+                .certificateDecoration(certificateDecoration03)
+                .details("г.Минск, пр-т Грибоедова, 25-18")
+                .orderStatus(OrderStatus.ACTIVATED)
+                .eventDate(LocalDate.now())
+                .owner("Сидоров Сидр Сидорович")
+                .user(user02)
+                .build();
+        CertificateOrder certificateOrder04 = CertificateOrder.builder()
+                .certificate(certificate04)
+                .certificateDecoration(certificateDecoration04)
+                .details("г.Пинск, ул. Красная, 15-73")
+                .orderStatus(OrderStatus.CLOSED)
+                .eventDate(LocalDate.now())
+                .owner("Поликарпов Поликарп Поликарпович")
+                .user(user01)
+                .build();
+        CertificateOrder certificateOrder05 = CertificateOrder.builder()
+                .certificate(certificate05)
+                .certificateDecoration(certificateDecoration02)
+                .details("г.Псков, пр-т Любимова, 42-58")
+                .orderStatus(OrderStatus.CLOSED)
+                .eventDate(LocalDate.now())
+                .owner("Николаев Николай Николаевич")
+                .user(user01)
+                .build();
+        CertificateOrder certificateOrder06 = CertificateOrder.builder()
+                .certificate(certificate06)
+                .certificateDecoration(certificateDecoration02)
+                .details("г.Слуцк, пр-т Мира, 65-71")
+                .orderStatus(OrderStatus.ACTIVATED)
+                .eventDate(LocalDate.now())
+                .owner("Алексндров Александр Александрович")
+                .user(user02)
+                .build();
+        certificateOrderService.saveAll(List.of(certificateOrder01,
+                certificateOrder02,
+                certificateOrder03,
+                certificateOrder04,
+                certificateOrder05,
+                certificateOrder06));
+        LOGGER.info("Initialization of 'CertificateOrder' done");
 
         List<Attachment> attachments = imageFileList.getImageFileList().stream()
                 .map(fileName ->

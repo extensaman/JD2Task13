@@ -1,7 +1,6 @@
 package by.academy.it.task13.controller.admin;
 
 import by.academy.it.task13.dto.CertificateOrderDto;
-import by.academy.it.task13.entity.Certificate;
 import by.academy.it.task13.entity.OrderStatus;
 import by.academy.it.task13.service.CertificateDecorationService;
 import by.academy.it.task13.service.CertificateOrderService;
@@ -15,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Arrays;
 import java.util.List;
@@ -34,7 +34,9 @@ public class AdminCertificateOrderController {
                                                     .map(OrderStatus::toString)
                                                     .collect(Collectors.toList());
     @GetMapping
-    public String getGiftCertificateOrderPage(Model model) {
+    public String getGiftCertificateOrderPage(@RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
+                                              @RequestParam(value = "size", required = false, defaultValue = "5") int size,
+                                              Model model) {
         LOGGER.info("getGiftCertificateOrderPage");
         model.addAttribute(AdminConstant.TITLE,
                 AdminConstant.MENU_ADMIN_CERTIFICATE_ORDER_MESSAGE);
@@ -42,8 +44,8 @@ public class AdminCertificateOrderController {
         model.addAttribute(AdminConstant.CERTIFICATE_DECORATION_LIST, certificateDecorationService.findAll());
         model.addAttribute(AdminConstant.ACTIVE_USER_LIST, userService.findAllActiveUser());
         model.addAttribute(AdminConstant.ORDER_STATUS_LIST, orderStatusList);
-        model.addAttribute(AdminConstant.CERTIFICATE_ORDER_LIST,
-                certificateOrderService.findAll());
+        model.addAttribute(AdminConstant.CERTIFICATE_ORDER_PAGE,
+                certificateOrderService.getExtendedPage(pageNumber, size));
         return AdminConstant.ADMIN_CERTIFICATE_ORDER_PAGE;
     }
 

@@ -5,6 +5,8 @@ import by.academy.it.task13.entity.CertificateOrder;
 import by.academy.it.task13.mapper.Mapper;
 import by.academy.it.task13.repo.CertificateOrderRepository;
 import by.academy.it.task13.service.CertificateOrderService;
+import by.academy.it.task13.service.paging.ExtendedPage;
+import by.academy.it.task13.service.paging.PaginationControl;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -66,9 +68,11 @@ public class CertificateOrderServiceImpl implements CertificateOrderService {
         repository.delete(mapper.toEntity(certificateOrderDto));
     }
 
-    public Paged<CertificateOrderDto> getPage(int pageNumber, int size) {
-        PageRequest request = PageRequest.of(pageNumber - 1, size, new Sort(Sort.Direction.ASC, "id"));
-        Page<CertificateOrderDto> postPage = repository.findAll(request);
-        return new Paged<>(postPage, Paging.of(postPage.getTotalPages(), pageNumber, size));
+    @Override
+    public ExtendedPage<CertificateOrderDto> getExtendedPage(int pageNumber, int size) {
+        LOGGER.info("getExtendedPage");
+        PageRequest request = PageRequest.of(pageNumber - 1, size, Sort.by(Sort.Direction.ASC, "id"));
+        Page<CertificateOrderDto> postPage = repository.findAll(request).map(mapper::toDto);
+        return new ExtendedPage<>(postPage, PaginationControl.of(postPage.getTotalPages(), pageNumber, size));
     }
 }

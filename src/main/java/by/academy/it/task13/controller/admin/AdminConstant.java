@@ -40,6 +40,6 @@ public class AdminConstant {
     public static final String ACTIVE_USER_LIST = "activeUserList";
     public static final String ORDER_STATUS_LIST = "orderStatusList";
     public static final String GIFT_CERTIFICATE_LIST = "giftCertificateList";
-    public static final String CERTIFICATE_ORDER_LIST = "certificateOrderList";
+    public static final String CERTIFICATE_ORDER_PAGE = "certificateOrderPage";
     public static final String DELETE_MAPPING = "/delete";
 }
