@@ -6,15 +6,19 @@ import by.academy.it.task13.service.CertificateDecorationService;
 import by.academy.it.task13.service.CertificateOrderService;
 import by.academy.it.task13.service.CertificateService;
 import by.academy.it.task13.service.UserService;
+import by.academy.it.task13.service.specification.filter.CertificateOrderFilter;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,6 +26,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping(AdminConstant.ADMIN_GIFT_CERTIFICATE_ORDER_MAPPING)
+@SessionAttributes(names = AdminConstant.CERTIFICATE_ORDER_FILTER)
 @RequiredArgsConstructor
 public class AdminCertificateOrderController {
     private static final Logger LOGGER = LogManager.getLogger(AdminCertificateOrderController.class);
@@ -31,13 +36,20 @@ public class AdminCertificateOrderController {
     private final CertificateDecorationService certificateDecorationService;
     private final UserService userService;
     private final List<String> orderStatusList = Arrays.stream(OrderStatus.values())
-                                                    .map(OrderStatus::toString)
-                                                    .collect(Collectors.toList());
+            .map(OrderStatus::toString)
+            .collect(Collectors.toList());
+
+    @ModelAttribute(name = AdminConstant.CERTIFICATE_ORDER_FILTER)
+    public CertificateOrderFilter certificateOrderFilter() {
+        return new CertificateOrderFilter();
+    }
+
     @GetMapping
     public String getGiftCertificateOrderPage(@RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
                                               @RequestParam(value = "size", required = false, defaultValue = "5") int size,
                                               @RequestParam(value = "sortField", required = false, defaultValue = "id") String sortField,
                                               @RequestParam(value = "sortDirection", required = false, defaultValue = "asc") String sortDirection,
+                                              @ModelAttribute CertificateOrderFilter certificateOrderFilter,
                                               Model model) {
         LOGGER.info("getGiftCertificateOrderPage");
 
@@ -55,7 +67,7 @@ public class AdminCertificateOrderController {
         model.addAttribute(AdminConstant.REVERSE_SORT_DIRECTION, reverseSortDirection);
 
         model.addAttribute(AdminConstant.CERTIFICATE_ORDER_PAGE,
-                certificateOrderService.getExtendedPage(pageNumber, size, sortField, sortDirection));
+                certificateOrderService.getExtendedPage(certificateOrderFilter, pageNumber, size, sortField, sortDirection));
         return AdminConstant.ADMIN_CERTIFICATE_ORDER_PAGE;
     }
 
@@ -71,5 +83,12 @@ public class AdminCertificateOrderController {
         LOGGER.info("deleteCertificateOrder");
         certificateOrderService.delete(certificateOrderDto);
         return "redirect:/admin/certificate";
+    }
+
+    @PostMapping(AdminConstant.RESET_FILTER_MAPPING)
+    public String resetCertificateOrderFilter(SessionStatus sessionStatus) {
+        LOGGER.info("resetCertificateOrderFilter");
+        sessionStatus.setComplete();
+        return "redirect:/admin/certificateorder";
     }
 }

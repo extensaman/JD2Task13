@@ -19,7 +19,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeRequests()
-                .antMatchers("/admin").access("hasRole('ADMIN')")
+                .antMatchers("/admin").access("hasRole('ADMIN')") // TODO /admin/**
                 .antMatchers("/certificateorderRRRR")
                 .access("hasAnyRole('ADMIN', 'USER')")
                 .antMatchers("/", "/**").access("permitAll()")

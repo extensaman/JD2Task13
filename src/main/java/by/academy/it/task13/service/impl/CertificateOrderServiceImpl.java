@@ -7,12 +7,15 @@ import by.academy.it.task13.repo.CertificateOrderRepository;
 import by.academy.it.task13.service.CertificateOrderService;
 import by.academy.it.task13.service.paging.ExtendedPage;
 import by.academy.it.task13.service.paging.PaginationControl;
+import by.academy.it.task13.service.specification.CertificateOrderSpecification;
+import by.academy.it.task13.service.specification.filter.CertificateOrderFilter;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -70,12 +73,13 @@ public class CertificateOrderServiceImpl implements CertificateOrderService {
     }
 
     @Override
-    public ExtendedPage<CertificateOrderDto> getExtendedPage(int pageNumber, int size, String sortField, String sortDirection) {
+    public ExtendedPage<CertificateOrderDto> getExtendedPage(CertificateOrderFilter filter, int pageNumber, int size, String sortField, String sortDirection) {
         LOGGER.info("getExtendedPage");
+        Specification<CertificateOrder> specification = CertificateOrderSpecification.getCertificateOrderSpecification(filter);
         Sort sort = Sort.by(sortField);
         sort = ASC.equals(sortDirection.toLowerCase()) ? sort.ascending() : sort.descending();
         PageRequest request = PageRequest.of(pageNumber - 1, size, sort);
-        Page<CertificateOrderDto> postPage = repository.findAll(request).map(mapper::toDto);
+        Page<CertificateOrderDto> postPage = repository.findAll(specification, request).map(mapper::toDto);
         return new ExtendedPage<>(postPage, PaginationControl.of(postPage.getTotalPages(), pageNumber, size));
     }
 }
