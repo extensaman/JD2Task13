@@ -16,6 +16,7 @@ import java.util.Optional;
 
 public class CertificateOrderSpecification {
     private static final Logger LOGGER = LogManager.getLogger(CertificateOrderSpecification.class);
+    public static final char PERCENT_CHAR = '%';
 
     public static Specification<CertificateOrder> getCertificateOrderSpecification(CertificateOrderFilter filter) {
         return (root, query, criteriaBuilder) -> {
@@ -23,11 +24,11 @@ public class CertificateOrderSpecification {
             Optional.ofNullable(filter.getOwnerFilter())
                     .filter(StringUtils::isNotBlank)
                     .map(owner ->
-                            predicates.add(criteriaBuilder.like(root.get(CertificateOrder_.OWNER), '%' + owner + '%')));
+                            predicates.add(criteriaBuilder.like(root.get(CertificateOrder_.OWNER), PERCENT_CHAR + owner + PERCENT_CHAR)));
             Optional.ofNullable(filter.getDetailsFilter())
                     .filter(StringUtils::isNotBlank)
                     .ifPresent(details ->
-                            predicates.add(criteriaBuilder.like(root.get(CertificateOrder_.DETAILS), '%' + details + '%')));
+                            predicates.add(criteriaBuilder.like(root.get(CertificateOrder_.DETAILS), PERCENT_CHAR + details + PERCENT_CHAR)));
             LOGGER.info("Predicate ARRAY size = " + predicates.size());
             LOGGER.info("filter.getDetailsFilter() = " + filter.getDetailsFilter());
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));

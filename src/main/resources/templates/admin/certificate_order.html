@@ -256,52 +256,106 @@
         </div>
     </div>
 
+    <!-- Certificate order TABLE -->
     <div class="row mx-2 mt-2">
         <div th:with="condition=${certificateOrderPage != null}">
             <div th:if="${condition}">
                 <table class="table">
                     <thead>
                     <tr>
-                        <th class="text-center align-middle">№</th>
-                        <th class="text-center align-middle">
-                            <a th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber} + '&sortField=user&sortDirection='+ ${reverseSortDirection}}"
-                               th:text="#{menu_admin.common.table.user}">
+                        <th class="text-center align-middle"
+                            th:with="ID=${T(by.academy.it.task13.entity.CertificateOrder_).ID}">
+                            <a th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber + '&sortField=' + ID + '&sortDirection='+ reverseSortDirection}}">
+                                №
                             </a>
                         </th>
-                        <th class="text-center align-middle">
-                            <a th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber} + '&sortField=eventDate&sortDirection='+ ${reverseSortDirection}}"
-                               th:text="#{menu_admin.common.table.event_date}">
-                            </a>
+                        <th class="text-center align-middle"
+                            th:with="USER=${T(by.academy.it.task13.entity.CertificateOrder_).USER}">
+                            <div class="row">
+                                <a th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber + '&sortField=' + USER + '&sortDirection='+ reverseSortDirection}}"
+                                   th:text="#{menu_admin.common.table.user}">
+                                </a>
+                                <i th:if="${sortField == USER}"
+                                   class="text-success"
+                                   th:classappend="${sortDirection == 'desc' ? 'bi bi-arrow-down-circle' : 'bi bi-arrow-up-circle'}"></i>
+                            </div>
                         </th>
-                        <th class="text-center align-middle">
-                            <a th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber} + '&sortField=orderStatus&sortDirection='+ ${reverseSortDirection}}"
-                               th:text="#{menu_admin.common.table.order_status}">
-                            </a>
+                        <th class="text-center align-middle"
+                            th:with="EVENT_DATE=${T(by.academy.it.task13.entity.CertificateOrder_).EVENT_DATE}">
+                            <div class="row">
+                                <a th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber + '&sortField=' + EVENT_DATE + '&sortDirection='+ reverseSortDirection}}"
+                                   th:text="#{menu_admin.common.table.event_date}">
+                                </a>
+                                <i th:if="${sortField == EVENT_DATE}"
+                                   class="text-success"
+                                   th:classappend="${sortDirection == 'desc' ? 'bi bi-arrow-down-circle' : 'bi bi-arrow-up-circle'}"></i>
+                            </div>
                         </th>
-                        <th class="text-center align-middle">
-                            <a th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber} + '&sortField=certificate&sortDirection='+ ${reverseSortDirection}}"
-                               th:text="#{common.certificate}">
-                            </a>
+                        <th class="text-center align-middle"
+                            th:with="ORDER_STATUS=${T(by.academy.it.task13.entity.CertificateOrder_).ORDER_STATUS}">
+                            <div class="row">
+                                <a th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber + '&sortField=' + ORDER_STATUS + '&sortDirection='+ reverseSortDirection}}"
+                                   th:text="#{menu_admin.common.table.order_status}">
+                                </a>
+                                <i th:if="${sortField == ORDER_STATUS}"
+                                   class="text-success"
+                                   th:classappend="${sortDirection == 'desc' ? 'bi bi-arrow-down-circle' : 'bi bi-arrow-up-circle'}"></i>
+                            </div>
                         </th>
-                        <th class="text-center align-middle">
-                            <a th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber} + '&sortField=certificateDecoration&sortDirection='+ ${reverseSortDirection}}"
-                               th:text="#{common.decoration}">
-                            </a>
+                        <th class="text-center align-middle"
+                            th:with="CERTIFICATE=${T(by.academy.it.task13.entity.CertificateOrder_).CERTIFICATE}">
+                            <div class="row">
+                                <a th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber + '&sortField=' + CERTIFICATE + '&sortDirection='+ reverseSortDirection}}"
+                                   th:text="#{common.certificate}">
+                                </a>
+                                <i th:if="${sortField == CERTIFICATE}"
+                                   class="text-success"
+                                   th:classappend="${sortDirection == 'desc' ? 'bi bi-arrow-down-circle' : 'bi bi-arrow-up-circle'}"></i>
+                            </div>
                         </th>
-                        <th class="text-center align-middle">
-                            <a th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber} + '&sortField=owner&sortDirection='+ ${reverseSortDirection}}"
-                               th:text="#{menu_admin.common.table.certificate_owner}">
-                            </a>
+                        <th class="text-center align-middle"
+                            th:with="CERTIFICATE_DECORATION=${T(by.academy.it.task13.entity.CertificateOrder_).CERTIFICATE_DECORATION}">
+                            <div class="row">
+                                <a th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber + '&sortField=' + CERTIFICATE_DECORATION + '&sortDirection='+ reverseSortDirection}}"
+                                   th:text="#{common.decoration}">
+                                </a>
+                                <i th:if="${sortField == CERTIFICATE_DECORATION}"
+                                   class="text-success"
+                                   th:classappend="${sortDirection == 'desc' ? 'bi bi-arrow-down-circle' : 'bi bi-arrow-up-circle'}"></i>
+                            </div>
                         </th>
-                        <th class="text-center align-middle">
-                            <a th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber} + '&sortField=details&sortDirection='+ ${reverseSortDirection}}"
-                               th:text="#{menu_admin.common.table.details}">
-                            </a>
+                        <th class="text-center align-middle"
+                            th:with="OWNER=${T(by.academy.it.task13.entity.CertificateOrder_).OWNER}">
+                            <div class="row">
+                                <a th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber + '&sortField=' + OWNER + '&sortDirection='+ reverseSortDirection}}"
+                                   th:text="#{menu_admin.common.table.certificate_owner}">
+                                </a>
+                                <i th:if="${sortField == OWNER}"
+                                   class="text-success"
+                                   th:classappend="${sortDirection == 'desc' ? 'bi bi-arrow-down-circle' : 'bi bi-arrow-up-circle'}"></i>
+                            </div>
                         </th>
-                        <th class="text-center align-middle">
-                            <a th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber} + '&sortField=created&sortDirection='+ ${reverseSortDirection}}"
-                               th:text="#{menu_admin.common.table.created}">
-                            </a>
+                        <th class="text-center align-middle"
+                            th:with="DETAILS=${T(by.academy.it.task13.entity.CertificateOrder_).DETAILS}">
+                            <div class="row">
+                                <a th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber + '&sortField=' + DETAILS + '&sortDirection='+ reverseSortDirection}}"
+                                   th:text="#{menu_admin.common.table.details}">
+                                </a>
+                                <i th:if="${sortField == DETAILS}"
+                                   class="text-success"
+                                   th:classappend="${sortDirection == 'desc' ? 'bi bi-arrow-down-circle' : 'bi bi-arrow-up-circle'}"></i>
+                            </div>
+                        </th>
+                        <th class="text-center align-middle"
+                            th:with="CREATED=${T(by.academy.it.task13.entity.CertificateOrder_).CREATED}">
+                            <div class="row">
+                                <a th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber + '&sortField=' + CREATED + '&sortDirection='+ reverseSortDirection}}"
+                                   th:text="#{menu_admin.common.table.created}">
+                                </a>
+                                <i th:if="${sortField == CREATED}"
+                                   class="text-success"
+                                   th:classappend="${sortDirection == 'desc' ? 'bi bi-arrow-down-circle' : 'bi bi-arrow-up-circle'}"></i>
+                            </div>
                         </th>
                         <th class="text-center align-middle"><i class="bi bi-sliders font_size_24"></i></th>
                         <th class="text-center align-middle"><i class="bi bi-x-lg font_size_24"></i></th>
