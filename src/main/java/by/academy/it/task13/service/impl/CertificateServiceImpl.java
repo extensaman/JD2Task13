@@ -1,8 +1,8 @@
 package by.academy.it.task13.service.impl;
 
-import by.academy.it.task13.dto.CertificateDto;
+import by.academy.it.task13.dto.certificate.CertificateDto;
+import by.academy.it.task13.dto.certificate.CertificateNameDto;
 import by.academy.it.task13.entity.Certificate;
-import by.academy.it.task13.entity.CertificateDecoration;
 import by.academy.it.task13.mapper.Mapper;
 import by.academy.it.task13.repo.CertificateRepository;
 import by.academy.it.task13.service.CertificateService;
@@ -23,6 +23,7 @@ public class CertificateServiceImpl implements CertificateService {
 
     private final CertificateRepository repository;
     private final Mapper<Certificate, CertificateDto> mapper;
+    private final Mapper<Certificate, CertificateNameDto> mapperName;
 
     @Override
     public Optional<CertificateDto> findById(String id) {
@@ -44,6 +45,16 @@ public class CertificateServiceImpl implements CertificateService {
             certificateDtos.add(mapper.toDto(certificate));
         }
         return certificateDtos;
+    }
+
+    @Override
+    public List<CertificateNameDto> findAllCertificateNameDto() {
+        LOGGER.info("findAllCertificateNameDto");
+        List<CertificateNameDto> certificateNameDtos = new ArrayList<>();
+        for (Certificate certificate : repository.findAll()) {
+            certificateNameDtos.add(mapperName.toDto(certificate));
+        }
+        return certificateNameDtos;
     }
 
     @Override

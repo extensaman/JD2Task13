@@ -1,6 +1,7 @@
 package by.academy.it.task13.service.impl;
 
-import by.academy.it.task13.dto.CertificateDecorationDto;
+import by.academy.it.task13.dto.certificatedecoration.CertificateDecorationDto;
+import by.academy.it.task13.dto.certificatedecoration.CertificateDecorationNameDto;
 import by.academy.it.task13.entity.CertificateDecoration;
 import by.academy.it.task13.mapper.Mapper;
 import by.academy.it.task13.repo.CertificateDecorationRepository;
@@ -22,6 +23,7 @@ public class CertificateDecorationServiceImpl implements CertificateDecorationSe
 
     private final CertificateDecorationRepository repository;
     private final Mapper<CertificateDecoration, CertificateDecorationDto> mapper;
+    private final Mapper<CertificateDecoration, CertificateDecorationNameDto> mapperName;
 
     @Override
     public Optional<CertificateDecorationDto> findById(String id) {
@@ -42,6 +44,16 @@ public class CertificateDecorationServiceImpl implements CertificateDecorationSe
             certificateDecorationDtos.add(mapper.toDto(certificateDecoration));
         }
         return certificateDecorationDtos;
+    }
+
+    @Override
+    public List<CertificateDecorationNameDto> findAllCertificateDecorationNameDto() {
+        LOGGER.info("findAllCertificateDecorationNameDto");
+        List<CertificateDecorationNameDto> certificateDecorationNameDtos = new ArrayList<>();
+        for (CertificateDecoration certificateDecoration : repository.findAll()) {
+            certificateDecorationNameDtos.add(mapperName.toDto(certificateDecoration));
+        }
+        return certificateDecorationNameDtos;
     }
 
     @Override

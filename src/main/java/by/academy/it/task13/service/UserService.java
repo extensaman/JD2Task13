@@ -1,6 +1,7 @@
 package by.academy.it.task13.service;
 
 import by.academy.it.task13.dto.user.UserDto;
+import by.academy.it.task13.dto.user.UserNameDto;
 import by.academy.it.task13.entity.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -11,6 +12,8 @@ public interface UserService extends UserDetailsService {
     Optional<UserDto> findByUsername(String username);
 
     List<UserDto> findAllActiveUser();
+
+    List<UserNameDto> findAllUserNameDto();
 
     boolean addUser(UserDto userDto);
 

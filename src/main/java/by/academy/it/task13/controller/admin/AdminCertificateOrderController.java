@@ -56,10 +56,16 @@ public class AdminCertificateOrderController {
         model.addAttribute(AdminConstant.TITLE,
                 AdminConstant.MENU_ADMIN_CERTIFICATE_ORDER_MESSAGE);
 
-        model.addAttribute(AdminConstant.GIFT_CERTIFICATE_LIST, certificateService.findAll());
-        model.addAttribute(AdminConstant.CERTIFICATE_DECORATION_LIST, certificateDecorationService.findAll());
-        model.addAttribute(AdminConstant.ACTIVE_USER_LIST, userService.findAllActiveUser());
-        model.addAttribute(AdminConstant.ORDER_STATUS_LIST, orderStatusList);
+        model.addAttribute(AdminConstant.CERTIFICATE_NAME_DTO_LIST,
+                certificateService.findAllCertificateNameDto());
+
+        model.addAttribute(AdminConstant.CERTIFICATE_DECORATION_NAME_DTO_LIST,
+                certificateDecorationService.findAllCertificateDecorationNameDto());
+
+        model.addAttribute(AdminConstant.USER_NAME_DTO_LIST,
+                userService.findAllUserNameDto());
+
+        model.addAttribute(AdminConstant.ORDER_STATUS_LIST, OrderStatus.values());
         model.addAttribute(AdminConstant.SORT_FIELD, sortField);
         model.addAttribute(AdminConstant.SORT_DIRECTION, sortDirection);
 
@@ -72,8 +78,9 @@ public class AdminCertificateOrderController {
     }
 
     @PostMapping
-    public String saveCertificateOrderChange(CertificateOrderDto certificateOrderDto) {
+    public String saveCertificateOrderChange(CertificateOrderDto certificateOrderDto, boolean mailNeedance) {
         LOGGER.info("saveCertificateOrderChange");
+        LOGGER.info(mailNeedance);
         certificateOrderService.save(certificateOrderDto);
         return "redirect:/admin/certificateorder";
     }

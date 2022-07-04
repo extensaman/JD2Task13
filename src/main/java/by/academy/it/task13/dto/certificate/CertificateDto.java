@@ -1,4 +1,4 @@
-package by.academy.it.task13.dto;
+package by.academy.it.task13.dto.certificate;
 
 import by.academy.it.task13.entity.CertificateType;
 import lombok.AllArgsConstructor;

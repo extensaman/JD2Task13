@@ -1,6 +1,6 @@
 package by.academy.it.task13.controller.admin;
 
-import by.academy.it.task13.dto.CertificateDecorationDto;
+import by.academy.it.task13.dto.certificatedecoration.CertificateDecorationDto;
 import by.academy.it.task13.service.CertificateDecorationService;
 import by.academy.it.task13.util.ImageFileList;
 import lombok.RequiredArgsConstructor;

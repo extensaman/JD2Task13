@@ -1,5 +1,7 @@
 package by.academy.it.task13.dto;
 
+import by.academy.it.task13.dto.certificate.CertificateDto;
+import by.academy.it.task13.dto.certificatedecoration.CertificateDecorationDto;
 import by.academy.it.task13.dto.user.UserDto;
 import by.academy.it.task13.entity.OrderStatus;
 import lombok.AllArgsConstructor;

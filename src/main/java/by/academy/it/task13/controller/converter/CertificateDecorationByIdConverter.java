@@ -1,6 +1,6 @@
 package by.academy.it.task13.controller.converter;
 
-import by.academy.it.task13.dto.CertificateDecorationDto;
+import by.academy.it.task13.dto.certificatedecoration.CertificateDecorationDto;
 import by.academy.it.task13.service.CertificateDecorationService;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;

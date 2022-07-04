@@ -1,4 +1,4 @@
-package by.academy.it.task13.mapper.impl;
+package by.academy.it.task13.mapper.impl.user;
 
 import by.academy.it.task13.dto.user.UserDto;
 import by.academy.it.task13.entity.User;

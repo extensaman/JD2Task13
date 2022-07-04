@@ -1,6 +1,6 @@
-package by.academy.it.task13.mapper.impl;
+package by.academy.it.task13.mapper.impl.certificate;
 
-import by.academy.it.task13.dto.CertificateDto;
+import by.academy.it.task13.dto.certificate.CertificateDto;
 import by.academy.it.task13.entity.Certificate;
 import by.academy.it.task13.mapper.Mapper;
 import lombok.RequiredArgsConstructor;

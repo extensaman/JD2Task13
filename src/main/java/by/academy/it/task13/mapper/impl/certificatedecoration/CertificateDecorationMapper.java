@@ -1,6 +1,6 @@
-package by.academy.it.task13.mapper.impl;
+package by.academy.it.task13.mapper.impl.certificatedecoration;
 
-import by.academy.it.task13.dto.CertificateDecorationDto;
+import by.academy.it.task13.dto.certificatedecoration.CertificateDecorationDto;
 import by.academy.it.task13.entity.CertificateDecoration;
 import by.academy.it.task13.mapper.Mapper;
 import lombok.RequiredArgsConstructor;

@@ -1,7 +1,10 @@
 package by.academy.it.task13.service.impl;
 
 import by.academy.it.task13.AppSetting;
+import by.academy.it.task13.dto.certificate.CertificateNameDto;
 import by.academy.it.task13.dto.user.UserDto;
+import by.academy.it.task13.dto.user.UserNameDto;
+import by.academy.it.task13.entity.Certificate;
 import by.academy.it.task13.entity.User;
 import by.academy.it.task13.mapper.Mapper;
 import by.academy.it.task13.repo.UserRepository;
@@ -16,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -30,6 +34,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository repository;
     private final Mapper<User, UserDto> mapper;
+    private final Mapper<User, UserNameDto> mapperName;
     private final MailSenderService mailSenderService;
     private final AppSetting appSetting;
 
@@ -39,8 +44,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDto> findAllActiveUser(){
+    public List<UserDto> findAllActiveUser(){ // TODO Delete this method
         return repository.findAllByActivityIsTrue().stream().map(mapper::toDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UserNameDto> findAllUserNameDto(){
+        LOGGER.info("findAllUserNameDto");
+        List<UserNameDto> userNameDtos = new ArrayList<>();
+        for (User user : repository.findAll()) {
+            userNameDtos.add(mapperName.toDto(user));
+        }
+        return userNameDtos;
     }
 
     @Override
