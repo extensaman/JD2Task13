@@ -120,7 +120,7 @@ public class CertificateController {
         CertificateOrderDto orderDto = mapper.toDto(order);
 
         bot.broadcastOrder(orderDto);
-        mailSenderService.sendOrderAcceptanceMail(orderDto);
+        mailSenderService.sendOrderInfoByMail(orderDto);
         sessionStatus.setComplete();
         return Constant.REDIRECT_PAYMENT_PAGE;
     }

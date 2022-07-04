@@ -6,7 +6,6 @@ import by.academy.it.task13.service.MailSenderService;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -17,9 +16,9 @@ import org.springframework.stereotype.Service;
 public class MailSenderServiceImpl implements MailSenderService {
     private static final Logger LOGGER = LogManager.getLogger(MailSenderServiceImpl.class);
 
-    public static final String ORDER_IS_ACCEPTED = "Order is accepted";
+    public static final String ORDER_IS_ = "Order is ";
     public static final String THANK_YOU_FOR_CHOOSING_US = "\nThank you for choosing us!";
-    public static final String YOUR_ORDER_IS_SUCCESSFULLY_ACCEPTED = "Your order is successfully accepted.\n";
+    public static final String YOUR_ORDER_IS_SUCCESSFULLY_ = "Your order is successfully ";
 
     private final JavaMailSender sender;
     private final AppSetting appSetting;
@@ -39,12 +38,15 @@ public class MailSenderServiceImpl implements MailSenderService {
     }
 
     @Override
-    public void sendOrderAcceptanceMail(Sendable sendable) {
+    public void sendOrderInfoByMail(Sendable sendable) {
+        String orderStatus = sendable.getOrderStatusString().toLowerCase();
         String message = new StringBuilder()
-                .append(YOUR_ORDER_IS_SUCCESSFULLY_ACCEPTED)
+                .append(YOUR_ORDER_IS_SUCCESSFULLY_)
+                .append(orderStatus)
+                .append('\n')
                 .append(sendable.getMessage())
                 .append(THANK_YOU_FOR_CHOOSING_US)
                 .toString();
-        send(sendable.getReceiver(), ORDER_IS_ACCEPTED, message);
+        send(sendable.getReceiver(), ORDER_IS_.concat(orderStatus), message);
     }
 }

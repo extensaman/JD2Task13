@@ -51,6 +51,7 @@ public class CertificateOrderDto implements Sendable{
     @NotNull(message = "{validation.decoration_not_null}")
     private CertificateDecorationDto certificateDecoration;
 
+    //@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private LocalDateTime created;
 
     @Override
@@ -74,6 +75,11 @@ public class CertificateOrderDto implements Sendable{
                 .append(DETAILS_STRING)
                 .append(Optional.ofNullable(details).map(String::toString).orElse(EMPTY_STRING))
                 .toString();
+    }
+
+    @Override
+    public String getOrderStatusString() {
+        return orderStatus.name();
     }
 
     @Override

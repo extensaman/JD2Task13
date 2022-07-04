@@ -10,4 +10,6 @@ public interface Sendable {
     }
 
     String getMessage();
+
+    String getOrderStatusString();
 }
