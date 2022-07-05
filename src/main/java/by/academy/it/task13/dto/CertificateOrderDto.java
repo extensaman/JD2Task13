@@ -51,8 +51,11 @@ public class CertificateOrderDto implements Sendable{
     @NotNull(message = "{validation.decoration_not_null}")
     private CertificateDecorationDto certificateDecoration;
 
-    //@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime created;
+
+    @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime updated;
 
     @Override
     public String getReceiver() {

@@ -4,7 +4,7 @@
 <body>
 <header th:insert="common/admin_header :: content"></header>
 
-<div class="container">
+<div class="container-fluid">
     <div class="row mx-2 mt-5">
 
         <div class="d-flex mb-3">
@@ -147,111 +147,8 @@
                                               th:text="#{menu_admin.user_notification_email}">
                                         </span>
                                     </div>
-
-                                    <!--
-                                                            &lt;!&ndash; Certificate name &ndash;&gt;
-                                                            <div class="input-group mb-3">
-                                                                <span class="input-group-text text-black-50"
-                                                                      th:text="#{menu_admin.common.table.name}">
-                                                                </span>
-                                                                <input type="text"
-                                                                       class="form-control"
-                                                                       name="name">
-                                                            </div>
-
-                                                            &lt;!&ndash; Certificate description &ndash;&gt;
-                                                            <div class="input-group mb-3">
-                                                                <span class="input-group-text text-black-50"
-                                                                      th:text="#{menu_admin.common.table.description}">
-                                                                </span>
-                                                                <textarea class="form-control"
-                                                                          aria-label="With textarea"
-                                                                          rows="5"
-                                                                          name="description"></textarea>
-                                                            </div>
-
-                                                            &lt;!&ndash; Certificate photoFile &ndash;&gt;
-                                                            <div class="input-group mb-3">
-                                                                <span class="input-group-text text-black-50"
-                                                                      th:text="#{menu_admin.common.table.photo_file}">
-                                                                </span>
-                                                                <select class="form-select"
-                                                                        aria-label="Default select example"
-                                                                        name="photoFile">
-                                                                    <th:block th:each="imageFile : ${imageFileList}">
-                                                                        <option th:value="${imageFile}"
-                                                                                th:text="${imageFile}">
-                                                                        </option>
-                                                                    </th:block>
-                                                                </select>
-                                                            </div>
-
-                                                            &lt;!&ndash; Horse count in certificate &ndash;&gt;
-                                                            <div class="input-group mb-3">
-                                                                <span class="input-group-text text-black-50"
-                                                                      id="certHorseCount"
-                                                                      th:text="#{menu_admin.common.table.horse_count}">
-                                                                </span>
-                                                                <input type="text"
-                                                                       class="form-control"
-                                                                       name="horseCount"
-                                                                       aria-describedby="certHorseCount">
-                                                            </div>
-
-                                                            &lt;!&ndash; Duration &ndash;&gt;
-                                                            <div class="input-group mb-3">
-                                                                <span class="input-group-text text-black-50"
-                                                                      id="certDuration"
-                                                                      th:text="#{menu_admin.common.table.duration}">
-                                                                </span>
-                                                                <input type="text"
-                                                                       class="form-control"
-                                                                       name="duration"
-                                                                       aria-describedby="certDuration">
-                                                            </div>
-
-                                                            &lt;!&ndash; Price &ndash;&gt;
-                                                            <div class="input-group mb-3">
-                                                                <span class="input-group-text text-black-50"
-                                                                      id="certPrice"
-                                                                      th:text="#{menu_admin.common.table.price}">
-                                                                </span>
-                                                                <input type="text"
-                                                                       class="form-control"
-                                                                       name="price"
-                                                                       aria-describedby="certPrice">
-                                                            </div>
-
-                                                            &lt;!&ndash; Is photographer included &ndash;&gt;
-                                                            <div class="input-group mb-3">
-                                                                <h5>
-                                                                    <div class="form-check form-switch">
-                                                                        <input type="checkbox"
-                                                                               class="form-check-input"
-                                                                               name="photographerIncluded">
-                                                                    </div>
-                                                                </h5>
-                                                                <span class="text-black-50"
-                                                                      id="certPhotographerIncluded"
-                                                                      th:text="#{menu_admin.common.table.photographer_included}">
-                                                                </span>
-                                                            </div>
-
-                                                            &lt;!&ndash; Is certificate active &ndash;&gt;
-                                                            <div class="input-group mb-3">
-                                                                <h5>
-                                                                    <div class="form-check form-switch">
-                                                                        <input type="checkbox"
-                                                                               class="form-check-input"
-                                                                               name="activity">
-                                                                    </div>
-                                                                </h5>
-                                                                <span class="text-black-50"
-                                                                      id="certActivity"
-                                                                      th:text="#{menu_admin.common.table.activity}">
-                                                                </span>
-                                                            </div>-->
                                 </div>
+
                                 <div class="modal-footer">
                                     <button type="button"
                                             class="btn btn-secondary"
@@ -442,6 +339,17 @@
                                    th:classappend="${sortDirection == 'desc' ? 'bi bi-arrow-down-circle' : 'bi bi-arrow-up-circle'}"></i>
                             </div>
                         </th>
+                        <th class="text-center align-middle"
+                            th:with="UPDATED=${T(by.academy.it.task13.entity.CertificateOrder_).UPDATED}">
+                            <div class="row">
+                                <a th:href="@{'/admin/certificateorder?pageNumber=' + ${certificateOrderPage.control.pageNumber + '&sortField=' + UPDATED + '&sortDirection='+ reverseSortDirection}}"
+                                   th:text="#{menu_admin.common.table.updated}">
+                                </a>
+                                <i th:if="${sortField == UPDATED}"
+                                   class="text-success"
+                                   th:classappend="${sortDirection == 'desc' ? 'bi bi-arrow-down-circle' : 'bi bi-arrow-up-circle'}"></i>
+                            </div>
+                        </th>
                         <th class="text-center align-middle"><i class="bi bi-sliders font_size_24"></i></th>
                         <th class="text-center align-middle"><i class="bi bi-x-lg font_size_24"></i></th>
                     </tr>
@@ -458,7 +366,7 @@
                             <td class="text-center align-middle"
                                 th:text="${certificateOrder.eventDate}">
                             </td>
-                            <td class="align-middle align-middle"
+                            <td class="text-center align-middle"
                                 th:text="${certificateOrder.orderStatus.name()}">
                             </td>
                             <td class="text-center align-middle"
@@ -475,6 +383,9 @@
                             </td>
                             <td class="text-center align-middle"
                                 th:text="${certificateOrder.created}">
+                            </td>
+                            <td class="text-center align-middle"
+                                th:text="${certificateOrder.updated}">
                             </td>
 
                             <!-- Form for editing certificate order -->
