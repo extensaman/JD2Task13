@@ -48,7 +48,7 @@ public class AdminCertificateOrderController {
                                               @ModelAttribute CertificateOrderFilter certificateOrderFilter,
                                               Model model) {
         LOGGER.info("getGiftCertificateOrderPage");
-
+        LOGGER.info("FILTER APPLYING = " + certificateOrderFilter.isApplying());
         model.addAttribute(AdminConstant.TITLE,
                 AdminConstant.MENU_ADMIN_CERTIFICATE_ORDER_MESSAGE);
 
@@ -87,7 +87,7 @@ public class AdminCertificateOrderController {
     public String deleteCertificateOrder(CertificateOrderDto certificateOrderDto) {
         LOGGER.info("deleteCertificateOrder");
         certificateOrderService.delete(certificateOrderDto);
-        return "redirect:/admin/certificate";
+        return "redirect:/admin/certificateorder";
     }
 
     @PostMapping(AdminConstant.RESET_FILTER_MAPPING)

@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Objects;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -12,4 +14,8 @@ import lombok.Setter;
 public class CertificateOrderFilter {
     private String ownerFilter;
     private String detailsFilter;
+
+    public boolean isApplying() {
+        return ownerFilter != null || detailsFilter != null;
+    }
 }
