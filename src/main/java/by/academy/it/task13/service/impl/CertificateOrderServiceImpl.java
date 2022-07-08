@@ -21,6 +21,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -82,5 +83,21 @@ public class CertificateOrderServiceImpl implements CertificateOrderService {
         PageRequest request = PageRequest.of(pageNumber - ONE, size, sort);
         Page<CertificateOrderDto> postPage = repository.findAll(specification, request).map(mapper::toDto);
         return new ExtendedPage<>(postPage, PaginationControl.of(postPage.getTotalPages(), pageNumber, size));
+    }
+
+    @Override
+    public List<CertificateOrderDto> findCertificateOrdersByCertificateId(Long id) {
+        LOGGER.info("findCertificateOrdersByCertificateId");
+        return repository.findCertificateOrdersByCertificateId(id).stream()
+                .map(mapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CertificateOrderDto> findCertificateOrdersByCertificateDecorationId(Long id) {
+        LOGGER.info("findCertificateOrdersByCertificateDecorationId");
+        return repository.findCertificateOrdersByCertificateDecorationId(id).stream()
+                .map(mapper::toDto)
+                .collect(Collectors.toList());
     }
 }

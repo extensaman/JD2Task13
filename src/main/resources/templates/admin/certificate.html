@@ -1,10 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:insert="common/metadata :: content"></head>
-<body>
+<body th:onload="showToast([[${deleteBan}]])">
 <header th:insert="common/admin_header :: content"></header>
 
 <div class="container">
+
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Bootstrap</strong>
+            <small>11 mins ago</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Hello, world! This is a toast message.
+        </div>
+    </div>
+
 
     <!-- Add new certificate -->
     <div class="row mx-2 mt-5">
@@ -28,6 +40,11 @@
                                         aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
+
+                                <!-- Reset previous deleting result -->
+                                <input type="hidden"
+                                       value="false"
+                                       name="deleteBan">
 
                                 <!-- Certificate id -->
                                 <!== NOT FILLING -->
@@ -246,6 +263,11 @@
                                             </div>
                                             <div class="modal-body">
 
+                                                <!-- Reset previous deleting result -->
+                                                <input type="hidden"
+                                                       value="false"
+                                                       name="deleteBan">
+
                                                 <!-- Certificate id -->
                                                 <input type="hidden"
                                                        th:value="${certificate.id}"
@@ -428,6 +450,11 @@
                                             </div>
                                             <div class="modal-body">
 
+                                                <!-- Reset previous deleting result -->
+                                                <input type="hidden"
+                                                       value="false"
+                                                       name="deleteBan">
+
                                                 <!-- Certificate id -->
                                                 <input type="hidden"
                                                        th:value="${certificate.id}"
@@ -596,5 +623,14 @@
     </div>
 </div>
 <footer th:insert="common/admin_footer :: content"></footer>
+
+<script>
+    function showToast(toast) {
+        console.log(toast);
+        if(toast === 'true'){
+            $('.toast').toast('show');
+        }
+    }
+</script>
 </body>
 </html>

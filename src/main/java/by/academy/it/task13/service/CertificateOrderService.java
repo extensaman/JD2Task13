@@ -20,4 +20,10 @@ public interface CertificateOrderService {
     CertificateOrder save(CertificateOrderDto certificateOrderDto);
 
     void delete(CertificateOrderDto certificateOrderDto);
+
+    List<CertificateOrderDto> findCertificateOrdersByCertificateId(Long id);
+
+    List<CertificateOrderDto> findCertificateOrdersByCertificateDecorationId(Long id);
+
+
 }
