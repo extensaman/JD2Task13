@@ -11,6 +11,8 @@ import by.academy.it.task13.entity.Coach;
 import by.academy.it.task13.entity.Horse;
 import by.academy.it.task13.entity.OrderStatus;
 import by.academy.it.task13.entity.PhotoSession;
+import by.academy.it.task13.entity.Subscription;
+import by.academy.it.task13.entity.SubscriptionType;
 import by.academy.it.task13.entity.User;
 import by.academy.it.task13.service.AttachmentService;
 import by.academy.it.task13.service.CertificateDecorationService;
@@ -20,6 +22,7 @@ import by.academy.it.task13.service.CertificateTypeService;
 import by.academy.it.task13.service.CoachService;
 import by.academy.it.task13.service.HorseService;
 import by.academy.it.task13.service.PhotoSessionService;
+import by.academy.it.task13.service.SubscriptionService;
 import by.academy.it.task13.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -57,6 +60,7 @@ public class InitiateUtil implements CommandLineRunner {
     private final CoachService coachService;
     private final UserService userService;
     private final AttachmentService attachmentService;
+    private final SubscriptionService subscriptionService;
     private final ImageFileList imageFileList;
     private final PasswordEncoder encoder;
     private final AppSetting appSetting;
@@ -851,6 +855,90 @@ public class InitiateUtil implements CommandLineRunner {
                 certificateOrder17,
                 certificateOrder18));
         LOGGER.info("Initialization of 'CertificateOrder' done");
+
+        Subscription subscription01 = Subscription.builder()
+                .activity(true)
+                .type(SubscriptionType.GROUP)
+                .name("В4")
+                .description("4 занятия по 60 минут")
+                .lessonCount(4)
+                .validity(4)
+                .price(BigDecimal.valueOf(144.00))
+                .build();
+        Subscription subscription02 = Subscription.builder()
+                .activity(true)
+                .type(SubscriptionType.GROUP)
+                .name("В6")
+                .description("6 занятий по 60 минут")
+                .lessonCount(6)
+                .validity(8)
+                .price(BigDecimal.valueOf(210.00))
+                .build();
+        Subscription subscription03 = Subscription.builder()
+                .activity(true)
+                .type(SubscriptionType.GROUP)
+                .name("В8")
+                .description("8 занятий по 60 минут")
+                .lessonCount(8)
+                .validity(12)
+                .price(BigDecimal.valueOf(280.00))
+                .build();
+        Subscription subscription04 = Subscription.builder()
+                .activity(true)
+                .type(SubscriptionType.GROUP)
+                .name("В10")
+                .description("10 занятий по 60 минут")
+                .lessonCount(10)
+                .validity(12)
+                .price(BigDecimal.valueOf(340.00))
+                .build();
+        Subscription subscription05 = Subscription.builder()
+                .activity(true)
+                .type(SubscriptionType.GROUP)
+                .name("В25")
+                .description("25 занятий по 60 минут")
+                .lessonCount(25)
+                .validity(24)
+                .price(BigDecimal.valueOf(800.00))
+                .build();
+        Subscription subscription06 = Subscription.builder()
+                .activity(true)
+                .type(SubscriptionType.GROUP)
+                .name("В50")
+                .description("50 занятий по 60 минут")
+                .lessonCount(50)
+                .validity(48)
+                .price(BigDecimal.valueOf(1550.00))
+                .build();
+        Subscription subscription07 = Subscription.builder()
+                .activity(true)
+                .type(SubscriptionType.INDIVIDUAL)
+                .name("И5")
+                .description("5 занятий по 60 минут")
+                .lessonCount(5)
+                .validity(8)
+                .price(BigDecimal.valueOf(240.00))
+                .build();
+        Subscription subscription08 = Subscription.builder()
+                .activity(true)
+                .type(SubscriptionType.INDIVIDUAL)
+                .name("И10")
+                .description("10 занятий по 60 минут")
+                .lessonCount(10)
+                .validity(16)
+                .price(BigDecimal.valueOf(460.00))
+                .build();
+
+        subscriptionService.saveAll(List.of(
+                subscription01,
+                subscription02,
+                subscription03,
+                subscription04,
+                subscription05,
+                subscription06,
+                subscription07,
+                subscription08
+        ));
 
         List<Attachment> attachments = imageFileList.getImageFileList().stream()
                 .map(fileName ->

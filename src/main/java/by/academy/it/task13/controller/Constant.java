@@ -48,4 +48,5 @@ public class Constant {
     public static final String REDIRECT_CERTIFICATE_DECORATION = "redirect:/certificate/decoration";
     public static final String REDIRECT_PAYMENT_PAGE = "redirect:https://payment.webpay.by/epay/default";
 
+    public static final String CROSS_ORIGIN = "http://localhost:4200";
 }

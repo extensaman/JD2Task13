@@ -59,4 +59,5 @@ public class AdminConstant {
     public static final String REDIRECT_ADMIN_CERTIFICATE_PAGE = "redirect:/admin/certificate";
     public static final String REDIRECT_ADMIN_CERTIFICATEDECORATION_PAGE = "redirect:/admin/certificatedecoration";
     public static final String REDIRECT_ADMIN_CERTIFICATETYPE = "redirect:/admin/certificatetype";
+    public static final String REDIRECT_ADMIN_CERTIFICATEORDER_PAGE = "redirect:/admin/certificateorder";
 }

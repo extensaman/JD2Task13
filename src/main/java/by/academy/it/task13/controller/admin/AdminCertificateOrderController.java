@@ -48,7 +48,6 @@ public class AdminCertificateOrderController {
                                               @ModelAttribute CertificateOrderFilter certificateOrderFilter,
                                               Model model) {
         LOGGER.info("getGiftCertificateOrderPage");
-        LOGGER.info("FILTER APPLYING = " + certificateOrderFilter.isApplying());
         model.addAttribute(AdminConstant.TITLE,
                 AdminConstant.MENU_ADMIN_CERTIFICATE_ORDER_MESSAGE);
 
@@ -80,20 +79,20 @@ public class AdminCertificateOrderController {
             mailSenderService.sendOrderInfoByMail(certificateOrderDto);
         }
         certificateOrderService.save(certificateOrderDto);
-        return "redirect:/admin/certificateorder";
+        return AdminConstant.REDIRECT_ADMIN_CERTIFICATEORDER_PAGE;
     }
 
     @PostMapping(AdminConstant.DELETE_MAPPING)
     public String deleteCertificateOrder(CertificateOrderDto certificateOrderDto) {
         LOGGER.info("deleteCertificateOrder");
         certificateOrderService.delete(certificateOrderDto);
-        return "redirect:/admin/certificateorder";
+        return AdminConstant.REDIRECT_ADMIN_CERTIFICATEORDER_PAGE;
     }
 
     @PostMapping(AdminConstant.RESET_FILTER_MAPPING)
     public String resetCertificateOrderFilter(SessionStatus sessionStatus) {
         LOGGER.info("resetCertificateOrderFilter");
         sessionStatus.setComplete();
-        return "redirect:/admin/certificateorder";
+        return AdminConstant.REDIRECT_ADMIN_CERTIFICATEORDER_PAGE;
     }
 }
