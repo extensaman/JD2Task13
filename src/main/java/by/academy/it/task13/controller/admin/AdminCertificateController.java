@@ -1,6 +1,5 @@
 package by.academy.it.task13.controller.admin;
 
-import by.academy.it.task13.dto.CertificateOrderDto;
 import by.academy.it.task13.dto.certificate.CertificateDto;
 import by.academy.it.task13.service.CertificateOrderService;
 import by.academy.it.task13.service.CertificateService;
@@ -12,17 +11,13 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping(AdminConstant.ADMIN_GIFT_CERTIFICATE_MAPPING)
-//@SessionAttributes(names = {"deleteBan","certificateNameList"})
 @RequiredArgsConstructor
 public class AdminCertificateController {
     private static final Logger LOGGER = LogManager.getLogger(AdminCertificateController.class);
@@ -48,22 +43,19 @@ public class AdminCertificateController {
     public String saveGiftCertificateChange(CertificateDto certificateDto) {
         LOGGER.info("CertificateType = " + certificateDto.getCertificateType());
         certificateService.save(certificateDto);
-        return "redirect:/admin/certificate";
+        return AdminConstant.REDIRECT_ADMIN_CERTIFICATE_PAGE;
     }
 
     @PostMapping(AdminConstant.DELETE_MAPPING)
     public String deleteCertificate(Model model, CertificateDto certificateDto) {
         LOGGER.info("deleteCertificate");
-        List<CertificateOrderDto> ordersByCertificateId = certificateOrderService.findCertificateOrdersByCertificateId(certificateDto.getId());
-        if(ordersByCertificateId.size() == 0) {
+        List<Long> certificateOrderIdList = certificateOrderService.findCertificateOrderIdsByCertificateId(certificateDto.getId());
+        if (certificateOrderIdList.size() == AdminConstant.ZERO) {
             certificateService.delete(certificateDto);
-            return "redirect:/admin/certificate";
+            return AdminConstant.REDIRECT_ADMIN_CERTIFICATE_PAGE;
         }
-        model.addAttribute("deleteBan", "true");
-        List<String> collect = ordersByCertificateId.stream().map(certificateOrderDto -> certificateOrderDto.getCertificate().getName())
-                .collect(Collectors.toList());
-        model.addAttribute("certificateNameList", collect);
-        LOGGER.info("deleteCertificate --- deleteBan is TRUE ---");
+        model.addAttribute(AdminConstant.DELETE_BAN, AdminConstant.TRUE);
+        model.addAttribute(AdminConstant.CERTIFICATE_ORDER_ID_LIST, certificateOrderIdList);
         return getGiftCertificatePage(model);
     }
 }

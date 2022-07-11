@@ -22,4 +22,7 @@ public interface CertificateRepository extends PagingAndSortingRepository<Certif
     List<Certificate> findCertificatesByActivityTrue();
 
     List<Certificate> findCertificatesByActivityTrueAndCertificateTypeId(Long id);
+
+    @Query("select c.name from Certificate c where c.certificateType.id = :id")
+    List<String> findCertificateNamesByCertificateTypeId(@Param("id") Long id);
 }

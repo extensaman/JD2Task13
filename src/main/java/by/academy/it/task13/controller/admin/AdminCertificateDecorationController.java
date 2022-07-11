@@ -2,6 +2,7 @@ package by.academy.it.task13.controller.admin;
 
 import by.academy.it.task13.dto.certificatedecoration.CertificateDecorationDto;
 import by.academy.it.task13.service.CertificateDecorationService;
+import by.academy.it.task13.service.CertificateOrderService;
 import by.academy.it.task13.util.ImageFileList;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping(AdminConstant.ADMIN_CERTIFICATE_DECORATION_MAPPING)
 @RequiredArgsConstructor
@@ -19,11 +22,12 @@ public class AdminCertificateDecorationController {
     private static final Logger LOGGER = LogManager.getLogger(AdminCertificateDecorationController.class);
 
     private final CertificateDecorationService certificateDecorationService;
+    private final CertificateOrderService certificateOrderService;
     private final ImageFileList imageFileList;
 
     @GetMapping
-    public String getCertificateDeliveryPage(Model model) {
-        LOGGER.info("getCertificateDeliveryPage");
+    public String getCertificateDecorationPage(Model model) {
+        LOGGER.info("getCertificateDecorationPage");
         model.addAttribute(AdminConstant.TITLE,
                 AdminConstant.MENU_ADMIN_CERTIFICATE_DECORATION_MESSAGE);
         model.addAttribute(AdminConstant.CERTIFICATE_DECORATION_LIST, certificateDecorationService.findAll());
@@ -36,13 +40,19 @@ public class AdminCertificateDecorationController {
     public String saveCertificateDecoration(CertificateDecorationDto certificateDecorationDto) {
         LOGGER.info("saveCertificateDecoration");
         certificateDecorationService.save(certificateDecorationDto);
-        return "redirect:/admin/certificatedecoration";
+        return AdminConstant.REDIRECT_ADMIN_CERTIFICATEDECORATION_PAGE;
     }
 
     @PostMapping(AdminConstant.DELETE_MAPPING)
-    public String deleteCertificateDecoration(CertificateDecorationDto certificateDecorationDto) {
+    public String deleteCertificateDecoration(Model model, CertificateDecorationDto certificateDecorationDto) {
         LOGGER.info("deleteCertificateDecoration");
-        certificateDecorationService.delete(certificateDecorationDto);
-        return "redirect:/admin/certificatedecoration";
+        List<Long> certificateOrderIdList = certificateOrderService.findCertificateOrderIdsByCertificateDecorationId(certificateDecorationDto.getId());
+        if (certificateOrderIdList.size() == AdminConstant.ZERO) {
+            certificateDecorationService.delete(certificateDecorationDto);
+            return AdminConstant.REDIRECT_ADMIN_CERTIFICATEDECORATION_PAGE;
+        }
+        model.addAttribute(AdminConstant.DELETE_BAN, AdminConstant.TRUE);
+        model.addAttribute(AdminConstant.CERTIFICATE_ORDER_ID_LIST, certificateOrderIdList);
+        return getCertificateDecorationPage(model);
     }
 }

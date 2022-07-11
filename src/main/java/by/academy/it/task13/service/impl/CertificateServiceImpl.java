@@ -104,4 +104,9 @@ public class CertificateServiceImpl implements CertificateService {
         repository.delete(mapper.toEntity(certificateDto));
     }
 
+    @Override
+    public List<String> findCertificateNamesByCertificateTypeId(Long id) {
+        LOGGER.info("findCertificateNamesByCertificateTypeId");
+        return repository.findCertificateNamesByCertificateTypeId(id);
+    }
 }

@@ -1,6 +1,8 @@
 package by.academy.it.task13.controller.admin;
 
 public class AdminConstant {
+    public static final String TRUE = "true";
+    public static final int ZERO = 0;
     public static final String ADMIN_MAIN_MAPPING = "/admin";
     public static final String TITLE = "title";
 
@@ -51,4 +53,10 @@ public class AdminConstant {
     public static final String ASC = "asc";
     public static final String DESC = "desc";
     public static final String CERTIFICATE_ORDER_FILTER = "certificateOrderFilter";
+    public static final String DELETE_BAN = "deleteBan";
+    public static final String CERTIFICATE_ORDER_ID_LIST = "certificateOrderIdList";
+    public static final String CERTIFICATE_NAME_LIST = "certificateNameList";
+    public static final String REDIRECT_ADMIN_CERTIFICATE_PAGE = "redirect:/admin/certificate";
+    public static final String REDIRECT_ADMIN_CERTIFICATEDECORATION_PAGE = "redirect:/admin/certificatedecoration";
+    public static final String REDIRECT_ADMIN_CERTIFICATETYPE = "redirect:/admin/certificatetype";
 }

@@ -1,10 +1,48 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:insert="common/metadata :: content"></head>
-<body>
+<body th:onload="showToast([[${deleteBan}]])">
 <header th:insert="common/admin_header :: content"></header>
 
 <div class="container">
+    <!-- TOAST-message that appears when you try to delete certificate decoration that is used in some certificateOrder -->
+    <div th:if="${certificateNameList != null and !certificateNameList.isEmpty()}">
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header"
+                     th:with="size=${certificateNameList.size()}">
+                    <strong class="me-auto text-danger"
+                            th:text="#{common.warning}">
+                    </strong>
+                    <small th:if="${size gt 0}"
+                           th:text="${size} + ' ' + #{common.restrictions}"></small>
+                    <small th:unless="${size gt 0}"
+                           th:text="${size} + ' ' + #{common.restriction}"></small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    <div class="mt-2 mb-2" th:text="#{common.certificate_type_restrictions_text}"></div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th class="text-center align-middle">№</th>
+                            <th class="text-center align-middle" th:text="#{common.certificate}"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <th:block th:each="certificateName, state : ${certificateNameList}">
+                            <tr>
+                                <td class="text-center align-middle" th:text="${state.index+1}"></td>
+                                <td class="text-center align-middle" th:text="${certificateName}"></td>
+                            </tr>
+                        </th:block>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Add new certificate type -->
     <div class="row mx-2 mt-5">
         <div class='d-flex justify-content-start'>
@@ -265,5 +303,13 @@
     </div>
 </div>
 <footer th:insert="common/admin_footer :: content"></footer>
+<script>
+    function showToast(toast) {
+        console.log(toast);
+        if (toast === 'true') {
+            $('.toast').toast('show');
+        }
+    }
+</script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package by.academy.it.task13.controller.admin;
 
 import by.academy.it.task13.dto.CertificateTypeDto;
+import by.academy.it.task13.service.CertificateService;
 import by.academy.it.task13.service.CertificateTypeService;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping(AdminConstant.ADMIN_CERTIFICATE_TYPE_MAPPING)
 @RequiredArgsConstructor
@@ -18,6 +21,7 @@ public class AdminCertificateTypeController {
     private static final Logger LOGGER = LogManager.getLogger(AdminCertificateTypeController.class);
 
     private final CertificateTypeService certificateTypeService;
+    private final CertificateService certificateService;
 
     @GetMapping
     public String getCertificateTypePage(Model model) {
@@ -32,13 +36,19 @@ public class AdminCertificateTypeController {
     public String saveCertificateType(CertificateTypeDto certificateTypeDto) {
         LOGGER.info("saveCertificateType");
         certificateTypeService.saveCertificateTypeAndUpdateAllCertificate(certificateTypeDto);
-        return "redirect:/admin/certificatetype";
+        return AdminConstant.REDIRECT_ADMIN_CERTIFICATETYPE;
     }
 
     @PostMapping(AdminConstant.DELETE_MAPPING)
-    public String deleteCertificateType(CertificateTypeDto certificateTypeDto) {
+    public String deleteCertificateType(Model model, CertificateTypeDto certificateTypeDto) {
         LOGGER.info("deleteCertificateType");
-        certificateTypeService.delete(certificateTypeDto);
-        return "redirect:/admin/certificatetype";
+        List<String> certificateNameList = certificateService.findCertificateNamesByCertificateTypeId(certificateTypeDto.getId());
+        if (certificateNameList.size() == AdminConstant.ZERO) {
+            certificateTypeService.delete(certificateTypeDto);
+            return AdminConstant.REDIRECT_ADMIN_CERTIFICATETYPE;
+        }
+        model.addAttribute(AdminConstant.DELETE_BAN, AdminConstant.TRUE);
+        model.addAttribute(AdminConstant.CERTIFICATE_NAME_LIST, certificateNameList);
+        return getCertificateTypePage(model);
     }
 }

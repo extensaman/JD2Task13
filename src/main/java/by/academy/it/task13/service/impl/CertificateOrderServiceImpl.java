@@ -21,7 +21,6 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -86,18 +85,13 @@ public class CertificateOrderServiceImpl implements CertificateOrderService {
     }
 
     @Override
-    public List<CertificateOrderDto> findCertificateOrdersByCertificateId(Long id) {
-        LOGGER.info("findCertificateOrdersByCertificateId");
-        return repository.findCertificateOrdersByCertificateId(id).stream()
-                .map(mapper::toDto)
-                .collect(Collectors.toList());
+    public List<Long> findCertificateOrderIdsByCertificateId(Long id) {
+        LOGGER.info("findCertificateOrderIdsByCertificateId");
+        return repository.findCertificateOrderIdsByCertificateId(id);
     }
 
-    @Override
-    public List<CertificateOrderDto> findCertificateOrdersByCertificateDecorationId(Long id) {
-        LOGGER.info("findCertificateOrdersByCertificateDecorationId");
-        return repository.findCertificateOrdersByCertificateDecorationId(id).stream()
-                .map(mapper::toDto)
-                .collect(Collectors.toList());
+    public List<Long> findCertificateOrderIdsByCertificateDecorationId(Long id) {
+        LOGGER.info("findCertificateOrderIdsByCertificateDecorationId");
+        return repository.findCertificateOrderIdsByCertificateDecorationId(id);
     }
 }

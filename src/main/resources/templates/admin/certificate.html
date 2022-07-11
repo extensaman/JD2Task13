@@ -6,17 +6,43 @@
 
 <div class="container">
 
-    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-            <strong class="me-auto">Bootstrap</strong>
-            <small>11 mins ago</small>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-            Hello, world! This is a toast message.
+    <!-- TOAST-message that appears when you try to delete certificate that is used in some certificateOrder -->
+    <div th:if="${certificateOrderIdList != null and !certificateOrderIdList.isEmpty()}">
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header"
+                     th:with="size=${certificateOrderIdList.size()}">
+                    <strong class="me-auto text-danger"
+                            th:text="#{common.warning}">
+                    </strong>
+                    <small th:if="${size gt 0}"
+                           th:text="${size} + ' ' + #{common.restrictions}"></small>
+                    <small th:unless="${size gt 0}"
+                           th:text="${size} + ' ' + #{common.restriction}"></small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    <div class="mt-2 mb-2" th:text="#{common.certificate_restrictions_text}"></div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th class="text-center align-middle">№</th>
+                            <th class="text-center align-middle" th:text="#{menu.order}"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <th:block th:each="certificateOrderId, state : ${certificateOrderIdList}">
+                                <tr>
+                                    <td class="text-center align-middle" th:text="${state.index+1}"></td>
+                                    <td class="text-center align-middle" th:text="${certificateOrderId}"></td>
+                                </tr>
+                            </th:block>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
-
 
     <!-- Add new certificate -->
     <div class="row mx-2 mt-5">
@@ -627,7 +653,7 @@
 <script>
     function showToast(toast) {
         console.log(toast);
-        if(toast === 'true'){
+        if (toast === 'true') {
             $('.toast').toast('show');
         }
     }

@@ -59,13 +59,13 @@ public class CertificateOrder {
 
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "certificate_id")
-    @OnDelete(action = OnDeleteAction.NO_ACTION)
+    //@OnDelete(action = OnDeleteAction.NO_ACTION)
     private Certificate certificate;
 
     // TODO may be need to change EAGER to LAZY
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "decoration_id")
-    @OnDelete(action = OnDeleteAction.NO_ACTION)
+    //@OnDelete(action = OnDeleteAction.NO_ACTION)
     private CertificateDecoration certificateDecoration;
 
     @Column
