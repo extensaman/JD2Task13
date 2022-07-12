@@ -1,0 +1,42 @@
+<div class="card my-5">
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let subscription of subscriptions">
+        <td>{{ subscription.id }}</td>
+        <td>{{ subscription.name }}</td>
+        <td>{{ subscription.description }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div fxLayout="row" fxLayoutAlign="space-around center">
+  <div fxFlex="100" *ngFor="let subscription of subscriptions">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>{{subscription.name}}</mat-card-title>
+        <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+      <mat-card-content>
+        <p>
+          {{subscription.description}}
+        </p>
+      </mat-card-content>
+      <mat-divider inset></mat-divider>
+      <mat-card-actions>
+        <button mat-button>LIKE</button>
+        <button mat-button>SHARE</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

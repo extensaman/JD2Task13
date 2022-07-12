@@ -1,22 +1,34 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
 import {HttpClientModule} from "@angular/common/http";
-import { HeaderComponent } from './views/header/header.component';
+import {HeaderComponent} from './view/header/header.component';
+import {SubscriptionComponent} from './view/subscription/subscription.component';
+import {SubscriptionService} from "./service/subscription.service";
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatCardModule} from '@angular/material/card';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    SubscriptionComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatCardModule,
+    MatDividerModule,
+    MatButtonModule
   ],
-  providers: [],
+  providers: [SubscriptionService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
