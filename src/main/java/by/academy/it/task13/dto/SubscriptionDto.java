@@ -21,4 +21,5 @@ public class SubscriptionDto {
     private Integer lessonCount;
     private Integer validity;
     private BigDecimal price;
+    private String photoFile;
 }

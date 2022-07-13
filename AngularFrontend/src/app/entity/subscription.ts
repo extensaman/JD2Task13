@@ -7,4 +7,5 @@ export class Subscription {
   lessonCount: number;
   validity: number;
   price: number;
+  photoFile: string;
 }
