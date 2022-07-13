@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AppSetting} from "../../setting/app-setting";
 
 @Component({
   selector: 'app-header',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+
+  backendUrl: string = AppSetting.backendUrl;
 
   constructor() { }
 

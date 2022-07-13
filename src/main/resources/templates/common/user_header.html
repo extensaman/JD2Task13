@@ -16,6 +16,34 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown"
+                            th:with="condition=${title eq 'menu.subscription' or title eq 'menu.children' or title eq 'menu.sport' or title eq 'menu.rent'}">
+                            <a th:if="${condition}" class="nav-link active underline dropdown-toggle" href="#"
+                               id="navbarDropdown77" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false"
+                               th:text="#{menu.riding}"></a>
+                            <a th:unless="${condition}" class="nav-link dropdown-toggle" href="" id="navbarDropdown88"
+                               role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false"
+                               th:text="#{menu.riding}"></a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown99"
+                                th:with="cross=${T(by.academy.it.task13.controller.Constant).CROSS_ORIGIN}">
+                                <li><a class="dropdown-item" th:href="${cross + '/subscriptions'}" th:text="#{menu.subscription}"></a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" th:href="@{/}" th:text="#{menu.children}"></a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" th:href="@{/}" th:text="#{menu.sport}"></a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" th:href="@{/}" th:text="#{menu.rent}"></a></li>
+                            </ul>
+                        </li>
+
                         <li class="nav-item">
                             <a th:if="${title eq 'menu.certificate'}" class="nav-link active underline"
                                aria-current="page" href="#"
