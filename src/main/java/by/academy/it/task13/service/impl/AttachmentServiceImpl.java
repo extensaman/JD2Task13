@@ -1,16 +1,17 @@
 package by.academy.it.task13.service.impl;
 
+import by.academy.it.task13.AppSetting;
 import by.academy.it.task13.dto.AttachmentDto;
 import by.academy.it.task13.entity.Attachment;
 import by.academy.it.task13.exception.AttachmentException;
 import by.academy.it.task13.mapper.impl.AttachmentMapper;
 import by.academy.it.task13.repo.AttachmentRepository;
 import by.academy.it.task13.service.AttachmentService;
-import by.academy.it.task13.AppSetting;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -36,6 +37,7 @@ public class AttachmentServiceImpl implements AttachmentService {
     private final AppSetting appSetting;
 
     @Override
+    @Transactional
     public void addAttachment(MultipartFile file) {
         LOGGER.info("addAttachment");
         String fileName = new StringBuilder()
@@ -68,12 +70,14 @@ public class AttachmentServiceImpl implements AttachmentService {
     }
 
     @Override
+    @Transactional
     public void saveAll(List<Attachment> list) {
         LOGGER.info("saveAll");
         repository.saveAll(list);
     }
 
     @Override
+    @Transactional
     public void save(Attachment attachment) {
         LOGGER.info("save");
         repository.save(attachment);

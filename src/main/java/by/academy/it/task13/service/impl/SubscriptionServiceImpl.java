@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,15 +24,9 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     private final SubscriptionMapper mapper;
 
     @Override
-    public Optional<SubscriptionDto> findById(String id) {
+    public Optional<SubscriptionDto> findById(Long id) {
         LOGGER.info("findById");
-        Optional<SubscriptionDto> optional;
-        try{
-            optional = repository.findById(Long.parseLong(id)).map(mapper::toDto);
-        } catch (NumberFormatException e){
-            optional = Optional.empty();
-        }
-        return optional;
+        return repository.findById(id).map(mapper::toDto);
     }
 
     @Override
@@ -45,18 +40,21 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     @Override
+    @Transactional
     public Subscription save(SubscriptionDto subscriptionDto) {
         LOGGER.info("save");
         return repository.save(mapper.toEntity(subscriptionDto));
     }
 
     @Override
+    @Transactional
     public void saveAll(List<Subscription> list) {
         LOGGER.info("saveAll");
         repository.saveAll(list);
     }
 
     @Override
+    @Transactional
     public void delete(SubscriptionDto subscriptionDto) {
         LOGGER.info("delete");
         repository.delete(mapper.toEntity(subscriptionDto));

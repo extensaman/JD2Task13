@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface SubscriptionService {
-    Optional<SubscriptionDto> findById(String id);
+    Optional<SubscriptionDto> findById(Long id);
 
     List<SubscriptionDto> findAll();
 

@@ -34,6 +34,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.meta.generics.BotSession;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 import java.io.File;
@@ -959,6 +960,7 @@ public class InitiateUtil implements CommandLineRunner {
         TelegramBot telegramBot = context.getBean("telegramBot", TelegramBot.class);
         try {
             TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
+            LOGGER.info("TelegramBotApi created");
             telegramBotsApi.registerBot(telegramBot);
             LOGGER.info("TelegramBot registered");
         } catch (TelegramApiException e) {

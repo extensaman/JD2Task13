@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,18 +66,21 @@ public class CertificateDecorationServiceImpl implements CertificateDecorationSe
     }
 
     @Override
+    @Transactional
     public CertificateDecoration save(CertificateDecorationDto certificateDecorationDto) {
         LOGGER.info("save");
         return repository.save(mapper.toEntity(certificateDecorationDto));
     }
 
     @Override
+    @Transactional
     public void saveAll(List<CertificateDecoration> list) {
         LOGGER.info("saveAll");
         repository.saveAll(list);
     }
 
     @Override
+    @Transactional
     public void delete(CertificateDecorationDto certificateDecorationDto) {
         LOGGER.info("delete");
         repository.delete(mapper.toEntity(certificateDecorationDto));

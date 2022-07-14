@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,39 +44,25 @@ public class CertificateTypeServiceImpl implements CertificateTypeService {
     }
 
     @Override
+    @Transactional
     public CertificateType saveCertificateTypeAndUpdateAllCertificate(CertificateTypeDto certificateTypeDto) {
         LOGGER.info("saveCertificateTypeAndUpdateAllCertificate");
         CertificateType certificateType = certificateTypeRepository.save(mapper.toEntity(certificateTypeDto));
         certificateRepository.updateCertificateActivity(certificateType);
-        //certificateRepository.updateCertificateActivity(certificateType, certificateType.isActivity());
-        /*certificateRepository.findAll().stream()
-                .filter(certificate -> certificate.getCertificateType().equals(certificateType))
-                .peek(certificate -> certificate.setActivity(certificateType.isActivity()))
-                .forEach(certificateRepository::save);*/
         return certificateType;
     }
 
     @Override
+    @Transactional
     public void saveAll(List<CertificateType> list) {
         LOGGER.info("saveAll");
         certificateTypeRepository.saveAll(list);
     }
 
     @Override
+    @Transactional
     public void delete(CertificateTypeDto certificateTypeDto) {
         LOGGER.info("delete");
         certificateTypeRepository.delete(mapper.toEntity(certificateTypeDto));
     }
-
-
-/*    @Override
-    public Optional<CertificateType> findById(String id) {
-        Optional<CertificateType> result;
-        try {
-            result = certificateTypeRepository.findById(Long.parseLong(id));
-        } catch (NumberFormatException e) {
-            result = Optional.empty();
-        }
-        return result;
-    }*/
 }

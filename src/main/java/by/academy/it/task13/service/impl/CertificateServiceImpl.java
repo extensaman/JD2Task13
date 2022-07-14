@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,29 +70,31 @@ public class CertificateServiceImpl implements CertificateService {
     public List<Certificate> findCertificatesByActivityTrueAndCertificateTypeId(String id) {
         LOGGER.info("findCertificatesByActivityTrueAndCertificateTypeId");
         long identifier;
-        try{
+        try {
             identifier = Long.parseLong(id);
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             return null;
         }
         return repository.findCertificatesByActivityTrueAndCertificateTypeId(identifier);
     }
 
     @Override
+    @Transactional
     public Certificate save(CertificateDto certificateDto) {
         LOGGER.info("save");
         Certificate certificate = mapper.toEntity(certificateDto);
-        if(!certificate.getCertificateType().isActivity()){
+        if (!certificate.getCertificateType().isActivity()) {
             certificate.setActivity(false);
         }
         return repository.save(certificate);
     }
 
     @Override
+    @Transactional
     public void saveAll(List<Certificate> list) {
         LOGGER.info("saveAll");
         list.forEach(certificate -> {
-            if(!certificate.getCertificateType().isActivity()){
+            if (!certificate.getCertificateType().isActivity()) {
                 certificate.setActivity(false);
             }
         });
@@ -99,6 +102,7 @@ public class CertificateServiceImpl implements CertificateService {
     }
 
     @Override
+    @Transactional
     public void delete(CertificateDto certificateDto) {
         LOGGER.info("delete");
         repository.delete(mapper.toEntity(certificateDto));

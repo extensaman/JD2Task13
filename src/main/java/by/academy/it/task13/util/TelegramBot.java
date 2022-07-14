@@ -2,7 +2,9 @@ package by.academy.it.task13.util;
 
 import by.academy.it.task13.AppSetting;
 import by.academy.it.task13.dto.Sendable;
+import by.academy.it.task13.dto.TelegramSubscriberDto;
 import by.academy.it.task13.entity.CertificateOrder;
+import by.academy.it.task13.service.TelegramSubscriberService;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,6 +26,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     public static final String ENTER_THE_PASSWORD = "Enter the password";
 
     private final AppSetting appSetting;
+    private final TelegramSubscriberService telegramSubscriberService;
     private final List<String> listOfChatIdForBroadcasting = new ArrayList<>();
 
     @Override
@@ -31,6 +34,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         if (update.hasMessage() && update.getMessage().hasText()) {
             String receivedText = update.getMessage().getText();
             String chatId = update.getMessage().getChatId().toString();
+            update.getMessage().getContact().getFirstName();
 
             if(receivedText.equals(appSetting.getTelegramBotPasswordForSubscribe())){
                 listOfChatIdForBroadcasting.add(chatId);
@@ -51,6 +55,11 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     public void broadcastMessage(String message) {
         LOGGER.info("List size = " + listOfChatIdForBroadcasting.size());
+        List<TelegramSubscriberDto> all = telegramSubscriberService.findAll();
+        all.forEach(subscriber -> {
+            sendMessage(subscriber.getChatId(), message);
+            //telegramSubscriberService.save(subscriber.setRequestSent(true));
+        });
         listOfChatIdForBroadcasting.forEach(chatId -> {
             sendMessage(chatId, message);
         });

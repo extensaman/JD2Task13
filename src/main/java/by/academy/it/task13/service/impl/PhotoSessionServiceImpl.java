@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,18 +42,21 @@ public class PhotoSessionServiceImpl implements PhotoSessionService {
     }
 
     @Override
+    @Transactional
     public PhotoSession save(PhotoSessionDto photoSessionDto) {
         LOGGER.info("save");
         return repository.save(mapper.toEntity(photoSessionDto));
     }
 
     @Override
+    @Transactional
     public void saveAll(List<PhotoSession> list) {
         LOGGER.info("saveAll");
         repository.saveAll(list);
     }
 
     @Override
+    @Transactional
     public void delete(PhotoSessionDto photoSessionDto) {
         LOGGER.info("delete");
         repository.delete(mapper.toEntity(photoSessionDto));

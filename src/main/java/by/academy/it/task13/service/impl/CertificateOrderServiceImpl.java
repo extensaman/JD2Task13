@@ -17,6 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,18 +57,21 @@ public class CertificateOrderServiceImpl implements CertificateOrderService {
     }
 
     @Override
+    @Transactional
     public void saveAll(List<CertificateOrder> list) {
         LOGGER.info("saveAll");
         repository.saveAll(list);
     }
 
     @Override
+    @Transactional
     public CertificateOrder save(CertificateOrderDto certificateOrderDto) {
         LOGGER.info("save");
         return repository.save(mapper.toEntity(certificateOrderDto));
     }
 
     @Override
+    @Transactional
     public void delete(CertificateOrderDto certificateOrderDto) {
         LOGGER.info("delete");
         repository.delete(mapper.toEntity(certificateOrderDto));

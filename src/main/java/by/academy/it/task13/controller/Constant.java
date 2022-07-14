@@ -49,4 +49,6 @@ public class Constant {
     public static final String REDIRECT_PAYMENT_PAGE = "redirect:https://payment.webpay.by/epay/default";
 
     public static final String CROSS_ORIGIN = "http://localhost:4200";
+    public static final String APPLICATION_JSON = "application/json";
+    public static final String SUBSCRIPTIONS_MAPPING = "/subscriptions";
 }
