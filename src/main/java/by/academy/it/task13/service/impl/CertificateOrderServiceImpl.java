@@ -34,15 +34,9 @@ public class CertificateOrderServiceImpl implements CertificateOrderService {
     private final Mapper<CertificateOrder, CertificateOrderDto> mapper;
 
     @Override
-    public Optional<CertificateOrderDto> findById(String id) {
+    public Optional<CertificateOrderDto> findById(Long id) {
         LOGGER.info("findById");
-        Optional<CertificateOrder> certificateOrder;
-        try {
-            certificateOrder = repository.findById(Long.parseLong(id));
-        } catch (NumberFormatException e) {
-            certificateOrder = Optional.empty();
-        }
-        return certificateOrder.map(mapper::toDto);
+        return repository.findById(id).map(mapper::toDto);
     }
 
     @Override

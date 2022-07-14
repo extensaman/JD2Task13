@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CertificateOrderService {
-    Optional<CertificateOrderDto> findById(String id);
+    Optional<CertificateOrderDto> findById(Long id);
 
     List<CertificateOrderDto> findAll();
 
