@@ -21,6 +21,7 @@ import java.util.Optional;
 public class TelegramSubscriberServiceImpl implements TelegramSubscriberService {
     private static final Logger LOGGER = LogManager.getLogger(TelegramSubscriberServiceImpl.class);
     public static final char SPACE = ' ';
+    public static final String EMPTY_STRING = "";
 
     private final TelegramSubscriberRepository repository;
     private final TelegramSubscriberMapper mapper;
@@ -54,20 +55,35 @@ public class TelegramSubscriberServiceImpl implements TelegramSubscriberService 
 
     @Override
     public boolean deactivateByChatId(String chatId) {
-        return this.findByChatId(chatId).map(subscriberDto -> {
-            subscriberDto.setActivity(false);
-            this.save(subscriberDto);
-            return true;
-        }).orElseGet(() -> false);
+        return changeActivityByChatId(chatId, false);
+    }
+
+    @Override
+    public void activateByMessage(Message message) {
+        String chatId = message.getChatId().toString();
+        findByChatId(chatId).ifPresentOrElse(subscriber -> {
+                    subscriber.setActivity(true);
+                    this.save(subscriber);
+                },
+                // orElse
+                () -> {
+                    this.saveTelegramSubscriberFromMessage(message);
+                });
     }
 
     @Override
     @Transactional
     public void saveTelegramSubscriberFromMessage(Message message) {
+        String subscriberName = Optional.ofNullable(message.getContact()).map(contact -> {
+            String firstName = Optional.ofNullable(contact.getFirstName()).orElse(EMPTY_STRING);
+            String lastName = Optional.ofNullable(contact.getLastName()).orElse(EMPTY_STRING);
+            return firstName + SPACE + lastName;
+        }).orElse(EMPTY_STRING);
+
         TelegramSubscriber subscriber = TelegramSubscriber.builder()
                 .activity(true)
                 .chatId(message.getChatId().toString())
-                .name(message.getContact().getFirstName() + SPACE + message.getContact().getLastName())
+                .name(subscriberName)
                 .build();
         repository.save(subscriber);
     }
@@ -75,5 +91,13 @@ public class TelegramSubscriberServiceImpl implements TelegramSubscriberService 
     @Override
     public List<String> getChatIdListWhereActivityIsTrue() {
         return repository.getChatIdListWhereActivityIsTrue();
+    }
+
+    private boolean changeActivityByChatId(String chatId, boolean activity) {
+        return this.findByChatId(chatId).map(subscriberDto -> {
+            subscriberDto.setActivity(activity);
+            this.save(subscriberDto);
+            return true;
+        }).orElseGet(() -> false);
     }
 }

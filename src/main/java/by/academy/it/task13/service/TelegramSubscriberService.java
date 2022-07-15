@@ -1,8 +1,6 @@
 package by.academy.it.task13.service;
 
-import by.academy.it.task13.dto.Sendable;
 import by.academy.it.task13.dto.TelegramSubscriberDto;
-import by.academy.it.task13.util.TelegramBot;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 import java.util.List;
@@ -20,6 +18,8 @@ public interface TelegramSubscriberService {
     void delete(TelegramSubscriberDto subscriberDto);
 
     boolean deactivateByChatId(String chatId);
+
+    void activateByMessage(Message message);
 
     List<String> getChatIdListWhereActivityIsTrue();
 }

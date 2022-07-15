@@ -66,69 +66,76 @@ public class TelegramBot extends TelegramLongPollingBot {
             Message message = update.getMessage();
             String receivedText = message.getText();
             String chatId = message.getChatId().toString();
-            telegramSubscriberService.findByChatId(chatId).ifPresentOrElse(subscriber ->
-                            // ifPresent
-                    {
-                        if (appSetting.getTelegramBotUnsubscribeCommand().equalsIgnoreCase(receivedText)) {
-                            // Unsubscribing
-                            telegramSubscriberService.deactivateByChatId(chatId);
-                            sendTextMessage(chatId, YOU_VE_JUST_UNSUBSCRIBED_FROM_CAVALIER_HORSE_CLUB_ORDERS_BROADCASTING);
-                            return;
-                        } else if (CANCEL_COMMAND.equalsIgnoreCase(receivedText)) {
-                            sendTextMessage(chatId, USER_NOTIFICATION_CANCELED);
-                            return;
-                        }
 
-                        try {
-                            SubscriberAnswer subscriberAnswer = new SubscriberAnswer(receivedText);
-                            Sendable sendable;
-                            switch (subscriberAnswer.getOrderType()) {
-                                case CERTIFICATE:
-                                    sendable = certificateOrderService.findById(subscriberAnswer.getId())
-                                            .map(certificateOrderDto -> certificateOrderService.updateAndReturnCertificateOrderStatus(certificateOrderDto, subscriberAnswer.getOrderStatus()))
-                                            .orElseThrow(TelegramSubscriberAnswerException::new);
-                                    break;
-                                case SUBSCRIPTION:
-                                case PHOTO_SESSION:
-                                default:
-                                    throw new TelegramSubscriberAnswerException();
-                            }
+            if (appSetting.getTelegramBotUnsubscribeCommand().equalsIgnoreCase(receivedText)) {
+                // Unsubscribing
+                LOGGER.info("Unsubscribing");
+                telegramSubscriberService.deactivateByChatId(chatId);
+                sendTextMessage(chatId, YOU_VE_JUST_UNSUBSCRIBED_FROM_CAVALIER_HORSE_CLUB_ORDERS_BROADCASTING);
+            } else if (appSetting.getTelegramBotPasswordForSubscribe().equalsIgnoreCase(receivedText)) {
+                // Subscribing
+                LOGGER.info("Subscribing");
+                telegramSubscriberService.activateByMessage(message);
+                sendTextMessage(chatId, YOU_VE_JUST_SUBSCRIBED_TO_CAVALIER_HORSE_CLUB_ORDERS_BROADCASTING);
+            } else {
+                LOGGER.info("Enter the password");
+                sendTextMessage(chatId, ENTER_THE_PASSWORD);
+            }
+        }
+         else if (update.hasCallbackQuery()) {
+            String chatId = update.getCallbackQuery().getMessage().getChatId().toString();
+            String callbackData = update.getCallbackQuery().getData();
+            LOGGER.info("Callback data is = " + callbackData);
 
-                            String textMessage = orderLogService.findById(subscriberAnswer.getOrderLogId()).map(log ->
-                                    Optional.ofNullable(log.getNewStatus()).map(orderStatus ->
-                                                String.format(MESSAGE_THAT_STATUS_WAS_CHANGED_EARLIER,
-                                                        subscriberAnswer.getOrderType(),
-                                                        sendable.getOrderId(),
-                                                        orderStatus.name(),
-                                                        subscriber.getName()))
-                                            .orElseGet(() -> {
-                                                log.setNewStatus(subscriberAnswer.orderStatus);
-                                                log.setTelegramSubscriberDto(subscriber);
-                                                orderLogService.save(log);
-                                                mailSenderService.sendOrderInfoByMail(sendable);
-                                                return String.format(MESSAGE_THAT_NOTIFICATION_SENT_TO_USER,
-                                                        subscriberAnswer.getOrderType(),
-                                                        sendable.getOrderId(),
-                                                        sendable.getReceiver());
-                                            })
-                            ).orElseThrow(TelegramSubscriberAnswerException::new);
+            if (CANCEL_COMMAND.equalsIgnoreCase(callbackData)) {
+                LOGGER.info("CANCEL command");
+                sendTextMessage(chatId, USER_NOTIFICATION_CANCELED);
+                return;
+            }
 
-                            sendTextMessage(chatId, textMessage);
+            telegramSubscriberService.findByChatId(chatId).ifPresent(subscriber ->
+            {
+                try {
+                    SubscriberAnswer subscriberAnswer = new SubscriberAnswer(callbackData);
+                    LOGGER.info("SubscriberAnswer is " + subscriberAnswer.toString());
+                    Sendable sendable;
+                    switch (subscriberAnswer.getOrderType()) {
+                        case CERTIFICATE:
+                            sendable = certificateOrderService.findById(subscriberAnswer.getId())
+                                    .map(certificateOrderDto -> certificateOrderService.updateAndReturnCertificateOrderStatus(certificateOrderDto, subscriberAnswer.getOrderStatus()))
+                                    .orElseThrow(TelegramSubscriberAnswerException::new);
+                            break;
+                        case SUBSCRIPTION:
+                        case PHOTO_SESSION:
+                        default:
+                            throw new TelegramSubscriberAnswerException();
+                    }
 
-                        } catch (TelegramSubscriberAnswerException e) {
-                            sendTextMessage(chatId, I_DON_T_UNDERSTAND_YOU);
-                        }
-                    },
-                    // orElse
-                    () -> {
-                        if (appSetting.getTelegramBotPasswordForSubscribe().equalsIgnoreCase(receivedText)) {
-                            // Subscribing
-                            telegramSubscriberService.saveTelegramSubscriberFromMessage(message);
-                            sendTextMessage(chatId, YOU_VE_JUST_SUBSCRIBED_TO_CAVALIER_HORSE_CLUB_ORDERS_BROADCASTING);
-                        } else {
-                            sendTextMessage(chatId, ENTER_THE_PASSWORD);
-                        }
-                    });
+                    String textMessage = orderLogService.findById(subscriberAnswer.getOrderLogId()).map(log ->
+                            Optional.ofNullable(log.getNewStatus()).map(orderStatus ->
+                                    String.format(MESSAGE_THAT_STATUS_WAS_CHANGED_EARLIER,
+                                            subscriberAnswer.getOrderType(),
+                                            sendable.getOrderId(),
+                                            orderStatus.name(),
+                                            subscriber.getName()))
+                                    .orElseGet(() -> {
+                                        log.setNewStatus(subscriberAnswer.orderStatus);
+                                        log.setTelegramSubscriberDto(subscriber);
+                                        orderLogService.save(log);
+                                        mailSenderService.sendOrderInfoByMail(sendable);
+                                        return String.format(MESSAGE_THAT_NOTIFICATION_SENT_TO_USER,
+                                                subscriberAnswer.getOrderType(),
+                                                sendable.getOrderId(),
+                                                sendable.getReceiver());
+                                    })
+                    ).orElseThrow(TelegramSubscriberAnswerException::new);
+
+                    sendTextMessage(chatId, textMessage);
+
+                } catch (TelegramSubscriberAnswerException e) {
+                    sendTextMessage(chatId, I_DON_T_UNDERSTAND_YOU);
+                }
+            });
         }
     }
 
@@ -150,6 +157,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                 .append(sendable.getOrderId().toString())
                 .append(SPACE)
                 .toString();
+        LOGGER.info("commonCallBackData = " + commonCallBackData);
         InlineKeyboardMarkup keyboardMarkup = new InlineKeyboardMarkup();
         List<InlineKeyboardButton> row01 = Arrays.stream(OrderStatus.values()).map(status -> {
             InlineKeyboardButton button = new InlineKeyboardButton();
@@ -196,7 +204,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     @Data
     private class SubscriberAnswer {
-        private static final String SPACES_REGEX = "/s";
+        private static final String SPACES_REGEX = "\\s";
         private static final int PARAMETER_COUNT = 4;
         private static final int ORDER_LOG_ID = 0;
         private static final int ORDER_TYPE_INDEX = 1;
@@ -209,6 +217,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         private final OrderStatus orderStatus;
 
         public SubscriberAnswer(String receivedText) throws TelegramSubscriberAnswerException {
+            LOGGER.info("In SubscriberAnswer.constructor receivedText = " + receivedText);
             String[] answers = receivedText.split(SPACES_REGEX);
             if (answers.length < PARAMETER_COUNT) {
                 throw new TelegramSubscriberAnswerException();
@@ -268,6 +277,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                 default:
                     throw new TelegramSubscriberAnswerException();
             }
+            LOGGER.info("SubscriberAnswer created");
         }
     }
 }

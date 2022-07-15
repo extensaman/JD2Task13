@@ -36,12 +36,12 @@ public class SubscriptionController {
         return subscriptionService.findAll();
     }
 
-    @GetMapping(Constant.ID_MAPPING)
+/*    @GetMapping(value = Constant.ID_MAPPING)
     public ResponseEntity<SubscriptionDto> getSubscriptionDtoById(@PathVariable Long id){
         LOGGER.info("getSubscriptionById");
         return subscriptionService.findById(id).map(dto -> new ResponseEntity<>(dto, HttpStatus.OK))
                                 .orElseGet(() -> new ResponseEntity<>(null, HttpStatus.NOT_FOUND));
-    }
+    }*/
 
     @PostMapping(consumes = Constant.APPLICATION_JSON)
     @ResponseStatus(HttpStatus.CREATED)
