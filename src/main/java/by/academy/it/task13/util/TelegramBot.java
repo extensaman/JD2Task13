@@ -1,12 +1,14 @@
 package by.academy.it.task13.util;
 
 import by.academy.it.task13.AppSetting;
+import by.academy.it.task13.dto.OrderManipulationByTelegramLogDto;
 import by.academy.it.task13.dto.Sendable;
 import by.academy.it.task13.entity.OrderStatus;
 import by.academy.it.task13.entity.OrderType;
 import by.academy.it.task13.exception.TelegramSubscriberAnswerException;
 import by.academy.it.task13.service.CertificateOrderService;
 import by.academy.it.task13.service.MailSenderService;
+import by.academy.it.task13.service.OrderManipulationByTelegramLogService;
 import by.academy.it.task13.service.TelegramSubscriberService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -36,13 +38,27 @@ public class TelegramBot extends TelegramLongPollingBot {
     public static final String YOU_VE_JUST_UNSUBSCRIBED_FROM_CAVALIER_HORSE_CLUB_ORDERS_BROADCASTING = "You've just unsubscribed from Cavalier horse club orders broadcasting";
     public static final String ENTER_THE_PASSWORD = "Enter the password";
     public static final String I_DON_T_UNDERSTAND_YOU = "I don't understand you.";
-    public static final String USER_NOTIFICATION_CANCELLED = "User notification cancelled.";
+    public static final String USER_NOTIFICATION_CANCELED = "User notification canceled.";
     public static final String CANCEL_COMMAND = "/CANCEL";
+    public static final String CANCEL_TEXT = "Cancel";
+    public static final String SPACE = " ";
+    public static final String MESSAGE_THAT_STATUS_WAS_CHANGED_EARLIER = "Status of %1$s order #%2$s has been changed to %3$s by %4$s";
+    public static final String MESSAGE_THAT_NOTIFICATION_SENT_TO_USER = "Changed status of %1$s order #%2$s. Notification letter was sent to %3$s";
 
     private final AppSetting appSetting;
     private final TelegramSubscriberService telegramSubscriberService;
     private final CertificateOrderService certificateOrderService;
     private final MailSenderService mailSenderService;
+    private final OrderManipulationByTelegramLogService orderLogService;
+
+    private List<InlineKeyboardButton> cancelButtonRow;
+
+    {
+        InlineKeyboardButton cancelButton = new InlineKeyboardButton();
+        cancelButton.setText(CANCEL_TEXT);
+        cancelButton.setCallbackData(CANCEL_COMMAND);
+        this.cancelButtonRow = Collections.singletonList(cancelButton);
+    }
 
     @Override
     public void onUpdateReceived(Update update) {
@@ -51,15 +67,15 @@ public class TelegramBot extends TelegramLongPollingBot {
             String receivedText = message.getText();
             String chatId = message.getChatId().toString();
             telegramSubscriberService.findByChatId(chatId).ifPresentOrElse(subscriber ->
-                    // ifPresent
+                            // ifPresent
                     {
-                        if (appSetting.getTelegramBotUnsubscribeCommand().equalsIgnoreCase(receivedText)){
+                        if (appSetting.getTelegramBotUnsubscribeCommand().equalsIgnoreCase(receivedText)) {
                             // Unsubscribing
-                            telegramSubscriberService.deleteByChatId(chatId);
+                            telegramSubscriberService.deactivateByChatId(chatId);
                             sendTextMessage(chatId, YOU_VE_JUST_UNSUBSCRIBED_FROM_CAVALIER_HORSE_CLUB_ORDERS_BROADCASTING);
                             return;
-                        } else if(CANCEL_COMMAND.equalsIgnoreCase(receivedText)){
-                            sendTextMessage(chatId, USER_NOTIFICATION_CANCELLED);
+                        } else if (CANCEL_COMMAND.equalsIgnoreCase(receivedText)) {
+                            sendTextMessage(chatId, USER_NOTIFICATION_CANCELED);
                             return;
                         }
 
@@ -78,7 +94,26 @@ public class TelegramBot extends TelegramLongPollingBot {
                                     throw new TelegramSubscriberAnswerException();
                             }
 
-                            mailSenderService.sendOrderInfoByMail(sendable);
+                            String textMessage = orderLogService.findById(subscriberAnswer.getOrderLogId()).map(log ->
+                                    Optional.ofNullable(log.getNewStatus()).map(orderStatus ->
+                                                String.format(MESSAGE_THAT_STATUS_WAS_CHANGED_EARLIER,
+                                                        subscriberAnswer.getOrderType(),
+                                                        sendable.getOrderId(),
+                                                        orderStatus.name(),
+                                                        subscriber.getName()))
+                                            .orElseGet(() -> {
+                                                log.setNewStatus(subscriberAnswer.orderStatus);
+                                                log.setTelegramSubscriberDto(subscriber);
+                                                orderLogService.save(log);
+                                                mailSenderService.sendOrderInfoByMail(sendable);
+                                                return String.format(MESSAGE_THAT_NOTIFICATION_SENT_TO_USER,
+                                                        subscriberAnswer.getOrderType(),
+                                                        sendable.getOrderId(),
+                                                        sendable.getReceiver());
+                                            })
+                            ).orElseThrow(TelegramSubscriberAnswerException::new);
+
+                            sendTextMessage(chatId, textMessage);
 
                         } catch (TelegramSubscriberAnswerException e) {
                             sendTextMessage(chatId, I_DON_T_UNDERSTAND_YOU);
@@ -99,27 +134,38 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     public void broadcastOrder(Sendable sendable) {
         LOGGER.info("broadcastOrder");
-        String message = sendable.getMessage();
-        String commonCallBackData = sendable.getOrderType().name()
-                .concat(" ")
-                .concat(sendable.getOrderId().toString())
-                .concat(" ");
+
+        OrderManipulationByTelegramLogDto log = OrderManipulationByTelegramLogDto.builder()
+                .orderType(sendable.getOrderType())
+                .orderId(sendable.getOrderId())
+                .oldStatus(sendable.getOrderStatus())
+                .build();
+
+        String orderLogId = orderLogService.save(log).getId().toString();
+
+        String commonCallBackData = new StringBuilder(orderLogId)
+                .append(SPACE)
+                .append(sendable.getOrderType().name())
+                .append(SPACE)
+                .append(sendable.getOrderId().toString())
+                .append(SPACE)
+                .toString();
         InlineKeyboardMarkup keyboardMarkup = new InlineKeyboardMarkup();
-        List<InlineKeyboardButton> buttonList = Arrays.stream(OrderStatus.values()).map(status -> {
+        List<InlineKeyboardButton> row01 = Arrays.stream(OrderStatus.values()).map(status -> {
             InlineKeyboardButton button = new InlineKeyboardButton();
             button.setText(status.name());
             button.setCallbackData(commonCallBackData.concat(status.name()));
             return button;
         }).collect(Collectors.toList());
 
-        Collections.singletonList()
+        keyboardMarkup.setKeyboard(List.of(row01, cancelButtonRow));
 
-        telegramSubscriberService.getChatIdList().forEach(chatId -> {
-            sendMessage(chatId, message);
+        telegramSubscriberService.getChatIdListWhereActivityIsTrue().forEach(chatId -> {
+            sendMessage(chatId, sendable.getMessage(), Optional.of(keyboardMarkup));
         });
     }
 
-    public void sendTextMessage(String chatId, String message){
+    public void sendTextMessage(String chatId, String message) {
         sendMessage(chatId, message, Optional.empty());
     }
 
@@ -151,11 +197,13 @@ public class TelegramBot extends TelegramLongPollingBot {
     @Data
     private class SubscriberAnswer {
         private static final String SPACES_REGEX = "/s";
-        private static final int PARAMETER_COUNT = 3;
-        private static final int ORDER_TYPE_INDEX = 0;
-        private static final int ID_INDEX = 1;
-        public static final int ORDER_STATUS_INDEX = 2;
+        private static final int PARAMETER_COUNT = 4;
+        private static final int ORDER_LOG_ID = 0;
+        private static final int ORDER_TYPE_INDEX = 1;
+        private static final int ID_INDEX = 2;
+        public static final int ORDER_STATUS_INDEX = 3;
 
+        private final Long orderLogId;
         private final OrderType orderType;
         private final Long id;
         private final OrderStatus orderStatus;
@@ -163,6 +211,12 @@ public class TelegramBot extends TelegramLongPollingBot {
         public SubscriberAnswer(String receivedText) throws TelegramSubscriberAnswerException {
             String[] answers = receivedText.split(SPACES_REGEX);
             if (answers.length < PARAMETER_COUNT) {
+                throw new TelegramSubscriberAnswerException();
+            }
+
+            try {
+                this.orderLogId = Long.parseLong(answers[ORDER_LOG_ID]);
+            } catch (NumberFormatException e) {
                 throw new TelegramSubscriberAnswerException();
             }
 
@@ -198,7 +252,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             } catch (IllegalArgumentException e) {
                 throw new TelegramSubscriberAnswerException();
             }
-            switch (orderStatus){
+            switch (orderStatus) {
                 case ACCEPTED:
                     this.orderStatus = OrderStatus.ACCEPTED;
                     break;

@@ -32,9 +32,6 @@ public class TelegramSubscriber {
     @Column
     private String name;
 
-    @Column
-    private boolean requestSent;
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

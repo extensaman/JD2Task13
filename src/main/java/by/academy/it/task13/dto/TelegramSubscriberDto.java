@@ -13,5 +13,4 @@ public class TelegramSubscriberDto {
     private String chatId;
     private boolean activity;
     private String name;
-    private boolean requestSent;
 }

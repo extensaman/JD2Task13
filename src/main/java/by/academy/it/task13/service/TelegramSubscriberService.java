@@ -19,9 +19,7 @@ public interface TelegramSubscriberService {
 
     void delete(TelegramSubscriberDto subscriberDto);
 
-    boolean deleteByChatId(String chatId);
+    boolean deactivateByChatId(String chatId);
 
-    void setRequestSentToTrueAndUpdate(TelegramSubscriberDto subscriberDto);
-
-    List<String> getChatIdList();
+    List<String> getChatIdListWhereActivityIsTrue();
 }

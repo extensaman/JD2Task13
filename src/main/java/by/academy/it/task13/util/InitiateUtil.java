@@ -659,7 +659,7 @@ public class InitiateUtil implements CommandLineRunner {
         User user01 = User.builder()
                 .username("admin")
                 .password(encoder.encode("admin"))
-                .email("cavalierhorseclub@gmail.com")
+                .email("verus.wedding@gmail.com")
                 .activity(true)
                 .build();
         User user02 = User.builder()

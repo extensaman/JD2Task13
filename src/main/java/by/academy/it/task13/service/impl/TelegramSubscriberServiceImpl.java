@@ -1,12 +1,10 @@
 package by.academy.it.task13.service.impl;
 
-import by.academy.it.task13.dto.Sendable;
 import by.academy.it.task13.dto.TelegramSubscriberDto;
 import by.academy.it.task13.entity.TelegramSubscriber;
 import by.academy.it.task13.mapper.impl.TelegramSubscriberMapper;
 import by.academy.it.task13.repo.TelegramSubscriberRepository;
 import by.academy.it.task13.service.TelegramSubscriberService;
-import by.academy.it.task13.util.TelegramBot;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -55,17 +53,12 @@ public class TelegramSubscriberServiceImpl implements TelegramSubscriberService 
     }
 
     @Override
-    public boolean deleteByChatId(String chatId) {
+    public boolean deactivateByChatId(String chatId) {
         return this.findByChatId(chatId).map(subscriberDto -> {
-            this.delete(subscriberDto);
+            subscriberDto.setActivity(false);
+            this.save(subscriberDto);
             return true;
         }).orElseGet(() -> false);
-    }
-
-    @Override
-    public void setRequestSentToTrueAndUpdate(TelegramSubscriberDto subscriberDto) {
-        subscriberDto.setRequestSent(true);
-        this.save(subscriberDto);
     }
 
     @Override
@@ -80,7 +73,7 @@ public class TelegramSubscriberServiceImpl implements TelegramSubscriberService 
     }
 
     @Override
-    public List<String> getChatIdList() {
-        return repository.getChatIdList();
+    public List<String> getChatIdListWhereActivityIsTrue() {
+        return repository.getChatIdListWhereActivityIsTrue();
     }
 }
