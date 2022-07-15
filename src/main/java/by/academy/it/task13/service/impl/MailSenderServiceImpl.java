@@ -39,7 +39,7 @@ public class MailSenderServiceImpl implements MailSenderService {
 
     @Override
     public void sendOrderInfoByMail(Sendable sendable) {
-        String orderStatus = sendable.getOrderStatusString().toLowerCase();
+        String orderStatus = sendable.getOrderStatus().name().toLowerCase();
         String message = new StringBuilder()
                 .append(YOUR_ORDER_IS_SUCCESSFULLY_)
                 .append(orderStatus)

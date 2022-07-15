@@ -2,6 +2,7 @@ package by.academy.it.task13.service.impl;
 
 import by.academy.it.task13.dto.CertificateOrderDto;
 import by.academy.it.task13.entity.CertificateOrder;
+import by.academy.it.task13.entity.OrderStatus;
 import by.academy.it.task13.mapper.Mapper;
 import by.academy.it.task13.repo.CertificateOrderRepository;
 import by.academy.it.task13.service.CertificateOrderService;
@@ -88,8 +89,16 @@ public class CertificateOrderServiceImpl implements CertificateOrderService {
         return repository.findCertificateOrderIdsByCertificateId(id);
     }
 
+    @Override
     public List<Long> findCertificateOrderIdsByCertificateDecorationId(Long id) {
         LOGGER.info("findCertificateOrderIdsByCertificateDecorationId");
         return repository.findCertificateOrderIdsByCertificateDecorationId(id);
+    }
+
+    @Override
+    public CertificateOrderDto updateAndReturnCertificateOrderStatus(CertificateOrderDto dto, OrderStatus status) {
+        dto.setOrderStatus(status);
+        repository.save(mapper.toEntity(dto));
+        return dto;
     }
 }

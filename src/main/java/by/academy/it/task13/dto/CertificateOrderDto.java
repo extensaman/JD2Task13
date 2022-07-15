@@ -4,6 +4,7 @@ import by.academy.it.task13.dto.certificate.CertificateDto;
 import by.academy.it.task13.dto.certificatedecoration.CertificateDecorationDto;
 import by.academy.it.task13.dto.user.UserDto;
 import by.academy.it.task13.entity.OrderStatus;
+import by.academy.it.task13.entity.OrderType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -81,8 +82,13 @@ public class CertificateOrderDto implements Sendable{
     }
 
     @Override
-    public String getOrderStatusString() {
-        return orderStatus.name();
+    public OrderType getOrderType() {
+        return OrderType.CERTIFICATE;
+    }
+
+    @Override
+    public Long getOrderId() {
+        return id;
     }
 
     @Override

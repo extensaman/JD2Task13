@@ -2,6 +2,7 @@ package by.academy.it.task13.service;
 
 import by.academy.it.task13.dto.CertificateOrderDto;
 import by.academy.it.task13.entity.CertificateOrder;
+import by.academy.it.task13.entity.OrderStatus;
 import by.academy.it.task13.service.paging.ExtendedPage;
 import by.academy.it.task13.service.specification.filter.CertificateOrderFilter;
 import org.springframework.data.repository.query.Param;
@@ -26,5 +27,5 @@ public interface CertificateOrderService {
 
     List<Long> findCertificateOrderIdsByCertificateDecorationId(Long id);
 
-
+    CertificateOrderDto updateAndReturnCertificateOrderStatus(CertificateOrderDto dto, OrderStatus status);
 }
