@@ -81,7 +81,7 @@ public class TelegramSubscriberServiceImpl implements TelegramSubscriberService 
         String subscriberName = Optional.ofNullable(message.getChat()).map(chat -> {
             String firstName = Optional.ofNullable(chat.getFirstName()).orElse(EMPTY_STRING);
             String lastName = Optional.ofNullable(chat.getLastName()).orElse(EMPTY_STRING);
-            return firstName + SPACE + lastName;
+            return (firstName + SPACE + lastName).trim();
         }).orElse(EMPTY_STRING);
 
         TelegramSubscriber subscriber = TelegramSubscriber.builder()

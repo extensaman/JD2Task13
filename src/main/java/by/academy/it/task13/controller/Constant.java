@@ -51,4 +51,5 @@ public class Constant {
     public static final String CROSS_ORIGIN = "http://localhost:4200";
     public static final String APPLICATION_JSON = "application/json";
     public static final String SUBSCRIPTIONS_MAPPING = "/subscriptions";
+    public static final String REDIRECT_TO_ROOT = "redirect:/";
 }

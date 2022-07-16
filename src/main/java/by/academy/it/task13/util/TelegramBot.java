@@ -3,6 +3,7 @@ package by.academy.it.task13.util;
 import by.academy.it.task13.AppSetting;
 import by.academy.it.task13.dto.OrderManipulationByTelegramLogDto;
 import by.academy.it.task13.dto.Sendable;
+import by.academy.it.task13.dto.TelegramSubscriberDto;
 import by.academy.it.task13.entity.OrderStatus;
 import by.academy.it.task13.entity.OrderType;
 import by.academy.it.task13.exception.TelegramSubscriberAnswerException;
@@ -79,9 +80,11 @@ public class TelegramBot extends TelegramLongPollingBot {
                 telegramSubscriberService.activateByMessage(message);
                 sendTextMessage(chatId, YOU_VE_JUST_SUBSCRIBED_TO_CAVALIER_HORSE_CLUB_ORDERS_BROADCASTING);
             } else {
-                telegramSubscriberService.findByChatId(chatId).ifPresentOrElse(subscriber ->
-                                sendTextMessage(chatId, String.format(MESSAGE_THAT_NO_MORE_ORDERS_NOW, subscriber.getName()))
-                        , () -> sendTextMessage(chatId, ENTER_THE_PASSWORD));
+                String textMessage = telegramSubscriberService.findByChatId(chatId)
+                        .filter(TelegramSubscriberDto::isActivity)
+                        .map(subscriber -> String.format(MESSAGE_THAT_NO_MORE_ORDERS_NOW, subscriber.getName()))
+                        .orElse(ENTER_THE_PASSWORD);
+                sendTextMessage(chatId, textMessage);
             }
 
         } else if (update.hasCallbackQuery()) {
@@ -175,6 +178,11 @@ public class TelegramBot extends TelegramLongPollingBot {
         });
     }
 
+    public void broadcastTextMessage(String textMessage){
+        telegramSubscriberService.getChatIdListWhereActivityIsTrue().forEach(chatId -> {
+            sendTextMessage(chatId, textMessage);
+        });
+    }
     public void sendTextMessage(String chatId, String message) {
         sendMessage(chatId, message, Optional.empty());
     }
