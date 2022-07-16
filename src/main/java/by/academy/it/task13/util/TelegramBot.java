@@ -44,6 +44,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     public static final String SPACE = " ";
     public static final String MESSAGE_THAT_STATUS_WAS_CHANGED_EARLIER = "Status of %1$s order #%2$s has been changed to %3$s by %4$s";
     public static final String MESSAGE_THAT_NOTIFICATION_SENT_TO_USER = "Changed status of %1$s order #%2$s. Notification letter was sent to %3$s";
+    public static final String MESSAGE_THAT_NO_MORE_ORDERS_NOW = "Dear, %s, for now, I have nothing to tell you. I will notify you as soon as an order is placed.";
 
     private final AppSetting appSetting;
     private final TelegramSubscriberService telegramSubscriberService;
@@ -78,11 +79,12 @@ public class TelegramBot extends TelegramLongPollingBot {
                 telegramSubscriberService.activateByMessage(message);
                 sendTextMessage(chatId, YOU_VE_JUST_SUBSCRIBED_TO_CAVALIER_HORSE_CLUB_ORDERS_BROADCASTING);
             } else {
-                LOGGER.info("Enter the password");
-                sendTextMessage(chatId, ENTER_THE_PASSWORD);
+                telegramSubscriberService.findByChatId(chatId).ifPresentOrElse(subscriber ->
+                                sendTextMessage(chatId, String.format(MESSAGE_THAT_NO_MORE_ORDERS_NOW, subscriber.getName()))
+                        , () -> sendTextMessage(chatId, ENTER_THE_PASSWORD));
             }
-        }
-         else if (update.hasCallbackQuery()) {
+
+        } else if (update.hasCallbackQuery()) {
             String chatId = update.getCallbackQuery().getMessage().getChatId().toString();
             String callbackData = update.getCallbackQuery().getData();
             LOGGER.info("Callback data is = " + callbackData);

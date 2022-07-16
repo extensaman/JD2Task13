@@ -55,7 +55,11 @@ public class TelegramSubscriberServiceImpl implements TelegramSubscriberService 
 
     @Override
     public boolean deactivateByChatId(String chatId) {
-        return changeActivityByChatId(chatId, false);
+        return this.findByChatId(chatId).map(subscriberDto -> {
+            subscriberDto.setActivity(false);
+            this.save(subscriberDto);
+            return true;
+        }).orElseGet(() -> false);
     }
 
     @Override
@@ -74,9 +78,9 @@ public class TelegramSubscriberServiceImpl implements TelegramSubscriberService 
     @Override
     @Transactional
     public void saveTelegramSubscriberFromMessage(Message message) {
-        String subscriberName = Optional.ofNullable(message.getContact()).map(contact -> {
-            String firstName = Optional.ofNullable(contact.getFirstName()).orElse(EMPTY_STRING);
-            String lastName = Optional.ofNullable(contact.getLastName()).orElse(EMPTY_STRING);
+        String subscriberName = Optional.ofNullable(message.getChat()).map(chat -> {
+            String firstName = Optional.ofNullable(chat.getFirstName()).orElse(EMPTY_STRING);
+            String lastName = Optional.ofNullable(chat.getLastName()).orElse(EMPTY_STRING);
             return firstName + SPACE + lastName;
         }).orElse(EMPTY_STRING);
 
@@ -91,13 +95,5 @@ public class TelegramSubscriberServiceImpl implements TelegramSubscriberService 
     @Override
     public List<String> getChatIdListWhereActivityIsTrue() {
         return repository.getChatIdListWhereActivityIsTrue();
-    }
-
-    private boolean changeActivityByChatId(String chatId, boolean activity) {
-        return this.findByChatId(chatId).map(subscriberDto -> {
-            subscriberDto.setActivity(activity);
-            this.save(subscriberDto);
-            return true;
-        }).orElseGet(() -> false);
     }
 }
