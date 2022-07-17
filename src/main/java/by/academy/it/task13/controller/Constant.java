@@ -52,4 +52,6 @@ public class Constant {
     public static final String APPLICATION_JSON = "application/json";
     public static final String SUBSCRIPTIONS_MAPPING = "/subscriptions";
     public static final String REDIRECT_TO_ROOT = "redirect:/";
+    public static final String MAIL_ERROR = "mailError";
+    public static final String TRUE = "true";
 }

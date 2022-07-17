@@ -1,15 +1,12 @@
 package by.academy.it.task13.service.impl;
 
 import by.academy.it.task13.AppSetting;
-import by.academy.it.task13.configuration.MailConfiguration;
 import by.academy.it.task13.dto.Sendable;
 import by.academy.it.task13.exception.MailSenderException;
 import by.academy.it.task13.service.MailSenderService;
-import by.academy.it.task13.util.TelegramBot;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -22,7 +19,6 @@ public class MailSenderServiceImpl implements MailSenderService {
     public static final String ORDER_IS_ = "Order is ";
     public static final String THANK_YOU_FOR_CHOOSING_US = "\nThank you for choosing us!";
     public static final String YOUR_ORDER_IS_SUCCESSFULLY_ = "Your order is successfully ";
-    public static final String JAVA_MAIL_SENDER_OBJECT_IS_NULL = "JavaMailSender object is null";
     private final JavaMailSender sender;
     private final AppSetting appSetting;
 
@@ -35,12 +31,9 @@ public class MailSenderServiceImpl implements MailSenderService {
         mailMessage.setText(message);
         try {
             sender.send(mailMessage);
-        } catch (MailException e) {
+        } catch (Exception e) {
             LOGGER.warn(e);
             throw new MailSenderException(e);
-        } catch (NullPointerException e) {
-            LOGGER.warn(JAVA_MAIL_SENDER_OBJECT_IS_NULL);
-            throw new MailSenderException(JAVA_MAIL_SENDER_OBJECT_IS_NULL);
         }
     }
 

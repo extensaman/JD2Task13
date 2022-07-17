@@ -1,7 +1,9 @@
 package by.academy.it.task13.controller.admin;
 
 import by.academy.it.task13.dto.CertificateOrderDto;
+import by.academy.it.task13.entity.CertificateOrder;
 import by.academy.it.task13.entity.OrderStatus;
+import by.academy.it.task13.mapper.impl.CertificateOrderMapper;
 import by.academy.it.task13.service.CertificateDecorationService;
 import by.academy.it.task13.service.CertificateOrderService;
 import by.academy.it.task13.service.CertificateService;
@@ -33,7 +35,7 @@ public class AdminCertificateOrderController {
     private final CertificateDecorationService certificateDecorationService;
     private final UserService userService;
     private final MailSenderService mailSenderService;
-
+    private final CertificateOrderMapper mapper;
 
     @ModelAttribute(name = AdminConstant.CERTIFICATE_ORDER_FILTER)
     public CertificateOrderFilter certificateOrderFilter() {
@@ -75,10 +77,11 @@ public class AdminCertificateOrderController {
     @PostMapping
     public String saveCertificateOrder(CertificateOrderDto certificateOrderDto, boolean mailNeedance) {
         LOGGER.info("saveCertificateOrder");
+        CertificateOrder certificateOrder = certificateOrderService.save(certificateOrderDto);
         if(mailNeedance){
-            mailSenderService.sendOrderInfoByMail(certificateOrderDto);
+            CertificateOrderDto certificateOrderDtoWithId = mapper.toDto(certificateOrder);
+            mailSenderService.sendOrderInfoByMail(certificateOrderDtoWithId);
         }
-        certificateOrderService.save(certificateOrderDto);
         return AdminConstant.REDIRECT_ADMIN_CERTIFICATEORDER_PAGE;
     }
 

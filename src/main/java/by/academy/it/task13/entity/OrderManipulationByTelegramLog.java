@@ -1,11 +1,12 @@
 package by.academy.it.task13.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -22,6 +23,7 @@ import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -33,7 +35,7 @@ public class OrderManipulationByTelegramLog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "telegram_subscriber_id")
     private TelegramSubscriber telegramSubscriber;
 
@@ -59,12 +61,12 @@ public class OrderManipulationByTelegramLog {
     private LocalDateTime updated;
 
     @PrePersist
-    private void setCreateTime(){
+    private void setCreateTime() {
         this.created = LocalDateTime.now();
     }
 
     @PreUpdate
-    private void setUpdateTime(){
+    private void setUpdateTime() {
         this.updated = LocalDateTime.now();
     }
 

@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.security.core.Authentication;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -32,9 +33,10 @@ public class CurrentUserControllerAdvice {
     }
 
     @ExceptionHandler(MailSenderException.class)
-    public String mailSenderExceptionHandler(MailSenderException e) {
+    public String mailSenderExceptionHandler(Model model, MailSenderException e) {
         LOGGER.info("mailSenderExceptionHandler: " + e.getMessage());
         bot.broadcastTextMessage(e.getMessage());
+        model.addAttribute(Constant.MAIL_ERROR, Constant.TRUE);
         return Constant.REDIRECT_TO_ROOT;
     }
 }

@@ -29,6 +29,7 @@ public class CertificateOrderDto implements Sendable{
     public static final String CERTIFICATE_DECORATION_STRING = "\nCertificate decoration: ";
     public static final String EVENT_DATE_STRING = "\nEvent date: ";
     public static final String DETAILS_STRING = "\nDetails: ";
+    public static final String OWNER_STRING = "\nOwner: ";
     public static final String EMPTY_STRING = "";
 
     private Long id;
@@ -76,6 +77,8 @@ public class CertificateOrderDto implements Sendable{
                 .append(Optional.ofNullable(certificateDecoration).map(CertificateDecorationDto::getName).orElse(EMPTY_STRING))
                 .append(EVENT_DATE_STRING)
                 .append(Optional.ofNullable(eventDate).map(LocalDate::toString).orElse(EMPTY_STRING))
+                .append(OWNER_STRING)
+                .append(Optional.ofNullable(owner).map(String::toString).orElse(EMPTY_STRING))
                 .append(DETAILS_STRING)
                 .append(Optional.ofNullable(details).map(String::toString).orElse(EMPTY_STRING))
                 .toString();

@@ -31,6 +31,12 @@ public class AppSetting {
     @Value("${spring.mail.protocol}")
     private String mailProtocol;
 
+    @Value("${spring.mail.properties.mail.smtp.auth}")
+    private String mailSmtpAuth;
+
+    @Value("${spring.mail.properties.mail.smtp.starttls.enable}")
+    private String mailSmtpStarttls;
+
     @Value("${mail.debug}")
     private String mailDebug;
 
