@@ -9,9 +9,11 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserService extends UserDetailsService {
-    Optional<UserDto> findByUsername(String username);
+    Optional<UserDto> findUserDtoByUsername(String username);
 
-    List<UserDto> findAllActiveUser();
+    Optional<User> findUserByUsername(String username);
+
+    List<UserDto> findAll();
 
     List<UserNameDto> findAllUserNameDto();
 

@@ -27,7 +27,7 @@ public class CertificateServiceImpl implements CertificateService {
     private final Mapper<Certificate, CertificateNameDto> mapperName;
 
     @Override
-    public Optional<CertificateDto> findById(String id) {
+    public Optional<Certificate> findById(String id){
         LOGGER.info("findById");
         Optional<Certificate> certificate;
         try {
@@ -35,7 +35,24 @@ public class CertificateServiceImpl implements CertificateService {
         } catch (NumberFormatException e) {
             certificate = Optional.empty();
         }
-        return certificate.map(mapper::toDto);
+        return certificate;
+    }
+
+    @Override
+    public Optional<Certificate> findById(Long id) {
+        return repository.findById(id);
+    }
+
+    @Override
+    public Optional<CertificateDto> findCertificateDtoById(String id) {
+        LOGGER.info("findCertificateDtoById");
+        return findById(id).map(mapper::toDto);
+    }
+
+    @Override
+    public Optional<CertificateNameDto> findCertificateNameDtoById(String id){
+        LOGGER.info("findCertificateNameDtoById");
+        return findById(id).map(mapperName::toDto);
     }
 
     @Override

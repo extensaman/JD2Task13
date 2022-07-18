@@ -1,10 +1,8 @@
 package by.academy.it.task13.service.impl;
 
 import by.academy.it.task13.AppSetting;
-import by.academy.it.task13.dto.certificate.CertificateNameDto;
 import by.academy.it.task13.dto.user.UserDto;
 import by.academy.it.task13.dto.user.UserNameDto;
-import by.academy.it.task13.entity.Certificate;
 import by.academy.it.task13.entity.User;
 import by.academy.it.task13.mapper.Mapper;
 import by.academy.it.task13.repo.UserRepository;
@@ -13,8 +11,6 @@ import by.academy.it.task13.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.aspectj.bridge.IMessage;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -24,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -40,17 +35,21 @@ public class UserServiceImpl implements UserService {
     private final AppSetting appSetting;
 
     @Override
-    public Optional<UserDto> findByUsername(String username) {
-        return Optional.ofNullable(mapper.toDto(repository.findByUsername(username)));
+    public Optional<UserDto> findUserDtoByUsername(String username) {
+        return repository.findByUsername(username).map(mapper::toDto);
     }
 
     @Override
-    public List<UserDto> findAllActiveUser(){ // TODO Delete this method
-        return repository.findAllByActivityIsTrue().stream().map(mapper::toDto).collect(Collectors.toList());
+    public List<UserDto> findAll() {
+        List<UserDto> userDtos = new ArrayList<>();
+        for (User user : repository.findAll()) {
+            userDtos.add(mapper.toDto(user));
+        }
+        return userDtos;
     }
 
     @Override
-    public List<UserNameDto> findAllUserNameDto(){
+    public List<UserNameDto> findAllUserNameDto() {
         LOGGER.info("findAllUserNameDto");
         List<UserNameDto> userNameDtos = new ArrayList<>();
         for (User user : repository.findAll()) {
@@ -68,7 +67,7 @@ public class UserServiceImpl implements UserService {
             return false;
         }
         user.setActivationCode(UUID.randomUUID().toString());
-        String message = String.format(MESSAGE_TEMPLATE, user.getUsername(),appSetting.getAppUrl(),user.getActivationCode());
+        String message = String.format(MESSAGE_TEMPLATE, user.getUsername(), appSetting.getAppUrl(), user.getActivationCode());
         mailSenderService.send(user.getEmail(),
                 SUBJECT, message);
         repository.save(user);
@@ -79,7 +78,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public boolean activateUser(String code) {
         User user = repository.findByActivationCode(code);
-        if(user == null){
+        if (user == null) {
             return false;
         }
         user.setActivationCode(null);
@@ -98,10 +97,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         LOGGER.info("loadUserByUsername");
-        User user = repository.findByUsername(username);
-        if (user != null) {
-            return user;
-        }
-        throw new UsernameNotFoundException("User " + username + " not found");
+        return repository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User " + username + " not found"));
+    }
+
+    @Override
+    public Optional<User> findUserByUsername(String username) {
+        return repository.findByUsername(username);
     }
 }

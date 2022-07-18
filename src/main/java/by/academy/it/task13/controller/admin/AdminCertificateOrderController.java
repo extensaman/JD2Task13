@@ -23,8 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import java.util.Collections;
-
 @Controller
 @RequestMapping(AdminConstant.ADMIN_GIFT_CERTIFICATE_ORDER_MAPPING)
 @SessionAttributes(names = AdminConstant.CERTIFICATE_ORDER_FILTER)
@@ -80,7 +78,7 @@ public class AdminCertificateOrderController {
     public String saveCertificateOrder(CertificateOrderDto certificateOrderDto, boolean mailNeedance) {
         LOGGER.info("saveCertificateOrder");
         CertificateOrder certificateOrder = certificateOrderService.save(certificateOrderDto);
-        if(mailNeedance){
+        if (mailNeedance) {
             CertificateOrderDto certificateOrderDtoWithId = mapper.toDto(certificateOrder);
             mailSenderService.sendOrderInfoByMail(certificateOrderDtoWithId);
         }

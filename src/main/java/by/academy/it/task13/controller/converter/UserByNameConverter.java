@@ -18,6 +18,6 @@ public class UserByNameConverter implements Converter<String, UserDto> {
     @Override
     public UserDto convert(String source) {
         LOGGER.info("convert userName = " + source + " to UserDto");
-        return userService.findByUsername(source).orElse(null);
+        return userService.findUserDtoByUsername(source).orElse(null);
     }
 }

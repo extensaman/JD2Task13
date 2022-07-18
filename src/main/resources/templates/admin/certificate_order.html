@@ -17,7 +17,7 @@
                     <!-- Owner filter -->
                     <div>
                         <label for="ownerLabel"
-                               class="form-label mt-4"
+                               class="form-label mt-3"
                                th:text="#{menu_admin.common.table.certificate_owner}">
                         </label>
                         <input type="text"
@@ -29,7 +29,7 @@
                     <!-- Details filter -->
                     <div class="px-5">
                         <label for="deliveryLabel"
-                               class="form-label mt-4"
+                               class="form-label mt-3"
                                th:text="#{menu_admin.common.table.details}">
                         </label>
                         <input type="text" class="form-control"
@@ -39,19 +39,40 @@
                     </div>
 
                     <!-- User filter -->
-                    <div class="px-5">
+                    <div class="px-3">
                         <label for="userLabel"
-                               class="form-label mt-4"
+                               class="form-label mt-3"
                                th:text="#{menu_user.login}">
                         </label>
                         <select class="form-select"
                                 aria-label="Default select example"
                                 id="userLabel"
-                                name="user">
+                                name="userFilter">
+                            <option value="">----</option>
                             <th:block th:each="userNameDto : ${userNameDtoList}">
                                 <option th:value="${userNameDto.username}"
                                         th:text="${userNameDto.username}"
-                                        th:selected="${userNameDto eq certificateOrderFilter.user}">
+                                        th:selected="${userNameDto eq certificateOrderFilter.userFilter}">
+                                </option>
+                            </th:block>
+                        </select>
+                    </div>
+
+                    <!-- Certificate filter -->
+                    <div class="px-3">
+                        <label for="certificateLabel"
+                               class="form-label mt-3"
+                               th:text="#{common.certificate}">
+                        </label>
+                        <select class="form-select"
+                                aria-label="Default select example"
+                                id="certificateLabel"
+                                name="certificateFilter">
+                            <option value="">----</option>
+                            <th:block th:each="certificateNameDto : ${certificateNameDtoList}">
+                                <option th:value="${certificateNameDto.id}"
+                                        th:text="${certificateNameDto.name}"
+                                        th:selected="${certificateNameDto eq certificateOrderFilter.certificateFilter}">
                                 </option>
                             </th:block>
                         </select>

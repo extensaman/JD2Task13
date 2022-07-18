@@ -33,6 +33,7 @@ public class CertificateOrderServiceImpl implements CertificateOrderService {
 
     private final CertificateOrderRepository repository;
     private final Mapper<CertificateOrder, CertificateOrderDto> mapper;
+    private final CertificateOrderSpecification orderSpecification;
 
     @Override
     public Optional<CertificateOrderDto> findById(Long id) {
@@ -75,7 +76,7 @@ public class CertificateOrderServiceImpl implements CertificateOrderService {
     @Override
     public ExtendedPage<CertificateOrderDto> getExtendedPage(CertificateOrderFilter filter, int pageNumber, int size, String sortField, String sortDirection) {
         LOGGER.info("getExtendedPage");
-        Specification<CertificateOrder> specification = CertificateOrderSpecification.getCertificateOrderSpecification(filter);
+        Specification<CertificateOrder> specification = orderSpecification.getCertificateOrderSpecification(filter);
         Sort sort = Sort.by(sortField);
         sort = ASC.equalsIgnoreCase(sortDirection) ? sort.ascending() : sort.descending();
         PageRequest request = PageRequest.of(pageNumber - ONE, size, sort);
