@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,4 +20,17 @@ public class CertificateDecorationDto {
     private BigDecimal price;
     private boolean deliveryNecessity;
     private String photoFile;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CertificateDecorationDto that = (CertificateDecorationDto) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

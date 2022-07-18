@@ -1,11 +1,10 @@
 package by.academy.it.task13.service.specification.filter;
 
+import by.academy.it.task13.dto.user.UserNameDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.Objects;
 
 @Getter
 @Setter
@@ -14,8 +13,9 @@ import java.util.Objects;
 public class CertificateOrderFilter {
     private String ownerFilter;
     private String detailsFilter;
+    private UserNameDto user;
 
     public boolean isApplying() {
-        return ownerFilter != null || detailsFilter != null;
+        return ownerFilter != null || detailsFilter != null || user != null;
     }
 }

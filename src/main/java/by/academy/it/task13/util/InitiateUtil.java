@@ -957,7 +957,7 @@ public class InitiateUtil implements CommandLineRunner {
                 .collect(Collectors.toList());
         attachmentService.saveAll(attachments);
 
-        TelegramBot telegramBot = context.getBean("telegramBot", TelegramBot.class);
+/*        TelegramBot telegramBot = context.getBean("telegramBot", TelegramBot.class);
         try {
             TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
             LOGGER.info("TelegramBotApi created");
@@ -965,6 +965,6 @@ public class InitiateUtil implements CommandLineRunner {
             LOGGER.info("TelegramBot registered");
         } catch (TelegramApiException e) {
             LOGGER.warn("Telegram bot isn't registered");
-        }
+        }*/
     }
 }

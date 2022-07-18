@@ -37,6 +37,26 @@
                                th:value="${certificateOrderFilter.detailsFilter}"
                                th:field="*{detailsFilter}">
                     </div>
+
+                    <!-- User filter -->
+                    <div class="px-5">
+                        <label for="userLabel"
+                               class="form-label mt-4"
+                               th:text="#{menu_user.login}">
+                        </label>
+                        <select class="form-select"
+                                aria-label="Default select example"
+                                id="userLabel"
+                                name="user">
+                            <th:block th:each="userNameDto : ${userNameDtoList}">
+                                <option th:value="${userNameDto.username}"
+                                        th:text="${userNameDto.username}"
+                                        th:selected="${userNameDto eq certificateOrderFilter.user}">
+                                </option>
+                            </th:block>
+                        </select>
+                    </div>
+
                 </div>
             </form>
 
