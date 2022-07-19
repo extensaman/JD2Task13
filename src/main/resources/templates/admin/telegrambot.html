@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="common/metadata :: content"></head>
+<body>
+<header th:insert="common/admin_header :: content"></header>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-5 mt-4">
+            <p>Telegram bot</p>
+            <div th:if="${telegramSubscriberDtoList != null}">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th class="text-center align-middle">№</th>
+                        <th class="text-center align-middle">ID</th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.name}"></th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.activity}"></th>
+                        <th class="text-center align-middle"><i class="bi bi-sliders font_size_24"></i></th>
+                        <th class="text-center align-middle"><i class="bi bi-x-lg font_size_24"></i></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <th:block th:each="subscriber, state : ${telegramSubscriberDtoList}">
+                        <tr>
+                            <td class="text-center align-middle" th:text="${state.index+1}"></td>
+                            <td class="text-center align-middle" th:text="${subscriber.chatId}"></td>
+                            <td class="align-middle" th:text="${subscriber.name}"></td>
+                            <td class="text-center align-middle">
+                                <i th:if="${subscriber.activity}"
+                                   class="bi bi-check-circle-fill text-success font_size_24"></i>
+                                <i th:unless="${subscriber.activity}"
+                                   class="bi bi-x-circle-fill text-danger font_size_24"></i>
+                            </td>
+
+                            <!-- Form for editing item -->
+                            <form th:action="@{/admin/telegrambot/subscriber/}" th:method="post"
+                                  th:object="${telegramSubscriber}">
+                                <td class="text-center align-middle">
+                                    <button type="button"
+                                            class="btn btn-outline-primary"
+                                            data-bs-toggle="modal"
+                                            th:attr="data-bs-target='#editsubscriber'+${subscriber.chatId}">
+                                        <i class="bi bi-pencil-square font_size_20"></i>
+                                    </button>
+                                </td>
+
+                                <!-- Modal for edit subscriber -->
+                                <div class="modal fade" th:id="${'editsubscriber'+subscriber.chatId}" tabindex="-1"
+                                     role="dialog" aria-labelledby="exampleModalLabel47" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel47" th:text="#{common.button.editing}"></h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <!-- Subscriber id -->
+                                                <input type="hidden"
+                                                       th:value="${subscriber.chatId}"
+                                                       name="chatId">
+
+                                                <!-- Subscriber name -->
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text text-black-50"
+                                                          th:text="#{menu_admin.common.table.name}">
+                                                    </span>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           th:value="${subscriber.name}"
+                                                           name="name">
+                                                </div>
+
+                                                <!-- Is Subscriber active -->
+                                                <div class="input-group mb-3">
+                                                    <h5>
+                                                        <div class="form-check form-switch">
+                                                            <input type="checkbox"
+                                                                   class="form-check-input"
+                                                                   th:checked="${subscriber.activity}"
+                                                                   name="activity">
+                                                        </div>
+                                                    </h5>
+                                                    <span class="text-black-50"
+                                                          id="subscriberIsActive"
+                                                          th:text="#{menu_admin.common.table.activity}">
+                                                    </span>
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button"
+                                                        class="btn btn-secondary"
+                                                        data-bs-dismiss="modal"
+                                                        th:text="#{common.button.cancel}">
+                                                </button>
+
+                                                <button class="btn btn-primary"
+                                                        th:text="#{common.button.save_changes}">
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+
+                            <!-- Form for deleting item -->
+                            <form th:action="@{/admin/telegrambot/subscriber/delete}" th:method="post"
+                                  th:object="${telegramSubscriber}">
+                                <td class="text-center align-middle">
+                                    <button type="button"
+                                            class="btn btn-outline-danger"
+                                            data-bs-toggle="modal"
+                                            th:attr="data-bs-target='#deletesubscriber'+${subscriber.chatId}">
+                                        <i class="bi bi-trash3 font_size_20"></i>
+                                    </button>
+                                </td>
+
+                                <!-- Modal for delete subscriber -->
+                                <div class="modal fade" th:id="${'deletesubscriber'+subscriber.chatId}" tabindex="-1"
+                                     role="dialog" aria-labelledby="exampleModalLabel48" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel48" th:text="#{common.button.deleting}"></h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <!-- Subscriber id -->
+                                                <input type="hidden"
+                                                       th:value="${subscriber.chatId}"
+                                                       name="chatId">
+
+                                                <!-- Subscriber name -->
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text text-black-50"
+                                                          th:text="#{menu_admin.common.table.name}">
+                                                    </span>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           th:value="${subscriber.name}"
+                                                           name="name"
+                                                           disabled>
+                                                </div>
+
+                                                <!-- Is Subscriber active -->
+                                                <div class="input-group mb-3">
+                                                    <h5>
+                                                        <div class="form-check form-switch">
+                                                            <input type="checkbox"
+                                                                   class="form-check-input"
+                                                                   th:checked="${subscriber.activity}"
+                                                                   name="activity"
+                                                                   disabled>
+                                                        </div>
+                                                    </h5>
+                                                    <span class="text-black-50"
+                                                          id="certDecorationActivity"
+                                                          th:text="#{menu_admin.common.table.activity}">
+                                                    </span>
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button"
+                                                        class="btn btn-secondary"
+                                                        data-bs-dismiss="modal"
+                                                        th:text="#{common.button.cancel}">
+                                                </button>
+
+                                                <button class="btn btn-danger"
+                                                        th:text="#{common.button.delete}">
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </tr>
+                    </th:block>
+                    </tbody>
+                </table>
+            </div>
+            <span th:if="${telegramSubscriberDtoList == null}" class="text-danger" th:text="#{menu_admin.common.no_data}"></span>
+        </div>
+        <div class="col-7 mt-4">
+            <p>Telegram bot</p>
+            <div th:if="${telegramOrderLogDtoList != null}">
+                <table class="table table-success table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th class="text-center align-middle">№</th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.telegram_subscriber}"></th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.order_type}"></th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.order_id}"></th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.old_order_status}"></th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.created}"></th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.new_order_status}"></th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.updated}"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <th:block th:each="log, state : ${telegramOrderLogDtoList}">
+                        <tr>
+                            <td class="text-center align-middle" th:text="${state.index+1}"></td>
+                            <td th:if="${log.telegramSubscriberDto != null}"
+                                class="text-center align-middle"
+                                th:text="${log.telegramSubscriberDto.name}">
+                            </td>
+                            <td th:unless="${log.telegramSubscriberDto != null}"
+                                class="text-center align-middle">---
+                            </td>
+                            <td class="text-center align-middle" th:text="${log.orderType.name()}"></td>
+                            <td class="text-center align-middle" th:text="${log.orderId}"></td>
+                            <td class="text-center align-middle" th:text="${log.oldStatus.name()}"></td>
+                            <td class="text-center align-middle" th:text="${log.created}"></td>
+                            <td th:if="${log.newStatus != null}"
+                                class="text-center align-middle"
+                                th:text="${log.newStatus.name()}">
+                            </td>
+                            <td th:unless="${log.newStatus != null}"
+                                class="text-center align-middle">---
+                            </td>
+                            <td class="text-center align-middle" th:text="${log.updated}"></td>
+                        </tr>
+                    </th:block>
+                    </tbody>
+                </table>
+            </div>
+            <span th:if="${telegramOrderLogDtoList == null}" class="text-danger" th:text="#{menu_admin.common.no_data}"></span>
+        </div>
+    </div>
+</div>
+<footer th:insert="common/admin_footer :: content"></footer>
+</body>
+</html>

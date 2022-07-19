@@ -5,7 +5,6 @@ import by.academy.it.task13.service.PhotoSessionService;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminPhotoSessionController {
     private static final Logger LOGGER = LogManager.getLogger(AdminPhotoSessionController.class);
 
-    @Autowired
     private final PhotoSessionService photoSessionService;
 
     @GetMapping
@@ -34,13 +32,13 @@ public class AdminPhotoSessionController {
     public String savePhotoSession(PhotoSessionDto photoSessionDto) {
         LOGGER.info("savePhotoSession");
         photoSessionService.save(photoSessionDto);
-        return "redirect:/admin/photosession";
+        return AdminConstant.REDIRECT_ADMIN_PHOTOSESSION;
     }
 
     @PostMapping(AdminConstant.DELETE_MAPPING)
     public String deletePhotoSession(PhotoSessionDto photoSessionDto) {
         LOGGER.info("deletePhotoSession");
         photoSessionService.delete(photoSessionDto);
-        return "redirect:/admin/photosession";
+        return AdminConstant.REDIRECT_ADMIN_PHOTOSESSION;
     }
 }

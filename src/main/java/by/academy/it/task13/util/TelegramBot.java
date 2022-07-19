@@ -1,7 +1,7 @@
 package by.academy.it.task13.util;
 
 import by.academy.it.task13.AppSetting;
-import by.academy.it.task13.dto.OrderManipulationByTelegramLogDto;
+import by.academy.it.task13.dto.TelegramOrderLogDto;
 import by.academy.it.task13.dto.Sendable;
 import by.academy.it.task13.dto.TelegramSubscriberDto;
 import by.academy.it.task13.entity.OrderStatus;
@@ -9,7 +9,7 @@ import by.academy.it.task13.entity.OrderType;
 import by.academy.it.task13.exception.TelegramSubscriberAnswerException;
 import by.academy.it.task13.service.CertificateOrderService;
 import by.academy.it.task13.service.MailSenderService;
-import by.academy.it.task13.service.OrderManipulationByTelegramLogService;
+import by.academy.it.task13.service.TelegramOrderLogService;
 import by.academy.it.task13.service.TelegramSubscriberService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -48,7 +48,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     private final TelegramSubscriberService telegramSubscriberService;
     private final CertificateOrderService certificateOrderService;
     private final MailSenderService mailSenderService;
-    private final OrderManipulationByTelegramLogService orderLogService;
+    private final TelegramOrderLogService orderLogService;
 
     @Override
     public void onUpdateReceived(Update update) {
@@ -138,7 +138,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     public void broadcastOrder(Sendable sendable) {
         LOGGER.info("broadcastOrder");
 
-        OrderManipulationByTelegramLogDto log = OrderManipulationByTelegramLogDto.builder()
+        TelegramOrderLogDto log = TelegramOrderLogDto.builder()
                 .orderType(sendable.getOrderType())
                 .orderId(sendable.getOrderId())
                 .oldStatus(sendable.getOrderStatus())

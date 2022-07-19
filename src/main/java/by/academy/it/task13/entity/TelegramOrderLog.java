@@ -29,8 +29,8 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
-@Table
-public class OrderManipulationByTelegramLog {
+@Table(name = "telegram_order_log")
+public class TelegramOrderLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -74,7 +74,7 @@ public class OrderManipulationByTelegramLog {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        OrderManipulationByTelegramLog that = (OrderManipulationByTelegramLog) o;
+        TelegramOrderLog that = (TelegramOrderLog) o;
         return Objects.equals(id, that.id);
     }
 

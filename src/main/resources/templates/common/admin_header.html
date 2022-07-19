@@ -78,6 +78,14 @@
                             <a th:unless="${condition}" class="nav-link" aria-current="page" th:href="@{/admin/upload}"
                                th:text="#{menu_admin.upload}"></a>
                         </li>
+                        <li class="nav-item">
+                            <a th:if="${title eq 'menu_admin.telegram_bot'}" class="nav-link active underline"
+                               aria-current="page" href="#"
+                               th:text="#{menu_admin.telegram_bot}"></a>
+                            <a th:unless="${title eq 'menu_admin.telegram_bot'}"
+                               class="nav-link" aria-current="page" th:href="@{/admin/telegrambot}"
+                               th:text="#{menu_admin.telegram_bot}"></a>
+                        </li>
                     </ul>
                     <a class="navbar-text" th:href="@{''(lang=en)}"
                        th:text="#{lang.en}">

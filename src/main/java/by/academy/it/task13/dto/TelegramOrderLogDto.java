@@ -19,7 +19,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @Setter
 @Getter
-public class OrderManipulationByTelegramLogDto {
+public class TelegramOrderLogDto {
     private Long id;
     private TelegramSubscriberDto telegramSubscriberDto;
     private OrderType orderType;
@@ -35,7 +35,7 @@ public class OrderManipulationByTelegramLogDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        OrderManipulationByTelegramLogDto that = (OrderManipulationByTelegramLogDto) o;
+        TelegramOrderLogDto that = (TelegramOrderLogDto) o;
         return Objects.equals(id, that.id);
     }
 

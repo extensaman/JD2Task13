@@ -22,7 +22,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
-@Table
+@Table(name = "telegram_subscriber")
 public class TelegramSubscriber {
     @Id
     @Column(nullable = false, unique = true)

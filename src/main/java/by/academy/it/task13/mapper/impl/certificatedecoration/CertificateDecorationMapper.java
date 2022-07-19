@@ -3,7 +3,6 @@ package by.academy.it.task13.mapper.impl.certificatedecoration;
 import by.academy.it.task13.dto.certificatedecoration.CertificateDecorationDto;
 import by.academy.it.task13.entity.CertificateDecoration;
 import by.academy.it.task13.mapper.Mapper;
-import by.academy.it.task13.mapper.impl.OrderManipulationByTelegramLogMapper;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
