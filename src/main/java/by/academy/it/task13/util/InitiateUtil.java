@@ -1,7 +1,6 @@
 package by.academy.it.task13.util;
 
 import by.academy.it.task13.AppSetting;
-import by.academy.it.task13.configuration.MvcConfiguration;
 import by.academy.it.task13.entity.Attachment;
 import by.academy.it.task13.entity.Certificate;
 import by.academy.it.task13.entity.CertificateDecoration;
@@ -27,15 +26,9 @@ import by.academy.it.task13.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.ApplicationContext;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.telegram.telegrambots.meta.TelegramBotsApi;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import org.telegram.telegrambots.meta.generics.BotSession;
-import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -49,8 +42,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class InitiateUtil implements CommandLineRunner {
     private static final Logger LOGGER = LogManager.getLogger(InitiateUtil.class);
-
-    private final ApplicationContext context;
 
     private final CertificateTypeService certificateTypeService;
     private final CertificateService certificateService;
@@ -957,14 +948,6 @@ public class InitiateUtil implements CommandLineRunner {
                 .collect(Collectors.toList());
         attachmentService.saveAll(attachments);
 
-/*        TelegramBot telegramBot = context.getBean("telegramBot", TelegramBot.class);
-        try {
-            TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
-            LOGGER.info("TelegramBotApi created");
-            telegramBotsApi.registerBot(telegramBot);
-            LOGGER.info("TelegramBot registered");
-        } catch (TelegramApiException e) {
-            LOGGER.warn("Telegram bot isn't registered");
-        }*/
+        LOGGER.info("Initialization is finished");
     }
 }
