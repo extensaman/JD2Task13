@@ -2,6 +2,7 @@ package by.academy.it.task13.service;
 
 import by.academy.it.task13.dto.AttachmentDto;
 import by.academy.it.task13.entity.Attachment;
+import by.academy.it.task13.service.paging.ExtendedPage;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -19,4 +20,6 @@ public interface AttachmentService {
     List<AttachmentDto> findAll();
 
     void save(Attachment attachment);
+
+    ExtendedPage<AttachmentDto> getExtendedPage(int pageNumber, int size, String sortField, String sortDirection);
 }

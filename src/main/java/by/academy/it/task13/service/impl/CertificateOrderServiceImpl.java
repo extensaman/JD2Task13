@@ -28,8 +28,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CertificateOrderServiceImpl implements CertificateOrderService {
     private static final Logger LOGGER = LogManager.getLogger(CertificateOrderServiceImpl.class);
-    public static final String ASC = "asc";
-    public static final int ONE = 1;
 
     private final CertificateOrderRepository repository;
     private final Mapper<CertificateOrder, CertificateOrderDto> mapper;
@@ -68,6 +66,13 @@ public class CertificateOrderServiceImpl implements CertificateOrderService {
 
     @Override
     @Transactional
+    public CertificateOrder save(CertificateOrder certificateOrder){
+        LOGGER.info("save");
+        return repository.save(certificateOrder);
+    }
+
+    @Override
+    @Transactional
     public void delete(CertificateOrderDto certificateOrderDto) {
         LOGGER.info("delete");
         repository.delete(mapper.toEntity(certificateOrderDto));
@@ -78,8 +83,8 @@ public class CertificateOrderServiceImpl implements CertificateOrderService {
         LOGGER.info("getExtendedPage");
         Specification<CertificateOrder> specification = orderSpecification.getCertificateOrderSpecification(filter);
         Sort sort = Sort.by(sortField);
-        sort = ASC.equalsIgnoreCase(sortDirection) ? sort.ascending() : sort.descending();
-        PageRequest request = PageRequest.of(pageNumber - ONE, size, sort);
+        sort = Constant.ASC.equalsIgnoreCase(sortDirection) ? sort.ascending() : sort.descending();
+        PageRequest request = PageRequest.of(pageNumber - Constant.ONE, size, sort);
         Page<CertificateOrderDto> postPage = repository.findAll(specification, request).map(mapper::toDto);
         return new ExtendedPage<>(postPage, PaginationControl.of(postPage.getTotalPages(), pageNumber, size));
     }

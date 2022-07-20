@@ -7,9 +7,14 @@ import by.academy.it.task13.exception.AttachmentException;
 import by.academy.it.task13.mapper.impl.AttachmentMapper;
 import by.academy.it.task13.repo.AttachmentRepository;
 import by.academy.it.task13.service.AttachmentService;
+import by.academy.it.task13.service.paging.ExtendedPage;
+import by.academy.it.task13.service.paging.PaginationControl;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,29 +43,34 @@ public class AttachmentServiceImpl implements AttachmentService {
 
     @Override
     @Transactional
-    public void addAttachment(MultipartFile file) {
+    public void addAttachment(MultipartFile multipartFile) {
         LOGGER.info("addAttachment");
-        String fileName = new StringBuilder()
-                .append(LocalDateTime.now().toString().replaceAll(PUNCT_SYMBOL, DASH_SYMBOL))
-                .append('-')
-                .append(
-                        URLEncoder.encode(
-                                file.getOriginalFilename()
-                                        .toLowerCase()
-                                        .replaceAll(SPACE_SYMBOL, DASH_SYMBOL),
-                                StandardCharsets.UTF_8
-                        )
-                )
-                .toString();
-        try {
-            file.transferTo(new File(appSetting.getUploadPath() + '/' + fileName));
-        } catch (IOException | NullPointerException e) {
-            throw new AttachmentException(e);
-        }
-        Attachment attachment = Attachment.builder()
-                .fileName(fileName)
-                .build();
-        repository.save(attachment);
+        Optional.ofNullable(multipartFile)
+                .ifPresent(file -> {
+                    String fileName;
+                    try {
+                        fileName = new StringBuilder()
+                                .append(LocalDateTime.now().toString().replaceAll(PUNCT_SYMBOL, DASH_SYMBOL))
+                                .append('-')
+                                .append(
+                                        URLEncoder.encode(
+                                                file.getOriginalFilename()
+                                                        .toLowerCase()
+                                                        .replaceAll(SPACE_SYMBOL, DASH_SYMBOL),
+                                                StandardCharsets.UTF_8
+                                        )
+                                )
+                                .toString();
+
+                        file.transferTo(new File(appSetting.getUploadPath() + '/' + fileName));
+                    } catch (IOException | NullPointerException e) {
+                        throw new AttachmentException(e);
+                    }
+                    Attachment attachment = Attachment.builder()
+                            .fileName(fileName)
+                            .build();
+                    repository.save(attachment);
+                });
     }
 
     @Override
@@ -101,5 +111,15 @@ public class AttachmentServiceImpl implements AttachmentService {
             attachmentDtos.add(mapper.toDto(attachment));
         }
         return attachmentDtos;
+    }
+
+    @Override
+    public ExtendedPage<AttachmentDto> getExtendedPage(int pageNumber, int size, String sortField, String sortDirection) {
+        LOGGER.info("getExtendedPage");
+        Sort sort = Sort.by(sortField);
+        sort = Constant.ASC.equalsIgnoreCase(sortDirection) ? sort.ascending() : sort.descending();
+        PageRequest request = PageRequest.of(pageNumber - Constant.ONE, size, sort);
+        Page<AttachmentDto> postPage = repository.findAll(request).map(mapper::toDto);
+        return new ExtendedPage<>(postPage, PaginationControl.of(postPage.getTotalPages(), pageNumber, size));
     }
 }

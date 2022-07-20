@@ -21,6 +21,8 @@ public interface CertificateOrderService {
 
     CertificateOrder save(CertificateOrderDto certificateOrderDto);
 
+    CertificateOrder save(CertificateOrder certificateOrder);
+
     void delete(CertificateOrderDto certificateOrderDto);
 
     List<Long> findCertificateOrderIdsByCertificateId(Long id);

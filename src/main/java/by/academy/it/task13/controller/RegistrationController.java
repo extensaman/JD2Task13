@@ -43,7 +43,8 @@ public class RegistrationController {
         }
 
         if(userService.addUser(userDto)){
-            return "redirect:/login";
+            model.addAttribute(Constant.TITLE, Constant.MENU_USER_MAIN_MESSAGE);
+            return Constant.REGISTRATION_SUCCESS_PAGE;
         }
         model.addAttribute("existenceOfUser","true");
         return Constant.REGISTRATION_PAGE;

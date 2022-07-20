@@ -63,7 +63,17 @@ public class UserServiceImpl implements UserService {
     public boolean addUser(UserDto userDto) {
         LOGGER.info("save");
         User user = mapper.toEntity(userDto);
-        if (repository.findByUsername(user.getUsername()) != null) {
+        return repository.findByUsername(mapper.toEntity(userDto).getUsername())
+                .map(existingUser -> false)
+                .orElseGet(() -> {
+            user.setActivationCode(UUID.randomUUID().toString());
+            String message = String.format(MESSAGE_TEMPLATE, user.getUsername(), appSetting.getAppUrl(), user.getActivationCode());
+            mailSenderService.send(user.getEmail(),
+                    SUBJECT, message);
+            repository.save(user);
+            return true;
+        });
+/*        if (repository.findByUsername(user.getUsername()) != null) {
             return false;
         }
         user.setActivationCode(UUID.randomUUID().toString());
@@ -71,7 +81,7 @@ public class UserServiceImpl implements UserService {
         mailSenderService.send(user.getEmail(),
                 SUBJECT, message);
         repository.save(user);
-        return true;
+        return true;*/
     }
 
     @Override

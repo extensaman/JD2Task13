@@ -49,6 +49,7 @@ public class AdminConstant {
     public static final String TELEGRAM_ORDER_LOG_DTO_LIST = "telegramOrderLogDtoList";
     public static final String TELEGRAM_SUBSCRIBER_DTO_LIST = "telegramSubscriberDtoList";
     public static final String CERTIFICATE_ORDER_PAGE = "certificateOrderPage";
+    public static final String ATTACHMENT_PAGE = "attachmentPage";
     public static final String DELETE_MAPPING = "/delete";
     public static final String RESET_FILTER_MAPPING = "/resetfilter";
     public static final String SORT_FIELD = "sortField";
