@@ -20,7 +20,7 @@ public class SecurityConfiguration {
         return http
                 .authorizeRequests()
                 .antMatchers("/admin/**").access("hasRole('ADMIN')") // TODO /admin/**
-                .antMatchers("/certificateorder")
+                .antMatchers("/payment")
                 .access("hasAnyRole('ADMIN', 'USER')")
                 .antMatchers("/", "/**").access("permitAll()")
                 .and()

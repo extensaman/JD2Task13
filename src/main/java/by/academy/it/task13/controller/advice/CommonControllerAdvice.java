@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 @ControllerAdvice
 @RequiredArgsConstructor
-public class CurrentUserControllerAdvice {
-    private static final Logger LOGGER = LogManager.getLogger(CurrentUserControllerAdvice.class);
+public class CommonControllerAdvice {
+    private static final Logger LOGGER = LogManager.getLogger(CommonControllerAdvice.class);
     private final UserNameMapper mapper;
     private final TelegramBot bot;
 

@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -43,6 +44,7 @@ public class CertificateOrderDto implements Sendable{
     private String owner;
 
     @NotNull(message = "{validation.eventdate_not_null}")
+    @Future(message = "{validation.eventdate_not_past}")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate eventDate;
 

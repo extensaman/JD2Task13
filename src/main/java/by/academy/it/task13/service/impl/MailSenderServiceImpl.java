@@ -33,7 +33,7 @@ public class MailSenderServiceImpl implements MailSenderService {
             sender.send(mailMessage);
         } catch (Exception e) {
             LOGGER.warn(e);
-            throw new MailSenderException(e);
+            throw new MailSenderException("MailSenderServiceImpl::sender.send(mailMessage) " + e);
         }
     }
 

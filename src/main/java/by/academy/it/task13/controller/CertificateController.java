@@ -116,12 +116,12 @@ public class CertificateController {
             LOGGER.info("Error field: " + errors.getFieldError().getField());
             return Constant.CERTIFICATE_ADDITIONAL_DATA_PAGE;
         }
-        CertificateOrder order = certificateOrderService.save(certificateOrderDto);
+/*        CertificateOrder order = certificateOrderService.save(certificateOrderDto);
         CertificateOrderDto orderDto = mapper.toDto(order);
 
         bot.broadcastOrder(orderDto);
         mailSenderService.sendOrderInfoByMail(orderDto);
-        sessionStatus.setComplete();
-        return Constant.REDIRECT_PAYMENT_PAGE;
+        sessionStatus.setComplete();*/
+        return "redirect:/payment";
     }
 }
