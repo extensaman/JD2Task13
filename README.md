@@ -7,3 +7,5 @@ Final project [with Spring and Thymeleaf] (course "Java Enterprise", <a href="ht
 <p>In addition, the site provides information about the horses and trainers of the horse club.</p>
 <p>The user interface of the training subscription page is implemented using the <b>Angular framework</b>.</p>
 <p>List of APIs used:</p>
+
+<p>Author's <a href="https://www.linkedin.com/in/ayusikau/">Linkedin</a></p>
