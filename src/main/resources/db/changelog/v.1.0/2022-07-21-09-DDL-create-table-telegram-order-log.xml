@@ -1,0 +1,27 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+    <changeSet id="1" author="Yusikau Aliaksandr">
+        <comment>create table telegram_order_log</comment>
+        <sql>
+            create table telegram_order_log
+            (
+                id bigint auto_increment primary key,
+                order_type varchar(20),
+                order_id int,
+                old_status varchar(20),
+                created datetime,
+                new_status varchar(20),
+                updated datetime,
+                telegram_subscriber_id varchar(255),
+                constraint telegram_subscriber_fk
+                    foreign key (telegram_subscriber_id)
+                        references telegram_subscriber(chat_id)
+            );
+        </sql>
+    </changeSet>
+</databaseChangeLog>

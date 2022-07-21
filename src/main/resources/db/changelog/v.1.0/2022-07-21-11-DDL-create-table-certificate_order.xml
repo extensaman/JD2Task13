@@ -1,0 +1,35 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+    <changeSet id="1" author="Yusikau Aliaksandr">
+        <comment>create table certificate_order</comment>
+        <sql>
+            create table certificate_order
+            (
+                id bigint auto_increment primary key,
+                order_status int,
+                event_date date,
+                owner varchar(255),
+                details varchar(255),
+                created datetime,
+                updated datetime,
+                certificate_id bigint,
+                decoration_id bigint,
+                user_id bigint,
+                constraint certificate_fk
+                    foreign key (certificate_id)
+                        references certificate (id),
+                constraint decoration_fk
+                    foreign key (decoration_id)
+                        references certificate_decoration (id),
+                constraint user_fk
+                    foreign key (user_id)
+                        references user (id)
+            );
+        </sql>
+    </changeSet>
+</databaseChangeLog>

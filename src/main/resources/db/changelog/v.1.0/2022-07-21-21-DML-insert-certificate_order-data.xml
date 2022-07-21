@@ -1,0 +1,15 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+    <changeSet id="1" author="Yusikau Aliaksandr">
+        <comment>insert certificate_order data</comment>
+        <sql>
+            insert into certificate_order (order_status, event_date, owner, details, created, certificate_id, decoration_id, user_id) VALUES
+                (0, '2022-07-29', 'Машерова Ольга Александровна', '-', NOW(), 1, 1, 2);
+        </sql>
+    </changeSet>
+</databaseChangeLog>

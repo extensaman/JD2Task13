@@ -1,0 +1,24 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+    <changeSet id="1" author="Yusikau Aliaksandr">
+        <comment>insert photo_session data</comment>
+        <sql>
+            insert into photo_session (activity, name, description, duration, horse_count, price, photo_file) VALUES
+                (true, 'Минифотосессия', '8-10 фотографий (4-5 фотографий в лёгкой ретуши, 4-5 фотографий в цветокоррекции)',
+                    30, 1, 100, 'photosession_mini.jpg'),
+                (true, 'Индивидуальная', '20 фотографий (10 фотографий в лёгкой ретуши, 10 фотографий в цветокоррекции)',
+                    60, 1, 200, 'photosession_single.jpg'),
+                (true, 'Для семьи', '20-25 фотографий (10 фотографий в лёгкой ретуши, 15 фотографий в цветокоррекции)',
+                    60, 1, 220, 'photosession_family_01.png'),
+                (true, 'Для семьи+', '20-25 фотографий (10 фотографий в лёгкой ретуши, 15 фотографий в цветокоррекции)',
+                    60, 2, 260, 'photosession_family_02.png'),
+                (true, 'Самостоятельная', 'Прекрасная возможность провести собственную фотосессию в сопровождении ассистента',
+                    60, 1, 60, 'photosession_yourself.jpg');
+        </sql>
+    </changeSet>
+</databaseChangeLog>

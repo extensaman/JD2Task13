@@ -42,16 +42,16 @@ public class Subscription {
     @Column(length = 2000)
     private String description;
 
-    @Column
+    @Column(nullable = false)
     private Integer lessonCount;
 
-    @Column
+    @Column(nullable = false)
     private Integer validity;
 
-    @Column
+    @Column(nullable = false)
     private BigDecimal price;
 
-    @Column
+    @Column(nullable = false)
     private String photoFile;
 
     @Override

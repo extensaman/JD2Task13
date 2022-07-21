@@ -1,0 +1,16 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+    <changeSet id="1" author="Yusikau Aliaksandr">
+        <comment>insert user data</comment>
+        <sql>
+            insert into user (activity, username, password, email) VALUES
+                (true, 'admin', '$2a$10$XA//yMYiI6zK51Lpiq6Iwe1l9VwFY05ew05uE6V8aUjjlTmanOtIG', 'verus.wedding@gmail.com'),
+                (true, 'user', '$2a$10$p1POGvmyu91gUoyt2TciLuAPTWuLT9RMsbaG92mgwXW284N9sTdpC', 'yusikov@yandex.ru');
+        </sql>
+    </changeSet>
+</databaseChangeLog>

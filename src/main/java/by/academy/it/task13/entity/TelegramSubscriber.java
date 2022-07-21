@@ -31,7 +31,7 @@ public class TelegramSubscriber {
     @Column
     private boolean activity;
 
-    @Column
+    @Column(nullable = false)
     private String name;
 
     @Override

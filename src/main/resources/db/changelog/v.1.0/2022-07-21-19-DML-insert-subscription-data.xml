@@ -1,0 +1,22 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+    <changeSet id="1" author="Yusikau Aliaksandr">
+        <comment>insert subscription data</comment>
+        <sql>
+            insert into subscription (activity, name, description, type, validity, lesson_count, price, photo_file) VALUES
+                (true, 'Старт', '4 занятия по 60 минут', 1, 4, 4, 144, 'Subscription_01.jpg'),
+                (true, 'Любитель', '6 занятий по 60 минут', 1, 8, 6, 210, 'Subscription_02.jpg'),
+                (true, 'Миди', '8 занятий по 60 минут', 1, 12, 8, 280, 'Subscription_03.jpg'),
+                (true, 'Продвинутый', '10 занятий по 60 минут', 1, 12, 10, 340, 'Subscription_04.jpg'),
+                (true, 'Профи', '25 занятий по 60 минут', 1, 24, 25, 800, 'Subscription_05.jpg'),
+                (true, 'Макси', '50 занятий по 60 минут', 1, 48, 50, 1550, 'Subscription_06.jpg'),
+                (true, 'Персона', '5 занятий по 60 минут', 0, 8, 5, 240, 'Subscription_07.jpg'),
+                (true, 'Персона++', '10 занятий по 60 минут', 0, 16, 10, 460, 'Subscription_08.jpg');
+        </sql>
+    </changeSet>
+</databaseChangeLog>
