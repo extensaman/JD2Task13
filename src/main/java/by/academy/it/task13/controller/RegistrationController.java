@@ -52,6 +52,7 @@ public class RegistrationController {
 
     @GetMapping(Constant.ACTIVATE_MAPPING)
     public String activateUser(Model model, @PathVariable String code){
+        LOGGER.info("activateUser");
         Boolean isUserActivated = userService.activateUser(code);
         model.addAttribute(Constant.IS_USER_ACTIVATED, isUserActivated);
 

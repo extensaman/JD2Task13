@@ -22,6 +22,7 @@ public class UserDto {
     @Email(message = "{validation.email}")
     @NotBlank(message = "{validation.email_not_blank}")
     private String email;
+    private boolean activity;
 
     @Override
     public boolean equals(Object o) {

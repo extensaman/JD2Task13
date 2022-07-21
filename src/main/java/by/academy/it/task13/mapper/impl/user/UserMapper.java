@@ -24,7 +24,7 @@ public class UserMapper implements Mapper<User, UserDto> {
                     .username(dto.getUsername())
                     .password(encoder.encode(dto.getPassword()))
                     .email(dto.getEmail())
-                    //.activity(dto.isActivity())
+                    .activity(dto.isActivity())
                     .build();
     }
 

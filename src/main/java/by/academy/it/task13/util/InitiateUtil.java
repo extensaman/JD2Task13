@@ -63,6 +63,7 @@ public class InitiateUtil implements CommandLineRunner {
 
         new File(appSetting.getUploadPath()).mkdirs();
 
+/*
         CertificateType certificateType01 = CertificateType.builder()
                 .activity(true)
                 .name("Для одного")
@@ -939,6 +940,7 @@ public class InitiateUtil implements CommandLineRunner {
                 subscription07,
                 subscription08
         ));
+*/
 
         List<Attachment> attachments = imageFileList.getImageFileList().stream()
                 .map(fileName ->

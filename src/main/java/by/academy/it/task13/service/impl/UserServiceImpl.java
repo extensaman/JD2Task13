@@ -36,11 +36,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<UserDto> findUserDtoByUsername(String username) {
+        LOGGER.info("findUserDtoByUsername");
         return repository.findByUsername(username).map(mapper::toDto);
     }
 
     @Override
     public List<UserDto> findAll() {
+        LOGGER.info("findAll");
         List<UserDto> userDtos = new ArrayList<>();
         for (User user : repository.findAll()) {
             userDtos.add(mapper.toDto(user));
@@ -61,18 +63,18 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public boolean addUser(UserDto userDto) {
-        LOGGER.info("save");
+        LOGGER.info("addUser");
         User user = mapper.toEntity(userDto);
         return repository.findByUsername(mapper.toEntity(userDto).getUsername())
                 .map(existingUser -> false)
                 .orElseGet(() -> {
-            user.setActivationCode(UUID.randomUUID().toString());
-            String message = String.format(MESSAGE_TEMPLATE, user.getUsername(), appSetting.getAppUrl(), user.getActivationCode());
-            mailSenderService.send(user.getEmail(),
-                    SUBJECT, message);
-            repository.save(user);
-            return true;
-        });
+                    user.setActivationCode(UUID.randomUUID().toString());
+                    String message = String.format(MESSAGE_TEMPLATE, user.getUsername(), appSetting.getAppUrl(), user.getActivationCode());
+                    mailSenderService.send(user.getEmail(),
+                            SUBJECT, message);
+                    repository.save(user);
+                    return true;
+                });
 /*        if (repository.findByUsername(user.getUsername()) != null) {
             return false;
         }
@@ -87,6 +89,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public boolean activateUser(String code) {
+        LOGGER.info("activateUser");
         User user = repository.findByActivationCode(code);
         if (user == null) {
             return false;
@@ -113,6 +116,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> findUserByUsername(String username) {
+        LOGGER.info("findUserByUsername");
         return repository.findByUsername(username);
     }
 }
