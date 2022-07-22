@@ -4,7 +4,7 @@ Final project [with Spring and Thymeleaf] (course "Java Enterprise", <a href="ht
 
 <p>The application provides an opportunity to order horse club services online: subscriptions for training, photo shoots, gift certificates, etc.</p>
 <p>Implemented <b>registration on the site via e-mail</b>, informing the site owner via <b>telegram bot</b> about incoming orders with the ability to change the status of the order via the bot.</p>
-<p>In addition, the site provides information about the horses and trainers of the horse club.</p>
+<p>In addition, the site provides information about the horses and trainers of the horse club as well as the ability for the site administrator to upload photos to the site.</p>
 <p>The user interface of the training subscription page is implemented using the <b>Angular framework</b>.</p>
 <p>List of APIs used:</p>
 
