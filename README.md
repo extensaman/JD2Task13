@@ -10,7 +10,15 @@ Final project [with Spring and Thymeleaf] (course "Java Enterprise", <a href="ht
 <ul>
   <li>Spring Boot 2.7.0</li>
   <li>Spring MVC</li>
+  <li>Spring Data JPA</li>
+  <li>Spring Validation</li>
   <li>Spring Security</li>
+  <li>Spring Mail</li>
+  <li>Telegram bot API</li>
+  <li>Liquibase</li>
+  <li>Log4j</li>
+  <li>Lombok</li>
+  
 </ul>
 <p>List of APIs used:</p>
 
