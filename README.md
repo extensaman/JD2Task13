@@ -5,6 +5,7 @@ Final project [with Spring and Thymeleaf] (course "Java Enterprise", <a href="ht
 <p>The application provides an opportunity to order horse club services online: subscriptions for training, photo shoots, gift certificates, etc.</p>
 <p>Implemented <b>registration on the site via e-mail</b>, informing the site owner via <b>telegram bot</b> about incoming orders with the ability to change the status of the order via the bot.</p>
 <p>In addition, the site provides information about the horses and trainers of the horse club as well as the ability for the site administrator to <b>upload photos to the site.</b></p>
+<p>The interface is internationalized and supports the choice of languages: Russian and English.</p>
 <p>The user interface of the training subscription page is implemented using the <b>Angular framework</b>.</p>
 <p>The application is implemented using next technologies</p>
 <ul>
@@ -26,8 +27,11 @@ Final project [with Spring and Thymeleaf] (course "Java Enterprise", <a href="ht
 <img src="https://user-images.githubusercontent.com/49030354/180658631-1795dd5f-e756-4f66-91e1-fbea550a76aa.png" alt="Image">
 <img src="https://user-images.githubusercontent.com/49030354/180658695-e060de3b-d85a-4137-abb9-559a548df805.png" alt="Image">
 <img src="https://user-images.githubusercontent.com/49030354/180658914-67794ebd-09f3-4a26-b809-847906ce0703.png" alt="Image">
-<img src="https://user-images.githubusercontent.com/49030354/180658969-896dac9f-d0ff-452f-a59d-46e87a450abb.png" alt="Image">
+<img src="https://user-images.githubusercontent.com/49030354/180659261-b9202e9a-a525-4f44-8efa-f927dd516927.png" alt="Image">
+
 <hr/>
 <h3>Usage</h3>
-
+<p>Install MySQL, Java 11, change settings in <b>application.properties</b> file.</p>
+<img src="https://user-images.githubusercontent.com/49030354/180660090-1f742b33-53a0-4d66-84eb-868d723ce983.jpg" alt="Image">
+<hr/>
 <p>Author's <a href="https://www.linkedin.com/in/ayusikau/">Linkedin</a></p>
