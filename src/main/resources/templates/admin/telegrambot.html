@@ -7,7 +7,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-5 mt-4">
-            <p>Telegram bot</p>
+            <strong>Bot subscribers</strong>
             <div th:if="${telegramSubscriberDtoList != null}">
                 <table class="table table-hover">
                     <thead>
@@ -189,7 +189,7 @@
             <span th:if="${telegramSubscriberDtoList == null}" class="text-danger" th:text="#{menu_admin.common.no_data}"></span>
         </div>
         <div class="col-7 mt-4">
-            <p>Telegram bot</p>
+            <p>Bot log</p>
             <div th:if="${telegramOrderLogDtoList != null}">
                 <table class="table table-success table-striped table-hover">
                     <thead>
