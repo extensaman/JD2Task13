@@ -31,7 +31,7 @@ Final project [with Spring and Thymeleaf] (course "Java Enterprise", <a href="ht
 
 <hr/>
 <h3>Usage</h3>
-<p>Install MySQL, Java 11, change settings in <b>application.properties</b> file.</p>
+<p>Install MySQL, Java 11, use "feature" branch, change settings in <b>application.properties</b> file.</p>
 <img src="https://user-images.githubusercontent.com/49030354/180660090-1f742b33-53a0-4d66-84eb-868d723ce983.jpg" alt="Image">
 <hr/>
 <p>Author's <a href="https://www.linkedin.com/in/ayusikau/">Linkedin</a></p>
