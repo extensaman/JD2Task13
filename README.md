@@ -18,8 +18,16 @@ Final project [with Spring and Thymeleaf] (course "Java Enterprise", <a href="ht
   <li>Liquibase</li>
   <li>Log4j</li>
   <li>Lombok</li>
-  
+  <li>Thymeleaf</li>
+  <li>Angular</li>
 </ul>
-<p>List of APIs used:</p>
+<hr/>
+<h3>Example</h3>
+<img src="https://user-images.githubusercontent.com/49030354/180658631-1795dd5f-e756-4f66-91e1-fbea550a76aa.png" alt="Image">
+<img src="https://user-images.githubusercontent.com/49030354/180658695-e060de3b-d85a-4137-abb9-559a548df805.png" alt="Image">
+<img src="https://user-images.githubusercontent.com/49030354/180658914-67794ebd-09f3-4a26-b809-847906ce0703.png" alt="Image">
+<img src="https://user-images.githubusercontent.com/49030354/180658969-896dac9f-d0ff-452f-a59d-46e87a450abb.png" alt="Image">
+<hr/>
+<h3>Usage</h3>
 
 <p>Author's <a href="https://www.linkedin.com/in/ayusikau/">Linkedin</a></p>
