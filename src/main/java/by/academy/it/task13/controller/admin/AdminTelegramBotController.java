@@ -34,14 +34,14 @@ public class AdminTelegramBotController {
         return AdminConstant.ADMIN_TELEGRAM_BOT_PAGE;
     }
 
-    @PostMapping("/subscriber")
+    @PostMapping(AdminConstant.SUBSCRIBER_MAPPING)
     public String saveSubscriber(TelegramSubscriberDto telegramSubscriberDto) {
         LOGGER.info("saveSubscriber");
         subscriberService.save(telegramSubscriberDto);
         return AdminConstant.REDIRECT_ADMIN_TELEGRAMBOT;
     }
 
-    @PostMapping("/subscriber/delete")
+    @PostMapping(AdminConstant.SUBSCRIBER_DELETE_MAPPING)
     public String deleteSubscriber(TelegramSubscriberDto telegramSubscriberDto) {
         LOGGER.info("deleteSubscriber");
         subscriberService.delete(telegramSubscriberDto);

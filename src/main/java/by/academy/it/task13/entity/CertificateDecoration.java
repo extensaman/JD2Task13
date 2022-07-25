@@ -33,7 +33,7 @@ public class CertificateDecoration {
     @Column(nullable = false)
     private String name;
 
-    @Column (length = 2000)
+    @Column(length = 2000)
     private String description;
 
     @Column

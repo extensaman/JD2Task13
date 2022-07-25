@@ -12,9 +12,9 @@ import lombok.Setter;
 public class PageDisplayItem {
     public static final PageDisplayItem DOTS_DISPLAY_ITEM =
             PageDisplayItem.builder()
-            .active(false)
-            .type(PageDisplayItemType.DOTS)
-            .build();
+                    .active(false)
+                    .type(PageDisplayItemType.DOTS)
+                    .build();
 
     private PageDisplayItemType type;
     private int index;

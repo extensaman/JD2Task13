@@ -1,9 +1,7 @@
 package by.academy.it.task13.service.impl;
 
 import by.academy.it.task13.dto.TelegramOrderLogDto;
-import by.academy.it.task13.dto.TelegramSubscriberDto;
 import by.academy.it.task13.entity.TelegramOrderLog;
-import by.academy.it.task13.entity.TelegramSubscriber;
 import by.academy.it.task13.mapper.Mapper;
 import by.academy.it.task13.repo.TelegramOrderLogRepository;
 import by.academy.it.task13.service.TelegramOrderLogService;

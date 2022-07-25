@@ -1,27 +1,23 @@
 package by.academy.it.task13.controller;
 
+import by.academy.it.task13.controller.admin.AdminConstant;
 import by.academy.it.task13.dto.CertificateOrderDto;
-import by.academy.it.task13.entity.CertificateOrder;
-import by.academy.it.task13.mapper.Mapper;
 import by.academy.it.task13.service.CertificateDecorationService;
-import by.academy.it.task13.service.CertificateOrderService;
 import by.academy.it.task13.service.CertificateService;
 import by.academy.it.task13.service.CertificateTypeService;
-import by.academy.it.task13.service.MailSenderService;
-import by.academy.it.task13.util.TelegramBot;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
 
 import javax.validation.Valid;
 import java.util.Optional;
@@ -36,10 +32,6 @@ public class CertificateController {
     private final CertificateService certificateService;
     private final CertificateTypeService certificateTypeService;
     private final CertificateDecorationService certificateDecorationService;
-    private final CertificateOrderService certificateOrderService;
-    private final Mapper<CertificateOrder, CertificateOrderDto> mapper;
-    private final TelegramBot bot;
-    private final MailSenderService mailSenderService;
 
     @ModelAttribute(name = Constant.CERTIFICATE_ORDER)
     public CertificateOrderDto certificateOrderDto() {
@@ -87,7 +79,7 @@ public class CertificateController {
     @PostMapping(Constant.DECORATION_MAPPING)
     public String postDecoration(@ModelAttribute CertificateOrderDto certificateOrderDto) {
         LOGGER.info("postDecoration");
-        if(certificateOrderDto.getCertificateDecoration().isDeliveryNecessity()){
+        if (certificateOrderDto.getCertificateDecoration().isDeliveryNecessity()) {
             certificateOrderDto.setDetails(null);
         }
         return Constant.REDIRECT_CERTIFICATE_ADDITIONAL;
@@ -107,21 +99,14 @@ public class CertificateController {
     @PostMapping(Constant.ADDITIONAL_MAPPING)
     public String postAdditionalData(Model model,
                                      @Valid CertificateOrderDto certificateOrderDto,
-                                     Errors errors,
-                                     SessionStatus sessionStatus) {
+                                     Errors errors) {
         LOGGER.info("postAdditionalData");
         model.addAttribute(Constant.TITLE,
                 Constant.TITLE_ORDER_MESSAGE);
         if (errors.hasErrors()) {
-            LOGGER.info("Error field: " + errors.getFieldError().getField());
+            LOGGER.info("Error field: " + Optional.ofNullable(errors.getFieldError()).map(FieldError::getField));
             return Constant.CERTIFICATE_ADDITIONAL_DATA_PAGE;
         }
-/*        CertificateOrder order = certificateOrderService.save(certificateOrderDto);
-        CertificateOrderDto orderDto = mapper.toDto(order);
-
-        bot.broadcastOrder(orderDto);
-        mailSenderService.sendOrderInfoByMail(orderDto);
-        sessionStatus.setComplete();*/
-        return "redirect:/payment";
+        return AdminConstant.REDIRECT_PAYMENT;
     }
 }

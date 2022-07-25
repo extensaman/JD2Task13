@@ -75,15 +75,6 @@ public class UserServiceImpl implements UserService {
                     repository.save(user);
                     return true;
                 });
-/*        if (repository.findByUsername(user.getUsername()) != null) {
-            return false;
-        }
-        user.setActivationCode(UUID.randomUUID().toString());
-        String message = String.format(MESSAGE_TEMPLATE, user.getUsername(), appSetting.getAppUrl(), user.getActivationCode());
-        mailSenderService.send(user.getEmail(),
-                SUBJECT, message);
-        repository.save(user);
-        return true;*/
     }
 
     @Override

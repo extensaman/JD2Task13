@@ -27,7 +27,7 @@ public class CertificateServiceImpl implements CertificateService {
     private final Mapper<Certificate, CertificateNameDto> mapperName;
 
     @Override
-    public Optional<Certificate> findById(String id){
+    public Optional<Certificate> findById(String id) {
         LOGGER.info("findById");
         Optional<Certificate> certificate;
         try {
@@ -50,7 +50,7 @@ public class CertificateServiceImpl implements CertificateService {
     }
 
     @Override
-    public Optional<CertificateNameDto> findCertificateNameDtoById(String id){
+    public Optional<CertificateNameDto> findCertificateNameDtoById(String id) {
         LOGGER.info("findCertificateNameDtoById");
         return findById(id).map(mapperName::toDto);
     }

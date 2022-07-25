@@ -15,11 +15,11 @@ public class AdminSettingController {
     private static final Logger LOGGER = LogManager.getLogger(AdminSettingController.class);
 
     @GetMapping
-    public String getSettingPage(Model model){
+    public String getSettingPage(Model model) {
         LOGGER.info("getSettingPage");
         model.addAttribute(AdminConstant.TITLE,
                 AdminConstant.MENU_ADMIN_SETTING_MESSAGE);
-        return "admin/setting";
+        return AdminConstant.ADMIN_SETTING_PAGE;
     }
 
 }

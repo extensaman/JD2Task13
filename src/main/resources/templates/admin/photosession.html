@@ -171,9 +171,9 @@
                             <td class="text-center align-middle" th:text="${photosession.price}"></td>
                             <td class="text-center align-middle">
                                 <i th:if="${photosession.activity}"
-                                       class="bi bi-check-circle-fill text-success font_size_24"></i>
+                                   class="bi bi-check-circle-fill text-success font_size_24"></i>
                                 <i th:unless="${photosession.activity}"
-                                       class="bi bi-x-circle-fill text-danger font_size_24"></i>
+                                   class="bi bi-x-circle-fill text-danger font_size_24"></i>
                             </td>
 
                             <!-- Form for editing item -->
@@ -184,7 +184,7 @@
                                             class="btn btn-outline-primary"
                                             data-bs-toggle="modal"
                                             th:attr="data-bs-target='#editphotosession'+${photosession.id}">
-                                            <i class="bi bi-pencil-square font_size_20"></i>
+                                        <i class="bi bi-pencil-square font_size_20"></i>
                                     </button>
                                 </td>
 
@@ -194,7 +194,8 @@
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel24" th:text="#{common.button.editing}"></h5>
+                                                <h5 class="modal-title" id="exampleModalLabel24"
+                                                    th:text="#{common.button.editing}"></h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                             </div>
@@ -219,7 +220,7 @@
                                                 <!-- Photosession description -->
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text text-black-50"
-                                                            th:text="#{menu_admin.common.table.description}">
+                                                          th:text="#{menu_admin.common.table.description}">
                                                     </span>
                                                     <textarea class="form-control"
                                                               aria-label="With textarea"
@@ -318,7 +319,6 @@
                             </form>
 
 
-
                             <!-- Form for deleting item -->
                             <form th:action="@{/admin/photosession/delete}" th:method="post"
                                   th:object="${photosession}">
@@ -337,7 +337,8 @@
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel25" th:text="#{common.button.deleting}"></h5>
+                                                <h5 class="modal-title" id="exampleModalLabel25"
+                                                    th:text="#{common.button.deleting}"></h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                             </div>
@@ -475,7 +476,7 @@
             <span th:unless="${condition}" class="text-danger" th:text="#{menu_admin.common.no_data}"></span>
         </div>
     </div>
-    </div>
-    <footer th:insert="common/admin_footer :: content"></footer>
-    </body>
-    </html>
+</div>
+<footer th:insert="common/admin_footer :: content"></footer>
+</body>
+</html>

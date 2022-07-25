@@ -1,6 +1,5 @@
 package by.academy.it.task13.entity;
 
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,7 +24,7 @@ import java.util.List;
 @Data
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
+@NoArgsConstructor
 public class User implements UserDetails {
     public static final String ADMIN_USERNAME = "admin";
 
@@ -34,13 +33,13 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(nullable = false)
-    private final String username;
+    private String username;
 
     @Column(nullable = false)
-    private final String password;
+    private String password;
 
     @Column(nullable = false)
-    private final String email;
+    private String email;
 
     @Column
     private String activationCode;

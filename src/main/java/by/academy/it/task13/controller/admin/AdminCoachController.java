@@ -38,13 +38,13 @@ public class AdminCoachController {
     public String saveCoach(CoachDto coachDto) {
         LOGGER.info("saveCoach");
         coachService.save(coachDto);
-        return "redirect:/admin/coach";
+        return AdminConstant.REDIRECT_ADMIN_COACH;
     }
 
     @PostMapping(AdminConstant.DELETE_MAPPING)
     public String deleteCoach(CoachDto coachDto) {
         LOGGER.info("deleteCoach");
         coachService.delete(coachDto);
-        return "redirect:/admin/coach";
+        return AdminConstant.REDIRECT_ADMIN_COACH;
     }
 }

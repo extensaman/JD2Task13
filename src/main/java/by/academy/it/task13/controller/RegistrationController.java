@@ -11,7 +11,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 
@@ -37,26 +36,26 @@ public class RegistrationController {
         LOGGER.info("processRegistration");
         model.addAttribute(Constant.TITLE,
                 Constant.TITLE_REGISTRATION_MESSAGE);
-        if(errors.hasErrors()){
+        if (errors.hasErrors()) {
             LOGGER.info("processRegistration :: errors.hasErrors()");
             return Constant.REGISTRATION_PAGE;
         }
 
-        if(userService.addUser(userDto)){
+        if (userService.addUser(userDto)) {
             model.addAttribute(Constant.TITLE, Constant.MENU_USER_MAIN_MESSAGE);
             return Constant.REGISTRATION_SUCCESS_PAGE;
         }
-        model.addAttribute("existenceOfUser","true");
+        model.addAttribute("existenceOfUser", "true");
         return Constant.REGISTRATION_PAGE;
     }
 
     @GetMapping(Constant.ACTIVATE_MAPPING)
-    public String activateUser(Model model, @PathVariable String code){
+    public String activateUser(Model model, @PathVariable String code) {
         LOGGER.info("activateUser");
         Boolean isUserActivated = userService.activateUser(code);
         model.addAttribute(Constant.IS_USER_ACTIVATED, isUserActivated);
 
-        if(isUserActivated){
+        if (isUserActivated) {
             model.addAttribute(Constant.TITLE,
                     Constant.TITLE_LOGIN_MESSAGE);
             return Constant.LOGIN_PAGE;

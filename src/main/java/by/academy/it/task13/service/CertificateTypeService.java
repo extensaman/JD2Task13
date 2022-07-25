@@ -4,7 +4,6 @@ import by.academy.it.task13.dto.CertificateTypeDto;
 import by.academy.it.task13.entity.CertificateType;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface CertificateTypeService {
     List<CertificateTypeDto> findAll();

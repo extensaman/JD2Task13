@@ -9,7 +9,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -37,13 +36,13 @@ public class AdminHorseController {
     public String saveHorse(HorseDto horseDto) {
         LOGGER.info("saveHorse");
         horseService.save(horseDto);
-        return "redirect:/admin/horse";
+        return AdminConstant.REDIRECT_ADMIN_HORSE;
     }
 
     @PostMapping(AdminConstant.DELETE_MAPPING)
     public String deleteHorse(HorseDto horseDto) {
         LOGGER.info("deleteHorse");
         horseService.delete(horseDto);
-        return "redirect:/admin/horse";
+        return AdminConstant.REDIRECT_ADMIN_HORSE;
     }
 }

@@ -68,4 +68,14 @@ public class AdminConstant {
     public static final String REDIRECT_ADMIN_PHOTOSESSION = "redirect:/admin/photosession";
     public static final String ADMIN_TELEGRAM_BOT_PAGE = "admin/telegrambot";
     public static final String REDIRECT_ADMIN_TELEGRAMBOT = "redirect:/admin/telegrambot";
+    public static final String REDIRECT_ADMIN_COACH = "redirect:/admin/coach";
+    public static final String ADMIN_FILE_UPLOAD = "admin/file_upload";
+    public static final String REDIRECT_ADMIN_UPLOAD = "redirect:/admin/upload";
+    public static final String EDIT_MAPPING = "/edit";
+    public static final String ADMIN_UPLOAD_MAPPING = "admin/upload";
+    public static final String REDIRECT_ADMIN_HORSE = "redirect:/admin/horse";
+    public static final String ADMIN_SETTING_PAGE = "admin/setting";
+    public static final String SUBSCRIBER_MAPPING = "/subscriber";
+    public static final String SUBSCRIBER_DELETE_MAPPING = "/subscriber/delete";
+    public static final String REDIRECT_PAYMENT = "redirect:/payment";
 }

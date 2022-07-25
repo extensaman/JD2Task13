@@ -2,7 +2,6 @@ package by.academy.it.task13.controller.admin;
 
 import by.academy.it.task13.dto.AttachmentDto;
 import by.academy.it.task13.service.AttachmentService;
-import by.academy.it.task13.service.specification.filter.CertificateOrderFilter;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
-@RequestMapping("admin/upload")
+@RequestMapping(AdminConstant.ADMIN_UPLOAD_MAPPING)
 @RequiredArgsConstructor
 public class AdminFileUploadController {
     private static final Logger LOGGER = LogManager.getLogger(AdminFileUploadController.class);
@@ -32,9 +31,7 @@ public class AdminFileUploadController {
         LOGGER.info("getUploadForm");
         model.addAttribute(AdminConstant.TITLE,
                 AdminConstant.MENU_ADMIN_UPLOAD_MESSAGE);
-/*
-        model.addAttribute(AdminConstant.ATTACHMENT_LIST, attachmentService.findAll());
-*/
+
         model.addAttribute(AdminConstant.SORT_FIELD, sortField);
         model.addAttribute(AdminConstant.SORT_DIRECTION, sortDirection);
 
@@ -42,7 +39,7 @@ public class AdminFileUploadController {
         model.addAttribute(AdminConstant.REVERSE_SORT_DIRECTION, reverseSortDirection);
         model.addAttribute(AdminConstant.ATTACHMENT_PAGE,
                 attachmentService.getExtendedPage(pageNumber, size, sortField, sortDirection));
-        return "admin/file_upload";
+        return AdminConstant.ADMIN_FILE_UPLOAD;
     }
 
     @PostMapping
@@ -52,20 +49,20 @@ public class AdminFileUploadController {
             LOGGER.info(files.length + " files received");
             attachmentService.addArrayOfAttachment(files);
         }
-        return "redirect:/admin/upload";
+        return AdminConstant.REDIRECT_ADMIN_UPLOAD;
     }
 
-    @PostMapping("/edit")
-    public String editAttachmentName(@ModelAttribute AttachmentDto attachmentDto){
+    @PostMapping(AdminConstant.EDIT_MAPPING)
+    public String editAttachmentName(@ModelAttribute AttachmentDto attachmentDto) {
         // TODO Need add functionality for editing file name
         LOGGER.info("editAttachmentName => attachmentDto=" + attachmentDto);
-        return "redirect:/admin/upload";
+        return AdminConstant.REDIRECT_ADMIN_UPLOAD;
     }
 
-    @PostMapping("/delete")
-    public String deleteAttachmentName(@ModelAttribute AttachmentDto attachmentDto){
+    @PostMapping(AdminConstant.DELETE_MAPPING)
+    public String deleteAttachmentName(@ModelAttribute AttachmentDto attachmentDto) {
         // TODO Need add functionality for deleting file
         LOGGER.info("deleteAttachmentName => attachmentDto=" + attachmentDto);
-        return "redirect:/admin/upload";
+        return AdminConstant.REDIRECT_ADMIN_UPLOAD;
     }
 }

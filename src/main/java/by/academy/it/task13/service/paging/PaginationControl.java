@@ -23,17 +23,17 @@ public class PaginationControl {
 
     private final List<PageDisplayItem> items = new ArrayList<>();
 
-    public void addPageDisplayItem(int from, int to, int pageNumber){
-        IntStream.range(from,to)
+    public void addPageDisplayItem(int from, int to, int pageNumber) {
+        IntStream.range(from, to)
                 .forEach(value ->
                         items.add(PageDisplayItem.builder()
-                                    .active(pageNumber != value)
-                                    .index(value)
-                                    .type(PageDisplayItemType.PAGE)
-                                    .build()));
+                                .active(pageNumber != value)
+                                .index(value)
+                                .type(PageDisplayItemType.PAGE)
+                                .build()));
     }
 
-    public void last(int pageCount){
+    public void last(int pageCount) {
         items.add(PageDisplayItem.DOTS_DISPLAY_ITEM);
         items.add(PageDisplayItem.builder()
                 .active(true)
@@ -42,7 +42,7 @@ public class PaginationControl {
                 .build());
     }
 
-    public void first(int pageNumber){
+    public void first(int pageNumber) {
         items.add(PageDisplayItem.builder()
                 .active(pageNumber != ONE)
                 .index(ONE)
@@ -51,19 +51,19 @@ public class PaginationControl {
         items.add(PageDisplayItem.DOTS_DISPLAY_ITEM);
     }
 
-    public static PaginationControl of(int totalPages, int pageNumber, int pageSize){
+    public static PaginationControl of(int totalPages, int pageNumber, int pageSize) {
         PaginationControl control = new PaginationControl();
         control.setPageNumber(pageNumber);
         control.setPageSize(pageSize);
         control.setNextEnable(pageNumber != totalPages);
         control.setPrevEnable(pageNumber != ONE);
 
-        if(totalPages < PAGINATION_STEP * TWO + SIX){
+        if (totalPages < PAGINATION_STEP * TWO + SIX) {
             control.addPageDisplayItem(ONE, totalPages + ONE, pageNumber);
-        } else if(pageNumber < PAGINATION_STEP * TWO + ONE){
+        } else if (pageNumber < PAGINATION_STEP * TWO + ONE) {
             control.addPageDisplayItem(ONE, PAGINATION_STEP * TWO + FOUR, pageNumber);
             control.last(totalPages);
-        } else if(pageNumber > totalPages - PAGINATION_STEP * TWO){
+        } else if (pageNumber > totalPages - PAGINATION_STEP * TWO) {
             control.first(pageNumber);
             control.addPageDisplayItem(totalPages - PAGINATION_STEP * TWO - TWO, totalPages + ONE, pageNumber);
         } else {

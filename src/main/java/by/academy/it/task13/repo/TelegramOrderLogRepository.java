@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TelegramOrderLogRepository
-                    extends CrudRepository<TelegramOrderLog, Long> {
+        extends CrudRepository<TelegramOrderLog, Long> {
 }

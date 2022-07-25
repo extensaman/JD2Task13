@@ -43,21 +43,25 @@
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" th:href="@{/admin/certificate}" th:text="#{menu_admin.certificate}"></a></li>
+                                <li><a class="dropdown-item" th:href="@{/admin/certificate}"
+                                       th:text="#{menu_admin.certificate}"></a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" th:href="@{/admin/certificatetype}" th:text="#{menu_admin.certificate_type}"></a></li>
+                                <li><a class="dropdown-item" th:href="@{/admin/certificatetype}"
+                                       th:text="#{menu_admin.certificate_type}"></a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" th:href="@{/admin/certificatedecoration}" th:text="#{menu_admin.certificate_decoration}"></a></li>
+                                <li><a class="dropdown-item" th:href="@{/admin/certificatedecoration}"
+                                       th:text="#{menu_admin.certificate_decoration}"></a></li>
                             </ul>
                         </li>
                         <li class="nav-item" th:with="condition=${title eq 'menu_admin.photosession'}">
                             <a th:if="${condition}" class="nav-link active underline" aria-current="page" href="#"
                                th:text="#{menu_admin.photosession}"></a>
-                            <a th:unless="${condition}" class="nav-link" aria-current="page" th:href="@{/admin/photosession}"
+                            <a th:unless="${condition}" class="nav-link" aria-current="page"
+                               th:href="@{/admin/photosession}"
                                th:text="#{menu_admin.photosession}"></a>
                         </li>
                         <li class="nav-item" th:with="condition=${title eq 'menu_admin.horses'}">

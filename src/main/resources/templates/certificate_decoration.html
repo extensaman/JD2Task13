@@ -43,7 +43,7 @@
             </td>
             <td class="text-center align-middle">
                 <a th:if="${certificateOrderDto.certificateDecoration}"
-                        th:href="@{/certificate/additional}"
+                   th:href="@{/certificate/additional}"
                    class="text-secondary"
                    th:text="#{common.button.additional_data}">
                 </a>
@@ -112,7 +112,7 @@
                     <th:block th:each="certDecor : ${activeCertificateDecorationList}">
                         <label class="card col-3 ms-auto me-auto mt-4" style="width: 18rem;">
                             <input th:if="${certificateOrderDto.certificateDecoration}"
-                                    type="radio" name="certificateDecoration"
+                                   type="radio" name="certificateDecoration"
                                    th:checked="${certDecor.id == certificateOrderDto.certificateDecoration.id}"
                                    th:value="${certDecor.id}">
                             <input th:unless="${certificateOrderDto.certificateDecoration}"
@@ -152,7 +152,7 @@
 
     </form>
     <script>
-        document.getElementById("optionsRadios").setAttribute("checked","checked")
+        document.getElementById("optionsRadios").setAttribute("checked", "checked")
     </script>
 </div>
 <footer th:insert="common/user_footer :: content"></footer>

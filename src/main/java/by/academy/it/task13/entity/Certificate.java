@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,7 +35,6 @@ public class Certificate {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "certificate_type_id")
-    //@OnDelete(action = OnDeleteAction.CASCADE)
     private CertificateType certificateType;
 
     @Column(nullable = false)

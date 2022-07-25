@@ -51,7 +51,8 @@
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel47" th:text="#{common.button.editing}"></h5>
+                                                <h5 class="modal-title" id="exampleModalLabel47"
+                                                    th:text="#{common.button.editing}"></h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                             </div>
@@ -125,7 +126,8 @@
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel48" th:text="#{common.button.deleting}"></h5>
+                                                <h5 class="modal-title" id="exampleModalLabel48"
+                                                    th:text="#{common.button.deleting}"></h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                             </div>
@@ -186,10 +188,11 @@
                     </tbody>
                 </table>
             </div>
-            <span th:if="${telegramSubscriberDtoList == null}" class="text-danger" th:text="#{menu_admin.common.no_data}"></span>
+            <span th:if="${telegramSubscriberDtoList == null}" class="text-danger"
+                  th:text="#{menu_admin.common.no_data}"></span>
         </div>
         <div class="col-7 mt-4">
-            <p>Bot log</p>
+            <strong>Bot log</strong>
             <div th:if="${telegramOrderLogDtoList != null}">
                 <table class="table table-success table-striped table-hover">
                     <thead>
@@ -232,7 +235,8 @@
                     </tbody>
                 </table>
             </div>
-            <span th:if="${telegramOrderLogDtoList == null}" class="text-danger" th:text="#{menu_admin.common.no_data}"></span>
+            <span th:if="${telegramOrderLogDtoList == null}" class="text-danger"
+                  th:text="#{menu_admin.common.no_data}"></span>
         </div>
     </div>
 </div>

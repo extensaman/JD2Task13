@@ -3,7 +3,7 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
       <div class="wrapper_h img__object__fit mx-2">
-        <a href="http://localhost:8082"><img src="../../assets/img/logo_small.png" alt=""></a>
+        <a href="{{backendUrl}}"><img src="../../assets/img/logo_small.png" alt=""></a>
       </div>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
               data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -43,13 +43,13 @@
 
           <li class="nav-item">
             <a class="nav-link"
-               aria-current="page" href="http://localhost:8082/certificate">
+               aria-current="page" href="{{backendUrl + '/certificate'}}">
               Подарочные сертификаты
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" aria-current="page"
-               href="http://localhost:8082/photosession">
+               href="{{backendUrl + '/photosession'}}">
               Фотосессия
             </a>
           </li>
@@ -61,14 +61,14 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item"
-                     href="http://localhost:8082/horse">
+                     href="{{backendUrl + '/horse'}}">
                 Лошади
               </a></li>
               <li>
                 <hr class="dropdown-divider">
               </li>
               <li><a class="dropdown-item"
-                     href="http://localhost:8082/coach">
+                     href="{{backendUrl + '/coach'}}">
                 Тренеры
               </a></li>
             </ul>

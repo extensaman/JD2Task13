@@ -1,9 +1,6 @@
 package by.academy.it.task13.service;
 
 import by.academy.it.task13.dto.SubscriptionDto;
-import by.academy.it.task13.dto.certificatedecoration.CertificateDecorationDto;
-import by.academy.it.task13.dto.certificatedecoration.CertificateDecorationNameDto;
-import by.academy.it.task13.entity.CertificateDecoration;
 import by.academy.it.task13.entity.Subscription;
 
 import java.util.List;

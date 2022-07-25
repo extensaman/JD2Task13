@@ -1,8 +1,8 @@
 package by.academy.it.task13.util;
 
 import by.academy.it.task13.AppSetting;
-import by.academy.it.task13.dto.TelegramOrderLogDto;
 import by.academy.it.task13.dto.Sendable;
+import by.academy.it.task13.dto.TelegramOrderLogDto;
 import by.academy.it.task13.dto.TelegramSubscriberDto;
 import by.academy.it.task13.entity.OrderStatus;
 import by.academy.it.task13.entity.OrderType;

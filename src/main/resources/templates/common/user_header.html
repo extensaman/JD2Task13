@@ -28,7 +28,8 @@
                                th:text="#{menu.riding}"></a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown99"
                                 th:with="cross=${T(by.academy.it.task13.controller.Constant).CROSS_ORIGIN}">
-                                <li><a class="dropdown-item" th:href="${cross + '/subscriptions'}" th:text="#{menu.subscription}"></a></li>
+                                <li><a class="dropdown-item" th:href="${cross + '/subscriptions'}"
+                                       th:text="#{menu.subscription}"></a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -85,8 +86,8 @@
                         </li>
                     </ul>
                     <a class="navbar-text" th:href="@{''(lang=en)}"
-                          th:text="#{lang.en}">
-                                </a>&nbsp;/&nbsp;
+                       th:text="#{lang.en}">
+                    </a>&nbsp;/&nbsp;
                     <a class="navbar-text me-2" th:href="@{''(lang=ru)}"
                        th:text="#{lang.ru}">
                     </a>

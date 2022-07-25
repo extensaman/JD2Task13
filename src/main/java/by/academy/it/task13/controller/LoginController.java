@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/login")
+@RequestMapping(Constant.LOGIN_MAPPING)
 public class LoginController {
     private static final Logger LOGGER = LogManager.getLogger(RegistrationController.class);
+
 
     @GetMapping
     public String getLoginPage(Model model) {

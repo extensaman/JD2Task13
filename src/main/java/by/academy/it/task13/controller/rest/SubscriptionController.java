@@ -20,9 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = Constant.SUBSCRIPTIONS_MAPPING,
-        produces = Constant.APPLICATION_JSON,
-        consumes = Constant.APPLICATION_JSON)
+@RequestMapping(Constant.SUBSCRIPTIONS_MAPPING)
 @CrossOrigin(origins = Constant.CROSS_ORIGIN)
 @RequiredArgsConstructor
 public class SubscriptionController {
@@ -30,20 +28,20 @@ public class SubscriptionController {
 
     private final SubscriptionService subscriptionService;
 
-    @GetMapping
+    @GetMapping(produces = Constant.APPLICATION_JSON)
     public List<SubscriptionDto> getAllSubscriptionDto() {
         LOGGER.info("getAllSubscriptionDto");
         return subscriptionService.findAll();
     }
 
-    @GetMapping(Constant.ID_MAPPING)
+    @GetMapping(path = Constant.ID_MAPPING, produces = Constant.APPLICATION_JSON)
     public ResponseEntity<SubscriptionDto> getSubscriptionDtoById(@PathVariable Long id) {
         LOGGER.info("getSubscriptionById");
         return subscriptionService.findById(id).map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping
+    @PostMapping(consumes = Constant.APPLICATION_JSON)
     @ResponseStatus(HttpStatus.CREATED)
     public void addSubscription(@RequestBody SubscriptionDto dto) {
         LOGGER.info("addSubscription");

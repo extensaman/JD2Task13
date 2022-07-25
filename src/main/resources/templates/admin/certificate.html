@@ -31,12 +31,12 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <th:block th:each="certificateOrderId, state : ${certificateOrderIdList}">
-                                <tr>
-                                    <td class="text-center align-middle" th:text="${state.index+1}"></td>
-                                    <td class="text-center align-middle" th:text="${certificateOrderId}"></td>
-                                </tr>
-                            </th:block>
+                        <th:block th:each="certificateOrderId, state : ${certificateOrderIdList}">
+                            <tr>
+                                <td class="text-center align-middle" th:text="${state.index+1}"></td>
+                                <td class="text-center align-middle" th:text="${certificateOrderId}"></td>
+                            </tr>
+                        </th:block>
                         </tbody>
                     </table>
                 </div>

@@ -55,4 +55,6 @@ public class Constant {
     public static final String MAIL_ERROR = "mailError";
     public static final String TRUE = "true";
     public static final String REGISTRATION_SUCCESS_PAGE = "registration_success";
+    public static final String LOGIN_MAPPING = "/login";
+    public static final String PAYMENT_MAPPING = "/payment";
 }

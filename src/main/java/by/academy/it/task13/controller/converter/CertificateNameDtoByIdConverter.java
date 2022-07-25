@@ -1,6 +1,5 @@
 package by.academy.it.task13.controller.converter;
 
-import by.academy.it.task13.dto.certificate.CertificateDto;
 import by.academy.it.task13.dto.certificate.CertificateNameDto;
 import by.academy.it.task13.service.CertificateService;
 import lombok.RequiredArgsConstructor;

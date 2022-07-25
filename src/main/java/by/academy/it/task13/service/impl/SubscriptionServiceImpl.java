@@ -33,7 +33,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     public List<SubscriptionDto> findAll() {
         LOGGER.info("findAll");
         List<SubscriptionDto> subscriptionDtos = new ArrayList<>();
-        for(Subscription subscription : repository.findAll()){
+        for (Subscription subscription : repository.findAll()) {
             subscriptionDtos.add(mapper.toDto(subscription));
         }
         return subscriptionDtos;

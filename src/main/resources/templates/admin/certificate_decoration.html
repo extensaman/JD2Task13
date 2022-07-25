@@ -210,9 +210,9 @@
                             <td class="text-center align-middle" th:text="${decoration.price}"></td>
                             <td class="text-center align-middle">
                                 <i th:if="${decoration.activity}"
-                                       class="bi bi-check-circle-fill text-success font_size_24"></i>
+                                   class="bi bi-check-circle-fill text-success font_size_24"></i>
                                 <i th:unless="${decoration.activity}"
-                                       class="bi bi-x-circle-fill text-danger font_size_24"></i>
+                                   class="bi bi-x-circle-fill text-danger font_size_24"></i>
                             </td>
 
                             <!-- Form for editing item -->
@@ -223,17 +223,19 @@
                                             class="btn btn-outline-primary"
                                             data-bs-toggle="modal"
                                             th:attr="data-bs-target='#editcertificatedecoration'+${decoration.id}">
-                                            <i class="bi bi-pencil-square font_size_20"></i>
+                                        <i class="bi bi-pencil-square font_size_20"></i>
                                     </button>
                                 </td>
 
                                 <!-- Modal for edit decoration -->
-                                <div class="modal fade" th:id="${'editcertificatedecoration'+decoration.id}" tabindex="-1"
+                                <div class="modal fade" th:id="${'editcertificatedecoration'+decoration.id}"
+                                     tabindex="-1"
                                      role="dialog" aria-labelledby="exampleModalLabel02" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel02" th:text="#{common.button.editing}"></h5>
+                                                <h5 class="modal-title" id="exampleModalLabel02"
+                                                    th:text="#{common.button.editing}"></h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                             </div>
@@ -258,7 +260,7 @@
                                                 <!-- CertificateDecoration description -->
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text text-black-50"
-                                                            th:text="#{menu_admin.common.table.description}">
+                                                          th:text="#{menu_admin.common.table.description}">
                                                     </span>
                                                     <textarea class="form-control"
                                                               aria-label="With textarea"
@@ -349,7 +351,6 @@
                             </form>
 
 
-
                             <!-- Form for deleting item -->
                             <form th:action="@{/admin/certificatedecoration/delete}" th:method="post"
                                   th:object="${decoration}">
@@ -363,12 +364,14 @@
                                 </td>
 
                                 <!-- Modal for delete decoration -->
-                                <div class="modal fade" th:id="${'deletecertificatedecoration'+decoration.id}" tabindex="-1"
+                                <div class="modal fade" th:id="${'deletecertificatedecoration'+decoration.id}"
+                                     tabindex="-1"
                                      role="dialog" aria-labelledby="exampleModalLabel08" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel08" th:text="#{common.button.deleting}"></h5>
+                                                <h5 class="modal-title" id="exampleModalLabel08"
+                                                    th:text="#{common.button.deleting}"></h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                             </div>

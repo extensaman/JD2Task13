@@ -66,7 +66,7 @@ public class CertificateOrderServiceImpl implements CertificateOrderService {
 
     @Override
     @Transactional
-    public CertificateOrder save(CertificateOrder certificateOrder){
+    public CertificateOrder save(CertificateOrder certificateOrder) {
         LOGGER.info("save");
         return repository.save(certificateOrder);
     }
