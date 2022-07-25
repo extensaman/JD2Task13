@@ -35,7 +35,7 @@
 <img src="https://user-images.githubusercontent.com/49030354/180660090-1f742b33-53a0-4d66-84eb-868d723ce983.jpg" alt="Image">
 <p></p>
 <p>Unpack next archives to "Photo storage place"</p>
-[uploads.zip](https://github.com/extensaman/JD2Task13/files/9180571/uploads.zip)
-[horses.zip](https://github.com/extensaman/JD2Task13/files/9180694/horses.zip)
+<p>https://github.com/extensaman/JD2Task13/files/9180571/uploads.zip</p>
+<p>https://github.com/extensaman/JD2Task13/files/9180694/horses.zip</p>
 <hr/>
 <p>Author's <a href="https://www.linkedin.com/in/ayusikau/">Linkedin</a></p>
