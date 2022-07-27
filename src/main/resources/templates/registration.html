@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="common/metadata :: content"></head>
+<body>
+<header th:insert="common/user_header :: content"></header>
+
+<div class="intro">
+    <div class="intro__media">
+        <img class="intro__media-video" th:src="@{/registration_substrate.jpg}"/>
+    </div>
+    <div class="intro__content">
+        <form method="post" th:action="@{/registration}" th:object="${userDto}">
+            <div class="container">
+                <div th:if="${isUserActivated != null and isUserActivated == false}">
+                    <div class="text-danger mb-2"
+                         th:text="#{common.activation_failed}"></div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" aria-label="Username"
+                           th:placeholder="#{menu_user.login}"
+                           th:field="*{username}">
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" class="form-control"
+                           th:placeholder="#{menu_user.password}" aria-label="Password"
+                           th:field="*{password}">
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control"
+                           th:placeholder="#{menu_user.email}" aria-label="Email"
+                           th:field="*{email}">
+                </div>
+
+                <button class="btn btn-outline-primary mb-3"
+                        th:text="#{common.button.registration}">
+                </button>
+                <div class="text-bg-warning mt-4" th:if="${existenceOfUser}"
+                     th:text="#{common.attention.user_exists}">
+                </div>
+                <div class="text-danger mb-2" th:if="${#fields.hasErrors('username')}"
+                     th:errors="*{username}"></div>
+            </div>
+            <div class="text-danger mb-2" th:if="${#fields.hasErrors('password')}"
+                 th:errors="*{password}">
+            </div>
+            <div class="text-danger mb-2" th:if="${#fields.hasErrors('email')}"
+                 th:errors="*{email}">
+            </div>
+    </div>
+    </form>
+</div>
+</div>
+<footer th:insert="common/user_footer :: content"></footer>
+</body>
+</html>

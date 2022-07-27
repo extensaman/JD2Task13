@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="common/metadata :: content"></head>
+<body>
+<header th:insert="common/user_header :: content"></header>
+
+<div class="container-fluid">
+    <div class="wrapper_w img__object__fit">
+        <img th:src="@{/certificate_common.jpg}">
+    </div>
+    <div class="row mt-4">
+        <div th:with="condition=${activeCertificateTypeList != null and !activeCertificateTypeList.isEmpty()}">
+            <div th:if="${condition}">
+                <div class="dropdown">
+                    <a class="btn btn-outline-dark dropdown-toggle"
+                       href="#" role="button" id="dropdownMenuLink"
+                       data-bs-toggle="dropdown" aria-expanded="false"
+                       th:text="#{menu_user.certificate.choose_certificate_type}">
+                    </a>
+
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <th:block th:each="certificateType : ${activeCertificateTypeList}">
+                            <form method="post" th:action="@{'/certificate/{id}' (id=${certificateType.id})}">
+                                <li>
+                                    <button class="dropdown-item"
+                                            th:text="${certificateType.name}">
+                                    </button>
+                                </li>
+                            </form>
+                        </th:block>
+                        <form method="get" th:action="@{/certificate}">
+                            <li>
+                                <button class="dropdown-item"
+                                        th:text="#{common.button.all}">
+                                </button>
+                            </li>
+                        </form>
+                    </ul>
+                </div>
+            </div>
+            <span th:unless="${condition}" class="text-danger" th:text="#{menu_admin.common.no_data}"></span>
+        </div>
+    </div>
+    <div th:with="condition=${activeCertificateList != null and !activeCertificateList.isEmpty()}">
+        <div th:if="${condition}">
+            <div class="row mt-4">
+
+                <th:block th:each="certificate : ${activeCertificateList}">
+
+                    <div class="card col-3 ms-auto me-auto mt-4" style="width: 24rem;">
+
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${certificate.name}"></h5>
+                            <h6 class="card-subtitle mb-2 text-muted"
+                                th:text="${certificate.certificateType.name}">
+                            </h6>
+                        </div>
+                        <img th:src="@{${'/'+certificate.photoFile}}"
+                             class="card-img-top"
+                             data-bs-toggle="tooltip"
+                             data-bs-placement="top"
+                             th:attr="title=${certificate.description}">
+                        <ul class="list-group list-group-flush mt-2">
+                            <li class="list-group-item">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-1">
+                                            <i class="bi bi-suit-spade"></i>
+                                        </div>
+                                        <div class="col-1">
+                                            <span th:text="${certificate.horseCount}">
+                                            </span>
+                                        </div>
+                                        <div class="col-1"></div>
+                                        <div class="col-1">
+                                            <i class="bi bi-clock"></i>
+                                        </div>
+                                        <div class="col-3">
+                                            <span th:text="${certificate.duration}">
+                                            </span>
+                                        </div>
+                                        <div class="col-1"></div>
+                                        <div class="col-1">
+                                            <i class="bi bi-camera"></i>
+                                        </div>
+                                        <div class="col-1">
+                                            <i th:if="${certificate.photographerIncluded}"
+                                               class="bi bi-plus-square-fill text-primary"></i>
+                                            <i th:unless="${certificate.photographerIncluded}"
+                                               class="bi bi-dash-square-fill text-black-50"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="card-body">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-6 text-start">
+                                        <form method="get" th:action="@{/certificate/decoration}"
+                                              th:object="${certificateOrderDto}">
+                                            <input type="hidden"
+                                                   name="certificate"
+                                                   th:value="${certificate.id}">
+                                            <button class="btn btn-outline-primary"
+                                                    th:text="#{common.button.order}">
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class="col-6 text-end">
+                                        <strong th:text="${certificate.price} + ' ' + #{common.byn}">
+                                        </strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </th:block>
+
+            </div>
+        </div>
+        <div class="row mt-4 text-center">
+            <span th:unless="${condition}" class="text-danger" th:text="#{menu_admin.common.no_data}"></span>
+        </div>
+    </div>
+</div>
+<footer th:insert="common/user_footer :: content"></footer>
+</body>
+</html>

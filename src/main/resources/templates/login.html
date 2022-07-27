@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="common/metadata :: content"></head>
+<body>
+<header th:insert="common/user_header :: content"></header>
+
+<div class="intro">
+    <div class="intro__media">
+        <img class="intro__media-video" th:src="@{/login_substrate.jpg}"></img>
+    </div>
+    <div class="intro__content">
+        <form method="post" th:action="@{/login}">
+            <div class="container">
+                <div th:if="${isUserActivated != null and isUserActivated == true}">
+                    <div class="text-success mb-2"
+                         th:text="#{common.activation_passed}"></div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" aria-label="Username"
+                           th:placeholder="#{menu_user.login}"
+                           name="username">
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" class="form-control"
+                           th:placeholder="#{menu_user.password}" aria-label="Password"
+                           name="password">
+                </div>
+                <button class="btn btn-outline-primary"
+                        th:text="#{common.button.login}"></button>
+                <!-- Registration -->
+                <div class="row mt-3 justify-content-center">
+                    <a class="text-black-50" th:href="@{/registration}"
+                       th:text="#{menu.registration}"></a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<footer th:insert="common/user_footer :: content"></footer>
+</body>
+</html>

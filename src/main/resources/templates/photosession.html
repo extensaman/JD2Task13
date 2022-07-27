@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="common/metadata :: content"></head>
+<body>
+<header th:insert="common/user_header :: content"></header>
+
+<div class="container-fluid">
+    <div class="wrapper_w img__object__fit">
+        <img th:src="@{/photosession_common.jpg}">
+    </div>
+    <div th:with="condition=${activePhotosessionList != null and !activePhotosessionList.isEmpty()}">
+        <div th:if="${condition}">
+            <div class="row mt-4">
+
+                <th:block th:each="photosession : ${activePhotosessionList}">
+
+                    <div class="card col-3 ms-auto me-auto mt-4" style="width: 18rem;">
+                        <img th:src="@{${'/'+photosession.photoFile}}"
+                             class="card-img-top" alt="..."
+                             data-bs-toggle="tooltip"
+                             data-bs-placement="top"
+                             th:attr="title=${photosession.description}">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${photosession.name}"></h5>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-6 text-start">
+                                            <i class="bi bi-suit-spade"></i>
+                                        </div>
+                                        <div class="col-6 text-end">
+                                            <span th:text="${photosession.horseCount}">
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-6 text-start">
+                                            <i class="bi bi-clock"></i>
+                                        </div>
+                                        <div class="col-6 text-end">
+                                            <span th:text="${photosession.duration}">
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="card-body">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-6 text-start">
+                                        <button class="btn btn-outline-primary"
+                                                th:text="#{common.button.order}">
+                                        </button>
+                                    </div>
+                                    <div class="col-6 text-end">
+                                        <strong th:text="${photosession.price} + #{common.byn}">
+                                        </strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </th:block>
+
+            </div>
+        </div>
+        <div class="row mt-4 text-center">
+            <span th:unless="${condition}" class="text-danger text-center"
+                  th:text="#{menu_admin.common.no_data}"></span>
+        </div>
+    </div>
+</div>
+<footer th:insert="common/user_footer :: content"></footer>
+</body>
+</html>

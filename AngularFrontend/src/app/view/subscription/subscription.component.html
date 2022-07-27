@@ -1,0 +1,46 @@
+<div class="container">
+  <div fxLayout="row wrap" fxLayoutGap="30px" fxLayoutAlign="space-evenly center">
+    <div fxFlex="30" class="mb-3" *ngFor="let subscription of subscriptions">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <img mat-card-avatar src="{{imagesUrl + 'logo_for_circle.png'}}">
+          <mat-card-title>{{subscription.name}}</mat-card-title>
+          <mat-card-subtitle
+            *ngIf="subscription.type === individualLessonKey">{{individualLessonValue}}</mat-card-subtitle>
+          <mat-card-subtitle *ngIf="subscription.type === groupLessonKey">{{groupLessonValue}}</mat-card-subtitle>
+        </mat-card-header>
+
+          <img mat-card-image src="{{imagesUrl + subscription.photoFile}}" alt="">
+
+        <mat-card-content>
+          {{subscription.description}}
+        </mat-card-content>
+        <mat-divider inset></mat-divider>
+        <mat-card-actions>
+          <button mat-raised-button color="accent">Оформить</button>
+          <button mat-stroked-button color="primary">Детали</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>
+<!--<div class="card my-5">
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let subscription of subscriptions">
+        <td>{{ subscription.id }}</td>
+        <td>{{ subscription.name }}</td>
+        <td>{{ subscription.description }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>-->
