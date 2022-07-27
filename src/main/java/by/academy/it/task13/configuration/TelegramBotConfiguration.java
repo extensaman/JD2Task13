@@ -14,18 +14,18 @@ import java.util.Optional;
 
 @Configuration
 public class TelegramBotConfiguration {
-    private static final Logger LOGGER = LogManager.getLogger(TelegramBotConfiguration.class);
+    private static final Logger logger = LogManager.getLogger(TelegramBotConfiguration.class);
 
     @Bean
     public Optional<BotSession> getBotSession(TelegramBot telegramBot) {
         BotSession botSession = null;
         try {
             TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
-            LOGGER.info("TelegramBotApi created");
+            logger.info("TelegramBotApi created");
             botSession = telegramBotsApi.registerBot(telegramBot);
-            LOGGER.info("TelegramBot registered");
+            logger.info("TelegramBot registered");
         } catch (TelegramApiException e) {
-            LOGGER.warn("Telegram bot isn't registered");
+            logger.warn("Telegram bot isn't registered");
         }
         return Optional.ofNullable(botSession);
     }

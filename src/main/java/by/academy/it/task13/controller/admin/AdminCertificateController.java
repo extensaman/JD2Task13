@@ -20,7 +20,6 @@ import java.util.List;
 @RequestMapping(AdminConstant.ADMIN_GIFT_CERTIFICATE_MAPPING)
 @RequiredArgsConstructor
 public class AdminCertificateController {
-    private static final Logger LOGGER = LogManager.getLogger(AdminCertificateController.class);
 
     private final CertificateService certificateService;
     private final CertificateTypeService certificateTypeService;
@@ -29,7 +28,6 @@ public class AdminCertificateController {
 
     @GetMapping
     public String getGiftCertificatePage(Model model) {
-        LOGGER.info("getGiftCertificatePage");
         model.addAttribute(AdminConstant.TITLE,
                 AdminConstant.MENU_ADMIN_GIFT_CERTIFICATE_MESSAGE);
         model.addAttribute(AdminConstant.GIFT_CERTIFICATE_LIST, certificateService.findAll());
@@ -41,14 +39,12 @@ public class AdminCertificateController {
 
     @PostMapping
     public String saveGiftCertificateChange(CertificateDto certificateDto) {
-        LOGGER.info("CertificateType = " + certificateDto.getCertificateType());
         certificateService.save(certificateDto);
         return AdminConstant.REDIRECT_ADMIN_CERTIFICATE_PAGE;
     }
 
     @PostMapping(AdminConstant.DELETE_MAPPING)
     public String deleteCertificate(Model model, CertificateDto certificateDto) {
-        LOGGER.info("deleteCertificate");
         List<Long> certificateOrderIdList = certificateOrderService.findCertificateOrderIdsByCertificateId(certificateDto.getId());
         if (certificateOrderIdList.size() == AdminConstant.ZERO) {
             certificateService.delete(certificateDto);

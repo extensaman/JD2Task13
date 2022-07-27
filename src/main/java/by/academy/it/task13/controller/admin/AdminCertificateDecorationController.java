@@ -19,7 +19,6 @@ import java.util.List;
 @RequestMapping(AdminConstant.ADMIN_CERTIFICATE_DECORATION_MAPPING)
 @RequiredArgsConstructor
 public class AdminCertificateDecorationController {
-    private static final Logger LOGGER = LogManager.getLogger(AdminCertificateDecorationController.class);
 
     private final CertificateDecorationService certificateDecorationService;
     private final CertificateOrderService certificateOrderService;
@@ -27,7 +26,6 @@ public class AdminCertificateDecorationController {
 
     @GetMapping
     public String getCertificateDecorationPage(Model model) {
-        LOGGER.info("getCertificateDecorationPage");
         model.addAttribute(AdminConstant.TITLE,
                 AdminConstant.MENU_ADMIN_CERTIFICATE_DECORATION_MESSAGE);
         model.addAttribute(AdminConstant.CERTIFICATE_DECORATION_LIST, certificateDecorationService.findAll());
@@ -38,14 +36,12 @@ public class AdminCertificateDecorationController {
 
     @PostMapping
     public String saveCertificateDecoration(CertificateDecorationDto certificateDecorationDto) {
-        LOGGER.info("saveCertificateDecoration");
         certificateDecorationService.save(certificateDecorationDto);
         return AdminConstant.REDIRECT_ADMIN_CERTIFICATEDECORATION_PAGE;
     }
 
     @PostMapping(AdminConstant.DELETE_MAPPING)
     public String deleteCertificateDecoration(Model model, CertificateDecorationDto certificateDecorationDto) {
-        LOGGER.info("deleteCertificateDecoration");
         List<Long> certificateOrderIdList = certificateOrderService.findCertificateOrderIdsByCertificateDecorationId(certificateDecorationDto.getId());
         if (certificateOrderIdList.size() == AdminConstant.ZERO) {
             certificateDecorationService.delete(certificateDecorationDto);
