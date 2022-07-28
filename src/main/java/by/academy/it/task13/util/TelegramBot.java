@@ -34,15 +34,15 @@ import java.util.stream.Collectors;
 @Component
 @RequiredArgsConstructor
 public class TelegramBot extends TelegramLongPollingBot {
-    private static final Logger LOGGER = LogManager.getLogger(TelegramBot.class);
-    public static final String YOU_VE_JUST_SUBSCRIBED_TO_CAVALIER_HORSE_CLUB_ORDERS_BROADCASTING = "You've just subscribed to Cavalier horse club orders broadcasting";
-    public static final String YOU_VE_JUST_UNSUBSCRIBED_FROM_CAVALIER_HORSE_CLUB_ORDERS_BROADCASTING = "You've just unsubscribed from Cavalier horse club orders broadcasting";
-    public static final String ENTER_THE_PASSWORD = "Enter the password";
-    public static final String I_DON_T_UNDERSTAND_YOU = "I don't understand you.";
-    public static final String SPACE = " ";
-    public static final String MESSAGE_THAT_STATUS_WAS_CHANGED_EARLIER = "Status of %1$s order #%2$s has been changed to %3$s by %4$s";
-    public static final String MESSAGE_THAT_NOTIFICATION_SENT_TO_USER = "Changed status of %1$s order #%2$s to %3$s. Notification letter was sent to %4$s";
-    public static final String MESSAGE_THAT_NO_MORE_ORDERS_NOW = "Dear, %s, for now, I have nothing to tell you. I will notify you as soon as an order is placed.";
+    private static final Logger logger = LogManager.getLogger(TelegramBot.class);
+    private static final String YOU_VE_JUST_SUBSCRIBED_TO_CAVALIER_HORSE_CLUB_ORDERS_BROADCASTING = "You've just subscribed to Cavalier horse club orders broadcasting";
+    private static final String YOU_VE_JUST_UNSUBSCRIBED_FROM_CAVALIER_HORSE_CLUB_ORDERS_BROADCASTING = "You've just unsubscribed from Cavalier horse club orders broadcasting";
+    private static final String ENTER_THE_PASSWORD = "Enter the password";
+    private static final String I_DON_T_UNDERSTAND_YOU = "I don't understand you.";
+    private static final String SPACE = " ";
+    private static final String MESSAGE_THAT_STATUS_WAS_CHANGED_EARLIER = "Status of %1$s order #%2$s has been changed to %3$s by %4$s";
+    private static final String MESSAGE_THAT_NOTIFICATION_SENT_TO_USER = "Changed status of %1$s order #%2$s to %3$s. Notification letter was sent to %4$s";
+    private static final String MESSAGE_THAT_NO_MORE_ORDERS_NOW = "Dear, %s, for now, I have nothing to tell you. I will notify you as soon as an order is placed.";
 
     private final AppSetting appSetting;
     private final TelegramSubscriberService telegramSubscriberService;
@@ -62,7 +62,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             if (appSetting.getTelegramBotUnsubscribeCommand().equalsIgnoreCase(receivedText)) {
                 // Unsubscribing
                 textMessage = subscriberDto.map(subscriber -> {
-                    LOGGER.info("Unsubscribing");
+                    logger.info("Unsubscribing");
                     telegramSubscriberService.deactivateByChatId(chatId);
                     return YOU_VE_JUST_UNSUBSCRIBED_FROM_CAVALIER_HORSE_CLUB_ORDERS_BROADCASTING;
                 }).orElse(ENTER_THE_PASSWORD);
@@ -73,7 +73,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                         .orElseGet(() -> {
                             if (appSetting.getTelegramBotPasswordForSubscribe().equalsIgnoreCase(receivedText)) {
                                 // Subscribing
-                                LOGGER.info("Subscribing");
+                                logger.info("Subscribing");
                                 telegramSubscriberService.activateByMessage(message);
                                 return YOU_VE_JUST_SUBSCRIBED_TO_CAVALIER_HORSE_CLUB_ORDERS_BROADCASTING;
                             } else {
@@ -86,13 +86,13 @@ public class TelegramBot extends TelegramLongPollingBot {
         } else if (update.hasCallbackQuery()) {
             String chatId = update.getCallbackQuery().getMessage().getChatId().toString();
             String callbackData = update.getCallbackQuery().getData();
-            LOGGER.info("Callback data is = " + callbackData);
+            logger.info("Callback data is = " + callbackData);
 
             telegramSubscriberService.findByChatId(chatId).ifPresent(subscriber ->
             {
                 try {
                     SubscriberAnswer subscriberAnswer = new SubscriberAnswer(callbackData);
-                    LOGGER.info("SubscriberAnswer is " + subscriberAnswer.toString());
+                    logger.info("SubscriberAnswer is " + subscriberAnswer.toString());
                     Sendable sendable;
                     switch (subscriberAnswer.getOrderType()) {
                         case CERTIFICATE:
@@ -136,7 +136,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     }
 
     public void broadcastOrder(Sendable sendable) {
-        LOGGER.info("broadcastOrder");
+        logger.info("broadcastOrder");
 
         TelegramOrderLogDto log = TelegramOrderLogDto.builder()
                 .orderType(sendable.getOrderType())
@@ -153,7 +153,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                 .append(sendable.getOrderId().toString())
                 .append(SPACE)
                 .toString();
-        LOGGER.info("commonCallBackData = " + commonCallBackData);
+        logger.info("commonCallBackData = " + commonCallBackData);
         InlineKeyboardMarkup keyboardMarkup = new InlineKeyboardMarkup();
         List<List<InlineKeyboardButton>> keyboard = Arrays.stream(OrderStatus.values()).map(status -> {
             InlineKeyboardButton button = new InlineKeyboardButton();
@@ -188,9 +188,9 @@ public class TelegramBot extends TelegramLongPollingBot {
 
         try {
             execute(sendMessage);
-            LOGGER.info("Send " + message + " to " + chatId);
+            logger.info("Send " + message + " to " + chatId);
         } catch (TelegramApiException e) {
-            LOGGER.warn(e);
+            logger.warn(e);
         }
     }
 
@@ -219,7 +219,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         private final OrderStatus orderStatus;
 
         public SubscriberAnswer(String receivedText) throws TelegramSubscriberAnswerException {
-            LOGGER.info("In SubscriberAnswer.constructor receivedText = " + receivedText);
+            logger.info("In SubscriberAnswer.constructor receivedText = " + receivedText);
             String[] answers = receivedText.split(SPACES_REGEX);
             if (answers.length < PARAMETER_COUNT) {
                 throw new TelegramSubscriberAnswerException();
@@ -279,7 +279,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                 default:
                     throw new TelegramSubscriberAnswerException();
             }
-            LOGGER.info("SubscriberAnswer created");
+            logger.info("SubscriberAnswer created");
         }
     }
 }

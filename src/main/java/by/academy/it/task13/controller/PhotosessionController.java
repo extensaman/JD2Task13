@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(Constant.PHOTOSESSION_MAPPING)
 @RequiredArgsConstructor
 public class PhotosessionController {
-    private static final Logger LOGGER = LogManager.getLogger(PhotosessionController.class);
+    private static final Logger logger = LogManager.getLogger(PhotosessionController.class);
 
     private final PhotoSessionService photoSessionService;
 
     @GetMapping
     public String getActivePhotoSessionPage(Model model) {
-        LOGGER.info("getActivePhotoSessionPage");
+        logger.info("getActivePhotoSessionPage");
         model.addAttribute(Constant.TITLE,
                 Constant.TITLE_PHOTOSESSION_MESSAGE);
         model.addAttribute(Constant.ACTIVE_PHOTOSESSION_LIST,

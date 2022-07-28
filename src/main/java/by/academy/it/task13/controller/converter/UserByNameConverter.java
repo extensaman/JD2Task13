@@ -11,13 +11,13 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class UserByNameConverter implements Converter<String, UserDto> {
-    private static final Logger LOGGER = LogManager.getLogger(UserByNameConverter.class);
+    private static final Logger logger = LogManager.getLogger(UserByNameConverter.class);
 
     private final UserService userService;
 
     @Override
     public UserDto convert(String source) {
-        LOGGER.info("convert userName = " + source + " to UserDto");
+        logger.info("convert userName = " + source + " to UserDto");
         return userService.findUserDtoByUsername(source).orElse(null);
     }
 }

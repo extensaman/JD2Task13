@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping(Constant.LOGIN_MAPPING)
 public class LoginController {
-    private static final Logger LOGGER = LogManager.getLogger(RegistrationController.class);
+    private static final Logger logger = LogManager.getLogger(RegistrationController.class);
 
 
     @GetMapping
     public String getLoginPage(Model model) {
-        LOGGER.info("getLoginPage");
+        logger.info("getLoginPage");
         model.addAttribute(Constant.TITLE,
                 Constant.TITLE_LOGIN_MESSAGE);
         return Constant.LOGIN_PAGE;

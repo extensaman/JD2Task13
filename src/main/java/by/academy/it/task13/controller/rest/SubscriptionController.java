@@ -24,19 +24,19 @@ import java.util.List;
 @CrossOrigin(origins = Constant.CROSS_ORIGIN)
 @RequiredArgsConstructor
 public class SubscriptionController {
-    private static final Logger LOGGER = LogManager.getLogger(SubscriptionController.class);
+    private static final Logger logger = LogManager.getLogger(SubscriptionController.class);
 
     private final SubscriptionService subscriptionService;
 
     @GetMapping(produces = Constant.APPLICATION_JSON)
     public List<SubscriptionDto> getAllSubscriptionDto() {
-        LOGGER.info("getAllSubscriptionDto");
+        logger.info("getAllSubscriptionDto");
         return subscriptionService.findAll();
     }
 
     @GetMapping(path = Constant.ID_MAPPING, produces = Constant.APPLICATION_JSON)
     public ResponseEntity<SubscriptionDto> getSubscriptionDtoById(@PathVariable Long id) {
-        LOGGER.info("getSubscriptionById");
+        logger.info("getSubscriptionById");
         return subscriptionService.findById(id).map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
@@ -44,7 +44,7 @@ public class SubscriptionController {
     @PostMapping(consumes = Constant.APPLICATION_JSON)
     @ResponseStatus(HttpStatus.CREATED)
     public void addSubscription(@RequestBody SubscriptionDto dto) {
-        LOGGER.info("addSubscription");
+        logger.info("addSubscription");
         subscriptionService.save(dto);
     }
 }

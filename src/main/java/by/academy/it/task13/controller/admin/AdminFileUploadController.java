@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping(AdminConstant.ADMIN_UPLOAD_MAPPING)
 @RequiredArgsConstructor
 public class AdminFileUploadController {
-    private static final Logger LOGGER = LogManager.getLogger(AdminFileUploadController.class);
+    private static final Logger logger = LogManager.getLogger(AdminFileUploadController.class);
 
     private final AttachmentService attachmentService;
 
@@ -28,7 +28,7 @@ public class AdminFileUploadController {
                                 @RequestParam(value = "sortField", required = false, defaultValue = "id") String sortField,
                                 @RequestParam(value = "sortDirection", required = false, defaultValue = "asc") String sortDirection,
                                 Model model) {
-        LOGGER.info("getUploadForm");
+        logger.info("getUploadForm");
         model.addAttribute(AdminConstant.TITLE,
                 AdminConstant.MENU_ADMIN_UPLOAD_MESSAGE);
 
@@ -44,9 +44,9 @@ public class AdminFileUploadController {
 
     @PostMapping
     public String postUploadForm(@ModelAttribute MultipartFile[] files) {
-        LOGGER.info("postUploadForm");
+        logger.info("postUploadForm");
         if (files != null) {
-            LOGGER.info(files.length + " files received");
+            logger.info(files.length + " files received");
             attachmentService.addArrayOfAttachment(files);
         }
         return AdminConstant.REDIRECT_ADMIN_UPLOAD;
@@ -55,14 +55,14 @@ public class AdminFileUploadController {
     @PostMapping(AdminConstant.EDIT_MAPPING)
     public String editAttachmentName(@ModelAttribute AttachmentDto attachmentDto) {
         // TODO Need add functionality for editing file name
-        LOGGER.info("editAttachmentName => attachmentDto=" + attachmentDto);
+        logger.info("editAttachmentName => attachmentDto=" + attachmentDto);
         return AdminConstant.REDIRECT_ADMIN_UPLOAD;
     }
 
     @PostMapping(AdminConstant.DELETE_MAPPING)
     public String deleteAttachmentName(@ModelAttribute AttachmentDto attachmentDto) {
         // TODO Need add functionality for deleting file
-        LOGGER.info("deleteAttachmentName => attachmentDto=" + attachmentDto);
+        logger.info("deleteAttachmentName => attachmentDto=" + attachmentDto);
         return AdminConstant.REDIRECT_ADMIN_UPLOAD;
     }
 }

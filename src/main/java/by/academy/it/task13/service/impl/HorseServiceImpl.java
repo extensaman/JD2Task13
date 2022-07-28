@@ -18,14 +18,14 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class HorseServiceImpl implements HorseService {
-    private static final Logger LOGGER = LogManager.getLogger(HorseServiceImpl.class);
+    private static final Logger logger = LogManager.getLogger(HorseServiceImpl.class);
 
     private final HorseRepository repository;
     private final Mapper<Horse, HorseDto> mapper;
 
     @Override
     public List<HorseDto> findAll() {
-        LOGGER.info("findAll");
+        logger.info("findAll");
         List<HorseDto> horseDtos = new ArrayList<>();
         for (Horse horse : repository.findAll()) {
             horseDtos.add(mapper.toDto(horse));
@@ -35,7 +35,7 @@ public class HorseServiceImpl implements HorseService {
 
     @Override
     public List<HorseDto> findAllActiveHorse() {
-        LOGGER.info("findAllActiveHorse");
+        logger.info("findAllActiveHorse");
         return repository.findHorsesByActivityTrue().stream()
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
@@ -44,21 +44,21 @@ public class HorseServiceImpl implements HorseService {
     @Override
     @Transactional
     public Horse save(HorseDto horseDto) {
-        LOGGER.info("save");
+        logger.info("save");
         return repository.save(mapper.toEntity(horseDto));
     }
 
     @Override
     @Transactional
     public void saveAll(List<Horse> list) {
-        LOGGER.info("saveAll");
+        logger.info("saveAll");
         repository.saveAll(list);
     }
 
     @Override
     @Transactional
     public void delete(HorseDto horseDto) {
-        LOGGER.info("delete");
+        logger.info("delete");
         repository.delete(mapper.toEntity(horseDto));
     }
 

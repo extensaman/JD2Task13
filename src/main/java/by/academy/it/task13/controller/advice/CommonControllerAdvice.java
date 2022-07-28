@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 @ControllerAdvice
 @RequiredArgsConstructor
 public class CommonControllerAdvice {
-    private static final Logger LOGGER = LogManager.getLogger(CommonControllerAdvice.class);
+    private static final Logger logger = LogManager.getLogger(CommonControllerAdvice.class);
     private final UserNameMapper mapper;
     private final TelegramBot bot;
 
@@ -27,14 +27,14 @@ public class CommonControllerAdvice {
         User user = null;
         if (authentication != null) {
             user = (User) authentication.getPrincipal();
-            LOGGER.info(user.getUsername());
+            logger.info(user.getUsername());
         }
         return mapper.toDto(user);
     }
 
     @ExceptionHandler(MailSenderException.class)
     public String mailSenderExceptionHandler(Model model, MailSenderException e) {
-        LOGGER.info("mailSenderExceptionHandler: " + e.getMessage());
+        logger.info("mailSenderExceptionHandler: " + e.getMessage());
         bot.broadcastTextMessage(e.getMessage());
         model.addAttribute(Constant.MAIL_ERROR, Constant.TRUE);
         return Constant.REDIRECT_TO_ROOT;

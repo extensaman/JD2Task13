@@ -24,7 +24,7 @@ import org.springframework.web.bind.support.SessionStatus;
 @SessionAttributes(names = "certificateOrderDto")
 @RequiredArgsConstructor
 public class PaymentController {
-    private static final Logger LOGGER = LogManager.getLogger(PaymentController.class);
+    private static final Logger logger = LogManager.getLogger(PaymentController.class);
 
     private final CertificateOrderService certificateOrderService;
     private final Mapper<CertificateOrder, CertificateOrderDto> mapper;
@@ -36,7 +36,7 @@ public class PaymentController {
     public String getPaymentPage(@ModelAttribute CertificateOrderDto certificateOrderDto,
                                  SessionStatus sessionStatus,
                                  Authentication authentication) {
-        LOGGER.info("getPaymentPage");
+        logger.info("getPaymentPage");
         certificateOrderDto.setUser(userMapper.toDto((User) authentication.getPrincipal()));
         CertificateOrder order = certificateOrderService.save(certificateOrderDto);
         CertificateOrderDto orderDto = mapper.toDto(order);

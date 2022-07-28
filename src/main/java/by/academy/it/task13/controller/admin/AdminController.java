@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping(AdminConstant.ADMIN_MAIN_MAPPING)
 public class AdminController {
-    private static final Logger LOGGER = LogManager.getLogger(AdminController.class);
+    private static final Logger logger = LogManager.getLogger(AdminController.class);
 
     @GetMapping
     public String getMainAdminPage(Model model) {
-        LOGGER.info("getMainAdminPage");
+        logger.info("getMainAdminPage");
         model.addAttribute(AdminConstant.TITLE,
                 AdminConstant.MENU_ADMIN_MAIN_MESSAGE);
         return AdminConstant.ADMIN_MAIN_PAGE;

@@ -18,14 +18,14 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class CoachServiceImpl implements CoachService {
-    private static final Logger LOGGER = LogManager.getLogger(CoachServiceImpl.class);
+    private static final Logger logger = LogManager.getLogger(CoachServiceImpl.class);
 
     private final CoachRepository repository;
     private final Mapper<Coach, CoachDto> mapper;
 
     @Override
     public List<CoachDto> findAll() {
-        LOGGER.info("findAll");
+        logger.info("findAll");
         List<CoachDto> coachDtos = new ArrayList<>();
         for (Coach coach : repository.findAll()) {
             coachDtos.add(mapper.toDto(coach));
@@ -35,7 +35,7 @@ public class CoachServiceImpl implements CoachService {
 
     @Override
     public List<CoachDto> findAllActiveCoach() {
-        LOGGER.info("findAllActiveCoach");
+        logger.info("findAllActiveCoach");
         return repository.findCoachesByActivityTrue().stream()
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
@@ -44,21 +44,21 @@ public class CoachServiceImpl implements CoachService {
     @Override
     @Transactional
     public Coach save(CoachDto coachDto) {
-        LOGGER.info("save");
+        logger.info("save");
         return repository.save(mapper.toEntity(coachDto));
     }
 
     @Override
     @Transactional
     public void saveAll(List<Coach> list) {
-        LOGGER.info("saveAll");
+        logger.info("saveAll");
         repository.saveAll(list);
     }
 
     @Override
     @Transactional
     public void delete(CoachDto coachDto) {
-        LOGGER.info("delete");
+        logger.info("delete");
         repository.delete(mapper.toEntity(coachDto));
     }
 }

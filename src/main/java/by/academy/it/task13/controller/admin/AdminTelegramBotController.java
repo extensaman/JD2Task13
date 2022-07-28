@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(AdminConstant.ADMIN_TELEGRAM_BOT_MAPPING)
 @RequiredArgsConstructor
 public class AdminTelegramBotController {
-    private static final Logger LOGGER = LogManager.getLogger(AdminTelegramBotController.class);
+    private static final Logger logger = LogManager.getLogger(AdminTelegramBotController.class);
 
     private final TelegramSubscriberService subscriberService;
     private final TelegramOrderLogService logService;
 
     @GetMapping
     public String getTelegramBotPage(Model model){
-        LOGGER.info("getTelegramBotPage");
+        logger.info("getTelegramBotPage");
         model.addAttribute(AdminConstant.TITLE,
                 AdminConstant.MENU_ADMIN_TELEGRAM_BOT_MESSAGE);
         model.addAttribute(AdminConstant.TELEGRAM_ORDER_LOG_DTO_LIST,
@@ -36,14 +36,14 @@ public class AdminTelegramBotController {
 
     @PostMapping(AdminConstant.SUBSCRIBER_MAPPING)
     public String saveSubscriber(TelegramSubscriberDto telegramSubscriberDto) {
-        LOGGER.info("saveSubscriber");
+        logger.info("saveSubscriber");
         subscriberService.save(telegramSubscriberDto);
         return AdminConstant.REDIRECT_ADMIN_TELEGRAMBOT;
     }
 
     @PostMapping(AdminConstant.SUBSCRIBER_DELETE_MAPPING)
     public String deleteSubscriber(TelegramSubscriberDto telegramSubscriberDto) {
-        LOGGER.info("deleteSubscriber");
+        logger.info("deleteSubscriber");
         subscriberService.delete(telegramSubscriberDto);
         return AdminConstant.REDIRECT_ADMIN_TELEGRAMBOT;
     }

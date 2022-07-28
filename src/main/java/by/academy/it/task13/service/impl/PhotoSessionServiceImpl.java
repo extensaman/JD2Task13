@@ -18,14 +18,14 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class PhotoSessionServiceImpl implements PhotoSessionService {
-    private static final Logger LOGGER = LogManager.getLogger(PhotoSessionServiceImpl.class);
+    private static final Logger logger = LogManager.getLogger(PhotoSessionServiceImpl.class);
 
     private final PhotoSessionRepository repository;
     private final Mapper<PhotoSession, PhotoSessionDto> mapper;
 
     @Override
     public List<PhotoSessionDto> findAll() {
-        LOGGER.info("findAll");
+        logger.info("findAll");
         List<PhotoSessionDto> photoSessionDtos = new ArrayList<>();
         for (PhotoSession photoSession : repository.findAll()) {
             photoSessionDtos.add(mapper.toDto(photoSession));
@@ -35,7 +35,7 @@ public class PhotoSessionServiceImpl implements PhotoSessionService {
 
     @Override
     public List<PhotoSessionDto> findAllActivePhotoSession() {
-        LOGGER.info("findAllActiveHorse");
+        logger.info("findAllActiveHorse");
         return repository.findPhotoSessionsByActivityTrue().stream()
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
@@ -44,21 +44,21 @@ public class PhotoSessionServiceImpl implements PhotoSessionService {
     @Override
     @Transactional
     public PhotoSession save(PhotoSessionDto photoSessionDto) {
-        LOGGER.info("save");
+        logger.info("save");
         return repository.save(mapper.toEntity(photoSessionDto));
     }
 
     @Override
     @Transactional
     public void saveAll(List<PhotoSession> list) {
-        LOGGER.info("saveAll");
+        logger.info("saveAll");
         repository.saveAll(list);
     }
 
     @Override
     @Transactional
     public void delete(PhotoSessionDto photoSessionDto) {
-        LOGGER.info("delete");
+        logger.info("delete");
         repository.delete(mapper.toEntity(photoSessionDto));
     }
 }

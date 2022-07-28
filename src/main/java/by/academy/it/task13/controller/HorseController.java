@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(Constant.HORSE_MAPPING)
 @RequiredArgsConstructor
 public class HorseController {
-    private static final Logger LOGGER = LogManager.getLogger(HorseController.class);
+    private static final Logger logger = LogManager.getLogger(HorseController.class);
 
     private final HorseService horseService;
 
     @GetMapping
     public String getActiveHorsePage(Model model) {
-        LOGGER.info("getActiveHorsePage");
+        logger.info("getActiveHorsePage");
         model.addAttribute(Constant.TITLE,
                 Constant.TITLE_HORSE_MESSAGE);
         model.addAttribute(Constant.ACTIVE_HORSE_LIST, horseService.findAllActiveHorse());

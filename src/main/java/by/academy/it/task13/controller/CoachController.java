@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(Constant.COACH_MAPPING)
 @RequiredArgsConstructor
 public class CoachController {
-    private static final Logger LOGGER = LogManager.getLogger(CoachController.class);
+    private static final Logger logger = LogManager.getLogger(CoachController.class);
 
     private final CoachService coachService;
 
     @GetMapping
     public String getActiveCoachPage(Model model) {
-        LOGGER.info("getActiveCoachPage");
+        logger.info("getActiveCoachPage");
         model.addAttribute(Constant.TITLE,
                 Constant.TITLE_COACH_MESSAGE);
         model.addAttribute(Constant.ACTIVE_COACH_LIST, coachService.findAllActiveCoach());

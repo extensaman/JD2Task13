@@ -11,13 +11,13 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class CertificateNameDtoByIdConverter implements Converter<String, CertificateNameDto> {
-    private static final Logger LOGGER = LogManager.getLogger(CertificateNameDtoByIdConverter.class);
+    private static final Logger logger = LogManager.getLogger(CertificateNameDtoByIdConverter.class);
 
     private final CertificateService service;
 
     @Override
     public CertificateNameDto convert(String id) {
-        LOGGER.info("convert Certificate id = " + id + " to CertificateNameDto");
+        logger.info("convert Certificate id = " + id + " to CertificateNameDto");
         return service.findCertificateNameDtoById(id).orElse(null);
     }
 }

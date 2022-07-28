@@ -17,13 +17,13 @@ import javax.validation.Valid;
 @Controller
 @RequiredArgsConstructor
 public class RegistrationController {
-    private static final Logger LOGGER = LogManager.getLogger(RegistrationController.class);
+    private static final Logger logger = LogManager.getLogger(RegistrationController.class);
 
     private final UserService userService;
 
     @GetMapping(Constant.REGISTRATION_MAPPING)
     public String getRegistrationPage(Model model) {
-        LOGGER.info("getRegistrationPage");
+        logger.info("getRegistrationPage");
         model.addAttribute(Constant.TITLE,
                 Constant.TITLE_REGISTRATION_MESSAGE);
         model.addAttribute(Constant.USER_DTO,
@@ -33,11 +33,11 @@ public class RegistrationController {
 
     @PostMapping(Constant.REGISTRATION_MAPPING)
     public String processRegistration(Model model, @Valid UserDto userDto, Errors errors) {
-        LOGGER.info("processRegistration");
+        logger.info("processRegistration");
         model.addAttribute(Constant.TITLE,
                 Constant.TITLE_REGISTRATION_MESSAGE);
         if (errors.hasErrors()) {
-            LOGGER.info("processRegistration :: errors.hasErrors()");
+            logger.info("processRegistration :: errors.hasErrors()");
             return Constant.REGISTRATION_PAGE;
         }
 
@@ -51,7 +51,7 @@ public class RegistrationController {
 
     @GetMapping(Constant.ACTIVATE_MAPPING)
     public String activateUser(Model model, @PathVariable String code) {
-        LOGGER.info("activateUser");
+        logger.info("activateUser");
         Boolean isUserActivated = userService.activateUser(code);
         model.addAttribute(Constant.IS_USER_ACTIVATED, isUserActivated);
 

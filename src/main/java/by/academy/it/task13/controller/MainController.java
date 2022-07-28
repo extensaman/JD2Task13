@@ -15,13 +15,13 @@ import java.util.Optional;
 @Controller
 @RequestMapping(Constant.ROOT_PATH_MAPPING)
 public class MainController {
-    private static final Logger LOGGER = LogManager.getLogger(MainController.class);
+    private static final Logger logger = LogManager.getLogger(MainController.class);
 
     @GetMapping
     public String getMainPage(Model model,
                               @RequestParam(name = Constant.MAIL_ERROR, required = false) String mailErrorStatus) {
         model.addAttribute(Constant.TITLE, Constant.MENU_USER_MAIN_MESSAGE);
-        LOGGER.info("mailErrorStatus = " + mailErrorStatus);
+        logger.info("mailErrorStatus = " + mailErrorStatus);
         Optional.ofNullable(mailErrorStatus).ifPresent(status ->
                 model.addAttribute(Constant.MAIL_ERROR, status));
         return Constant.HOME_PAGE;

@@ -18,26 +18,26 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class TelegramOrderLogServiceImpl
         implements TelegramOrderLogService {
-    private static final Logger LOGGER = LogManager.getLogger(TelegramOrderLogServiceImpl.class);
+    private static final Logger logger = LogManager.getLogger(TelegramOrderLogServiceImpl.class);
 
     private final TelegramOrderLogRepository repository;
     private final Mapper<TelegramOrderLog, TelegramOrderLogDto> mapper;
 
     @Override
     public TelegramOrderLog save(TelegramOrderLogDto logDto) {
-        LOGGER.info("save");
+        logger.info("save");
         return repository.save(mapper.toEntity(logDto));
     }
 
     @Override
     public Optional<TelegramOrderLogDto> findById(Long id) {
-        LOGGER.info("findById");
+        logger.info("findById");
         return repository.findById(id).map(mapper::toDto);
     }
 
     @Override
     public List<TelegramOrderLogDto> findAll() {
-        LOGGER.info("findAll");
+        logger.info("findAll");
         List<TelegramOrderLogDto> list = new ArrayList<>();
         repository.findAll().forEach(log ->
                 list.add(mapper.toDto(log)));

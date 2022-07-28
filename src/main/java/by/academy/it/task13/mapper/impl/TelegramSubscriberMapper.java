@@ -14,18 +14,18 @@ import java.util.Objects;
 @Component
 @RequiredArgsConstructor
 public class TelegramSubscriberMapper implements Mapper<TelegramSubscriber, TelegramSubscriberDto> {
-    private static final Logger LOGGER = LogManager.getLogger(TelegramSubscriberMapper.class);
+    private static final Logger logger = LogManager.getLogger(TelegramSubscriberMapper.class);
     private final ModelMapper mapper;
 
     @Override
     public TelegramSubscriber toEntity(TelegramSubscriberDto dto) {
-        LOGGER.info("Mapping TelegramSubscriberDto to TelegramSubscriber");
+        logger.info("Mapping TelegramSubscriberDto to TelegramSubscriber");
         return Objects.isNull(dto) ? null : mapper.map(dto, TelegramSubscriber.class);
     }
 
     @Override
     public TelegramSubscriberDto toDto(TelegramSubscriber entity) {
-        LOGGER.info("Mapping TelegramSubscriber to TelegramSubscriberDto");
+        logger.info("Mapping TelegramSubscriber to TelegramSubscriberDto");
         return Objects.isNull(entity) ? null : mapper.map(entity, TelegramSubscriberDto.class);
     }
 }

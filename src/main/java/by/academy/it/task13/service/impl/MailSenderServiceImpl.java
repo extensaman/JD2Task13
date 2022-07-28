@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class MailSenderServiceImpl implements MailSenderService {
-    private static final Logger LOGGER = LogManager.getLogger(MailSenderServiceImpl.class);
+    private static final Logger logger = LogManager.getLogger(MailSenderServiceImpl.class);
 
     public static final String ORDER_IS_ = "Order is ";
     public static final String THANK_YOU_FOR_CHOOSING_US = "\nThank you for choosing us!";
@@ -32,7 +32,7 @@ public class MailSenderServiceImpl implements MailSenderService {
         try {
             sender.send(mailMessage);
         } catch (Exception e) {
-            LOGGER.warn(e);
+            logger.warn(e);
             throw new MailSenderException("MailSenderServiceImpl::sender.send(mailMessage) " + e);
         }
     }

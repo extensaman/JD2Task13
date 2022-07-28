@@ -14,18 +14,18 @@ import java.util.Objects;
 @Component
 @RequiredArgsConstructor
 public class CertificateOrderMapper implements Mapper<CertificateOrder, CertificateOrderDto> {
-    private static final Logger LOGGER = LogManager.getLogger(CertificateOrderMapper.class);
+    private static final Logger logger = LogManager.getLogger(CertificateOrderMapper.class);
     private final ModelMapper mapper;
 
     @Override
     public CertificateOrder toEntity(CertificateOrderDto dto) {
-        LOGGER.info("Mapping CertificateOrderDto to CertificateOrder");
+        logger.info("Mapping CertificateOrderDto to CertificateOrder");
         return Objects.isNull(dto) ? null : mapper.map(dto, CertificateOrder.class);
     }
 
     @Override
     public CertificateOrderDto toDto(CertificateOrder entity) {
-        LOGGER.info("Mapping CertificateOrder to CertificateOrderDto");
+        logger.info("Mapping CertificateOrder to CertificateOrderDto");
         return Objects.isNull(entity) ? null : mapper.map(entity, CertificateOrderDto.class);
     }
 }

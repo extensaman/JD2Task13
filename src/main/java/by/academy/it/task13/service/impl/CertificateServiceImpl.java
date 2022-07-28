@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class CertificateServiceImpl implements CertificateService {
-    private static final Logger LOGGER = LogManager.getLogger(CertificateServiceImpl.class);
+    private static final Logger logger = LogManager.getLogger(CertificateServiceImpl.class);
 
     private final CertificateRepository repository;
     private final Mapper<Certificate, CertificateDto> mapper;
@@ -28,7 +28,7 @@ public class CertificateServiceImpl implements CertificateService {
 
     @Override
     public Optional<Certificate> findById(String id) {
-        LOGGER.info("findById");
+        logger.info("findById");
         Optional<Certificate> certificate;
         try {
             certificate = repository.findById(Long.parseLong(id));
@@ -45,19 +45,19 @@ public class CertificateServiceImpl implements CertificateService {
 
     @Override
     public Optional<CertificateDto> findCertificateDtoById(String id) {
-        LOGGER.info("findCertificateDtoById");
+        logger.info("findCertificateDtoById");
         return findById(id).map(mapper::toDto);
     }
 
     @Override
     public Optional<CertificateNameDto> findCertificateNameDtoById(String id) {
-        LOGGER.info("findCertificateNameDtoById");
+        logger.info("findCertificateNameDtoById");
         return findById(id).map(mapperName::toDto);
     }
 
     @Override
     public List<CertificateDto> findAll() {
-        LOGGER.info("findAll");
+        logger.info("findAll");
         List<CertificateDto> certificateDtos = new ArrayList<>();
         for (Certificate certificate : repository.findAll()) {
             certificateDtos.add(mapper.toDto(certificate));
@@ -67,7 +67,7 @@ public class CertificateServiceImpl implements CertificateService {
 
     @Override
     public List<CertificateNameDto> findAllCertificateNameDto() {
-        LOGGER.info("findAllCertificateNameDto");
+        logger.info("findAllCertificateNameDto");
         List<CertificateNameDto> certificateNameDtos = new ArrayList<>();
         for (Certificate certificate : repository.findAll()) {
             certificateNameDtos.add(mapperName.toDto(certificate));
@@ -77,7 +77,7 @@ public class CertificateServiceImpl implements CertificateService {
 
     @Override
     public List<CertificateDto> findAllActiveCertificate() {
-        LOGGER.info("findAllActiveCertificate");
+        logger.info("findAllActiveCertificate");
         return repository.findCertificatesByActivityTrue().stream()
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
@@ -85,7 +85,7 @@ public class CertificateServiceImpl implements CertificateService {
 
     @Override
     public List<Certificate> findCertificatesByActivityTrueAndCertificateTypeId(String id) {
-        LOGGER.info("findCertificatesByActivityTrueAndCertificateTypeId");
+        logger.info("findCertificatesByActivityTrueAndCertificateTypeId");
         long identifier;
         try {
             identifier = Long.parseLong(id);
@@ -98,7 +98,7 @@ public class CertificateServiceImpl implements CertificateService {
     @Override
     @Transactional
     public Certificate save(CertificateDto certificateDto) {
-        LOGGER.info("save");
+        logger.info("save");
         Certificate certificate = mapper.toEntity(certificateDto);
         if (!certificate.getCertificateType().isActivity()) {
             certificate.setActivity(false);
@@ -109,7 +109,7 @@ public class CertificateServiceImpl implements CertificateService {
     @Override
     @Transactional
     public void saveAll(List<Certificate> list) {
-        LOGGER.info("saveAll");
+        logger.info("saveAll");
         list.forEach(certificate -> {
             if (!certificate.getCertificateType().isActivity()) {
                 certificate.setActivity(false);
@@ -121,13 +121,13 @@ public class CertificateServiceImpl implements CertificateService {
     @Override
     @Transactional
     public void delete(CertificateDto certificateDto) {
-        LOGGER.info("delete");
+        logger.info("delete");
         repository.delete(mapper.toEntity(certificateDto));
     }
 
     @Override
     public List<String> findCertificateNamesByCertificateTypeId(Long id) {
-        LOGGER.info("findCertificateNamesByCertificateTypeId");
+        logger.info("findCertificateNamesByCertificateTypeId");
         return repository.findCertificateNamesByCertificateTypeId(id);
     }
 }

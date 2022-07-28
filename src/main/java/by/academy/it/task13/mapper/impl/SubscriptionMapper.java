@@ -14,18 +14,18 @@ import java.util.Objects;
 @Component
 @RequiredArgsConstructor
 public class SubscriptionMapper implements Mapper<Subscription, SubscriptionDto> {
-    private static final Logger LOGGER = LogManager.getLogger(SubscriptionMapper.class);
+    private static final Logger logger = LogManager.getLogger(SubscriptionMapper.class);
     private final ModelMapper mapper;
 
     @Override
     public Subscription toEntity(SubscriptionDto dto) {
-        LOGGER.info("Mapping SubscriptionDto to Subscription");
+        logger.info("Mapping SubscriptionDto to Subscription");
         return Objects.isNull(dto) ? null : mapper.map(dto, Subscription.class);
     }
 
     @Override
     public SubscriptionDto toDto(Subscription entity) {
-        LOGGER.info("Mapping Subscription to SubscriptionDto");
+        logger.info("Mapping Subscription to SubscriptionDto");
         return Objects.isNull(entity) ? null : mapper.map(entity, SubscriptionDto.class);
     }
 }

@@ -16,13 +16,13 @@ import java.util.Optional;
 @Component
 @RequiredArgsConstructor
 public class TelegramOrderLogMapper implements Mapper<TelegramOrderLog, TelegramOrderLogDto> {
-    private static final Logger LOGGER = LogManager.getLogger(TelegramOrderLogMapper.class);
+    private static final Logger logger = LogManager.getLogger(TelegramOrderLogMapper.class);
     private final ModelMapper mapper;
     private final Mapper<TelegramSubscriber, TelegramSubscriberDto> mapperTelegramSubscriber;
 
     @Override
     public TelegramOrderLog toEntity(TelegramOrderLogDto dto) {
-        LOGGER.info("Mapping TelegramOrderLogMapperDto to TelegramOrderLogMapper");
+        logger.info("Mapping TelegramOrderLogMapperDto to TelegramOrderLogMapper");
         return Optional.ofNullable(dto)
                 .map(logDto -> {
                     TelegramSubscriber subscriber = mapperTelegramSubscriber.toEntity(logDto.getTelegramSubscriberDto());
@@ -35,7 +35,7 @@ public class TelegramOrderLogMapper implements Mapper<TelegramOrderLog, Telegram
 
     @Override
     public TelegramOrderLogDto toDto(TelegramOrderLog entity) {
-        LOGGER.info("Mapping TelegramOrderLogMapper to TelegramOrderLogMapperDto");
+        logger.info("Mapping TelegramOrderLogMapper to TelegramOrderLogMapperDto");
         return Optional.ofNullable(entity)
                 .map(logEntity -> {
                     TelegramSubscriberDto subscriberDto = mapperTelegramSubscriber.toDto(logEntity.getTelegramSubscriber());

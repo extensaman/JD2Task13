@@ -24,9 +24,9 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-    private static final Logger LOGGER = LogManager.getLogger(UserServiceImpl.class);
-    public static final String MESSAGE_TEMPLATE = "Hi, %s!\nWelcome to Cavalier Horse Club!\nVisit next link to activate your account.\n%s/activate/%s";
-    public static final String SUBJECT = "Activation on Cavalier Horse Club";
+    private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);
+    private static final String MESSAGE_TEMPLATE = "Hi, %s!\nWelcome to Cavalier Horse Club!\nVisit next link to activate your account.\n%s/activate/%s";
+    private static final String SUBJECT = "Activation on Cavalier Horse Club";
 
     private final UserRepository repository;
     private final Mapper<User, UserDto> mapper;
@@ -36,13 +36,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<UserDto> findUserDtoByUsername(String username) {
-        LOGGER.info("findUserDtoByUsername");
+        logger.info("findUserDtoByUsername");
         return repository.findByUsername(username).map(mapper::toDto);
     }
 
     @Override
     public List<UserDto> findAll() {
-        LOGGER.info("findAll");
+        logger.info("findAll");
         List<UserDto> userDtos = new ArrayList<>();
         for (User user : repository.findAll()) {
             userDtos.add(mapper.toDto(user));
@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserNameDto> findAllUserNameDto() {
-        LOGGER.info("findAllUserNameDto");
+        logger.info("findAllUserNameDto");
         List<UserNameDto> userNameDtos = new ArrayList<>();
         for (User user : repository.findAll()) {
             userNameDtos.add(mapperName.toDto(user));
@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public boolean addUser(UserDto userDto) {
-        LOGGER.info("addUser");
+        logger.info("addUser");
         User user = mapper.toEntity(userDto);
         return repository.findByUsername(mapper.toEntity(userDto).getUsername())
                 .map(existingUser -> false)
@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public boolean activateUser(String code) {
-        LOGGER.info("activateUser");
+        logger.info("activateUser");
         User user = repository.findByActivationCode(code);
         if (user == null) {
             return false;
@@ -94,20 +94,20 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void saveAll(List<User> list) {
-        LOGGER.info("saveAll");
+        logger.info("saveAll");
         repository.saveAll(list);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        LOGGER.info("loadUserByUsername");
+        logger.info("loadUserByUsername");
         return repository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User " + username + " not found"));
     }
 
     @Override
     public Optional<User> findUserByUsername(String username) {
-        LOGGER.info("findUserByUsername");
+        logger.info("findUserByUsername");
         return repository.findByUsername(username);
     }
 }

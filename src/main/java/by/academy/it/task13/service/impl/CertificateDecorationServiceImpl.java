@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class CertificateDecorationServiceImpl implements CertificateDecorationService {
-    private static final Logger LOGGER = LogManager.getLogger(CertificateDecorationServiceImpl.class);
+    private static final Logger logger = LogManager.getLogger(CertificateDecorationServiceImpl.class);
 
     private final CertificateDecorationRepository repository;
     private final Mapper<CertificateDecoration, CertificateDecorationDto> mapper;
@@ -39,7 +39,7 @@ public class CertificateDecorationServiceImpl implements CertificateDecorationSe
 
     @Override
     public List<CertificateDecorationDto> findAll() {
-        LOGGER.info("findAll");
+        logger.info("findAll");
         List<CertificateDecorationDto> certificateDecorationDtos = new ArrayList<>();
         for (CertificateDecoration certificateDecoration : repository.findAll()) {
             certificateDecorationDtos.add(mapper.toDto(certificateDecoration));
@@ -49,7 +49,7 @@ public class CertificateDecorationServiceImpl implements CertificateDecorationSe
 
     @Override
     public List<CertificateDecorationNameDto> findAllCertificateDecorationNameDto() {
-        LOGGER.info("findAllCertificateDecorationNameDto");
+        logger.info("findAllCertificateDecorationNameDto");
         List<CertificateDecorationNameDto> certificateDecorationNameDtos = new ArrayList<>();
         for (CertificateDecoration certificateDecoration : repository.findAll()) {
             certificateDecorationNameDtos.add(mapperName.toDto(certificateDecoration));
@@ -59,7 +59,7 @@ public class CertificateDecorationServiceImpl implements CertificateDecorationSe
 
     @Override
     public List<CertificateDecorationDto> findAllActiveCertificateDecoration() {
-        LOGGER.info("findAllActiveCertificateDecoration");
+        logger.info("findAllActiveCertificateDecoration");
         return repository.findCertificateDecorationsByActivityTrue().stream()
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
@@ -68,21 +68,21 @@ public class CertificateDecorationServiceImpl implements CertificateDecorationSe
     @Override
     @Transactional
     public CertificateDecoration save(CertificateDecorationDto certificateDecorationDto) {
-        LOGGER.info("save");
+        logger.info("save");
         return repository.save(mapper.toEntity(certificateDecorationDto));
     }
 
     @Override
     @Transactional
     public void saveAll(List<CertificateDecoration> list) {
-        LOGGER.info("saveAll");
+        logger.info("saveAll");
         repository.saveAll(list);
     }
 
     @Override
     @Transactional
     public void delete(CertificateDecorationDto certificateDecorationDto) {
-        LOGGER.info("delete");
+        logger.info("delete");
         repository.delete(mapper.toEntity(certificateDecorationDto));
     }
 

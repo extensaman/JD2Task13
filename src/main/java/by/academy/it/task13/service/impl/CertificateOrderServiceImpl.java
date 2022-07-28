@@ -27,7 +27,7 @@ import java.util.Optional;
 @Component
 @RequiredArgsConstructor
 public class CertificateOrderServiceImpl implements CertificateOrderService {
-    private static final Logger LOGGER = LogManager.getLogger(CertificateOrderServiceImpl.class);
+    private static final Logger logger = LogManager.getLogger(CertificateOrderServiceImpl.class);
 
     private final CertificateOrderRepository repository;
     private final Mapper<CertificateOrder, CertificateOrderDto> mapper;
@@ -35,13 +35,13 @@ public class CertificateOrderServiceImpl implements CertificateOrderService {
 
     @Override
     public Optional<CertificateOrderDto> findById(Long id) {
-        LOGGER.info("findById");
+        logger.info("findById");
         return repository.findById(id).map(mapper::toDto);
     }
 
     @Override
     public List<CertificateOrderDto> findAll() {
-        LOGGER.info("findAll");
+        logger.info("findAll");
 
         List<CertificateOrderDto> orderDtos = new ArrayList<>();
         for (CertificateOrder order : repository.findAll()) {
@@ -53,34 +53,34 @@ public class CertificateOrderServiceImpl implements CertificateOrderService {
     @Override
     @Transactional
     public void saveAll(List<CertificateOrder> list) {
-        LOGGER.info("saveAll");
+        logger.info("saveAll");
         repository.saveAll(list);
     }
 
     @Override
     @Transactional
     public CertificateOrder save(CertificateOrderDto certificateOrderDto) {
-        LOGGER.info("save");
+        logger.info("save");
         return repository.save(mapper.toEntity(certificateOrderDto));
     }
 
     @Override
     @Transactional
     public CertificateOrder save(CertificateOrder certificateOrder) {
-        LOGGER.info("save");
+        logger.info("save");
         return repository.save(certificateOrder);
     }
 
     @Override
     @Transactional
     public void delete(CertificateOrderDto certificateOrderDto) {
-        LOGGER.info("delete");
+        logger.info("delete");
         repository.delete(mapper.toEntity(certificateOrderDto));
     }
 
     @Override
     public ExtendedPage<CertificateOrderDto> getExtendedPage(CertificateOrderFilter filter, int pageNumber, int size, String sortField, String sortDirection) {
-        LOGGER.info("getExtendedPage");
+        logger.info("getExtendedPage");
         Specification<CertificateOrder> specification = orderSpecification.getCertificateOrderSpecification(filter);
         Sort sort = Sort.by(sortField);
         sort = Constant.ASC.equalsIgnoreCase(sortDirection) ? sort.ascending() : sort.descending();
@@ -91,13 +91,13 @@ public class CertificateOrderServiceImpl implements CertificateOrderService {
 
     @Override
     public List<Long> findCertificateOrderIdsByCertificateId(Long id) {
-        LOGGER.info("findCertificateOrderIdsByCertificateId");
+        logger.info("findCertificateOrderIdsByCertificateId");
         return repository.findCertificateOrderIdsByCertificateId(id);
     }
 
     @Override
     public List<Long> findCertificateOrderIdsByCertificateDecorationId(Long id) {
-        LOGGER.info("findCertificateOrderIdsByCertificateDecorationId");
+        logger.info("findCertificateOrderIdsByCertificateDecorationId");
         return repository.findCertificateOrderIdsByCertificateDecorationId(id);
     }
 

@@ -20,7 +20,7 @@ import java.util.Optional;
 @Component
 @RequiredArgsConstructor
 public class CertificateOrderSpecification {
-    private static final Logger LOGGER = LogManager.getLogger(CertificateOrderSpecification.class);
+    private static final Logger logger = LogManager.getLogger(CertificateOrderSpecification.class);
     public static final char PERCENT_CHAR = '%';
 
     private final UserService userService;
@@ -47,7 +47,7 @@ public class CertificateOrderSpecification {
                     .flatMap(certificateNameDto -> certificateService.findById(certificateNameDto.getId()))
                     .ifPresent(certificate ->
                             predicates.add(criteriaBuilder.equal(root.get(CertificateOrder_.CERTIFICATE), certificate)));
-            LOGGER.info("Predicate ARRAY size = " + predicates.size());
+            logger.info("Predicate ARRAY size = " + predicates.size());
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         };
     }

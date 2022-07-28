@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(AdminConstant.ADMIN_PHOTO_SESSION_MAPPING)
 @RequiredArgsConstructor
 public class AdminPhotoSessionController {
-    private static final Logger LOGGER = LogManager.getLogger(AdminPhotoSessionController.class);
+    private static final Logger logger = LogManager.getLogger(AdminPhotoSessionController.class);
 
     private final PhotoSessionService photoSessionService;
 
     @GetMapping
     public String getPhotoSessionPage(Model model) {
-        LOGGER.info("getPhotoSessionPage");
+        logger.info("getPhotoSessionPage");
         model.addAttribute(AdminConstant.TITLE,
                 AdminConstant.MENU_ADMIN_PHOTO_SESSION_MESSAGE);
         model.addAttribute(AdminConstant.PHOTO_SESSION_LIST, photoSessionService.findAll());
@@ -30,14 +30,14 @@ public class AdminPhotoSessionController {
 
     @PostMapping
     public String savePhotoSession(PhotoSessionDto photoSessionDto) {
-        LOGGER.info("savePhotoSession");
+        logger.info("savePhotoSession");
         photoSessionService.save(photoSessionDto);
         return AdminConstant.REDIRECT_ADMIN_PHOTOSESSION;
     }
 
     @PostMapping(AdminConstant.DELETE_MAPPING)
     public String deletePhotoSession(PhotoSessionDto photoSessionDto) {
-        LOGGER.info("deletePhotoSession");
+        logger.info("deletePhotoSession");
         photoSessionService.delete(photoSessionDto);
         return AdminConstant.REDIRECT_ADMIN_PHOTOSESSION;
     }

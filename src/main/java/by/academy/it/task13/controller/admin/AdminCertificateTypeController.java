@@ -18,14 +18,14 @@ import java.util.List;
 @RequestMapping(AdminConstant.ADMIN_CERTIFICATE_TYPE_MAPPING)
 @RequiredArgsConstructor
 public class AdminCertificateTypeController {
-    private static final Logger LOGGER = LogManager.getLogger(AdminCertificateTypeController.class);
+    private static final Logger logger = LogManager.getLogger(AdminCertificateTypeController.class);
 
     private final CertificateTypeService certificateTypeService;
     private final CertificateService certificateService;
 
     @GetMapping
     public String getCertificateTypePage(Model model) {
-        LOGGER.info("getCertificateTypePage");
+        logger.info("getCertificateTypePage");
         model.addAttribute(AdminConstant.TITLE,
                 AdminConstant.MENU_ADMIN_CERTIFICATE_TYPE_MESSAGE);
         model.addAttribute(AdminConstant.CERTIFICATE_TYPE_LIST, certificateTypeService.findAll());
@@ -34,14 +34,14 @@ public class AdminCertificateTypeController {
 
     @PostMapping
     public String saveCertificateType(CertificateTypeDto certificateTypeDto) {
-        LOGGER.info("saveCertificateType");
+        logger.info("saveCertificateType");
         certificateTypeService.saveCertificateTypeAndUpdateAllCertificate(certificateTypeDto);
         return AdminConstant.REDIRECT_ADMIN_CERTIFICATETYPE;
     }
 
     @PostMapping(AdminConstant.DELETE_MAPPING)
     public String deleteCertificateType(Model model, CertificateTypeDto certificateTypeDto) {
-        LOGGER.info("deleteCertificateType");
+        logger.info("deleteCertificateType");
         List<String> certificateNameList = certificateService.findCertificateNamesByCertificateTypeId(certificateTypeDto.getId());
         if (certificateNameList.size() == AdminConstant.ZERO) {
             certificateTypeService.delete(certificateTypeDto);

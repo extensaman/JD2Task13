@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(AdminConstant.ADMIN_HORSE_MAPPING)
 @RequiredArgsConstructor
 public class AdminHorseController {
-    private static final Logger LOGGER = LogManager.getLogger(AdminHorseController.class);
+    private static final Logger logger = LogManager.getLogger(AdminHorseController.class);
 
     private final HorseService horseService;
     private final ImageFileList imageFileList;
 
     @GetMapping
     public String getHorsePage(Model model) {
-        LOGGER.info("getHorsePage");
+        logger.info("getHorsePage");
         model.addAttribute(AdminConstant.TITLE,
                 AdminConstant.MENU_ADMIN_HORSE_MESSAGE);
         model.addAttribute(AdminConstant.HORSE_LIST, horseService.findAll());
@@ -34,14 +34,14 @@ public class AdminHorseController {
 
     @PostMapping
     public String saveHorse(HorseDto horseDto) {
-        LOGGER.info("saveHorse");
+        logger.info("saveHorse");
         horseService.save(horseDto);
         return AdminConstant.REDIRECT_ADMIN_HORSE;
     }
 
     @PostMapping(AdminConstant.DELETE_MAPPING)
     public String deleteHorse(HorseDto horseDto) {
-        LOGGER.info("deleteHorse");
+        logger.info("deleteHorse");
         horseService.delete(horseDto);
         return AdminConstant.REDIRECT_ADMIN_HORSE;
     }

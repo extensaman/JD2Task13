@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class InitiateUtil implements CommandLineRunner {
-    private static final Logger LOGGER = LogManager.getLogger(InitiateUtil.class);
+    private static final Logger logger = LogManager.getLogger(InitiateUtil.class);
 
     private final AttachmentService attachmentService;
     private final ImageFileList imageFileList;
@@ -36,6 +36,6 @@ public class InitiateUtil implements CommandLineRunner {
                 .collect(Collectors.toList());
         attachmentService.saveAll(attachments);
 
-        LOGGER.info("Initialization is finished");
+        logger.info("Initialization is finished");
     }
 }

@@ -19,7 +19,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class TelegramSubscriberServiceImpl implements TelegramSubscriberService {
-    private static final Logger LOGGER = LogManager.getLogger(TelegramSubscriberServiceImpl.class);
+    private static final Logger logger = LogManager.getLogger(TelegramSubscriberServiceImpl.class);
     public static final char SPACE = ' ';
     public static final String EMPTY_STRING = "";
 
@@ -28,13 +28,13 @@ public class TelegramSubscriberServiceImpl implements TelegramSubscriberService 
 
     @Override
     public Optional<TelegramSubscriberDto> findByChatId(String chatId) {
-        LOGGER.info("findByChatId");
+        logger.info("findByChatId");
         return repository.findByChatId(chatId).map(mapper::toDto);
     }
 
     @Override
     public List<TelegramSubscriberDto> findAll() {
-        LOGGER.info("findAll");
+        logger.info("findAll");
         List<TelegramSubscriberDto> list = new ArrayList<>();
         repository.findAll().forEach(subscriber ->
                 list.add(mapper.toDto(subscriber)));

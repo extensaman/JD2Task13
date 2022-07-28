@@ -18,20 +18,20 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class SubscriptionServiceImpl implements SubscriptionService {
-    private static final Logger LOGGER = LogManager.getLogger(SubscriptionServiceImpl.class);
+    private static final Logger logger = LogManager.getLogger(SubscriptionServiceImpl.class);
 
     private final SubscriptionRepository repository;
     private final SubscriptionMapper mapper;
 
     @Override
     public Optional<SubscriptionDto> findById(Long id) {
-        LOGGER.info("findById");
+        logger.info("findById");
         return repository.findById(id).map(mapper::toDto);
     }
 
     @Override
     public List<SubscriptionDto> findAll() {
-        LOGGER.info("findAll");
+        logger.info("findAll");
         List<SubscriptionDto> subscriptionDtos = new ArrayList<>();
         for (Subscription subscription : repository.findAll()) {
             subscriptionDtos.add(mapper.toDto(subscription));
@@ -42,21 +42,21 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     @Override
     @Transactional
     public Subscription save(SubscriptionDto subscriptionDto) {
-        LOGGER.info("save");
+        logger.info("save");
         return repository.save(mapper.toEntity(subscriptionDto));
     }
 
     @Override
     @Transactional
     public void saveAll(List<Subscription> list) {
-        LOGGER.info("saveAll");
+        logger.info("saveAll");
         repository.saveAll(list);
     }
 
     @Override
     @Transactional
     public void delete(SubscriptionDto subscriptionDto) {
-        LOGGER.info("delete");
+        logger.info("delete");
         repository.delete(mapper.toEntity(subscriptionDto));
     }
 }

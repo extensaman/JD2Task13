@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(AdminConstant.ADMIN_SETTING_MAPPING)
 @RequiredArgsConstructor
 public class AdminSettingController {
-    private static final Logger LOGGER = LogManager.getLogger(AdminSettingController.class);
+    private static final Logger logger = LogManager.getLogger(AdminSettingController.class);
 
     @GetMapping
     public String getSettingPage(Model model) {
-        LOGGER.info("getSettingPage");
+        logger.info("getSettingPage");
         model.addAttribute(AdminConstant.TITLE,
                 AdminConstant.MENU_ADMIN_SETTING_MESSAGE);
         return AdminConstant.ADMIN_SETTING_PAGE;

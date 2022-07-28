@@ -28,7 +28,7 @@ import org.springframework.web.bind.support.SessionStatus;
 @SessionAttributes(names = AdminConstant.CERTIFICATE_ORDER_FILTER)
 @RequiredArgsConstructor
 public class AdminCertificateOrderController {
-    private static final Logger LOGGER = LogManager.getLogger(AdminCertificateOrderController.class);
+    private static final Logger logger = LogManager.getLogger(AdminCertificateOrderController.class);
 
     private final CertificateOrderService certificateOrderService;
     private final CertificateService certificateService;
@@ -49,7 +49,7 @@ public class AdminCertificateOrderController {
                                               @RequestParam(value = "sortDirection", required = false, defaultValue = "asc") String sortDirection,
                                               @ModelAttribute CertificateOrderFilter certificateOrderFilter,
                                               Model model) {
-        LOGGER.info("getGiftCertificateOrderPage");
+        logger.info("getGiftCertificateOrderPage");
         model.addAttribute(AdminConstant.TITLE,
                 AdminConstant.MENU_ADMIN_CERTIFICATE_ORDER_MESSAGE);
 
@@ -76,7 +76,7 @@ public class AdminCertificateOrderController {
 
     @PostMapping
     public String saveCertificateOrder(CertificateOrderDto certificateOrderDto, boolean mailNeedance) {
-        LOGGER.info("saveCertificateOrder");
+        logger.info("saveCertificateOrder");
         CertificateOrder certificateOrder = certificateOrderService.save(certificateOrderDto);
         if (mailNeedance) {
             CertificateOrderDto certificateOrderDtoWithId = mapper.toDto(certificateOrder);
@@ -87,14 +87,14 @@ public class AdminCertificateOrderController {
 
     @PostMapping(AdminConstant.DELETE_MAPPING)
     public String deleteCertificateOrder(CertificateOrderDto certificateOrderDto) {
-        LOGGER.info("deleteCertificateOrder");
+        logger.info("deleteCertificateOrder");
         certificateOrderService.delete(certificateOrderDto);
         return AdminConstant.REDIRECT_ADMIN_CERTIFICATEORDER_PAGE;
     }
 
     @PostMapping(AdminConstant.RESET_FILTER_MAPPING)
     public String resetCertificateOrderFilter(SessionStatus sessionStatus) {
-        LOGGER.info("resetCertificateOrderFilter");
+        logger.info("resetCertificateOrderFilter");
         sessionStatus.setComplete();
         return AdminConstant.REDIRECT_ADMIN_CERTIFICATEORDER_PAGE;
     }

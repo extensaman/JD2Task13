@@ -32,7 +32,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class AttachmentServiceImpl implements AttachmentService {
-    private static final Logger LOGGER = LogManager.getLogger(AttachmentServiceImpl.class);
+    private static final Logger logger = LogManager.getLogger(AttachmentServiceImpl.class);
     public static final String PUNCT_SYMBOL = "\\p{Punct}";
     public static final String DASH_SYMBOL = "-";
     public static final String SPACE_SYMBOL = " ";
@@ -44,7 +44,7 @@ public class AttachmentServiceImpl implements AttachmentService {
     @Override
     @Transactional
     public void addAttachment(MultipartFile multipartFile) {
-        LOGGER.info("addAttachment");
+        logger.info("addAttachment");
         Optional.ofNullable(multipartFile)
                 .ifPresent(file -> {
                     String fileName;
@@ -75,21 +75,21 @@ public class AttachmentServiceImpl implements AttachmentService {
 
     @Override
     public void addArrayOfAttachment(MultipartFile[] files) {
-        LOGGER.info("addArrayOfAttachment");
+        logger.info("addArrayOfAttachment");
         Arrays.stream(files).forEach(this::addAttachment);
     }
 
     @Override
     @Transactional
     public void saveAll(List<Attachment> list) {
-        LOGGER.info("saveAll");
+        logger.info("saveAll");
         repository.saveAll(list);
     }
 
     @Override
     @Transactional
     public void save(Attachment attachment) {
-        LOGGER.info("save");
+        logger.info("save");
         repository.save(attachment);
     }
 
@@ -115,7 +115,7 @@ public class AttachmentServiceImpl implements AttachmentService {
 
     @Override
     public ExtendedPage<AttachmentDto> getExtendedPage(int pageNumber, int size, String sortField, String sortDirection) {
-        LOGGER.info("getExtendedPage");
+        logger.info("getExtendedPage");
         Sort sort = Sort.by(sortField);
         sort = Constant.ASC.equalsIgnoreCase(sortDirection) ? sort.ascending() : sort.descending();
         PageRequest request = PageRequest.of(pageNumber - Constant.ONE, size, sort);

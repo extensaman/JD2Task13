@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class CertificateTypeServiceImpl implements CertificateTypeService {
-    private static final Logger LOGGER = LogManager.getLogger(CertificateTypeServiceImpl.class);
+    private static final Logger logger = LogManager.getLogger(CertificateTypeServiceImpl.class);
 
     private final CertificateTypeRepository certificateTypeRepository;
     private final CertificateRepository certificateRepository;
@@ -27,7 +27,7 @@ public class CertificateTypeServiceImpl implements CertificateTypeService {
 
     @Override
     public List<CertificateTypeDto> findAll() {
-        LOGGER.info("findAll");
+        logger.info("findAll");
         List<CertificateTypeDto> certificateTypeDtos = new ArrayList<>();
         for (CertificateType certificateType : certificateTypeRepository.findAll()) {
             certificateTypeDtos.add(mapper.toDto(certificateType));
@@ -37,7 +37,7 @@ public class CertificateTypeServiceImpl implements CertificateTypeService {
 
     @Override
     public List<CertificateTypeDto> findAllActiveCertificateType() {
-        LOGGER.info("findAllActiveCertificateType");
+        logger.info("findAllActiveCertificateType");
         return certificateTypeRepository.findCertificateTypesByActivityTrue().stream()
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
@@ -46,7 +46,7 @@ public class CertificateTypeServiceImpl implements CertificateTypeService {
     @Override
     @Transactional
     public CertificateType saveCertificateTypeAndUpdateAllCertificate(CertificateTypeDto certificateTypeDto) {
-        LOGGER.info("saveCertificateTypeAndUpdateAllCertificate");
+        logger.info("saveCertificateTypeAndUpdateAllCertificate");
         CertificateType certificateType = certificateTypeRepository.save(mapper.toEntity(certificateTypeDto));
         certificateRepository.updateCertificateActivity(certificateType);
         return certificateType;
@@ -55,14 +55,14 @@ public class CertificateTypeServiceImpl implements CertificateTypeService {
     @Override
     @Transactional
     public void saveAll(List<CertificateType> list) {
-        LOGGER.info("saveAll");
+        logger.info("saveAll");
         certificateTypeRepository.saveAll(list);
     }
 
     @Override
     @Transactional
     public void delete(CertificateTypeDto certificateTypeDto) {
-        LOGGER.info("delete");
+        logger.info("delete");
         certificateTypeRepository.delete(mapper.toEntity(certificateTypeDto));
     }
 }
