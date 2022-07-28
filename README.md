@@ -18,7 +18,7 @@
   <li>Spring Mail</li>
   <li>Telegram bot API</li>
   <li>Liquibase</li>
-  <li>Log4j</li>
+  <li>Log4j2</li>
   <li>Lombok</li>
   <li>Thymeleaf</li>
   <li>Angular</li>
