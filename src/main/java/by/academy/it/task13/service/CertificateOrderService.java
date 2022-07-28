@@ -5,12 +5,15 @@ import by.academy.it.task13.entity.CertificateOrder;
 import by.academy.it.task13.entity.OrderStatus;
 import by.academy.it.task13.service.paging.ExtendedPage;
 import by.academy.it.task13.service.specification.filter.CertificateOrderFilter;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface CertificateOrderService {
     Optional<CertificateOrderDto> findById(Long id);
+
+    Optional<CertificateOrderDto> findByIdFetchLazy(Long id);
 
     List<CertificateOrderDto> findAll();
 

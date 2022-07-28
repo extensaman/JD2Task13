@@ -33,7 +33,7 @@ public class Certificate {
     @Column
     private boolean activity;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "certificate_type_id")
     private CertificateType certificateType;
 

@@ -43,4 +43,10 @@ public class TelegramOrderLogServiceImpl
                 list.add(mapper.toDto(log)));
         return list;
     }
+
+    @Override
+    public List<Long> findTelegramOrderLogIdsByTelegramSubscriberChatId(String chadId) {
+        logger.info("findTelegramOrderLogIdsByTelegramSubscriberChatId");
+        return repository.findTelegramOrderLogIdsByTelegramSubscriberChatId(chadId);
+    }
 }

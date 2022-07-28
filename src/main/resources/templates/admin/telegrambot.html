@@ -1,20 +1,59 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:insert="common/metadata :: content"></head>
-<body>
+<body th:onload="showToast([[${deleteBan}]])">
 <header th:insert="common/admin_header :: content"></header>
 
 <div class="container-fluid">
+
+    <!-- TOAST-message that appears when you try to delete certificate that is used in some certificateOrder -->
+    <div th:if="${logIds != null and !logIds.isEmpty()}">
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header"
+                     th:with="size=${logIds.size()}">
+                    <strong class="me-auto text-danger"
+                            th:text="#{common.warning}">
+                    </strong>
+                    <small th:if="${size gt 0}"
+                           th:text="${size} + ' ' + #{common.restrictions}"></small>
+                    <small th:unless="${size gt 0}"
+                           th:text="${size} + ' ' + #{common.restriction}"></small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    <div class="mt-2 mb-2" th:text="#{common.telegram_subscriber_restrictions_text}"></div>
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th class="text-center align-middle">№</th>
+                            <th class="text-center align-middle" th:text="#{menu_admin.telegram_subscriber}"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <th:block th:each="logId, state : ${logIds}">
+                            <tr>
+                                <td class="text-center align-middle" th:text="${state.index+1}"></td>
+                                <td class="text-center align-middle" th:text="${logId}"></td>
+                            </tr>
+                        </th:block>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-5 mt-4">
-            <strong>Bot subscribers</strong>
+            <strong th:text="#{menu_admin.telegram_subscribers}"></strong>
             <div th:if="${telegramSubscriberDtoList != null}">
                 <table class="table table-hover">
                     <thead>
                     <tr>
                         <th class="text-center align-middle">№</th>
                         <th class="text-center align-middle">ID</th>
-                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.name}"></th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.telegram_subscriber}"></th>
                         <th class="text-center align-middle" th:text="#{menu_admin.common.table.activity}"></th>
                         <th class="text-center align-middle"><i class="bi bi-sliders font_size_24"></i></th>
                         <th class="text-center align-middle"><i class="bi bi-x-lg font_size_24"></i></th>
@@ -192,7 +231,7 @@
                   th:text="#{menu_admin.common.no_data}"></span>
         </div>
         <div class="col-7 mt-4">
-            <strong>Bot log</strong>
+            <strong th:text="#{menu_admin.telegram_log}"></strong>
             <div th:if="${telegramOrderLogDtoList != null}">
                 <table class="table table-success table-striped table-hover">
                     <thead>
@@ -241,5 +280,13 @@
     </div>
 </div>
 <footer th:insert="common/admin_footer :: content"></footer>
+<script>
+    function showToast(toast) {
+        console.log(toast);
+        if (toast === 'true') {
+            $('.toast').toast('show');
+        }
+    }
+</script>
 </body>
 </html>

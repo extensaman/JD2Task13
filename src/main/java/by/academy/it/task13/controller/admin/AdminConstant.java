@@ -60,6 +60,7 @@ public class AdminConstant {
     public static final String CERTIFICATE_ORDER_FILTER = "certificateOrderFilter";
     public static final String DELETE_BAN = "deleteBan";
     public static final String CERTIFICATE_ORDER_ID_LIST = "certificateOrderIdList";
+    public static final String TELEGRAM_LOG_ID_LIST = "logIds";
     public static final String CERTIFICATE_NAME_LIST = "certificateNameList";
     public static final String REDIRECT_ADMIN_CERTIFICATE_PAGE = "redirect:/admin/certificate";
     public static final String REDIRECT_ADMIN_CERTIFICATEDECORATION_PAGE = "redirect:/admin/certificatedecoration";

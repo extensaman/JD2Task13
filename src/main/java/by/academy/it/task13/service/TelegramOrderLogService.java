@@ -12,4 +12,7 @@ public interface TelegramOrderLogService {
     Optional<TelegramOrderLogDto> findById(Long id);
 
     List<TelegramOrderLogDto> findAll();
+
+    List<Long> findTelegramOrderLogIdsByTelegramSubscriberChatId(String chadId);
+
 }

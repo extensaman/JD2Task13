@@ -40,6 +40,12 @@ public class CertificateOrderServiceImpl implements CertificateOrderService {
     }
 
     @Override
+    public Optional<CertificateOrderDto> findByIdFetchLazy(Long id) {
+        logger.info("findByIdFetchCertificate");
+        return repository.findByIdFetchLazy(id).map(mapper::toDto);
+    }
+
+    @Override
     public List<CertificateOrderDto> findAll() {
         logger.info("findAll");
 

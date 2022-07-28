@@ -1,6 +1,5 @@
 package by.academy.it.task13.controller.admin;
 
-import by.academy.it.task13.dto.PhotoSessionDto;
 import by.academy.it.task13.dto.TelegramSubscriberDto;
 import by.academy.it.task13.service.TelegramOrderLogService;
 import by.academy.it.task13.service.TelegramSubscriberService;
@@ -13,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping(AdminConstant.ADMIN_TELEGRAM_BOT_MAPPING)
 @RequiredArgsConstructor
@@ -23,12 +24,12 @@ public class AdminTelegramBotController {
     private final TelegramOrderLogService logService;
 
     @GetMapping
-    public String getTelegramBotPage(Model model){
+    public String getTelegramBotPage(Model model) {
         logger.info("getTelegramBotPage");
         model.addAttribute(AdminConstant.TITLE,
                 AdminConstant.MENU_ADMIN_TELEGRAM_BOT_MESSAGE);
         model.addAttribute(AdminConstant.TELEGRAM_ORDER_LOG_DTO_LIST,
-                        logService.findAll());
+                logService.findAll());
         model.addAttribute(AdminConstant.TELEGRAM_SUBSCRIBER_DTO_LIST,
                 subscriberService.findAll());
         return AdminConstant.ADMIN_TELEGRAM_BOT_PAGE;
@@ -42,9 +43,15 @@ public class AdminTelegramBotController {
     }
 
     @PostMapping(AdminConstant.SUBSCRIBER_DELETE_MAPPING)
-    public String deleteSubscriber(TelegramSubscriberDto telegramSubscriberDto) {
+    public String deleteSubscriber(Model model, TelegramSubscriberDto telegramSubscriberDto) {
         logger.info("deleteSubscriber");
-        subscriberService.delete(telegramSubscriberDto);
-        return AdminConstant.REDIRECT_ADMIN_TELEGRAMBOT;
+        List<Long> logIds = logService.findTelegramOrderLogIdsByTelegramSubscriberChatId(telegramSubscriberDto.getChatId());
+        if (logIds.size() == AdminConstant.ZERO) {
+            subscriberService.delete(telegramSubscriberDto);
+            return AdminConstant.REDIRECT_ADMIN_TELEGRAMBOT;
+        }
+        model.addAttribute(AdminConstant.DELETE_BAN, AdminConstant.TRUE);
+        model.addAttribute(AdminConstant.TELEGRAM_LOG_ID_LIST, logIds);
+        return getTelegramBotPage(model);
     }
 }

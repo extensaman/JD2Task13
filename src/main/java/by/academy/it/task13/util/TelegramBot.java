@@ -52,6 +52,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
+        // Text message section
         if (update.hasMessage() && update.getMessage().hasText()) {
             Message message = update.getMessage();
             String receivedText = message.getText();
@@ -83,6 +84,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             }
             sendTextMessage(chatId, textMessage);
 
+            // CallbackQuery (buttons pressed) section
         } else if (update.hasCallbackQuery()) {
             String chatId = update.getCallbackQuery().getMessage().getChatId().toString();
             String callbackData = update.getCallbackQuery().getData();
@@ -96,7 +98,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                     Sendable sendable;
                     switch (subscriberAnswer.getOrderType()) {
                         case CERTIFICATE:
-                            sendable = certificateOrderService.findById(subscriberAnswer.getId())
+                            sendable = certificateOrderService.findByIdFetchLazy(subscriberAnswer.getId())
                                     .map(certificateOrderDto -> certificateOrderService.updateAndReturnCertificateOrderStatus(certificateOrderDto, subscriberAnswer.getOrderStatus()))
                                     .orElseThrow(TelegramSubscriberAnswerException::new);
                             break;
@@ -135,6 +137,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         }
     }
 
+    // broadcast info about order to all subscribers
     public void broadcastOrder(Sendable sendable) {
         logger.info("broadcastOrder");
 
@@ -169,6 +172,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         });
     }
 
+    // broadcast simple text message to all subscribers
     public void broadcastTextMessage(String textMessage) {
         telegramSubscriberService.getChatIdListWhereActivityIsTrue().forEach(chatId -> {
             sendTextMessage(chatId, textMessage);
