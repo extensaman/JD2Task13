@@ -7,7 +7,7 @@
 <p>Implemented <b>registration on the site via e-mail</b>, informing the site owner via <b>telegram bot</b> about incoming orders with the ability to change the status of the order via the bot.</p>
 <p>In addition, the site provides information about the horses and trainers of the horse club as well as the ability for the site administrator to <b>upload photos to the site.</b></p>
 <p>The interface is internationalized and supports the choice of languages: Russian and English.</p>
-<p>The user interface of the training subscription page is implemented using the <b>Angular framework</b>.</p>
+<p>The user interface of the training subscription page is implemented using the <b>Angular framework.</b></p>
 <p>The application is implemented using next technologies</p>
 <ul>
   <li>Spring Boot 2.7.0</li>
