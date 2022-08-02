@@ -11,7 +11,6 @@
     <groupId>by.academy.it.task13</groupId>
     <artifactId>JD2Task13</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
     <name>JD2Task13</name>
     <description>Horse club &apos;Cavalier&apos;</description>
     <properties>
