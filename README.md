@@ -30,7 +30,7 @@
 <img src="https://user-images.githubusercontent.com/49030354/180658914-67794ebd-09f3-4a26-b809-847906ce0703.png" alt="Image">
 <img src="https://user-images.githubusercontent.com/49030354/180659261-b9202e9a-a525-4f44-8efa-f927dd516927.png" alt="Image">
 <hr/>
-<h3>Usage of application</h3>
+<h3>Usage of application:</h3>
 <p>Install MySQL, Java 11, use "feature" branch, change settings in <b>application.properties</b> file.</p>
 <img src="https://user-images.githubusercontent.com/49030354/180660090-1f742b33-53a0-4d66-84eb-868d723ce983.jpg" alt="Image">
 <p></p>
