@@ -39,7 +39,7 @@
 <p>https://github.com/extensaman/JD2Task13/files/9180694/horses.zip</p>
 <hr/>
 <h3>Docker</h3>
-<p>Unpack next file and run the command <b>docker compose up</b> in the folder where the file was unpacked</p>
+<p>Unpack next file and run the command <b>docker compose up</b> in the folder where the file was unpacked:</p>
 <p>https://github.com/extensaman/JD2Task13/files/9275555/docker-compose.zip</p>
 
 <hr/>
