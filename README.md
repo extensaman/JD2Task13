@@ -24,7 +24,7 @@
   <li>Angular</li>
 </ul>
 <hr/>
-<h3>Examples of user's interface.</h3>
+<h3>Examples of user's interface</h3>
 <img src="https://user-images.githubusercontent.com/49030354/180658631-1795dd5f-e756-4f66-91e1-fbea550a76aa.png" alt="Image">
 <img src="https://user-images.githubusercontent.com/49030354/180658695-e060de3b-d85a-4137-abb9-559a548df805.png" alt="Image">
 <img src="https://user-images.githubusercontent.com/49030354/180658914-67794ebd-09f3-4a26-b809-847906ce0703.png" alt="Image">
