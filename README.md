@@ -1,4 +1,4 @@
-<h3>Cavalier Horse Club</h3>
+<h2>Cavalier Horse Club</h2>
 <p>Final project [with Spring and Thymeleaf] (course "Java Enterprise", <a href="http://it-academy.by">it-academy.by</a>, Minsk, starting date 03.03.2022)</p>
 <b>See "feature" branch</b>
 <hr/>
