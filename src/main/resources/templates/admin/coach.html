@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="common/metadata :: content"></head>
+<body>
+<header th:insert="common/admin_header :: content"></header>
+
+<div class="container">
+
+    <!-- Add new coach -->
+    <div class="row mx-2 mt-5">
+        <div class='d-flex justify-content-start'>
+            <form th:action="@{/admin/coach/}" th:method="post"
+                  th:object="${coachDto}">
+                <button type="button"
+                        class="btn btn-outline-primary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#add-coach"
+                        th:text="#{common.button.add}">
+                </button>
+                <!-- Modal for add coach -->
+                <div class="modal fade" id="add-coach" tabindex="-1"
+                     role="dialog" aria-labelledby="exampleModalLabel20" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel20" th:text="#{common.button.adding}"></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+
+                                <!-- Coach id -->
+                                <!== NOT FILLING -->
+
+                                <!-- Coach name -->
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-black-50"
+                                          th:text="#{menu_admin.common.table.name}">
+                                    </span>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="name">
+                                </div>
+
+                                <!-- Coach description -->
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-black-50"
+                                          th:text="#{menu_admin.common.table.description}">
+                                    </span>
+                                    <textarea class="form-control"
+                                              aria-label="With textarea"
+                                              rows="5"
+                                              name="description"></textarea>
+                                </div>
+
+                                <!-- Coach photoFile -->
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-black-50"
+                                          th:text="#{menu_admin.common.table.photo_file}">
+                                    </span>
+                                    <select class="form-select"
+                                            aria-label="Default select example"
+                                            name="photoFile">
+                                        <th:block th:each="imageFile : ${imageFileList}">
+                                            <option th:value="${imageFile}"
+                                                    th:text="${imageFile}">
+                                            </option>
+                                        </th:block>
+                                    </select>
+                                </div>
+
+                                <!-- Is coach active -->
+                                <div class="input-group mb-3">
+                                    <h5>
+                                        <div class="form-check form-switch">
+                                            <input type="checkbox"
+                                                   class="form-check-input"
+                                                   name="activity">
+                                        </div>
+                                    </h5>
+                                    <span class="text-black-50"
+                                          id="horseActivity"
+                                          th:text="#{menu_admin.common.table.activity}">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button"
+                                        class="btn btn-secondary"
+                                        data-bs-dismiss="modal"
+                                        th:text="#{common.button.cancel}">
+                                </button>
+
+                                <button class="btn btn-primary"
+                                        th:text="#{common.button.save}">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+
+    <div class="row mx-2 mt-2">
+        <div th:with="condition=${coachList != null and !coachList.isEmpty()}">
+            <div th:if="${condition}">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th class="text-center align-middle">№</th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.name}"></th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.description}"></th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.photo_file}"></th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.activity}"></th>
+                        <th class="text-center align-middle"><i class="bi bi-sliders font_size_24"></i></th>
+                        <th class="text-center align-middle"><i class="bi bi-x-lg font_size_24"></i></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <th:block th:each="coachDto, state : ${coachList}">
+                        <tr>
+                            <td class="text-center align-middle" th:text="${state.index+1}"></td>
+                            <td class="text-center align-middle" th:text="${coachDto.name}"></td>
+                            <td class="align-middle" th:text="${coachDto.description}"></td>
+                            <td class="text-center align-middle">
+                                <img th:src="@{${'/'+coachDto.photoFile}}"
+                                     class="img-fluid" alt="">
+                            </td>
+                            <td class="text-center align-middle">
+                                <i th:if="${coachDto.activity}"
+                                   class="bi bi-check-circle-fill text-success font_size_24"></i>
+                                <i th:unless="${coachDto.activity}"
+                                   class="bi bi-x-circle-fill text-danger font_size_24"></i>
+                            </td>
+
+                            <!-- Form for editing item -->
+                            <form th:action="@{/admin/coach/}" th:method="post"
+                                  th:object="${coachDto}">
+                                <td class="text-center align-middle">
+                                    <button type="button"
+                                            class="btn btn-outline-primary"
+                                            data-bs-toggle="modal"
+                                            th:attr="data-bs-target='#editcoach'+${coachDto.id}">
+                                        <i class="bi bi-pencil-square font_size_20"></i>
+                                    </button>
+                                </td>
+
+                                <!-- Modal for edit decoration -->
+                                <div class="modal fade" th:id="${'editcoach'+coachDto.id}" tabindex="-1"
+                                     role="dialog" aria-labelledby="exampleModalLabel21" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel21"
+                                                    th:text="#{common.button.editing}"></h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <!-- Coach id -->
+                                                <input type="hidden"
+                                                       th:value="${coachDto.id}"
+                                                       name="id">
+
+                                                <!-- Coach name -->
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text text-black-50"
+                                                          th:text="#{menu_admin.common.table.name}">
+                                                    </span>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           th:value="${coachDto.name}"
+                                                           name="name">
+                                                </div>
+
+                                                <!-- Coach description -->
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text text-black-50"
+                                                          th:text="#{menu_admin.common.table.description}">
+                                                    </span>
+                                                    <textarea class="form-control"
+                                                              aria-label="With textarea"
+                                                              th:text="${coachDto.description}"
+                                                              rows="5"
+                                                              name="description"></textarea>
+                                                </div>
+
+                                                <!-- Coach photoFile -->
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text text-black-50"
+                                                          th:text="#{menu_admin.common.table.photo_file}">
+                                                    </span>
+                                                    <select class="form-select"
+                                                            aria-label="Default select example"
+                                                            name="photoFile">
+                                                        <th:block th:each="imageFile : ${imageFileList}">
+                                                            <option th:value="${imageFile}"
+                                                                    th:text="${imageFile}"
+                                                                    th:selected="${imageFile == coachDto.photoFile}">
+                                                            </option>
+                                                        </th:block>
+                                                    </select>
+                                                </div>
+
+                                                <!-- Is coach active -->
+                                                <div class="input-group mb-3">
+                                                    <h5>
+                                                        <div class="form-check form-switch">
+                                                            <input type="checkbox"
+                                                                   class="form-check-input"
+                                                                   th:checked="${coachDto.activity}"
+                                                                   name="activity">
+                                                        </div>
+                                                    </h5>
+                                                    <span class="text-black-50"
+                                                          id="horseIsActive"
+                                                          th:text="#{menu_admin.common.table.activity}">
+                                                    </span>
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button"
+                                                        class="btn btn-secondary"
+                                                        data-bs-dismiss="modal"
+                                                        th:text="#{common.button.cancel}">
+                                                </button>
+
+                                                <button class="btn btn-primary"
+                                                        th:text="#{common.button.save_changes}">
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+
+                            <!-- Form for deleting item -->
+                            <form th:action="@{/admin/coach/delete}" th:method="post"
+                                  th:object="${coachDto}">
+                                <td class="text-center align-middle">
+                                    <button type="button"
+                                            class="btn btn-outline-danger"
+                                            data-bs-toggle="modal"
+                                            th:attr="data-bs-target='#deletecoach'+${coachDto.id}">
+                                        <i class="bi bi-trash3 font_size_20"></i>
+                                    </button>
+                                </td>
+
+                                <!-- Modal for delete coach -->
+                                <div class="modal fade" th:id="${'deletecoach'+coachDto.id}" tabindex="-1"
+                                     role="dialog" aria-labelledby="exampleModalLabel22" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel22"
+                                                    th:text="#{common.button.deleting}"></h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <!-- coach id -->
+                                                <input type="hidden"
+                                                       th:value="${coachDto.id}"
+                                                       name="id">
+
+                                                <!-- coach name -->
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text text-black-50"
+                                                          th:text="#{menu_admin.common.table.name}">
+                                                    </span>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           th:value="${coachDto.name}"
+                                                           name="name"
+                                                           disabled>
+                                                </div>
+
+                                                <!-- coach description -->
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text text-black-50"
+                                                          th:text="#{menu_admin.common.table.description}">
+                                                    </span>
+                                                    <textarea class="form-control"
+                                                              aria-label="With textarea"
+                                                              th:text="${coachDto.description}"
+                                                              rows="5"
+                                                              name="description"
+                                                              disabled></textarea>
+                                                </div>
+
+                                                <!-- coach photoFile -->
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text text-black-50"
+                                                          th:text="#{menu_admin.common.table.photo_file}">
+                                                    </span>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           th:value="${coachDto.photoFile}"
+                                                           disabled
+                                                           name="photoFile">
+                                                </div>
+
+                                                <!-- Is coach active -->
+                                                <div class="input-group mb-3">
+                                                    <h5>
+                                                        <div class="form-check form-switch">
+                                                            <input type="checkbox"
+                                                                   class="form-check-input"
+                                                                   th:checked="${coachDto.activity}"
+                                                                   name="activity"
+                                                                   disabled>
+                                                        </div>
+                                                    </h5>
+                                                    <span class="text-black-50"
+                                                          id="certDecorationActivity"
+                                                          th:text="#{menu_admin.common.table.activity}">
+                                                    </span>
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button"
+                                                        class="btn btn-secondary"
+                                                        data-bs-dismiss="modal"
+                                                        th:text="#{common.button.cancel}">
+                                                </button>
+
+                                                <button class="btn btn-danger"
+                                                        th:text="#{common.button.delete}">
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </tr>
+                    </th:block>
+                    </tbody>
+                </table>
+            </div>
+            <span th:unless="${condition}" class="text-danger" th:text="#{menu_admin.common.no_data}"></span>
+        </div>
+    </div>
+</div>
+<footer th:insert="common/admin_footer :: content"></footer>
+</body>
+</html>

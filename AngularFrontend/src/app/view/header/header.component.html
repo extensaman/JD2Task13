@@ -1,0 +1,81 @@
+<div class="container-fluid text-center mt-3">
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <div class="wrapper_h img__object__fit mx-2">
+        <a href="{{backendUrl}}"><img src="../../assets/img/logo_small.png" alt=""></a>
+      </div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+              aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item dropdown">
+            <a class="nav-link active underline dropdown-toggle" href="#"
+               id="navbarDropdown77" role="button"
+               data-bs-toggle="dropdown" aria-expanded="false">Верховая езда</a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown99">
+              <li><a class="dropdown-item" routerLink="/subscriptions">
+                  Обучение верховой езде
+              </a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="{{backendUrl}}">
+                  Для детей
+              </a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="{{backendUrl}}">
+                Конный спорт
+              </a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="{{backendUrl}}">
+                Аренда лошадей
+              </a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link"
+               aria-current="page" href="{{backendUrl + '/certificate'}}">
+              Подарочные сертификаты
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page"
+               href="{{backendUrl + '/photosession'}}">
+              Фотосессия
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="" id="navbarDropdown"
+               role="button"
+               data-bs-toggle="dropdown" aria-expanded="false">
+              О нас
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item"
+                     href="{{backendUrl + '/horse'}}">
+                Лошади
+              </a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item"
+                     href="{{backendUrl + '/coach'}}">
+                Тренеры
+              </a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <hr/>
+</div>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="common/metadata :: content"></head>
+<body>
+<header th:insert="common/admin_header :: content"></header>
+
+<div class="container">
+
+    <!-- Add new attachment -->
+    <div class="row mx-2 mt-5">
+        <div class='d-flex justify-content-start'>
+            <form th:action="@{/admin/upload/}"
+                  th:method="post"
+                  enctype="multipart/form-data">
+
+                <div class="input-group">
+                    <input type="file"
+                           class="form-control"
+                           id="inputGroupFile04"
+                           aria-describedby="inputGroupFileAddon04"
+                           aria-label="Upload"
+                           name="files"
+                           multiple>
+                    <button class="btn btn-outline-primary"
+                            id="inputGroupFileAddon04"
+                            th:text="#{common.button.upload}">
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Attachment TABLE -->
+    <div class="row mx-2 mt-2">
+        <div th:with="condition=${attachmentPage != null}">
+            <div th:if="${condition}">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th class="text-center align-middle"
+                            th:with="ID=${T(by.academy.it.task13.entity.Attachment_).ID}">
+                            <a th:href="@{'/admin/upload?pageNumber=' + ${attachmentPage.control.pageNumber + '&sortField=' + ID + '&sortDirection='+ reverseSortDirection}}">
+                                №
+                            </a>
+                        </th>
+                        <th class="text-center align-middle"
+                            th:with="FILE_NAME=${T(by.academy.it.task13.entity.Attachment_).FILE_NAME}">
+                            <div class="row">
+                                <a th:href="@{'/admin/upload?pageNumber=' + ${attachmentPage.control.pageNumber + '&sortField=' + FILE_NAME + '&sortDirection='+ reverseSortDirection}}"
+                                   th:text="#{menu_admin.common.table.name}">
+                                </a>
+                                <i th:if="${sortField == FILE_NAME}"
+                                   class="text-success"
+                                   th:classappend="${sortDirection == 'desc' ? 'bi bi-arrow-down-circle' : 'bi bi-arrow-up-circle'}"></i>
+                            </div>
+                        </th>
+                        <th class="text-center align-middle"
+                            th:with="CREATED=${T(by.academy.it.task13.entity.Attachment_).CREATED}">
+                            <div class="row">
+                                <a th:href="@{'/admin/upload?pageNumber=' + ${attachmentPage.control.pageNumber + '&sortField=' + CREATED + '&sortDirection='+ reverseSortDirection}}"
+                                   th:text="#{menu_admin.common.table.created}">
+                                </a>
+                                <i th:if="${sortField == CREATED}"
+                                   class="text-success"
+                                   th:classappend="${sortDirection == 'desc' ? 'bi bi-arrow-down-circle' : 'bi bi-arrow-up-circle'}"></i>
+                            </div>
+                        </th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.photo_file}"></th>
+                        <th class="text-center align-middle"><i class="bi bi-sliders font_size_24"></i></th>
+                        <th class="text-center align-middle"><i class="bi bi-x-lg font_size_24"></i></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <th:block th:each="attachment, state : ${attachmentPage.page}">
+                        <tr>
+                            <td class="text-center align-middle"
+                                th:text="${state.index + 1 + (attachmentPage.control.pageNumber - 1) * attachmentPage.control.pageSize}">
+                            </td>
+                            <td class="text-center align-middle"
+                                th:text="${attachment.fileName}">
+                            </td>
+                            <td class="text-center align-middle"
+                                th:text="${attachment.created}">
+                            </td>
+                            <td class="text-center align-middle">
+                                <img th:src="@{${'/' + attachment.fileName}}"
+                                     class="img-fluid" alt="">
+                            </td>
+                            <!-- Form for editing attachment -->
+                            <form th:action="@{/admin/upload/edit}" th:method="post"
+                                  th:object="${attachmentDto}">
+
+                                <td class="text-center align-middle">
+                                    <button type="button"
+                                            class="btn btn-outline-primary"
+                                            data-bs-toggle="modal"
+                                            th:attr="data-bs-target='#editattachment'+${attachment.id}">
+                                        <i class="bi bi-pencil-square font_size_20"></i>
+                                    </button>
+                                </td>
+
+                                <!-- Modal for edit attachment-->
+                                <div class="modal fade" th:id="${'editattachment'+attachment.id}"
+                                     tabindex="-1"
+                                     role="dialog" aria-labelledby="exampleModalLabel78" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel78"
+                                                    th:text="#{common.button.editing}"></h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <!-- id -->
+                                                <input type="hidden"
+                                                       th:value="${attachment.id}"
+                                                       name="id">
+
+                                                <input type="hidden"
+                                                       th:value="${attachment.created}"
+                                                       name="created">
+
+                                                <!-- FileName -->
+                                                <div class="mt-3">
+                                                    <label for="fileName03"
+                                                           class="form-label"
+                                                           th:text="#{menu_admin.common.table.name}">
+                                                    </label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           name="fileName"
+                                                           th:value="${attachment.fileName}"
+                                                           id="fileName03">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button"
+                                                        class="btn btn-secondary"
+                                                        data-bs-dismiss="modal"
+                                                        th:text="#{common.button.cancel}">
+                                                </button>
+
+                                                <button class="btn btn-primary"
+                                                        th:text="#{common.button.save_changes}">
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <!-- Form for deleting attachment -->
+                            <form th:action="@{/admin/upload/delete}" th:method="post"
+                                  th:object="${attachmentDto}">
+
+                                <td class="text-center align-middle">
+                                    <button type="button"
+                                            class="btn btn-outline-danger"
+                                            data-bs-toggle="modal"
+                                            th:attr="data-bs-target='#deleteattachment'+${attachment.id}">
+                                        <i class="bi bi-trash3 font_size_20"></i>
+                                    </button>
+                                </td>
+
+                                <!-- Modal for delete attachment-->
+                                <div class="modal fade" th:id="${'deleteattachment'+attachment.id}"
+                                     tabindex="-1"
+                                     role="dialog" aria-labelledby="exampleModalLabel88" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel88"
+                                                    th:text="#{common.button.editing}"></h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <!-- id -->
+                                                <input type="hidden"
+                                                       th:value="${attachment.id}"
+                                                       name="id">
+
+                                                <input type="hidden"
+                                                       th:value="${attachment.created}"
+                                                       name="created">
+
+                                                <!-- FileName -->
+                                                <div class="mt-3">
+                                                    <label for="fileName03"
+                                                           class="form-label"
+                                                           th:text="#{menu_admin.common.table.name}">
+                                                    </label>
+                                                    <input type="text"
+                                                           readonly
+                                                           class="form-control"
+                                                           name="fileName"
+                                                           th:value="${attachment.fileName}"
+                                                           id="fileName03">
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button"
+                                                        class="btn btn-secondary"
+                                                        data-bs-dismiss="modal"
+                                                        th:text="#{common.button.cancel}">
+                                                </button>
+
+                                                <button class="btn btn-danger"
+                                                        th:text="#{common.button.delete}">
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </tr>
+                    </th:block>
+                    </tbody>
+                </table>
+
+                <!-- Pagination control -->
+                <nav aria-label="Page navigation" class="paging">
+                    <ul class="pagination" th:if="${attachmentPage.page.totalPages > 1}">
+                        <li class="page-item"
+                            th:classappend="${!attachmentPage.control.isPrevEnable()? 'disabled' : ''}">
+                            <a class="page-link"
+                               th:href="@{'/admin/upload?pageNumber=' + ${attachmentPage.control.pageNumber - 1} + '&sortField=' + ${sortField} + '&sortDirection='+ ${sortDirection}}"
+                               tabindex="-1"
+                               th:text="#{common.button.previous_pagination}">
+                            </a>
+                        </li>
+                        <th:block th:each="item : ${attachmentPage.control.getItems()}">
+                            <li class="page-item"
+                                th:classappend="${item.index == attachmentPage.control.pageNumber? 'active' : ''}"
+                                th:if="${item.type.name() == 'PAGE'}">
+                                <a class="page-link"
+                                   th:href="@{'/admin/upload?pageNumber=' + ${item.index} + '&sortField=' + ${sortField} + '&sortDirection='+ ${sortDirection}}"
+                                   th:text="${item.index}"></a>
+                            </li>
+                            <li class="page-item disabled" th:if="${item.type.name() == 'DOTS'}">
+                                <a class="page-link" href="#">...</a>
+                            </li>
+                        </th:block>
+                        <li class="page-item"
+                            th:classappend="${!attachmentPage.control.isNextEnable()? 'disabled' : ''}">
+                            <a class="page-link"
+                               th:href="@{'/admin/upload?pageNumber=' + ${attachmentPage.control.pageNumber + 1} + '&sortField=' + ${sortField} + '&sortDirection='+ ${sortDirection}}"
+                               th:text="#{common.button.next_pagination}">
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+
+            </div>
+            <span th:unless="${condition}" class="text-danger" th:text="#{menu_admin.common.no_data}"></span>
+        </div>
+    </div>
+</div>
+
+<footer th:insert="common/admin_footer :: content"></footer>
+</body>
+</html>
