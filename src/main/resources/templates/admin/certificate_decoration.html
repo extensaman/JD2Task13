@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="common/metadata :: content"></head>
+<body th:onload="showToast([[${deleteBan}]])">
+<header th:insert="common/admin_header :: content"></header>
+
+<div class="container">
+
+    <!-- TOAST-message that appears when you try to delete certificate decoration that is used in some certificateOrder -->
+    <div th:if="${certificateOrderIdList != null and !certificateOrderIdList.isEmpty()}">
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header"
+                     th:with="size=${certificateOrderIdList.size()}">
+                    <strong class="me-auto text-danger"
+                            th:text="#{common.warning}">
+                    </strong>
+                    <small th:if="${size gt 0}"
+                           th:text="${size} + ' ' + #{common.restrictions}"></small>
+                    <small th:unless="${size gt 0}"
+                           th:text="${size} + ' ' + #{common.restriction}"></small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    <div class="mt-2 mb-2" th:text="#{common.decoration_restrictions_text}"></div>
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th class="text-center align-middle">№</th>
+                            <th class="text-center align-middle" th:text="#{menu.order}"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <th:block th:each="certificateOrderId, state : ${certificateOrderIdList}">
+                            <tr>
+                                <td class="text-center align-middle" th:text="${state.index+1}"></td>
+                                <td class="text-center align-middle" th:text="${certificateOrderId}"></td>
+                            </tr>
+                        </th:block>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add new certificate decoration -->
+    <div class="row mx-2 mt-5">
+        <div class='d-flex justify-content-start'>
+            <form th:action="@{/admin/certificatedecoration/}" th:method="post"
+                  th:object="${decoration}">
+                <button type="button"
+                        class="btn btn-outline-primary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#add-certificate-decoration"
+                        th:text="#{common.button.add}">
+                </button>
+                <!-- Modal for add decoration -->
+                <div class="modal fade" id="add-certificate-decoration" tabindex="-1"
+                     role="dialog" aria-labelledby="exampleModalLabel06" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel06" th:text="#{common.button.adding}"></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+
+                                <!-- CertificateDecoration id -->
+                                <!-- NOT FILL -->
+
+                                <!-- CertificateDecoration name -->
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-black-50"
+                                          th:text="#{menu_admin.common.table.name}">
+                                    </span>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="name"
+                                           aria-describedby="certDecorationPrice">
+                                </div>
+
+                                <!-- CertificateDecoration description -->
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-black-50"
+                                          th:text="#{menu_admin.common.table.description}">
+                                    </span>
+                                    <textarea class="form-control"
+                                              aria-label="With textarea"
+                                              rows="5"
+                                              name="description"></textarea>
+                                </div>
+
+                                <!-- CertificateDecoration photoFile -->
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-black-50"
+                                          th:text="#{menu_admin.common.table.photo_file}">
+                                    </span>
+                                    <select class="form-select"
+                                            aria-label="Default select example"
+                                            name="photoFile">
+                                        <th:block th:each="imageFile : ${imageFileList}">
+                                            <option th:value="${imageFile}"
+                                                    th:text="${imageFile}">
+                                            </option>
+                                        </th:block>
+                                    </select>
+                                </div>
+
+                                <!-- Is delivery necessary -->
+                                <div class="input-group mb-3">
+                                    <h5>
+                                        <div class="form-check form-switch">
+                                            <input type="checkbox"
+                                                   class="form-check-input"
+                                                   name="deliveryNecessity">
+                                        </div>
+                                    </h5>
+                                    <span class="text-black-50"
+                                          id="certDecorationDeliveryNecessity"
+                                          th:text="#{menu_admin.common.table.deliveryNecessity}">
+                                    </span>
+                                </div>
+
+                                <!-- CertificateDecoration Price -->
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-black-50"
+                                          id="certDecorationPrice"
+                                          th:text="#{menu_admin.common.table.price}">
+                                    </span>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="price"
+                                           aria-describedby="certDecorationPrice">
+                                </div>
+
+                                <!-- Is decoration active -->
+                                <div class="input-group mb-3">
+                                    <h5>
+                                        <div class="form-check form-switch">
+                                            <input type="checkbox"
+                                                   class="form-check-input"
+                                                   name="activity">
+                                        </div>
+                                    </h5>
+                                    <span class="text-black-50"
+                                          id="certDecorationActivity"
+                                          th:text="#{menu_admin.common.table.activity}">
+                                    </span>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button"
+                                        class="btn btn-secondary"
+                                        data-bs-dismiss="modal"
+                                        th:text="#{common.button.cancel}">
+                                </button>
+
+                                <button class="btn btn-primary"
+                                        th:text="#{common.button.save}">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Table -->
+    <div class="row mx-2 mt-2">
+        <div th:with="condition=${certificateDecorationList != null and !certificateDecorationList.isEmpty()}">
+            <div th:if="${condition}">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th class="text-center align-middle">№</th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.name}"></th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.description}"></th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.photo_file}"></th>
+                        <th class="text-center align-middle"><i class="bi bi-truck font_size_24"></i></th>
+                        <th class="text-center align-middle"><i class="bi bi-coin font_size_24"></i></th>
+                        <th class="text-center align-middle" th:text="#{menu_admin.common.table.activity}"></th>
+                        <th class="text-center align-middle"><i class="bi bi-sliders font_size_24"></i></th>
+                        <th class="text-center align-middle"><i class="bi bi-x-lg font_size_24"></i></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <th:block th:each="decoration, state : ${certificateDecorationList}">
+                        <tr>
+                            <td class="text-center align-middle" th:text="${state.index+1}"></td>
+                            <td class="text-center align-middle" th:text="${decoration.name}"></td>
+                            <td class="align-middle" th:text="${decoration.description}"></td>
+                            <td class="text-center align-middle">
+                                <img th:src="@{${'/'+decoration.photoFile}}"
+                                     class="img-fluid" alt="">
+                            </td>
+
+                            <td class="text-center align-middle">
+                                <i th:if="${decoration.deliveryNecessity}"
+                                   class="bi bi-plus-square text-success font_size_24"></i>
+                                <i th:unless="${decoration.deliveryNecessity}"
+                                   class="bi bi-dash-square text-danger font_size_24"></i>
+                            </td>
+
+                            <td class="text-center align-middle" th:text="${decoration.price}"></td>
+                            <td class="text-center align-middle">
+                                <i th:if="${decoration.activity}"
+                                   class="bi bi-check-circle-fill text-success font_size_24"></i>
+                                <i th:unless="${decoration.activity}"
+                                   class="bi bi-x-circle-fill text-danger font_size_24"></i>
+                            </td>
+
+                            <!-- Form for editing item -->
+                            <form th:action="@{/admin/certificatedecoration/}" th:method="post"
+                                  th:object="${decoration}">
+                                <td class="text-center align-middle">
+                                    <button type="button"
+                                            class="btn btn-outline-primary"
+                                            data-bs-toggle="modal"
+                                            th:attr="data-bs-target='#editcertificatedecoration'+${decoration.id}">
+                                        <i class="bi bi-pencil-square font_size_20"></i>
+                                    </button>
+                                </td>
+
+                                <!-- Modal for edit decoration -->
+                                <div class="modal fade" th:id="${'editcertificatedecoration'+decoration.id}"
+                                     tabindex="-1"
+                                     role="dialog" aria-labelledby="exampleModalLabel02" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel02"
+                                                    th:text="#{common.button.editing}"></h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <!-- CertificateDecoration id -->
+                                                <input type="hidden"
+                                                       th:value="${decoration.id}"
+                                                       name="id">
+
+                                                <!-- CertificateDecoration name -->
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text text-black-50"
+                                                          th:text="#{menu_admin.common.table.name}">
+                                                    </span>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           th:value="${decoration.name}"
+                                                           name="name">
+                                                </div>
+
+                                                <!-- CertificateDecoration description -->
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text text-black-50"
+                                                          th:text="#{menu_admin.common.table.description}">
+                                                    </span>
+                                                    <textarea class="form-control"
+                                                              aria-label="With textarea"
+                                                              th:text="${decoration.description}"
+                                                              rows="5"
+                                                              name="description"></textarea>
+                                                </div>
+
+                                                <!-- CertificateDecoration photoFile -->
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text text-black-50"
+                                                          th:text="#{menu_admin.common.table.photo_file}">
+                                                    </span>
+                                                    <select class="form-select"
+                                                            aria-label="Default select example"
+                                                            name="photoFile">
+                                                        <th:block th:each="imageFile : ${imageFileList}">
+                                                            <option th:value="${imageFile}"
+                                                                    th:text="${imageFile}"
+                                                                    th:selected="${imageFile == decoration.photoFile}">
+                                                            </option>
+                                                        </th:block>
+                                                    </select>
+                                                </div>
+
+                                                <!-- Is delivery necessary -->
+                                                <div class="input-group mb-3">
+                                                    <h5>
+                                                        <div class="form-check form-switch">
+                                                            <input type="checkbox"
+                                                                   class="form-check-input"
+                                                                   th:checked="${decoration.deliveryNecessity}"
+                                                                   name="deliveryNecessity">
+                                                        </div>
+                                                    </h5>
+                                                    <span class="text-black-50"
+                                                          id="certDecorationDeliveryNecessityEdit"
+                                                          th:text="#{menu_admin.common.table.deliveryNecessity}">
+                                                    </span>
+                                                </div>
+
+                                                <!-- CertificateDecoration Price -->
+                                                <div class="input-group mb-3">
+
+                                                    <span class="input-group-text text-black-50"
+                                                          id="certDecorationPriceEdit"
+                                                          th:text="#{menu_admin.common.table.price}">
+                                                    </span>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           th:value="${decoration.price}"
+                                                           name="price"
+                                                           th:aria-label="${decoration.price}"
+                                                           aria-describedby="certDecorationPrice">
+                                                </div>
+
+                                                <!-- Is decoration active -->
+                                                <div class="input-group mb-3">
+                                                    <h5>
+                                                        <div class="form-check form-switch">
+                                                            <input type="checkbox"
+                                                                   class="form-check-input"
+                                                                   th:checked="${decoration.activity}"
+                                                                   name="activity">
+                                                        </div>
+                                                    </h5>
+                                                    <span class="text-black-50"
+                                                          id="certDecorationActivityEdit"
+                                                          th:text="#{menu_admin.common.table.activity}">
+                                                    </span>
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button"
+                                                        class="btn btn-secondary"
+                                                        data-bs-dismiss="modal"
+                                                        th:text="#{common.button.cancel}">
+                                                </button>
+
+                                                <button class="btn btn-primary"
+                                                        th:text="#{common.button.save_changes}">
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+
+                            <!-- Form for deleting item -->
+                            <form th:action="@{/admin/certificatedecoration/delete}" th:method="post"
+                                  th:object="${decoration}">
+                                <td class="text-center align-middle">
+                                    <button type="button"
+                                            class="btn btn-outline-danger"
+                                            data-bs-toggle="modal"
+                                            th:attr="data-bs-target='#deletecertificatedecoration'+${decoration.id}">
+                                        <i class="bi bi-trash3 font_size_20"></i>
+                                    </button>
+                                </td>
+
+                                <!-- Modal for delete decoration -->
+                                <div class="modal fade" th:id="${'deletecertificatedecoration'+decoration.id}"
+                                     tabindex="-1"
+                                     role="dialog" aria-labelledby="exampleModalLabel08" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel08"
+                                                    th:text="#{common.button.deleting}"></h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <!-- CertificateDecoration id -->
+                                                <input type="hidden"
+                                                       th:value="${decoration.id}"
+                                                       name="id">
+
+                                                <!-- CertificateDecoration name -->
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text text-black-50"
+                                                          th:text="#{menu_admin.common.table.name}">
+                                                    </span>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           th:value="${decoration.name}"
+                                                           name="name"
+                                                           disabled>
+                                                </div>
+
+                                                <!-- CertificateDecoration description -->
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text text-black-50"
+                                                          th:text="#{menu_admin.common.table.description}">
+                                                    </span>
+                                                    <textarea class="form-control"
+                                                              aria-label="With textarea"
+                                                              th:text="${decoration.description}"
+                                                              rows="5"
+                                                              name="description"
+                                                              disabled></textarea>
+                                                </div>
+
+                                                <!-- CertificateDecoration photoFile -->
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text text-black-50"
+                                                          th:text="#{menu_admin.common.table.photo_file}">
+                                                    </span>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           th:value="${decoration.photoFile}"
+                                                           disabled
+                                                           name="photoFile">
+                                                </div>
+
+                                                <!-- Is delivery necessary -->
+                                                <div class="input-group mb-3">
+                                                    <h5>
+                                                        <div class="form-check form-switch">
+                                                            <input type="checkbox"
+                                                                   class="form-check-input"
+                                                                   th:checked="${decoration.deliveryNecessity}"
+                                                                   name="deliveryNecessity"
+                                                                   disabled>
+                                                        </div>
+                                                    </h5>
+                                                    <span class="text-black-50"
+                                                          id="certDecorationDeliveryNecessityDelete"
+                                                          th:text="#{menu_admin.common.table.deliveryNecessity}">
+                                                    </span>
+                                                </div>
+
+                                                <!-- CertificateDecoration Price -->
+                                                <div class="input-group mb-3">
+
+                                                    <span class="input-group-text text-black-50"
+                                                          id="certDecorationPriceDelete"
+                                                          th:text="#{menu_admin.common.table.price}">
+                                                    </span>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           th:value="${decoration.price}"
+                                                           name="price"
+                                                           th:aria-label="${decoration.price}"
+                                                           aria-describedby="certDecorationPrice"
+                                                           disabled>
+                                                </div>
+
+                                                <!-- Is decoration active -->
+                                                <div class="input-group mb-3">
+                                                    <h5>
+                                                        <div class="form-check form-switch">
+                                                            <input type="checkbox"
+                                                                   class="form-check-input"
+                                                                   th:checked="${decoration.activity}"
+                                                                   name="activity"
+                                                                   disabled>
+                                                        </div>
+                                                    </h5>
+                                                    <span class="text-black-50"
+                                                          id="certDecorationActivityDelete"
+                                                          th:text="#{menu_admin.common.table.activity}">
+                                                    </span>
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button"
+                                                        class="btn btn-secondary"
+                                                        data-bs-dismiss="modal"
+                                                        th:text="#{common.button.cancel}">
+                                                </button>
+
+                                                <button class="btn btn-danger"
+                                                        th:text="#{common.button.delete}">
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </tr>
+                    </th:block>
+                    </tbody>
+                </table>
+            </div>
+            <span th:unless="${condition}" class="text-danger" th:text="#{menu_admin.common.no_data}"></span>
+        </div>
+    </div>
+</div>
+<footer th:insert="common/admin_footer :: content"></footer>
+<script>
+    function showToast(toast) {
+        console.log(toast);
+        if (toast === 'true') {
+            $('.toast').toast('show');
+        }
+    }
+</script>
+</body>
+</html>

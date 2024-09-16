@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+    <changeSet id="1" author="Yusikau Aliaksandr">
+        <comment>create table certificate</comment>
+        <sql>
+            create table certificate
+            (
+                id bigint auto_increment primary key,
+                activity bit,
+                name varchar(255) not null,
+                description varchar(2000),
+                horse_count int not null,
+                duration double not null,
+                photo_file varchar(255) not null,
+                photographer_included bit not null,
+                price decimal(19,2) not null,
+                certificate_type_id bigint,
+                constraint certificate_type_fk
+                    foreign key (certificate_type_id) references certificate_type (id)
+            );
+        </sql>
+    </changeSet>
+</databaseChangeLog>

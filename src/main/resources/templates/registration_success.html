@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="common/metadata :: content"></head>
+<body>
+<header th:insert="common/user_header :: content"></header>
+
+<div class="intro">
+    <div class="intro__media">
+        <img class="intro__media-video" th:src="@{/registration_success.png}"/>
+    </div>
+    <div class="intro__content">
+        <div>
+            <i class="bi bi-check-circle-fill text-success fs-1"></i>
+        </div>
+        <strong class="fs-1" th:text="#{common.registration_success}"></strong>
+        <p class="fs-2" th:text="#{common.registration_success_check_email}"></p>
+    </div>
+</div>
+<footer th:insert="common/user_footer :: content"></footer>
+</body>
+</html>

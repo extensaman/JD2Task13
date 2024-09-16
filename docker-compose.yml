@@ -1,0 +1,41 @@
+version: "3.9"
+services:
+  server:
+    image: extensaman/jd2task13
+    environment:
+      - mysql.host=mysqldb
+    ports:
+      - "8088:8088"
+    networks:
+      - backend_mysql
+    container_name: backend
+    depends_on:
+      liquibase:
+        condition: service_completed_successfully
+
+  liquibase:
+    image: extensaman/liquibase_jd2task13
+    networks:
+      - liquibase_mysql
+    container_name: liquibase
+    depends_on:
+      mysqldb:
+        condition: service_healthy
+    environment:
+      - mysql.host=mysqldb
+
+  mysqldb:
+    image: mysql:8
+    networks:
+      - backend_mysql
+      - liquibase_mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=task13
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u root --password=$$MYSQL_ROOT_PASSWORD
+    container_name: mysqldb
+
+networks:
+  backend_mysql:
+  liquibase_mysql:

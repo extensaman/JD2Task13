@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="common/metadata :: content"></head>
+<body>
+<header th:insert="common/user_header :: content"></header>
+
+<div class="container-fluid">
+    <div class="wrapper_w img__object__fit">
+        <img th:src="@{/coach_common.jpg}">
+    </div>
+    <div th:with="condition=${activeCoachList != null and !activeCoachList.isEmpty()}">
+        <div th:if="${condition}">
+            <div class="row mt-4">
+
+                <th:block th:each="coach : ${activeCoachList}">
+
+                    <div class="card col-3 ms-auto me-auto mt-4" style="width: 18rem;">
+                        <img th:src="@{${'/'+coach.photoFile}}"
+                             class="card-img-top" alt="..."
+                             data-bs-toggle="tooltip"
+                             data-bs-placement="top"
+                             th:attr="title=${coach.description}">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${coach.name}"></h5>
+                        </div>
+                    </div>
+
+                </th:block>
+
+            </div>
+        </div>
+        <div class="row mt-4 text-center">
+            <span th:unless="${condition}" class="text-danger text-center"
+                  th:text="#{menu_admin.common.no_data}"></span>
+        </div>
+    </div>
+</div>
+<footer th:insert="common/user_footer :: content"></footer>
+</body>
+</html>

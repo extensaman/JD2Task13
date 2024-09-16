@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+    <include file="2022-07-21-01-DDL-create-table-certificate_type.xml" relativeToChangelogFile="true"/>
+    <include file="2022-07-21-02-DDL-create-table-certificate_decoration.xml" relativeToChangelogFile="true"/>
+    <include file="2022-07-21-03-DDL-create-table-certificate.xml" relativeToChangelogFile="true"/>
+    <include file="2022-07-21-04-DDL-create-table-coach.xml" relativeToChangelogFile="true"/>
+    <include file="2022-07-21-05-DDL-create-table-horse.xml" relativeToChangelogFile="true"/>
+    <include file="2022-07-21-06-DDL-create-table-photo_session.xml" relativeToChangelogFile="true"/>
+    <include file="2022-07-21-07-DDL-create-table-subscription.xml" relativeToChangelogFile="true"/>
+    <include file="2022-07-21-08-DDL-create-table-telegram-subscriber.xml" relativeToChangelogFile="true"/>
+    <include file="2022-07-21-09-DDL-create-table-telegram-order-log.xml" relativeToChangelogFile="true"/>
+    <include file="2022-07-21-10-DDL-create-table-user.xml" relativeToChangelogFile="true"/>
+    <include file="2022-07-21-11-DDL-create-table-certificate_order.xml" relativeToChangelogFile="true"/>
+    <include file="2022-07-21-12-DDL-create-table-attachment.xml" relativeToChangelogFile="true"/>
+    <include file="2022-07-21-13-DML-insert-certificate_type-data.xml" relativeToChangelogFile="true"/>
+    <include file="2022-07-21-14-DML-insert-certificate_decoration-data.xml" relativeToChangelogFile="true"/>
+    <include file="2022-07-21-15-DML-insert-certificate-data.xml" relativeToChangelogFile="true"/>
+    <include file="2022-07-21-16-DML-insert-coach-data.xml" relativeToChangelogFile="true"/>
+    <include file="2022-07-21-17-DML-insert-horse-data.xml" relativeToChangelogFile="true"/>
+    <include file="2022-07-21-18-DML-insert-photo_session-data.xml" relativeToChangelogFile="true"/>
+    <include file="2022-07-21-19-DML-insert-subscription-data.xml" relativeToChangelogFile="true"/>
+    <include file="2022-07-21-20-DML-insert-user-data.xml" relativeToChangelogFile="true"/>
+    <include file="2022-07-21-21-DML-insert-certificate_order-data.xml" relativeToChangelogFile="true"/>
+</databaseChangeLog>
